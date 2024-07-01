@@ -67,12 +67,13 @@ class CreditCardsViewModel {
         if card.standardCard {
             clearStandardCard()
         }
-        creditCardsList[indexCard] = card
         
-        service.setArrayObject(creditCardsList) { result in
+        
+        service.updateObjectInArray(card, original: creditCardsList[indexCard]) { result in
             if result != "Success" {
                 print(result)
             }
+            creditCardsList[indexCard] = card
             completion()
         }
     }

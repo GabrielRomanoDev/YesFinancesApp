@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BankAccount: Codable {
+struct BankAccount: Codable, Equatable {
     
     private var id: String = UUID().uuidString
     var desc : String

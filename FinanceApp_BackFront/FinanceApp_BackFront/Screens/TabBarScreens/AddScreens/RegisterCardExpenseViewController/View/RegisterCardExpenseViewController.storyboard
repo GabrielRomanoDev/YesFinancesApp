@@ -132,7 +132,7 @@
                                                 <rect key="frame" x="10" y="10" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Alimentação" translatesAutoresizingMaskIntoConstraints="NO" id="Q5x-ey-w3i">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q5x-ey-w3i">
                                                         <rect key="frame" x="7" y="7" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </imageView>
@@ -315,7 +315,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Alimentação" width="20" height="20"/>
         <image name="chevron-down" width="20" height="20"/>
         <namedColor name="BackgroundColor">
             <color red="0.94117647058823528" green="0.94901960784313721" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

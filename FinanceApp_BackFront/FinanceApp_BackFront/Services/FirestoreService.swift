@@ -75,6 +75,31 @@ class FirestoreService {
         }
     }
     
+    public func updateObjectInArray<T: Encodable & Equatable>(_ updatedObject: T, original: T, completion: @escaping (String) -> Void) {
+        do {
+            let originalData = try Firestore.Encoder().encode(original)
+            let updatedData = try Firestore.Encoder().encode(updatedObject)
+            
+            let batch = db.batch()
+            batch.updateData([
+                documentName: FieldValue.arrayRemove([originalData])
+            ], forDocument: docRef)
+            batch.updateData([
+                documentName: FieldValue.arrayUnion([updatedData])
+            ], forDocument: docRef)
+            
+            batch.commit { error in
+                if let error = error {
+                    completion("Error updating object: \(error.localizedDescription)")
+                } else {
+                    completion("Success")
+                }
+            }
+        } catch {
+            completion("Error encoding object: \(error.localizedDescription)")
+        }
+    }
+    
     public func deleteObjectInArray(index: Int, completion: @escaping (String) -> Void) {
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {

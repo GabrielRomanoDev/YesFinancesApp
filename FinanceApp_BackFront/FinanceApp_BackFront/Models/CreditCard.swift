@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreditCard: Codable {
+struct CreditCard: Codable, Equatable {
     
     private var id: String = UUID().uuidString
     var desc : String

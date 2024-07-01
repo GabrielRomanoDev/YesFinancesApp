@@ -65,7 +65,7 @@ class BankAccountsViewModel {
         
         bankAccountsList.append(newAccount)
         
-        service.setDocumentName(firebaseDocumentNames.bankAccounts)
+        //service.setDocumentName(firebaseDocumentNames.bankAccounts)
         service.addObjectInArray(newAccount) { result in
             if result != "Success" {
                 print(result)
@@ -80,23 +80,27 @@ class BankAccountsViewModel {
         if account.standardAccount {
             clearStandardAccount()
         }
-        bankAccountsList[indexAccount].desc = account.desc
-        bankAccountsList[indexAccount].overdraft = account.overdraft
-        bankAccountsList[indexAccount].bank = account.bank
-        bankAccountsList[indexAccount].standardAccount = account.standardAccount
-        bankAccountsList[indexAccount].obs = account.obs
+        
+        var updatedAccount = bankAccountsList[indexAccount]
+        updatedAccount.desc = account.desc
+        updatedAccount.overdraft = account.overdraft
+        updatedAccount.bank = account.bank
+        updatedAccount.standardAccount = account.standardAccount
+        updatedAccount.obs = account.obs
         
         if newBalance != oldBalance {
-            adjustBalance(newBalance: newBalance, oldBalance: oldBalance, account: bankAccountsList[indexAccount], completion: completion)
+            adjustBalance(newBalance: newBalance, oldBalance: oldBalance, account: updatedAccount, completion: completion)
         }
         
         service.setDocumentName(firebaseDocumentNames.bankAccounts)
-        service.setArrayObject(bankAccountsList) { result in
+        service.updateObjectInArray(updatedAccount, original: bankAccountsList[indexAccount]) { result in
             if result != "Success" {
                 print(result)
             }
+            bankAccountsList[indexAccount] = updatedAccount
             completion()
         }
+        
     }
     
     private func adjustBalance(newBalance: Double, oldBalance: Double, account: BankAccount, completion: @escaping () -> Void) {

@@ -8,15 +8,15 @@
 import Foundation
 
 struct CategoriesSum {
-    var category:String
-    var amount:Double
-    var percent:Double
+    var category: String
+    var amount: Double
+    var percent: Double
 }
 
 func sumExpensesByCategory() -> [CategoriesSum] {
     
     var list = [String:Double] ()
-    var totalAmount:Double = 0.0
+    var totalAmount: Double = 0.0
     
     for transaction in transactionsList where transaction.type == .expense{
 

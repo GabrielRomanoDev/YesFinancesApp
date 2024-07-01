@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Transactions: Codable {
+struct Transactions: Codable, Equatable {
     var desc: String
     var amount: Double
     var categoryIndex: Int
