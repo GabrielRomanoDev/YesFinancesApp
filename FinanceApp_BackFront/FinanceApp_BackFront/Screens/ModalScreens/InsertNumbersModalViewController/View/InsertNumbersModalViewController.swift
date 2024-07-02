@@ -37,19 +37,19 @@ class InsertNumbersModalViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     
     static let identifier:String = String(describing: InsertNumbersModalViewController.self)
-    var viewModel: InsertNumbersModalViewModel
+    var viewModel = InsertNumbersModalViewModel()
     weak var delegate: InsertNumbersModalProtocol?
     var amount: Double = 0
     var id: Int
     
-    init?(coder: NSCoder, id: Int) {
+    init?(coder: NSCoder, id: Int = 0) {
         self.id = id
-        self.viewModel = InsertNumbersModalViewModel()
         super.init(coder: coder)
     }
     
     required init?(coder: NSCoder) {
-        fatalError(globalStrings.initError)
+        self.id = 0
+        super.init(coder: coder)
     }
     
     override func viewDidLoad() {

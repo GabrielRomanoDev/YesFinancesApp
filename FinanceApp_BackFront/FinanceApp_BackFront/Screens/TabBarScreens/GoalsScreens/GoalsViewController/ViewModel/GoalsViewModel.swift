@@ -44,22 +44,42 @@ class GoalsViewModel {
         service.setArrayObject(goalsList) { result in
             if result != "Success" {
                 print(result)
-                completion()
-                return
             }
             completion()
         }
     }
     
-    public func deleteGoal(index: Int, completion: @escaping () -> Void) {
-        goalsList.remove(at: index)
-        service.setArrayObject(goalsList) { result in
+    public func editGoal(goal: Goal, indexGoal: Int, completion: @escaping () -> Void) {
+        
+        service.updateObjectInArray(goal, original: goalsList[indexGoal]) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()
                 return
             }
-            self.updateGoals(completion: completion)
+            self?.goalsList[indexGoal] = goal
+            completion()
         }
+        
+    }
+    
+    public func deleteGoal(index: Int, completion: @escaping () -> Void) {
+        goalsList.remove(at: index)
+        service.setArrayObject(goalsList) { [weak self] result in
+            if result != "Success" {
+                print(result)
+                completion()
+                return
+            }
+            self?.updateGoals(completion: completion)
+        }
+    }
+    
+    public func saveMoney(value: Double, goalIndex: Int, completion: @escaping () -> Void) {
+        
+        var editedGoal = goalsList[goalIndex]
+        editedGoal.savedAmount += value
+        
+        editGoal(goal: editedGoal, indexGoal: goalIndex, completion: completion)
     }
 }

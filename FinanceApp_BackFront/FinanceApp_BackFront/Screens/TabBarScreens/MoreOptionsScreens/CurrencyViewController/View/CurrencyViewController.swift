@@ -67,7 +67,7 @@ class CurrencyViewController: UIViewController {
         let storyboard = UIStoryboard(name: InsertNumbersModalViewController.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: InsertNumbersModalViewController.identifier) {coder ->
             InsertNumbersModalViewController? in
-            return InsertNumbersModalViewController(coder: coder, id: 0)
+            return InsertNumbersModalViewController(coder: coder)
         }
         vc.delegate = self
         self.present(vc, animated: true)

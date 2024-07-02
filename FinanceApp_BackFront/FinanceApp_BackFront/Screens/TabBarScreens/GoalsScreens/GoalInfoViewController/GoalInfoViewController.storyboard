@@ -107,6 +107,9 @@
                                             <fontDescription key="titleFontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                             <color key="baseForegroundColor" red="0.94117647059999998" green="0.94901960780000005" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="tappedSaveMoney:" destination="KaN-YF-6K3" eventType="touchUpInside" id="EZi-lD-UJa"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

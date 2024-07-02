@@ -9,9 +9,11 @@ import UIKit
 
 protocol GoalInfoViewControllerProtocol: AnyObject {
     func didDeletedGoal(index: Int)
+    func didSavedMoney(_ value: Double, index: Int)
 }
 
 class GoalInfoViewController: UIViewController {
+    
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var goalLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
@@ -56,22 +58,53 @@ class GoalInfoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func tappedSaveMoney(_ sender: UIButton) {
+        
+            let storyboard = UIStoryboard(name: InsertNumbersModalViewController.identifier, bundle: nil)
+            let vc = storyboard.instantiateViewController(identifier: InsertNumbersModalViewController.identifier) {coder ->
+                InsertNumbersModalViewController? in
+                return InsertNumbersModalViewController(coder: coder)
+            }
+            vc.delegate = self
+            self.present(vc, animated: true)
+        
+    }
+    
     private func setupStrings() {
         goalLabel.text = goalStrings.goalText
         saveAmountButton.setTitle(goalStrings.saveAmountButtonTitle, for: .normal)
     }
     
-    private func setupScreen(goal:Goal){
+    private func setupScreen(goal: Goal){
         descLabel.text = goal.desc
         goalImage.image = UIImage(imageLiteralResourceName: goal.imageName)
-        goalProgressBar.progress = Float(goal.savedAmount/goal.goalValue)
-        savedAmountLabel.text = goal.savedAmount.toStringMoney()
+        setSavedAmountValue(goal.savedAmount)
         targetValueLabel.text = goal.goalValue.toStringMoney()
         dateLabel.text = goalStrings.targetDateToGoalText + goal.targetDate
         daysToDateLabel.text = goalStrings.DaysToTargetDate(goal: goal)
-        recommendationLabel.text = goalStrings.recommendingText(goal: goal)
         let deleteImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)
         deleteButton.setImage(deleteImage, for: .normal)
         deleteButton.tintColor = .red
     }
+    
+    private func setSavedAmountValue(_ value: Double) {
+        goalProgressBar.progress = Float(value/goal.goalValue)
+        savedAmountLabel.text = value.toStringMoney()
+        
+        var goalUpdated = goal
+        goalUpdated.savedAmount = value
+        recommendationLabel.text = goalStrings.recommendingText(goal: goalUpdated)
+    }
+    
+    
+}
+
+extension GoalInfoViewController: InsertNumbersModalProtocol {
+    
+    func didSelectedNumber(_ value: Double, id: Int) {
+        goal.savedAmount += value
+        setSavedAmountValue(goal.savedAmount)
+        delegate?.didSavedMoney(value, index: id)
+    }
+    
 }

@@ -86,6 +86,7 @@ extension GoalsViewController: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 extension GoalsViewController: CreateItemButtonCellDelegate, GoalSavedDelegate, GoalInfoViewControllerProtocol {
+    
     func didTappedNewItemButton() {
         let storyboard = UIStoryboard(name: EditGoalViewController.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: EditGoalViewController.identifier) as? EditGoalViewController
@@ -93,15 +94,22 @@ extension GoalsViewController: CreateItemButtonCellDelegate, GoalSavedDelegate, 
         self.present(vc ?? UIViewController(), animated: true)
     }
     
+    func didSavedMoney(_ value: Double, index: Int) {
+        viewModel.saveMoney(value: value, goalIndex: index) { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+    
     func didSavedGoal(_ newGoal: Goal) {
-        viewModel.createNewGoal(newGoal) {
-            self.collectionView.reloadData()
+        viewModel.createNewGoal(newGoal) { [weak self] in
+            self?.collectionView.reloadData()
         }
     }
     
     func didDeletedGoal(index: Int) {
-        viewModel.deleteGoal(index: index) {
-            self.collectionView.reloadData()
+        viewModel.deleteGoal(index: index) { [weak self] in
+            self?.collectionView.reloadData()
         }
     }
+    
 }

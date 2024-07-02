@@ -65,7 +65,7 @@ class BankAccountsViewModel {
         
         bankAccountsList.append(newAccount)
         
-        //service.setDocumentName(firebaseDocumentNames.bankAccounts)
+        service.setDocumentName(firebaseDocumentNames.bankAccounts)
         service.addObjectInArray(newAccount) { result in
             if result != "Success" {
                 print(result)
