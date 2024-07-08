@@ -27,7 +27,7 @@ class BankAccountsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if dataLoaded {
-            collectionView.reloadData()
+            updateCollectionView()
         }
         navigationController?.isNavigationBarHidden = false
     }
@@ -38,16 +38,23 @@ class BankAccountsViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-            layout.estimatedItemSize = .zero
-            layout.sectionInset = viewModel.getCollectionEdgeInsets()
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.delegate = self
+            self?.collectionView.dataSource = self
+            if let layout = self?.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .vertical
+                layout.estimatedItemSize = .zero
+                layout.sectionInset = (self?.viewModel.getCollectionEdgeInsets()) ?? UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15)
+            }
+            self?.collectionView.register(AccountCollectionViewCell.nib(), forCellWithReuseIdentifier: AccountCollectionViewCell.identifier)
+            self?.collectionView.register(NewItemButtonCell.nib(), forCellWithReuseIdentifier: NewItemButtonCell.identifier)
         }
-        collectionView.register(AccountCollectionViewCell.nib(), forCellWithReuseIdentifier: AccountCollectionViewCell.identifier)
-        collectionView.register(NewItemButtonCell.nib(), forCellWithReuseIdentifier: NewItemButtonCell.identifier)
-        
+    }
+    
+    private func updateCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
 }
 
@@ -94,12 +101,12 @@ extension BankAccountsViewController: CreateItemButtonCellDelegate, EditBankAcco
     func didSaveAccount(account: BankAccount, indexAccount: Int, configType: ConfigType, newBalance: Double) {
         switch configType {
         case .createNew:
-            viewModel.createNewAccount(account, newBalance: newBalance) {
-                self.collectionView.reloadData()
+            viewModel.createNewAccount(account, newBalance: newBalance) { [weak self] in
+                self?.updateCollectionView()
             }
         case .editExisting:
-            viewModel.editAccount(account: account, indexAccount: indexAccount, newBalance: newBalance){
-                self.collectionView.reloadData()
+            viewModel.editAccount(account: account, indexAccount: indexAccount, newBalance: newBalance) { [weak self] in
+                self?.updateCollectionView()
             }
         }
     }

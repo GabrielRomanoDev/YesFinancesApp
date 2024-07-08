@@ -12,11 +12,11 @@ import FirebaseFirestoreSwift
 
 class GoalsViewModel {
     
-    private var service: FirestoreService = FirestoreService(documentName: firebaseDocumentNames.goals)
+    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.goals)
     private var goalsList: [Goal] = []
     
     public func updateGoals(completion: @escaping () -> Void) {
-        service.getObjectsArrayData(forObjectType: Goal.self, documentReadName: firebaseDocumentNames.goals) { result in
+        service.getObjectsList(forObjectType: Goal.self, documentReadName: firebaseSubCollectionNames.goals) { result in
             switch result {
             case .success(let objectsArray):
                 self.goalsList = objectsArray
@@ -41,7 +41,7 @@ class GoalsViewModel {
     
     public func createNewGoal(_ newGoal: Goal, completion: @escaping () -> Void) {
         goalsList.append(newGoal)
-        service.setArrayObject(goalsList) { result in
+        service.addObject(newGoal, id: newGoal.desc) { result in
             if result != "Success" {
                 print(result)
             }
@@ -51,23 +51,24 @@ class GoalsViewModel {
     
     public func editGoal(goal: Goal, indexGoal: Int, completion: @escaping () -> Void) {
         
-        service.updateObjectInArray(goal, original: goalsList[indexGoal]) { [weak self] result in
+        service.updateObject(goal, id: goalsList[indexGoal].desc) { [weak self] result in
             if result != "Success" {
                 print(result)
+                self?.goalsList[indexGoal] = goal
                 completion()
                 return
             }
-            self?.goalsList[indexGoal] = goal
             completion()
         }
         
     }
     
     public func deleteGoal(index: Int, completion: @escaping () -> Void) {
-        goalsList.remove(at: index)
-        service.setArrayObject(goalsList) { [weak self] result in
+        
+        service.deleteObject(id: goalsList[index].desc) { [weak self] result in
             if result != "Success" {
                 print(result)
+                self?.goalsList.remove(at: index)
                 completion()
                 return
             }

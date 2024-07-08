@@ -21,7 +21,7 @@
                                 <rect key="frame" x="-31" y="-23" width="490" height="937"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfL-By-VFU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfL-By-VFU">
                                 <rect key="frame" x="0.0" y="542" width="393" height="310"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="asdfasdf" borderStyle="roundedRect" placeholder="Senha" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mp1-gB-p0w">
@@ -79,7 +79,7 @@
                                             <constraint firstAttribute="width" constant="46" id="dnR-Z0-ezE"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="caio@hotmail.com" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ltD-0e-x2P">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bea@gmail.com" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ltD-0e-x2P">
                                         <rect key="frame" x="60" y="30" width="313" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -118,8 +118,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="logo-finances" translatesAutoresizingMaskIntoConstraints="NO" id="aiz-vh-3O3">
-                                <rect key="frame" x="52.666666666666657" y="159" width="288" height="185"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-finances" translatesAutoresizingMaskIntoConstraints="NO" id="aiz-vh-3O3">
+                                <rect key="frame" x="52.666666666666657" y="257" width="288" height="185"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="185" id="bUT-CD-wyE"/>
                                 </constraints>
@@ -129,6 +129,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="kfL-By-VFU" firstAttribute="leading" secondItem="8Sh-Xw-hz2" secondAttribute="leading" id="5RM-af-RvX"/>
+                            <constraint firstAttribute="bottom" secondItem="kfL-By-VFU" secondAttribute="bottom" id="Ikl-Im-gBU"/>
                             <constraint firstItem="kfL-By-VFU" firstAttribute="top" secondItem="aiz-vh-3O3" secondAttribute="bottom" constant="100" id="JVz-Kd-W37"/>
                             <constraint firstItem="kfL-By-VFU" firstAttribute="trailing" secondItem="8Sh-Xw-hz2" secondAttribute="trailing" id="KB9-1J-f34"/>
                             <constraint firstItem="aiz-vh-3O3" firstAttribute="centerX" secondItem="6vo-IP-g72" secondAttribute="centerX" id="cTp-fQ-QOf"/>

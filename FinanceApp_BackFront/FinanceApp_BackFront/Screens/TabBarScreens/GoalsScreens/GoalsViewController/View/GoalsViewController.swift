@@ -34,18 +34,28 @@ class GoalsViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-            layout.estimatedItemSize = .zero
-            layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+            if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .vertical
+                layout.estimatedItemSize = .zero
+                layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15)
+            }
+            self.collectionView.register(GoalsCollectionViewCell.nib(), forCellWithReuseIdentifier: GoalsCollectionViewCell.identifier)
+            self.collectionView.register(NewItemButtonCell.nib(), forCellWithReuseIdentifier: NewItemButtonCell.identifier)
         }
-        collectionView.register(GoalsCollectionViewCell.nib(), forCellWithReuseIdentifier: GoalsCollectionViewCell.identifier)
-        collectionView.register(NewItemButtonCell.nib(), forCellWithReuseIdentifier: NewItemButtonCell.identifier)
     }
-
-
+    
+    private func updateCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+    
 }
 
 extension GoalsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -96,19 +106,19 @@ extension GoalsViewController: CreateItemButtonCellDelegate, GoalSavedDelegate, 
     
     func didSavedMoney(_ value: Double, index: Int) {
         viewModel.saveMoney(value: value, goalIndex: index) { [weak self] in
-            self?.collectionView.reloadData()
+            self?.updateCollectionView()
         }
     }
     
     func didSavedGoal(_ newGoal: Goal) {
         viewModel.createNewGoal(newGoal) { [weak self] in
-            self?.collectionView.reloadData()
+            self?.updateCollectionView()
         }
     }
     
     func didDeletedGoal(index: Int) {
         viewModel.deleteGoal(index: index) { [weak self] in
-            self?.collectionView.reloadData()
+            self?.updateCollectionView()
         }
     }
     

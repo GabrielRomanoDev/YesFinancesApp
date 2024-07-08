@@ -48,12 +48,19 @@ class RegisterCardExpenseViewController: UIViewController{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let today = Date()
-        dateField.text = viewModel.datePickerChange(date: today)
-        updateCategoryField(indexCategorySelected)
-        updateCardField(viewModel.standardCardIndex)
-        idCardSelected = viewModel.standardCardId
-        updateAmountValue(amount)
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            let today = Date()
+            self.dateField.text = self.viewModel.datePickerChange(date: today)
+            self.updateCategoryField(self.indexCategorySelected)
+            self.updateCardField(self.viewModel.standardCardIndex)
+            self.idCardSelected = self.viewModel.standardCardId
+            self.updateAmountValue(amount)
+        }
+        
     }
     @IBAction func tappedInsertAmountButton(_ sender: UIButton) {
         amountContainerView.layer.borderColor = UIColor.systemGray6.cgColor
@@ -184,17 +191,25 @@ extension RegisterCardExpenseViewController: UITextFieldDelegate {
 
 extension RegisterCardExpenseViewController:CategoriesModalDelegate, CardModalDelegate, InsertNumbersModalProtocol {
     func didSelectCategory(_ indexCategory: Int) {
-        indexCategorySelected = indexCategory
-        updateCategoryField(indexCategorySelected)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            self.indexCategorySelected = indexCategory
+            self.updateCategoryField(self.indexCategorySelected)
+        }
     }
     
     func didSelectCard(_ indexCard: Int) {
-        updateCardField(indexCard)
-        idCardSelected = creditCardsList[indexCard].getId()
+        DispatchQueue.main.async { [weak self] in
+            self?.updateCardField(indexCard)
+            self?.idCardSelected = creditCardsList[indexCard].getId()
+        }
     }
     
     func didSelectedNumber(_ value: Double, id: Int) {
-        updateAmountValue(value)
+        DispatchQueue.main.async { [weak self] in
+            self?.updateAmountValue(value)
+        }
     }
 }
 

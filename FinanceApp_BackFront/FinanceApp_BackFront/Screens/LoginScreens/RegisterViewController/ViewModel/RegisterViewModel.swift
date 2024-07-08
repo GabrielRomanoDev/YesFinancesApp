@@ -10,7 +10,7 @@ import Firebase
 
 class RegisterViewModel {
     
-    var serviceFirestore: FirestoreService = FirestoreService()
+    var serviceFirestore: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.profile)
     
     public func createUser(email: String, password: String, completion: @escaping (String) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
@@ -26,7 +26,7 @@ class RegisterViewModel {
     }
     
     public func setProfileValues(profile: Profile, completion: @escaping () -> Void) {
-        serviceFirestore.setObject(profile, documentName: firebaseDocumentNames.profile) {
+        serviceFirestore.setObject(profile, subCollectionName: firebaseSubCollectionNames.profile) {
             completion()
         }
     }

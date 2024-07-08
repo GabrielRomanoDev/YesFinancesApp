@@ -37,16 +37,29 @@ class CreditCardsViewController: UIViewController {
         titleLabel.text = moreOptionsStrings.creditCardsText
     }
 
-    func setupCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-            layout.estimatedItemSize = .zero
-            layout.sectionInset = viewModel.getCollectionEdgeInsets()
+    private func setupCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+            if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .vertical
+                layout.estimatedItemSize = .zero
+                layout.sectionInset = self.viewModel.getCollectionEdgeInsets()
+            }
+            self.collectionView.register(CreditCardCollectionViewCell.nib(), forCellWithReuseIdentifier: CreditCardCollectionViewCell.identifier)
+            self.collectionView.register(NewItemButtonCell.nib(), forCellWithReuseIdentifier: NewItemButtonCell.identifier)
         }
-        collectionView.register(CreditCardCollectionViewCell.nib(), forCellWithReuseIdentifier: CreditCardCollectionViewCell.identifier)
-        collectionView.register(NewItemButtonCell.nib(), forCellWithReuseIdentifier: NewItemButtonCell.identifier)
+    }
+    
+    private func updateCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
 }
 
@@ -95,12 +108,12 @@ extension CreditCardsViewController: CreateItemButtonCellDelegate, EditCreditCar
     func didSaveCard(card: CreditCard, indexCard: Int, configType: ConfigType) {
         switch configType {
         case .createNew:
-            viewModel.createNewCard(card) {
-                self.collectionView.reloadData()
+            viewModel.createNewCard(card) { [weak self] in
+                self?.updateCollectionView()
             }
         case .editExisting:
-            viewModel.editCard(card: card, indexCard: indexCard){
-                self.collectionView.reloadData()
+            viewModel.editCard(card: card, indexCard: indexCard) { [weak self] in
+                self?.updateCollectionView()
             }
         }
     }

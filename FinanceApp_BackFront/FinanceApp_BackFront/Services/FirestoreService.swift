@@ -12,165 +12,128 @@ import FirebaseFirestoreSwift
 class FirestoreService {
     private let db = Firestore.firestore()
     public var user: String
-    private var documentName: String
+    private var subCollectionName: String
     
-    private var docRef: DocumentReference {
-        return db.collection(user).document(documentName)
+    private var collectionRef: CollectionReference {
+        return db.collection("users").document(user).collection(subCollectionName)
     }
     
-    init(documentName: String = "default") {
+    init(subCollectionName: String = "default") {
         self.user = "user_" + (userLogged ?? "default")
-        self.documentName = documentName
+        self.subCollectionName = subCollectionName
     }
     
     public func setUser(_ userUid: String) {
         user = "user_" + (userLogged ?? "default")
     }
     
-    public func setDocumentName(_ name: String) {
-        self.documentName = name
+    public func setSubCollectionName(_ name: String) {
+        self.subCollectionName = name
     }
     
-    public func addObjectInArray <T: Encodable> (_ object: T, completion: @escaping (String) -> Void) {
-        docRef.getDocument { (document, error) in
-            
-            if let document = document, document.exists {
-                var dataArray = document.data()?[self.documentName] as? [[String: Any]] ?? []
+    public func addObject <T: Encodable> (_ object: T, id: String, completion: @escaping (String) -> Void) {
+        
+        Task {
+            do {
                 
-                do {
-                    let objectData = try Firestore.Encoder().encode(object)
-                    dataArray.append(objectData as [String: Any])
-                    
-                    self.setDataInDocument(data: [self.documentName: dataArray], completion: completion)
-                } catch {
-                    completion("Error encoding object: \(error.localizedDescription)")
-                }
-            } else {
-                do {
-                    let objectData = try Firestore.Encoder().encode(object)
-                    let data = [self.documentName: [objectData as [String: Any]]]
-                    
-                    self.setDataInDocument(data: data, completion: completion)
-                } catch {
-                    completion("Error encoding object: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    public func setArrayObject<T: Encodable>(_ objects: [T], completion: @escaping (String) -> Void) {
-        do {
-            var dataArray = [[String: Any]]()
-            
-            for object in objects {
                 let objectData = try Firestore.Encoder().encode(object)
-                dataArray.append(objectData as [String: Any])
+                
+                try await collectionRef.document(id).setData(objectData)
+                
+                completion("")
+                
+            } catch {
+                print("Error adding documents: \(error)")
+                completion(error.localizedDescription)
             }
-            
-            let data = [self.documentName: dataArray]
-            
-            self.setDataInDocument(data: data, completion: completion)
-        } catch {
-            completion("Error encoding objects: \(error.localizedDescription)")
         }
+    
     }
     
-    public func updateObjectInArray<T: Encodable & Equatable>(_ updatedObject: T, original: T, completion: @escaping (String) -> Void) {
-        do {
-            let originalData = try Firestore.Encoder().encode(original)
-            let updatedData = try Firestore.Encoder().encode(updatedObject)
-            
-            let batch = db.batch()
-            batch.updateData([
-                documentName: FieldValue.arrayRemove([originalData])
-            ], forDocument: docRef)
-            batch.updateData([
-                documentName: FieldValue.arrayUnion([updatedData])
-            ], forDocument: docRef)
-            
-            batch.commit { error in
-                if let error = error {
-                    completion("Error updating object: \(error.localizedDescription)")
-                } else {
-                    completion("Success")
-                }
+    public func updateObject <T: Encodable & Equatable> (_ updatedObject: T, id: String, completion: @escaping (String) -> Void) {
+        
+        Task {
+            do {
+                
+                let objectData = try Firestore.Encoder().encode(updatedObject)
+                
+                try await collectionRef.document(id).setData(objectData)
+                
+                completion("")
+                
+            } catch {
+                print("Error adding documents: \(error)")
+                completion(error.localizedDescription)
             }
-        } catch {
-            completion("Error encoding object: \(error.localizedDescription)")
         }
+        
     }
     
-    public func deleteObjectInArray(index: Int, completion: @escaping (String) -> Void) {
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                var dataArray = document.data()?[self.documentName] as? [[String: Any]] ?? []
+    public func deleteObject(id: String, completion: @escaping (String) -> Void) {
+        Task {
+            do {
                 
-                // Verificar se o índice fornecido está dentro dos limites do array
-                guard index >= 0 && index < dataArray.count else {
-                    completion("Invalid index provided")
-                    return
-                }
+                try await collectionRef.document(id).delete()
                 
-                dataArray.remove(at: index)
+                completion("")
                 
-                self.setDataInDocument(data: [self.documentName: dataArray], completion: completion)
-            } else {
-                completion("Document does not exist")
+            } catch {
+                print("Error adding documents: \(error)")
+                completion(error.localizedDescription)
             }
         }
     }
     
-    public func getObjectsArrayData<T: Codable>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
-        db.collection(user).document(documentReadName).getDocument { document, error in
+    public func getObjectsList<T: Codable>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
+        
+        self.setSubCollectionName(documentReadName)
+        let colRef = collectionRef
+        
+        Task {
+            var objectList: [T] = []
             
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let document = document, document.exists else {
-                let emptyArray: [T] = []
-                completion(.success(emptyArray))
-                return
-            }
-            
-            if let data = document.data(), let objectsReadData = data[documentReadName] as? [[String: Any]] {
-                
-                var objectList: [T] = []
-                
-                for rawObject in objectsReadData {
-                    do {
-                        let object = try Firestore.Decoder().decode(T.self, from: rawObject)
-                        objectList.append(object)
-                    } catch {
-                        //print("Error decoding goal: \(error.localizedDescription)")
-                        completion(.failure(error))
-                    }
+            do {
+                let querySnapshot = try await colRef.getDocuments()
+                for document in querySnapshot.documents {
+                    let object = try document.data(as: objectType.self)
+                    objectList.append(object)
                 }
                 completion(.success(objectList))
-            } else {
+            } catch {
                 completion(.success([]))
             }
         }
+        
     }
     
-    private func setDataInDocument(data: [String: Any], completion: @escaping (String) -> Void) {
-        let docRefSet = db.collection(user).document(documentName)
-        docRefSet.setData(data) { error in
-            if let error = error {
-                completion("Error writing document: \(error.localizedDescription)!")
-            } else {
-                completion("Success")
+    public func getLastObjectsList<T: Codable>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
+        
+        self.setSubCollectionName(documentReadName)
+        let colRef = collectionRef.order(by: "Date", descending: true).limit(to: 10)
+        
+        Task {
+            var objectList: [T] = []
+            
+            do {
+                let querySnapshot = try await colRef.getDocuments()
+                for document in querySnapshot.documents {
+                    let object = try document.data(as: objectType.self)
+                    objectList.append(object)
+                }
+                completion(.success(objectList))
+            } catch {
+                completion(.success([]))
             }
         }
+        
     }
     
-    public func setObject<T: Encodable>(_ object: T, documentName: String, completion: @escaping () -> Void) {
+    public func setObject<T: Encodable>(_ object: T, subCollectionName: String, completion: @escaping () -> Void) {
+        self.setSubCollectionName(subCollectionName)
         do {
             let objectData = try Firestore.Encoder().encode(object) // Converte o objeto goal em um dicionário
-            let data: [String: Any] = [documentName: objectData] // Cria um dicionário com o campo "objeto1" contendo o objeto goal
 
-            db.collection(user).document(documentName).setData(data)
+            try collectionRef.document().setData(from: object)
             completion()
         } catch let error {
             print("Error writing document: \(error.localizedDescription)!")
@@ -178,24 +141,24 @@ class FirestoreService {
         }
     }
     
-    public func getObject<T: Decodable>(documentName: String, objectType: T.Type, completion: @escaping (T?) -> Void) {
-        db.collection(user).document(documentName).getDocument { (document, error) in
-            if let document = document, document.exists {
-                guard let documentData = document.data(), let objectData = documentData[documentName] as? [String: Any] else {
-                    completion(nil)
-                    return
-                }
-                do {
-                    let object = try Firestore.Decoder().decode(objectType, from: objectData)
+    public func getObject<T: Decodable>(subCollectionName: String, objectType: T.Type, completion: @escaping (T) -> Void) {
+        self.setSubCollectionName(subCollectionName)
+        Task {
+            
+            do {
+                var objectList: [T] = []
+                let querySnapshot = try await collectionRef.getDocuments()
+                for document in querySnapshot.documents {
+                    let object = try document.data(as: objectType.self)
+                    //objectList.append(object)
                     completion(object)
-                } catch let error {
-                    print("Error decoding document: \(error.localizedDescription)!")
-                    completion(nil)
                 }
-            } else {
-                print("Document does not exist!")
-                completion(nil)
+                
+            } catch {
+                print(error)
+                completion(Profile(name: "Erro", email: "erro") as! T)
             }
         }
+        
     }
 }

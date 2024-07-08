@@ -49,12 +49,17 @@ class RegisterExpenseViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let today = Date()
-        dateField.text = viewModel.datePickerChange(date: today)
-        updateCategoryField(indexCategorySelected)
-        updateAccountField(viewModel.standardAccountIndex)
-        idAccountSelected = viewModel.standardAccountId
-        updateAmountValue(amount)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            let today = Date()
+            self.dateField.text = self.viewModel.datePickerChange(date: today)
+            self.updateCategoryField(indexCategorySelected)
+            self.updateAccountField(viewModel.standardAccountIndex)
+            self.idAccountSelected = viewModel.standardAccountId
+            self.updateAmountValue(amount)
+        }
     }
     
     @IBAction func tappedInsertAmountButton(_ sender: UIButton) {
@@ -108,7 +113,10 @@ class RegisterExpenseViewController: UIViewController {
                 accountId: idAccountSelected,
                 obs: obsTextField.text.orEmpty
             )) {
-                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }
@@ -187,16 +195,23 @@ extension RegisterExpenseViewController: UITextFieldDelegate {
 
 extension RegisterExpenseViewController: CategoriesModalDelegate, AccountsModalDelegate, InsertNumbersModalProtocol {
     func didSelectCategory(_ indexCategory: Int) {
-        indexCategorySelected = indexCategory
-        updateCategoryField(indexCategorySelected)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.indexCategorySelected = indexCategory
+            self.updateCategoryField(self.indexCategorySelected)
+        }
     }
     
     func didSelectAccount(_ indexAccount: Int) {
-        updateAccountField(indexAccount)
-        idAccountSelected = bankAccountsList[indexAccount].getId()
+        DispatchQueue.main.async { [weak self] in
+            self?.updateAccountField(indexAccount)
+            self?.idAccountSelected = bankAccountsList[indexAccount].getId()
+        }
     }
     
     func didSelectedNumber(_ value: Double, id: Int) {
-        updateAmountValue(value)
+        DispatchQueue.main.async { [weak self] in
+            self?.updateAmountValue(value)
+        }
     }
 }

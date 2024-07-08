@@ -10,10 +10,10 @@ import UIKit
 
 class CreditCardsViewModel {
     
-    private var service: FirestoreService = FirestoreService(documentName: firebaseDocumentNames.creditCards)
+    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCards)
     
     public func updateCards(completion: @escaping () -> Void) {
-        service.getObjectsArrayData(forObjectType: CreditCard.self, documentReadName: firebaseDocumentNames.creditCards) { result in
+        service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
             switch result {
             case .success(let objectArray):
                 creditCardsList = objectArray
@@ -54,8 +54,7 @@ class CreditCardsViewModel {
         }
         
         creditCardsList.append(newCard)
-        
-        service.setArrayObject(creditCardsList) { result in
+        service.addObject(newCard, id: newCard.getId()) { result in
             if result != "Success" {
                 print(result)
             }
@@ -69,7 +68,7 @@ class CreditCardsViewModel {
         }
         
         
-        service.updateObjectInArray(card, original: creditCardsList[indexCard]) { result in
+        service.updateObject(card, id: card.getId()) { result in
             if result != "Success" {
                 print(result)
             }
@@ -79,10 +78,10 @@ class CreditCardsViewModel {
     }
     
     public func deleteCard(index: Int, completion: @escaping () -> Void) {
-        creditCardsList.remove(at: index)
         
-        service.setArrayObject(creditCardsList) { result in
+        service.deleteObject(id: creditCardsList[index].getId()) { result in
             if result != "Success" {
+                creditCardsList.remove(at: index)
                 print(result)
             }
             completion()

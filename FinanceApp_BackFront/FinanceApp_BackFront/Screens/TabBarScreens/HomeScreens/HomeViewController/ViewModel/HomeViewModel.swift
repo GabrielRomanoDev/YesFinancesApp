@@ -46,7 +46,8 @@ struct HomeViewModel {
     }
     
     private func getTransactions(completion: @escaping () -> Void) {
-        service.getObjectsArrayData(forObjectType: Transactions.self, documentReadName: firebaseDocumentNames.transactions) { result in
+        
+        service.getObjectsList(forObjectType: Transactions.self, documentReadName: firebaseSubCollectionNames.transactions) { result in
             switch result {
             case .success(let objectsArray):
                 transactionsList = objectsArray
@@ -58,35 +59,36 @@ struct HomeViewModel {
     }
     
     private func getAccounts(completion: @escaping () -> Void) {
-        service.getObjectsArrayData(forObjectType: BankAccount.self, documentReadName: firebaseDocumentNames.bankAccounts) { result in
+        service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
-            case .success(let object):
-                bankAccountsList = object
+            case .success(let accounts):
+                bankAccountsList = accounts
             case .failure(let error):
                 print(error.localizedDescription)
+                bankAccountsList = []
             }
             completion()
         }
     }
     
     private func getCreditCards(completion: @escaping () -> Void) {
-        service.getObjectsArrayData(forObjectType: CreditCard.self, documentReadName: firebaseDocumentNames.creditCards) { result in
+        service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
             switch result {
-            case .success(let object):
-                creditCardsList = object
+            case .success(let creditCards):
+                creditCardsList = creditCards
             case .failure(let error):
                 print(error.localizedDescription)
+                creditCardsList = []
             }
             completion()
         }
     }
     
     public func getProfileInformations(completion: @escaping () -> Void) {
-        service.getObject(documentName: firebaseDocumentNames.profile, objectType: Profile.self) { result in
-            if let objet = result {
-                Utils.saveUserDefaults(value: objet.name, key: "userName")
-                Utils.saveUserDefaults(value: objet.email, key: "userEmail")
-            }
+        service.getObject(subCollectionName: firebaseSubCollectionNames.profile, objectType: Profile.self) { profile in
+            
+            Utils.saveUserDefaults(value: profile.name, key: "userName")
+            Utils.saveUserDefaults(value: profile.email, key: "userEmail")
             completion()
         }
     }

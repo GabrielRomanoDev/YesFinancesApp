@@ -10,7 +10,7 @@ import UIKit
 
 class AddAccountTransactionsViewModel{
     
-    private var service: FirestoreService = FirestoreService(documentName: "transactionsList")
+    private var service: FirestoreService = FirestoreService(subCollectionName: "transactionsList")
     
     public var dataSelecionada = Date()
     private var transactionType:TransactionType
@@ -32,11 +32,7 @@ class AddAccountTransactionsViewModel{
             }
         }
         transactionsList.append(newTransaction)
-        setTransactionsInFirebase(transactionsList, completion: completion)
-    }
-    
-    public func setTransactionsInFirebase(_ transactionsList: [Transactions], completion: @escaping () -> Void) {
-        service.setArrayObject(transactionsList) { result in
+        service.addObject(newTransaction, id: newTransaction.desc) { result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -44,7 +40,19 @@ class AddAccountTransactionsViewModel{
             }
             completion()
         }
+        //setTransactionsInFirebase(transactionsList, completion: completion)
     }
+    
+//    public func setTransactionsInFirebase(_ transactionsList: [Transactions], completion: @escaping () -> Void) {
+//        service.setArrayObject(transactionsList) { result in
+//            if result != "Success" {
+//                print(result)
+//                completion()
+//                return
+//            }
+//            completion()
+//        }
+//    }
     
     var standardAccountIndex: Int {
         for (index, account) in bankAccountsList.enumerated(){

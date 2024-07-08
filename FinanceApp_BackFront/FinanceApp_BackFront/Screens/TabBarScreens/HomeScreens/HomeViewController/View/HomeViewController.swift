@@ -76,33 +76,43 @@ class HomeViewController: UIViewController {
     }
     
     private func setupHorizontalCollectionView() {
-        horizontalCollectionView.delegate = self
-        horizontalCollectionView.dataSource = self
-        if let layout = horizontalCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            layout.estimatedItemSize = .zero
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom:0, right: 15)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.horizontalCollectionView.delegate = self
+            self.horizontalCollectionView.dataSource = self
+            if let layout = self.horizontalCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .horizontal
+                layout.estimatedItemSize = .zero
+                layout.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom:0, right: 15)
+            }
+            self.horizontalCollectionView.backgroundColor = .none
+            self.horizontalCollectionView.showsHorizontalScrollIndicator = false
+            self.horizontalCollectionView.register(resumeBalanceCollectionViewCell.nib(), forCellWithReuseIdentifier: resumeBalanceCollectionViewCell.identifier)
         }
-        horizontalCollectionView.backgroundColor = .none
-        horizontalCollectionView.showsHorizontalScrollIndicator = false
-        horizontalCollectionView.register(resumeBalanceCollectionViewCell.nib(), forCellWithReuseIdentifier: resumeBalanceCollectionViewCell.identifier)
     }
     
     private func setupVerticalCollectionView(){
-        verticalCollectionView.delegate = self
-        verticalCollectionView.dataSource = self
-        if let layout = verticalCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-            layout.estimatedItemSize = .zero
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.verticalCollectionView.delegate = self
+            self.verticalCollectionView.dataSource = self
+            if let layout = self.verticalCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .vertical
+                layout.estimatedItemSize = .zero
+                layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+            }
+            self.verticalCollectionView.backgroundColor = .backgroundColor
+            self.verticalCollectionView.showsVerticalScrollIndicator = false
+            self.verticalCollectionView.register(TitleHeaderCollectionReusableView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier)
+            self.verticalCollectionView.register(AccountsBallanceCollectionViewCell.nib(), forCellWithReuseIdentifier: AccountsBallanceCollectionViewCell.identifier)
+            self.verticalCollectionView.register(CardsBallanceCollectionViewCell.nib(), forCellWithReuseIdentifier: CardsBallanceCollectionViewCell.identifier)
+            self.verticalCollectionView.register(CategoriesGraphCollectionViewCell.nib(), forCellWithReuseIdentifier: CategoriesGraphCollectionViewCell.identifier)
+            self.verticalCollectionView.register(TransactionsCollectionViewCell.nib(), forCellWithReuseIdentifier: TransactionsCollectionViewCell.identifier)
         }
-        verticalCollectionView.backgroundColor = .backgroundColor
-        verticalCollectionView.showsVerticalScrollIndicator = false
-        verticalCollectionView.register(TitleHeaderCollectionReusableView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier)
-        verticalCollectionView.register(AccountsBallanceCollectionViewCell.nib(), forCellWithReuseIdentifier: AccountsBallanceCollectionViewCell.identifier)
-        verticalCollectionView.register(CardsBallanceCollectionViewCell.nib(), forCellWithReuseIdentifier: CardsBallanceCollectionViewCell.identifier)
-        verticalCollectionView.register(CategoriesGraphCollectionViewCell.nib(), forCellWithReuseIdentifier: CategoriesGraphCollectionViewCell.identifier)
-        verticalCollectionView.register(TransactionsCollectionViewCell.nib(), forCellWithReuseIdentifier: TransactionsCollectionViewCell.identifier)
     }
     
     private func setupLottie() {
@@ -123,19 +133,29 @@ class HomeViewController: UIViewController {
     }
     
     private func showData() {
-        animationView.isHidden = true
-        horizontalCollectionView.isHidden = false
-        verticalCollectionView.isHidden = false
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.animationView.isHidden = true
+            self.horizontalCollectionView.isHidden = false
+            self.verticalCollectionView.isHidden = false
+        }
     }
     
     private func updateInformationsVisibility(informationsHidden: Bool) {
-        if informationsHidden == true {
-            hideInformationsButton.setImage(.closedEye, for: .normal)
-        } else {
-            hideInformationsButton.setImage(.eye, for: .normal)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            if informationsHidden == true {
+                self.hideInformationsButton.setImage(.closedEye, for: .normal)
+            } else {
+                self.hideInformationsButton.setImage(.eye, for: .normal)
+            }
+            self.horizontalCollectionView.reloadData()
+            self.verticalCollectionView.reloadData()
         }
-        horizontalCollectionView.reloadData()
-        verticalCollectionView.reloadData()
     }
     
     private func setupObserver(){
@@ -143,7 +163,13 @@ class HomeViewController: UIViewController {
     }
     
     @objc func updateProfileImage(notification:NSNotification) {
-        profileImage.image = notification.object as? UIImage
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.profileImage.image = notification.object as? UIImage
+            
+        }
     }
     
 }

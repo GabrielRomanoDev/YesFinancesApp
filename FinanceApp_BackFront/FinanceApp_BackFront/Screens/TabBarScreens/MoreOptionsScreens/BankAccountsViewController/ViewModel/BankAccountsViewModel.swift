@@ -10,11 +10,11 @@ import UIKit
  
 class BankAccountsViewModel {
     
-    private var service: FirestoreService = FirestoreService(documentName: firebaseDocumentNames.bankAccounts)
+    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.bankAccounts)
     
     
     public func updateAccounts(completion: @escaping () -> Void) {
-        service.getObjectsArrayData(forObjectType: BankAccount.self, documentReadName: firebaseDocumentNames.bankAccounts) { result in
+        service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
             case .success(let objectArray):
                 bankAccountsList = objectArray
@@ -59,17 +59,19 @@ class BankAccountsViewModel {
             clearStandardAccount()
         }
         
-        if newBalance != 0{
-            adjustBalance(newBalance: newBalance, oldBalance: 0, account: newAccount, completion: completion)
-        }
-        
         bankAccountsList.append(newAccount)
         
-        service.setDocumentName(firebaseDocumentNames.bankAccounts)
-        service.addObjectInArray(newAccount) { result in
+        service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
+        service.addObject(newAccount, id: newAccount.getId()) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
+            
+            if newBalance != 0{
+                self?.service.setSubCollectionName(firebaseSubCollectionNames.transactions)
+                self?.adjustBalance(newBalance: newBalance, oldBalance: 0, account: newAccount, completion: completion)
+            }
+            
             completion()
         }
     }
@@ -88,16 +90,17 @@ class BankAccountsViewModel {
         updatedAccount.standardAccount = account.standardAccount
         updatedAccount.obs = account.obs
         
-        if newBalance != oldBalance {
-            adjustBalance(newBalance: newBalance, oldBalance: oldBalance, account: updatedAccount, completion: completion)
-        }
-        
-        service.setDocumentName(firebaseDocumentNames.bankAccounts)
-        service.updateObjectInArray(updatedAccount, original: bankAccountsList[indexAccount]) { result in
+        service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
+        service.updateObject(updatedAccount, id: updatedAccount.getId()) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
             bankAccountsList[indexAccount] = updatedAccount
+            
+            if newBalance != oldBalance {
+                self?.adjustBalance(newBalance: newBalance, oldBalance: oldBalance, account: updatedAccount, completion: completion)
+            }
+            
             completion()
         }
         
@@ -113,18 +116,20 @@ class BankAccountsViewModel {
             transactionType = .expense
         }
         
-        transactionsList.append(Transactions(
-                                    desc: "Ajuste de saldo na Conta",
-                                    amount: valueNewTransaction,
-                                    categoryIndex: 0,
-                                    date: Date().toString(format: "dd/MM/yyyy"),
-                                    type: transactionType,
-                                    accountId: account.getId(),
-                                    obs: "Conta: \(account.desc)"
-        ))
+        let newTransaction = Transactions(
+            desc: "Ajuste de saldo na Conta",
+            amount: valueNewTransaction,
+            categoryIndex: 0,
+            date: Date().toString(format: "dd/MM/yyyy"),
+            type: transactionType,
+            accountId: account.getId(),
+            obs: "Conta: \(account.desc)"
+        )
         
-        service.setDocumentName(firebaseDocumentNames.transactions)
-        service.setArrayObject(transactionsList) { result in
+        transactionsList.append(newTransaction)
+        
+        service.setSubCollectionName(firebaseSubCollectionNames.transactions)
+        service.addObject(newTransaction, id: "") { result in
             if result != "Success" {
                 print(result)
             }
@@ -133,11 +138,11 @@ class BankAccountsViewModel {
     }
     
     public func deleteAccount(index: Int, completion: @escaping () -> Void) {
-        bankAccountsList.remove(at: index)
         
-        service.setArrayObject(bankAccountsList) { result in
+        service.deleteObject(id: bankAccountsList[index].getId()) { result in
             if result != "Success" {
                 print(result)
+                bankAccountsList.remove(at: index)
             }
             completion()
         }
