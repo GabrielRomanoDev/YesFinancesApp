@@ -487,6 +487,18 @@
                                     <constraint firstAttribute="height" constant="170" id="0Ap-P0-GZh"/>
                                 </constraints>
                             </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDK-2t-HAy">
+                                <rect key="frame" x="318" y="743" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="pRu-cv-Bma"/>
+                                    <constraint firstAttribute="width" constant="45" id="vcJ-sT-mQN"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="tappedDeleteButton:" destination="rt7-bF-jNg" eventType="touchUpInside" id="1NR-4K-dZg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1nq-FF-TvN"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -494,12 +506,14 @@
                             <constraint firstItem="Kqw-2n-ZIh" firstAttribute="top" secondItem="1nq-FF-TvN" secondAttribute="top" id="2B5-Id-Kfl"/>
                             <constraint firstItem="bO0-Ze-pgg" firstAttribute="top" secondItem="1nq-FF-TvN" secondAttribute="top" constant="30" id="4y1-c6-bU6"/>
                             <constraint firstItem="1Xs-LL-S21" firstAttribute="bottom" secondItem="1nq-FF-TvN" secondAttribute="bottom" id="Efy-ut-9vz"/>
+                            <constraint firstItem="1nq-FF-TvN" firstAttribute="bottom" secondItem="PDK-2t-HAy" secondAttribute="bottom" constant="30" id="FkQ-yV-KHd"/>
                             <constraint firstItem="0Mp-Zz-BHe" firstAttribute="leading" secondItem="1nq-FF-TvN" secondAttribute="leading" id="Md5-54-Dwj"/>
                             <constraint firstItem="in9-td-q07" firstAttribute="centerX" secondItem="tZn-Fp-JqK" secondAttribute="centerX" id="NMk-Qj-37Y"/>
                             <constraint firstItem="bO0-Ze-pgg" firstAttribute="leading" secondItem="1nq-FF-TvN" secondAttribute="leading" constant="30" id="OoD-xO-Crk"/>
                             <constraint firstItem="0Mp-Zz-BHe" firstAttribute="trailing" secondItem="1nq-FF-TvN" secondAttribute="trailing" id="PvT-Ie-AjI"/>
                             <constraint firstItem="0Mp-Zz-BHe" firstAttribute="top" secondItem="Kqw-2n-ZIh" secondAttribute="bottom" constant="5" id="RLj-3g-Pid"/>
                             <constraint firstItem="1nq-FF-TvN" firstAttribute="trailing" secondItem="bO0-Ze-pgg" secondAttribute="trailing" constant="30" id="Uxh-bu-heh"/>
+                            <constraint firstItem="1nq-FF-TvN" firstAttribute="trailing" secondItem="PDK-2t-HAy" secondAttribute="trailing" constant="30" id="cPC-LT-529"/>
                             <constraint firstItem="1Xs-LL-S21" firstAttribute="trailing" secondItem="1nq-FF-TvN" secondAttribute="trailing" id="rfd-MV-BLC"/>
                             <constraint firstItem="1Xs-LL-S21" firstAttribute="leading" secondItem="1nq-FF-TvN" secondAttribute="leading" id="sMg-DP-Qsl"/>
                             <constraint firstItem="1nq-FF-TvN" firstAttribute="bottom" secondItem="in9-td-q07" secondAttribute="bottom" constant="30" id="sk3-hB-7hh"/>
@@ -543,6 +557,7 @@
         <image name="lanyardcard" catalog="system" width="108" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="text.justify.leading" catalog="system" width="128" height="99"/>
+        <image name="trash.fill" catalog="system" width="119" height="128"/>
         <namedColor name="BackgroundColor">
             <color red="0.94117647058823528" green="0.94901960784313721" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

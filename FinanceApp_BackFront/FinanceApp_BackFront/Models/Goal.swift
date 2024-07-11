@@ -8,11 +8,17 @@
 import Foundation
 
 struct Goal: Codable, Equatable {
+    
+    private var id: String = UUID().uuidString
     var desc: String
     var imageName: String
     var savedAmount: Double
     var goalValue: Double
     var targetDate: String
+    
+    var getId: String {
+        return id
+    }
     
     public var daysToDate: Int {
         let formatter = DateFormatter()
@@ -31,4 +37,13 @@ struct Goal: Codable, Equatable {
     public var remainingAmount: Double {
         return goalValue - savedAmount
     }
+    
+    init(desc: String, imageName: String, savedAmount: Double, goalValue: Double, targetDate: String) {
+        self.desc = desc
+        self.imageName = imageName
+        self.savedAmount = savedAmount
+        self.goalValue = goalValue
+        self.targetDate = targetDate
+    }
+    
 }

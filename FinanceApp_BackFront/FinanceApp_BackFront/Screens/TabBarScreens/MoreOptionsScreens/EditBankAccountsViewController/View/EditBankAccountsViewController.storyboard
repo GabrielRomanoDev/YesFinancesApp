@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nova Conta Bancária" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSn-kN-nYl">
-                                <rect key="frame" x="30" y="89" width="333" height="24"/>
+                                <rect key="frame" x="30" y="89" width="333" height="20"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -413,6 +413,18 @@
                                     <action selector="tappedSaveButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="2RR-v5-Kvj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btP-gE-lXp">
+                                <rect key="frame" x="318" y="743" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="1eu-Ub-aGg"/>
+                                    <constraint firstAttribute="width" constant="45" id="bux-Au-l7H"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="tappedDeleteButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="A6p-HR-43Y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -421,7 +433,9 @@
                             <constraint firstItem="EA0-8L-TaT" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="1fA-2q-0Hn"/>
                             <constraint firstItem="aSn-kN-nYl" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="9af-iK-SWG"/>
                             <constraint firstItem="EA0-8L-TaT" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9mV-YR-gpT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="btP-gE-lXp" secondAttribute="trailing" constant="30" id="EqP-PR-08i"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aSn-kN-nYl" secondAttribute="trailing" constant="30" id="KxT-Xl-2ge"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="btP-gE-lXp" secondAttribute="bottom" constant="30" id="UNs-ku-fW5"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="EA0-8L-TaT" secondAttribute="trailing" id="UsZ-sj-V4e"/>
                             <constraint firstItem="wca-Ir-bXv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="XLq-lj-3Ts"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Be4-rF-P4U" secondAttribute="bottom" constant="30" id="ZSl-4B-oYk"/>
@@ -461,6 +475,7 @@
         <image name="lanyardcard" catalog="system" width="108" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="text.justify.leading" catalog="system" width="128" height="99"/>
+        <image name="trash.fill" catalog="system" width="119" height="128"/>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

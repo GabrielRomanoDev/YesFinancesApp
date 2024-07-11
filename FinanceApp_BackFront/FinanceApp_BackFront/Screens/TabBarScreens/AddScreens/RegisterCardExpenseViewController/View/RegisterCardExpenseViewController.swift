@@ -103,7 +103,7 @@ class RegisterCardExpenseViewController: UIViewController{
             amountContainerView.layer.borderColor = UIColor.red.cgColor
             showSimpleAlert(title: globalStrings.attention, message: addStrings.amountMustBeHigherThenZero)
         } else {
-            viewModel.setExpenseValues(expense: CreditCardExpense(
+            viewModel.addExpense(expense: CreditCardExpense(
                 desc: descTextField.text.orEmpty,
                 amount: -amount,
                 categoryIndex: indexCategorySelected,
@@ -202,7 +202,7 @@ extension RegisterCardExpenseViewController:CategoriesModalDelegate, CardModalDe
     func didSelectCard(_ indexCard: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateCardField(indexCard)
-            self?.idCardSelected = creditCardsList[indexCard].getId()
+            self?.idCardSelected = creditCardsList[indexCard].getId
         }
     }
     

@@ -40,7 +40,7 @@ class FirestoreService {
                 
                 try await collectionRef.document(id).setData(objectData)
                 
-                completion("")
+                completion("Success")
                 
             } catch {
                 print("Error adding documents: \(error)")
@@ -59,7 +59,7 @@ class FirestoreService {
                 
                 try await collectionRef.document(id).setData(objectData)
                 
-                completion("")
+                completion("Success")
                 
             } catch {
                 print("Error adding documents: \(error)")
@@ -75,7 +75,7 @@ class FirestoreService {
                 
                 try await collectionRef.document(id).delete()
                 
-                completion("")
+                completion("Success")
                 
             } catch {
                 print("Error adding documents: \(error)")
@@ -131,8 +131,6 @@ class FirestoreService {
     public func setObject<T: Encodable>(_ object: T, subCollectionName: String, completion: @escaping () -> Void) {
         self.setSubCollectionName(subCollectionName)
         do {
-            let objectData = try Firestore.Encoder().encode(object) // Converte o objeto goal em um dicionário
-
             try collectionRef.document().setData(from: object)
             completion()
         } catch let error {
@@ -146,11 +144,9 @@ class FirestoreService {
         Task {
             
             do {
-                var objectList: [T] = []
                 let querySnapshot = try await collectionRef.getDocuments()
                 for document in querySnapshot.documents {
                     let object = try document.data(as: objectType.self)
-                    //objectList.append(object)
                     completion(object)
                 }
                 

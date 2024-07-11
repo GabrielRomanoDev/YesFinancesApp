@@ -59,13 +59,12 @@ class BankAccountsViewModel {
             clearStandardAccount()
         }
         
-        bankAccountsList.append(newAccount)
-        
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.addObject(newAccount, id: newAccount.getId()) { [weak self] result in
+        service.addObject(newAccount, id: newAccount.getId) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
+            bankAccountsList.append(newAccount)
             
             if newBalance != 0{
                 self?.service.setSubCollectionName(firebaseSubCollectionNames.transactions)
@@ -91,10 +90,11 @@ class BankAccountsViewModel {
         updatedAccount.obs = account.obs
         
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.updateObject(updatedAccount, id: updatedAccount.getId()) { [weak self] result in
+        service.updateObject(updatedAccount, id: updatedAccount.getId) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
+            
             bankAccountsList[indexAccount] = updatedAccount
             
             if newBalance != oldBalance {
@@ -122,28 +122,27 @@ class BankAccountsViewModel {
             categoryIndex: 0,
             date: Date().toString(format: "dd/MM/yyyy"),
             type: transactionType,
-            accountId: account.getId(),
+            accountId: account.getId,
             obs: "Conta: \(account.desc)"
         )
         
-        transactionsList.append(newTransaction)
-        
         service.setSubCollectionName(firebaseSubCollectionNames.transactions)
-        service.addObject(newTransaction, id: "") { result in
+        service.addObject(newTransaction, id: newTransaction.getId) { result in
             if result != "Success" {
                 print(result)
             }
+            transactionsList.append(newTransaction)
             completion()
         }
     }
     
     public func deleteAccount(index: Int, completion: @escaping () -> Void) {
-        
-        service.deleteObject(id: bankAccountsList[index].getId()) { result in
+        service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
+        service.deleteObject(id: bankAccountsList[index].getId) { result in
             if result != "Success" {
                 print(result)
-                bankAccountsList.remove(at: index)
             }
+            bankAccountsList.remove(at: index)
             completion()
         }
     }

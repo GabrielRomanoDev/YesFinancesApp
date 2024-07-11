@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditCreditCardsViewControllerProtocol: AnyObject {
     func didSaveCard(card: CreditCard, indexCard: Int, configType:ConfigType)
+    func didDeleteCard(indexAccount: Int)
 }
 
 class EditCreditCardsViewController: UIViewController {
@@ -103,6 +104,11 @@ class EditCreditCardsViewController: UIViewController {
         } else {
             saveValues()
         }
+    }
+    
+    @IBAction func tappedDeleteButton(_ sender: UIButton) {
+        delegate?.didDeleteCard(indexAccount: indexCard)
+        self.navigationController?.popViewController(animated: true)
     }
     
     private  func setupStrings(){

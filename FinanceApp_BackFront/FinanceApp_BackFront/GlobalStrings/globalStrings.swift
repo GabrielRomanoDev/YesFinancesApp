@@ -18,4 +18,5 @@ enum globalStrings {
     static let initError = "init(coder:) has not been implemented"
     static let loadingLottie = "145264-loading"
     static let spaceChar = " "
+    static let delete = "Apagar"
 }

@@ -40,24 +40,27 @@ class GoalsViewModel {
     }
     
     public func createNewGoal(_ newGoal: Goal, completion: @escaping () -> Void) {
-        goalsList.append(newGoal)
-        service.addObject(newGoal, id: newGoal.desc) { result in
+        
+        service.addObject(newGoal, id: newGoal.getId) { [weak self] result in
             if result != "Success" {
                 print(result)
+                completion()
             }
+            self?.goalsList.append(newGoal)
             completion()
         }
+        
     }
     
     public func editGoal(goal: Goal, indexGoal: Int, completion: @escaping () -> Void) {
         
-        service.updateObject(goal, id: goalsList[indexGoal].desc) { [weak self] result in
+        service.updateObject(goal, id: goalsList[indexGoal].getId) { [weak self] result in
             if result != "Success" {
                 print(result)
-                self?.goalsList[indexGoal] = goal
                 completion()
                 return
             }
+            self?.goalsList[indexGoal] = goal
             completion()
         }
         
@@ -65,14 +68,14 @@ class GoalsViewModel {
     
     public func deleteGoal(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: goalsList[index].desc) { [weak self] result in
+        service.deleteObject(id: goalsList[index].getId) { [weak self] result in
             if result != "Success" {
                 print(result)
-                self?.goalsList.remove(at: index)
                 completion()
                 return
             }
-            self?.updateGoals(completion: completion)
+            self?.goalsList.remove(at: index)
+            completion()
         }
     }
     

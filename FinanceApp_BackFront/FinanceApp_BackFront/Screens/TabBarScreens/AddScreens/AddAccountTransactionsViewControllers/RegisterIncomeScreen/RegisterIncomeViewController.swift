@@ -103,7 +103,7 @@ class RegisterIncomeViewController: UIViewController {
             amountContainerView.layer.borderColor = UIColor.red.cgColor
             showSimpleAlert(title: globalStrings.attention, message: addStrings.amountMustBeHigherThenZero)
         } else {
-            viewModel.setTransactionsValues(transaction: Transactions(
+            viewModel.addTransaction(transaction: Transactions(
                 desc: descTextField.text.orEmpty,
                 amount: amount,
                 categoryIndex: indexCategorySelected,
@@ -206,7 +206,7 @@ extension RegisterIncomeViewController:CategoriesModalDelegate, AccountsModalDel
     func didSelectAccount(_ indexAccount: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateAccountField(indexAccount)
-            self?.idAccountSelected = bankAccountsList[indexAccount].getId()
+            self?.idAccountSelected = bankAccountsList[indexAccount].getId
         }
     }
     

@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditBankAccountsViewControllerProtocol: AnyObject {
     func didSaveAccount(account: BankAccount, indexAccount: Int, configType: ConfigType, newBalance: Double)
+    func didDeleteAccount(indexAccount: Int)
 }
 
 class EditBankAccountsViewController: UIViewController {
@@ -96,6 +97,11 @@ class EditBankAccountsViewController: UIViewController {
         } else {
             self.saveValues()
         }
+    }
+    
+    @IBAction func tappedDeleteButton(_ sender: UIButton) {
+        delegate?.didDeleteAccount(indexAccount: indexAccount)
+        self.navigationController?.popViewController(animated: true)
     }
     
     private  func setupStrings(){

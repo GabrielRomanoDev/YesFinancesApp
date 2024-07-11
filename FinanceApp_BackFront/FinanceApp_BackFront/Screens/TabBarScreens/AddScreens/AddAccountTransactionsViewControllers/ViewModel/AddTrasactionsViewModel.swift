@@ -10,7 +10,7 @@ import UIKit
 
 class AddAccountTransactionsViewModel{
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: "transactionsList")
+    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.transactions)
     
     public var dataSelecionada = Date()
     private var transactionType:TransactionType
@@ -19,7 +19,7 @@ class AddAccountTransactionsViewModel{
         transactionType=type
     }
     
-    public func setTransactionsValues(transaction: Transactions, completion: @escaping () -> Void) {
+    public func addTransaction(transaction: Transactions, completion: @escaping () -> Void) {
         var newTransaction: Transactions = transaction
         
         if newTransaction.desc.isEmptyTest() {
@@ -31,8 +31,9 @@ class AddAccountTransactionsViewModel{
                 newTransaction.desc = incomeCategories[newTransaction.categoryIndex].name
             }
         }
+        
         transactionsList.append(newTransaction)
-        service.addObject(newTransaction, id: newTransaction.desc) { result in
+        service.addObject(newTransaction, id: newTransaction.getId) { result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -40,22 +41,11 @@ class AddAccountTransactionsViewModel{
             }
             completion()
         }
-        //setTransactionsInFirebase(transactionsList, completion: completion)
+        
     }
     
-//    public func setTransactionsInFirebase(_ transactionsList: [Transactions], completion: @escaping () -> Void) {
-//        service.setArrayObject(transactionsList) { result in
-//            if result != "Success" {
-//                print(result)
-//                completion()
-//                return
-//            }
-//            completion()
-//        }
-//    }
-    
     var standardAccountIndex: Int {
-        for (index, account) in bankAccountsList.enumerated(){
+        for (index, account) in bankAccountsList.enumerated() {
             if account.standardAccount == true {
                 return index
             }
@@ -64,12 +54,12 @@ class AddAccountTransactionsViewModel{
     }
     
     var standardAccountId: String {
-        for account in bankAccountsList{
-            if account.standardAccount == true{
-                return account.getId()
+        for account in bankAccountsList {
+            if account.standardAccount == true {
+                return account.getId
             }
         }
-        return bankAccountsList[0].getId()
+        return bankAccountsList[0].getId
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {

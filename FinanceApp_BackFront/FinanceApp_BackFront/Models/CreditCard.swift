@@ -18,6 +18,10 @@ struct CreditCard: Codable, Equatable {
     var standardCard: Bool
     var obs:String
     
+    var getId: String {
+        return id
+    }
+    
     var invoiceTotal: Double {
         let filteredTransactions = creditCardExpenses.filter{ $0.cardId == id}
         return filteredTransactions.reduce(0, {$0 + $1.amount})
@@ -46,9 +50,6 @@ struct CreditCard: Codable, Equatable {
         creditCardExpenses.append(CreditCardExpense(desc: "Ajuste valor de Fatura", amount: valueNewTransaction, categoryIndex: 0, date: Date().toString(format: "dd/MM/yyyy"), type: transactionType, cardId: id, obs: ""))
     }
     
-    public func getId() -> String {
-        return id
-    }
 }
 
 

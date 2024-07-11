@@ -12,7 +12,7 @@ class RegisterCardExpViewModel{
     
     public var dataSelecionada = Date()
     
-    public func setExpenseValues(expense: CreditCardExpense) {
+    public func addExpense(expense: CreditCardExpense) {
         var newExpense: CreditCardExpense = expense
         
         if newExpense.desc.isEmptyTest() {
@@ -33,10 +33,10 @@ class RegisterCardExpViewModel{
     var standardCardId: String {
         for card in creditCardsList{
             if card.standardCard == true{
-                return card.getId()
+                return card.getId
             }
         }
-        return creditCardsList[0].getId()
+        return creditCardsList[0].getId
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {

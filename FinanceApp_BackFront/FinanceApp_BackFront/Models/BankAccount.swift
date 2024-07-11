@@ -16,6 +16,10 @@ struct BankAccount: Codable, Equatable {
     var standardAccount: Bool
     var obs: String
     
+    var getId: String {
+        return id
+    }
+    
     var balance: Double {
         let filteredTransactions = transactionsList.filter { $0.accountId == id}
         return filteredTransactions.reduce(0, {$0 + $1.amount})
@@ -29,7 +33,4 @@ struct BankAccount: Codable, Equatable {
         self.obs = obs
     }
     
-    public func getId() -> String {
-        return id
-    }
 }

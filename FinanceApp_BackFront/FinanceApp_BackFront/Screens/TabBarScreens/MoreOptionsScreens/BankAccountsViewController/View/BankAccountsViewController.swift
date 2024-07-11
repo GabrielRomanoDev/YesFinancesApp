@@ -120,4 +120,11 @@ extension BankAccountsViewController: CreateItemButtonCellDelegate, EditBankAcco
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func didDeleteAccount(indexAccount: Int) {
+        viewModel.deleteAccount(index: indexAccount) { [weak self] in
+            self?.updateCollectionView()
+        }
+    }
+    
 }

@@ -127,4 +127,12 @@ extension CreditCardsViewController: CreateItemButtonCellDelegate, EditCreditCar
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func didDeleteCard(indexAccount: Int) {
+        viewModel.deleteCard(index: indexAccount) { [weak self] in
+            self?.updateCollectionView()
+        }
+        
+    }
+    
 }

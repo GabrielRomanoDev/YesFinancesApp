@@ -54,7 +54,7 @@ class CreditCardsViewModel {
         }
         
         creditCardsList.append(newCard)
-        service.addObject(newCard, id: newCard.getId()) { result in
+        service.addObject(newCard, id: newCard.getId) { result in
             if result != "Success" {
                 print(result)
             }
@@ -67,8 +67,16 @@ class CreditCardsViewModel {
             clearStandardCard()
         }
         
+        var updatedCard = creditCardsList[indexCard]
+        updatedCard.desc = card.desc
+        updatedCard.limit = card.limit
+        updatedCard.bank = card.bank
+        updatedCard.closingDay = card.closingDay
+        updatedCard.dueDate = card.dueDate
+        updatedCard.standardCard = card.standardCard
+        updatedCard.obs = card.obs
         
-        service.updateObject(card, id: card.getId()) { result in
+        service.updateObject(updatedCard, id: updatedCard.getId) { result in
             if result != "Success" {
                 print(result)
             }
@@ -79,11 +87,11 @@ class CreditCardsViewModel {
     
     public func deleteCard(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: creditCardsList[index].getId()) { result in
+        service.deleteObject(id: creditCardsList[index].getId) { result in
             if result != "Success" {
-                creditCardsList.remove(at: index)
                 print(result)
             }
+            creditCardsList.remove(at: index)
             completion()
         }
     }
