@@ -155,15 +155,22 @@ class EditCreditCardsViewController: UIViewController {
     }
     
     private func saveValues(){
-        let card: CreditCard = self.viewModel.saveCreditCard(newCard: CreditCard(
-            desc: nameTextField.text.orEmpty,
-            limit: limitValue,
-            bank: selectedBank,
-            closingDay: Int(closingDayNumberLabel.text.orEmpty) ?? 0,
-            dueDate: Int(dueDateNumberLabel.text.orEmpty) ?? 0,
-            standardCard: standardCardSwitch.isOn,
-            obs: obsTextField.text.orEmpty)
-        )
+        
+        var card = initialCard
+        
+        if let desc = nameTextField.text {
+            card.desc = desc
+        } else {
+            card.desc = viewModel.creditCardEmptyDesc(newCardBank: card.bank)
+        }
+        
+        card.limit = limitValue
+        card.bank = selectedBank
+        card.closingDay = Int(closingDayNumberLabel.text.orEmpty) ?? 0
+        card.dueDate = Int(dueDateNumberLabel.text.orEmpty) ?? 0
+        card.standardCard = standardCardSwitch.isOn
+        card.obs = obsTextField.text.orEmpty
+        
         delegate?.didSaveCard(card: card, indexCard: indexCard, configType: viewModel.configType)
         self.navigationController?.popViewController(animated: true)
     }

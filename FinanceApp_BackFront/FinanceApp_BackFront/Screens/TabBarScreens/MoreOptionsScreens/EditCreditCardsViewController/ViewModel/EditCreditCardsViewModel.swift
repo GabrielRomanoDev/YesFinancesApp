@@ -18,13 +18,8 @@ class EditCreditCardsViewModel{
         self.card = card
     }
     
-    public func saveCreditCard(newCard: CreditCard) -> CreditCard {
-        var creditCard: CreditCard = newCard
-        
-        if newCard.desc.isEmptyTest() {
-            creditCard.desc = "\(moreOptionsStrings.cardText) \(bankProperties[newCard.bank]?.textNameBank ?? moreOptionsStrings.ofCreditText)"
-        }
-        return creditCard
+    public func creditCardEmptyDesc(newCardBank: Banks) -> String {
+            return "\(moreOptionsStrings.cardText) \(bankProperties[newCardBank]?.textNameBank ?? moreOptionsStrings.ofCreditText)"
     }
     
     public func getBankListCount() -> Int {

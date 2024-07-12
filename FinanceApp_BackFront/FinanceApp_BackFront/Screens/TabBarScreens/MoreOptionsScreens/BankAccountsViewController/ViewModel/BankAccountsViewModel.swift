@@ -148,10 +148,14 @@ class BankAccountsViewModel {
     }
     
     private func clearStandardAccount() {
+        
         for i in 0..<bankAccountsList.count {
             bankAccountsList[i].standardAccount = false
+            service.updateObjectField(change: ["standardAccount":false], objectID: bankAccountsList[i].getId)
         }
+        
     }
+    
 }
 
 var bankAccountsList: [BankAccount] = []

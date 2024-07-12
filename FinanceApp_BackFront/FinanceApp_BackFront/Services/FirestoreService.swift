@@ -157,4 +157,10 @@ class FirestoreService {
         }
         
     }
+    
+    public func updateObjectField(change: [AnyHashable : Any], objectID: String) {
+    
+            collectionRef.document(objectID).updateData(change)
+        
+    }
 }

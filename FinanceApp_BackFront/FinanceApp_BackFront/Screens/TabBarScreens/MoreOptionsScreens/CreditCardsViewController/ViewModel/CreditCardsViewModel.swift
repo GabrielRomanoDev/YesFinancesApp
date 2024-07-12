@@ -97,10 +97,14 @@ class CreditCardsViewModel {
     }
     
     private func clearStandardCard() {
+        
         for i in 0..<creditCardsList.count {
             creditCardsList[i].standardCard = false
+            service.updateObjectField(change: ["standardCard":false], objectID: creditCardsList[i].getId)
         }
+        
     }
+    
 }
 
 var creditCardsList : [CreditCard] = []
