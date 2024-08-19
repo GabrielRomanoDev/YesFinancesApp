@@ -18,6 +18,10 @@ struct TransactionsViewModel {
             let data2 = dateFormatter.date(from: transaction2.date)!
             return data1 > data2
         })
+        
+        let filteredTransactions = transactionsList.filter { transaction in
+            transaction.categoryIndex == 1
+        }
     }
     
     public func getTransactionsCount() -> Int {

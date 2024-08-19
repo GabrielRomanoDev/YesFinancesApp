@@ -26,9 +26,9 @@ class EditGoalViewController: UIViewController {
     @IBOutlet weak var goalImage: UIImageView!
     @IBOutlet weak var createGoalButton: UIButton!
     
-    weak var delegate:GoalSavedDelegate?
-    static let identifier:String = String(describing: EditGoalViewController.self)
-    var viewModel:EditGoalViewModel=EditGoalViewModel()
+    weak var delegate: GoalSavedDelegate?
+    static let identifier: String = String(describing: EditGoalViewController.self)
+    var viewModel: EditGoalViewModel=EditGoalViewModel()
     var initialAmountValue: Double = 0.0
     var targetValue: Double = 0.0
     var imageName: String = "image04"

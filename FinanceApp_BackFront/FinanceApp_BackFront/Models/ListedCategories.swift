@@ -14,7 +14,7 @@ struct ListedCategories {
     var colorIndex: Int
 }
 
-var expenseCategories:[ListedCategories] = [
+var expenseCategories: [ListedCategories] = [
     ListedCategories(name: "Alimentação", imageName: "image35", colorIndex: 0),
     ListedCategories(name: "Assinaturas", imageName: "image13", colorIndex: 1),
     ListedCategories(name: "Casa", imageName: "image4", colorIndex: 2),
@@ -29,7 +29,7 @@ var expenseCategories:[ListedCategories] = [
     ListedCategories(name: "Outros", imageName: "image37", colorIndex: 11),
 ]
 
-var incomeCategories:[ListedCategories] = [
+var incomeCategories: [ListedCategories] = [
     ListedCategories(name: "Salario", imageName: "image7", colorIndex: 0),
     ListedCategories(name: "Seguro Desemprego", imageName: "image15", colorIndex: 1),
     ListedCategories(name: "Transferência", imageName: "image43", colorIndex: 2),

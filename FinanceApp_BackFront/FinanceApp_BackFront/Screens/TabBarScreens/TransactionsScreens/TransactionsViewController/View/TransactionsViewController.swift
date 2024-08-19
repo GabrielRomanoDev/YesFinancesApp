@@ -30,6 +30,16 @@ class TransactionsViewController: UIViewController {
         transactionsCollectionView.reloadData()
     }
     
+    @IBAction func tappedTransactionsFilterButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: FilteringTransactionsViewController.identifier, bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: FilteringTransactionsViewController.identifier) {coder -> FilteringTransactionsViewController? in
+            return FilteringTransactionsViewController(coder: coder)
+        }
+        vc.delegate = self
+        present(vc, animated: true)
+        
+    }
+    
     private func setupStrings() {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         titleLabel.text = transactionsStrings.title
@@ -79,3 +89,9 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
     
 }
 
+extension TransactionsViewController: FilterTransactionsDelegate {
+    func didFilter() {
+        
+    }
+    
+}

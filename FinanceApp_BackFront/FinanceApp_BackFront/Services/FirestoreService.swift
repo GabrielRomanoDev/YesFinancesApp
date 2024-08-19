@@ -109,7 +109,7 @@ class FirestoreService {
     public func getLastObjectsList<T: Codable>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
         
         self.setSubCollectionName(documentReadName)
-        let colRef = collectionRef.order(by: "Date", descending: true).limit(to: 10)
+        let colRef = collectionRef.order(by: "date", descending: true).limit(to: 4)
         
         Task {
             var objectList: [T] = []
@@ -159,8 +159,7 @@ class FirestoreService {
     }
     
     public func updateObjectField(change: [AnyHashable : Any], objectID: String) {
-    
-            collectionRef.document(objectID).updateData(change)
-        
+        collectionRef.document(objectID).updateData(change)
     }
+    
 }

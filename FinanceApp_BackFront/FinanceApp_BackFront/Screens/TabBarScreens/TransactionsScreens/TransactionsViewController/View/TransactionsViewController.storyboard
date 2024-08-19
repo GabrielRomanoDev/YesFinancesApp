@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAX-P1-LoX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAX-P1-LoX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ubS-ol-4ID">
-                                <rect key="frame" x="0.0" y="139" width="393" height="679"/>
+                                <rect key="frame" x="0.0" y="179" width="393" height="639"/>
                                 <color key="backgroundColor" name="BackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dwJ-ub-3Ew">
                                     <size key="itemSize" width="361" height="249"/>
@@ -55,12 +55,26 @@
                                 <color key="textColor" name="GreyInformations"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7i-0q-SQM">
+                                <rect key="frame" x="333" y="133" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="084-q6-cqh"/>
+                                    <constraint firstAttribute="width" constant="50" id="nfa-7f-9sl"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal.decrease.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="tappedTransactionsFilterButton:" destination="VAX-P1-LoX" eventType="touchUpInside" id="Cgr-bC-Fr5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yTs-lZ-WbB"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="362-gn-C9v" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" id="0U6-Bj-jbW"/>
+                            <constraint firstItem="M7i-0q-SQM" firstAttribute="top" secondItem="xUZ-uS-HtM" secondAttribute="bottom" constant="20" id="BWt-Nr-w0K"/>
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="bottom" secondItem="ubS-ol-4ID" secondAttribute="bottom" id="DeC-5M-7NN"/>
+                            <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="M7i-0q-SQM" secondAttribute="trailing" constant="10" id="FWo-AC-4BH"/>
                             <constraint firstItem="xUZ-uS-HtM" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" constant="30" id="JT8-03-OX8"/>
                             <constraint firstItem="362-gn-C9v" firstAttribute="leading" secondItem="yTs-lZ-WbB" secondAttribute="leading" id="MmK-Xj-Mgw"/>
                             <constraint firstItem="xUZ-uS-HtM" firstAttribute="leading" secondItem="ZeL-Ov-oQu" secondAttribute="leading" constant="20" id="Sjh-JO-HFs"/>
@@ -69,7 +83,7 @@
                             <constraint firstItem="DXu-Bn-doJ" firstAttribute="centerY" secondItem="ZeL-Ov-oQu" secondAttribute="centerY" constant="15" id="fWj-75-xc2"/>
                             <constraint firstItem="DXu-Bn-doJ" firstAttribute="centerX" secondItem="ZeL-Ov-oQu" secondAttribute="centerX" id="feO-0R-mtH"/>
                             <constraint firstItem="362-gn-C9v" firstAttribute="trailing" secondItem="yTs-lZ-WbB" secondAttribute="trailing" id="ih6-wg-8XA"/>
-                            <constraint firstItem="ubS-ol-4ID" firstAttribute="top" secondItem="362-gn-C9v" secondAttribute="bottom" id="kw3-Ym-Lgn"/>
+                            <constraint firstItem="ubS-ol-4ID" firstAttribute="top" secondItem="362-gn-C9v" secondAttribute="bottom" constant="40" id="kw3-Ym-Lgn"/>
                             <constraint firstAttribute="trailing" secondItem="xUZ-uS-HtM" secondAttribute="trailing" constant="20" id="n7K-Kk-0YY"/>
                         </constraints>
                     </view>
@@ -87,6 +101,7 @@
     </scenes>
     <resources>
         <image name="TopBackGround" width="375" height="129"/>
+        <image name="line.3.horizontal.decrease.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="BackgroundColor">
             <color red="0.94117647058823528" green="0.94901960784313721" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
