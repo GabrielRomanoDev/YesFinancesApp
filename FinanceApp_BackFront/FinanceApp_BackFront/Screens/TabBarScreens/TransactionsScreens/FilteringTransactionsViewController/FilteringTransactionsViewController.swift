@@ -50,6 +50,8 @@ class FilteringTransactionsViewController: UIViewController {
     @IBOutlet weak var timeIntervalHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var timeIntervalLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var valueHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewHeightConstraint: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
@@ -179,19 +181,26 @@ class FilteringTransactionsViewController: UIViewController {
     @IBAction func tappedTimeIntervalSwitch(_ sender: UISwitch) {
         
         if sender.isOn {
-            print("Switch pressed ON")
-            timeIntervalHeightConstraint.constant = 200
+            timeIntervalHeightConstraint.constant = 140
+            
         } else {
-            print("Switch pressed off")        
             timeIntervalHeightConstraint.constant = 70
         }
+        
+        updateStackViewHeight()
         
     }
     
     @IBAction func tappedValueFilterSwitch(_ sender: UISwitch) {
-        print(timeIntervalView.frame.size.height)
         
+        if sender.isOn {
+            valueHeightConstraint.constant = 140
+            
+        } else {
+            valueHeightConstraint.constant = 70
+        }
         
+        updateStackViewHeight()
         
     }
     
@@ -234,6 +243,10 @@ class FilteringTransactionsViewController: UIViewController {
         
         
     }
+    
+    private func updateStackViewHeight() {
+        stackViewHeightConstraint.constant = 470 + timeIntervalHeightConstraint.constant + valueHeightConstraint.constant
+    }
 
 }
 
@@ -245,16 +258,85 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             return
         }
         
-        if button === accountsButton {
+        var text: String = ""
         
-            print("Accounts: \(selectionResult)")
-
+        if button === accountsButton {
+            
+            guard selectionResult.contains(true), selectionResult.contains(false) else {
+                allAccountsLabel.text = "Todas Contas"
+                return
+            }
+            
+            let selectedAccounts = bankAccountsList.enumerated().compactMap { (index, account) -> String? in
+                return selectionResult[index] ? account.desc : nil
+            }
+            
+            print(selectedAccounts)
+            
+            for i in 0..<bankAccountsList.count {
+                
+                if selectionResult[i] {
+                    
+                    if i > 0 {
+                        text = text + ", "
+                    }
+                    
+                    text = text + bankAccountsList[i].desc
+                }
+            }
+            
+            allAccountsLabel.text = text
+            
         } else if button === cardsButton {
             
-            print("Cards: \(selectionResult)")
+            guard selectionResult.contains(true), selectionResult.contains(false) else {
+                allCreditCardsLabel.text = "Todos Cartões"
+                return
+            }
+            
+            for i in 0..<creditCardsList.count {
+                
+                if selectionResult[i] {
+                    
+                    if i > 0 {
+                        text = text + ", "
+                    }
+                    
+                    text = text + creditCardsList[i].desc
+                }
+            }
+            
+            allCreditCardsLabel.text = text
             
         } else if button === categoriesButton {
-            print("Categories: \(selectionResult)")
+            
+            guard selectionResult.contains(true), selectionResult.contains(false) else {
+                allCategoriesLabel.text = "Todas Categorias"
+                return
+            }
+            
+            var list = expenseCategories.compactMap { category in
+                return category.name
+            }
+            
+            for category in incomeCategories {
+                list.append(category.name)
+            }
+            
+            for i in 0..<list.count {
+                
+                if selectionResult[i] {
+                    
+                    if i > 0 {
+                        text = text + ", "
+                    }
+                    
+                    text = text + list[i]
+                }
+            }
+            
+            allCategoriesLabel.text = text
+            
         }
          
     }

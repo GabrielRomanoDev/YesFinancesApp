@@ -1022,8 +1022,8 @@
             filePath = "FinanceApp_BackFront/Screens/TabBarScreens/TransactionsScreens/FilteringTransactionsViewController/FilteringTransactionsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "tappedAccountsModalButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1089,6 +1089,22 @@
             startingLineNumber = "61"
             endingLineNumber = "61"
             landmarkName = "updateTableView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70A00B80-5F61-4565-A4DC-EE2E7C77DD79"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/TabBarScreens/TransactionsScreens/FilteringTransactionsViewController/FilteringTransactionsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "tappedCardsModalButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
