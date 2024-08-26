@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SelectionModalDelegate: AnyObject {
-    func didSelectItem(_ selectionResult: [Bool])
+    func didSelectItem(_ selectionResult: [Bool], fromButton button: UIButton?)
 }
 
 class SelectionModalScreen: UIViewController {
@@ -36,7 +36,7 @@ class SelectionModalScreen: UIViewController {
     }
     
     deinit {
-        delegate?.didSelectItem(viewModel.selectedItens)
+        delegate?.didSelectItem(viewModel.selectedItens, fromButton: self.triggeringButton)
     }
     
     override func viewDidLoad() {

@@ -39,7 +39,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KDd-2T-ldO">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KDd-2T-ldO">
                                 <rect key="frame" x="0.0" y="114.33333333333331" width="393" height="610"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oBJ-Er-g8X">
@@ -449,10 +449,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="accountsButton" destination="kZ1-Cf-UqE" id="is3-oo-VjW"/>
                         <outlet property="accountsLabel" destination="L6g-Ya-Q1X" id="DwD-6W-bQM"/>
                         <outlet property="allAccountsLabel" destination="Bt7-gk-2FE" id="4Eb-VT-oob"/>
                         <outlet property="allCategoriesLabel" destination="bjk-oz-oxf" id="03j-3O-CPA"/>
                         <outlet property="allCreditCardsLabel" destination="BG7-Ov-iEN" id="2Bp-3B-EZH"/>
+                        <outlet property="cardsButton" destination="BgS-kj-oWM" id="9kc-Ae-CXE"/>
+                        <outlet property="categoriesButton" destination="BSN-NK-tiw" id="1P6-4l-Kng"/>
                         <outlet property="categoriesLabel" destination="uLB-hW-VVN" id="38U-zs-6eA"/>
                         <outlet property="creditCardsLabel" destination="dXF-ur-9Ub" id="iWl-kr-qSj"/>
                         <outlet property="creditExpensesButton" destination="QT2-nj-U9h" id="nco-Fg-Doa"/>

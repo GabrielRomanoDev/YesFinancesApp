@@ -39,16 +39,17 @@ class FilteringTransactionsViewController: UIViewController {
     @IBOutlet weak var creditExpensesButton: UIButton!
     @IBOutlet weak var accountsLabel: UILabel!
     @IBOutlet weak var allAccountsLabel: UILabel!
+    @IBOutlet weak var accountsButton: UIButton!
     @IBOutlet weak var creditCardsLabel: UILabel!
     @IBOutlet weak var allCreditCardsLabel: UILabel!
+    @IBOutlet weak var cardsButton: UIButton!
     @IBOutlet weak var categoriesLabel: UILabel!
     @IBOutlet weak var allCategoriesLabel: UILabel!
+    @IBOutlet weak var categoriesButton: UIButton!
     @IBOutlet weak var timeIntervalView: UIView!
     @IBOutlet weak var timeIntervalHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var timeIntervalLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
-    
-    
     
     
     override func viewDidLoad() {
@@ -112,14 +113,14 @@ class FilteringTransactionsViewController: UIViewController {
         
         var selectedItens: [Bool] = Array(repeating: true, count: bankAccountsList.count)
         
-        selectedItens[0] = false 
-        
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
             return SelectionModalScreen(coder: coder, titleName: "Contas Bancarias", list: list, selectedItens: selectedItens, selectionType: .multiSelection)
         }
         
         vc.delegate = self
+        vc.triggeringButton = sender
+        
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
         }
@@ -138,7 +139,10 @@ class FilteringTransactionsViewController: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
             return SelectionModalScreen(coder: coder, titleName: "Cartões", list: list, selectionType: .multiSelection)
         }
+        
         vc.delegate = self
+        vc.triggeringButton = sender
+        
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
         }
@@ -161,7 +165,10 @@ class FilteringTransactionsViewController: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
             return SelectionModalScreen(coder: coder, titleName: "Cartões", list: list, selectionType: .multiSelection)
         }
+        
         vc.delegate = self
+        vc.triggeringButton = sender
+        
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
         }
@@ -232,8 +239,24 @@ class FilteringTransactionsViewController: UIViewController {
 
 extension FilteringTransactionsViewController: SelectionModalDelegate {
     
-    func didSelectItem(_ selectionResult: [Bool]) {
-        print("item selected: \(selectionResult)")
+    func didSelectItem(_ selectionResult: [Bool], fromButton button: UIButton?) {
+        
+        guard let button = button else {
+            return
+        }
+        
+        if button === accountsButton {
+        
+            print("Accounts: \(selectionResult)")
+
+        } else if button === cardsButton {
+            
+            print("Cards: \(selectionResult)")
+            
+        } else if button === categoriesButton {
+            print("Categories: \(selectionResult)")
+        }
+         
     }
     
 }
