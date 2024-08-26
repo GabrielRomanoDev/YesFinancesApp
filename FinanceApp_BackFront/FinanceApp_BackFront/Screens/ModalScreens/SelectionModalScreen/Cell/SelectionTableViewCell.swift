@@ -27,12 +27,6 @@ class SelectionTableViewCell: UITableViewCell {
     func setupCell(title: String, itemSelected: Bool?) {
         itemLabel.text = title
         self.itemSelected = itemSelected ?? false
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        itemSelected.toggle()
         updateCheckImage()
     }
     
@@ -45,9 +39,4 @@ class SelectionTableViewCell: UITableViewCell {
         }
     }
     
-}
-
-enum SelectionType {
-    case uniqueSelection
-    case multiSelection
 }

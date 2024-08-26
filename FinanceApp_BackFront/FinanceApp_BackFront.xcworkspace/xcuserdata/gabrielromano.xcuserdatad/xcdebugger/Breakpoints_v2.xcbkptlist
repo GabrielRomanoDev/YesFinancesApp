@@ -34,53 +34,6 @@
             endingLineNumber = "34"
             landmarkName = "insertOperator(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B12093CB-E160-4473-A0FB-F2286A330B16 - e5345baf52e7c8d1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.insertNumbersModalViewModel.insertOperator(Swift.String) -&gt; Swift.String"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/ViewModel/insertNumbersModalViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "1828">
-               </Location>
-               <Location
-                  uuid = "B12093CB-E160-4473-A0FB-F2286A330B16 - e5345baf52e7c8d1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.insertNumbersModalViewModel.insertOperator(Swift.String) -&gt; Swift.String"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/ViewModel/insertNumbersModalViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "296">
-               </Location>
-               <Location
-                  uuid = "B12093CB-E160-4473-A0FB-F2286A330B16 - e5345baf52e7c8f2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.insertNumbersModalViewModel.insertOperator(Swift.String) -&gt; Swift.String"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/ViewModel/insertNumbersModalViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "28"
-                  endingLineNumber = "28"
-                  offsetFromSymbolStart = "536">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -145,38 +98,6 @@
             endingLineNumber = "50"
             landmarkName = "calculateExpression()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D4BD07A5-B25C-4676-BCBD-F9E41F248AAD - 4741b718f997326e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.InsertNumbersModalViewModel.calculateExpression() -&gt; Swift.Double"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/ViewModel/InsertNumbersModalViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "164">
-               </Location>
-               <Location
-                  uuid = "D4BD07A5-B25C-4676-BCBD-F9E41F248AAD - 4741b718f997326e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.InsertNumbersModalViewModel.calculateExpression() -&gt; Swift.Double"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/ViewModel/InsertNumbersModalViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "104">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -193,38 +114,6 @@
             endingLineNumber = "166"
             landmarkName = "tappedDoneButton(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9D6DAC34-ABFE-4133-AAB9-B188C79279EE - f136189a1162b7a7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.InsertNumbersModalViewController.tappedDoneButton(__C.UIButton) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/View/InsertNumbersModalViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "165"
-                  endingLineNumber = "165"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "9D6DAC34-ABFE-4133-AAB9-B188C79279EE - f136189a1162b7a7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.InsertNumbersModalViewController.tappedDoneButton(__C.UIButton) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/View/InsertNumbersModalViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "165"
-                  endingLineNumber = "165"
-                  offsetFromSymbolStart = "312">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -449,38 +338,6 @@
             endingLineNumber = "33"
             landmarkName = "updateExchangeRate()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2F07DC11-0817-47DA-8CBA-12B058350B3F - 60c0818b9147f995"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;FinanceApp_BackFront.ExchangeRate, FinanceApp_BackFront.ErrorRequest&gt;) -&gt; () in FinanceApp_BackFront.CurrencyViewModel.updateExchangeRate() -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/CurrencyViewController/ViewModel/CurrencyViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "384">
-               </Location>
-               <Location
-                  uuid = "2F07DC11-0817-47DA-8CBA-12B058350B3F - 60c0818b9147f909"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;FinanceApp_BackFront.ExchangeRate, FinanceApp_BackFront.ErrorRequest&gt;) -&gt; () in FinanceApp_BackFront.CurrencyViewModel.updateExchangeRate() -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/CurrencyViewController/ViewModel/CurrencyViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "384">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -497,38 +354,6 @@
             endingLineNumber = "37"
             landmarkName = "updateExchangeRate()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EDF3768F-1D4E-4B31-8FDC-E18823BA0E95 - 60c0818b9147f909"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;FinanceApp_BackFront.ExchangeRate, FinanceApp_BackFront.ErrorRequest&gt;) -&gt; () in FinanceApp_BackFront.CurrencyViewModel.updateExchangeRate() -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/CurrencyViewController/ViewModel/CurrencyViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "916">
-               </Location>
-               <Location
-                  uuid = "EDF3768F-1D4E-4B31-8FDC-E18823BA0E95 - 60c0818b9147f88d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;FinanceApp_BackFront.ExchangeRate, FinanceApp_BackFront.ErrorRequest&gt;) -&gt; () in FinanceApp_BackFront.CurrencyViewModel.updateExchangeRate() -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/CurrencyViewController/ViewModel/CurrencyViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "916">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -543,7 +368,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
             endingLineNumber = "125"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getLastObjectsList(forObjectType:documentReadName:limit:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -559,7 +384,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getLastObjectsList(forObjectType:documentReadName:limit:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -575,7 +400,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "123"
             endingLineNumber = "123"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getLastObjectsList(forObjectType:documentReadName:limit:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -625,38 +450,6 @@
             endingLineNumber = "13"
             landmarkName = "loginUser(email:password:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "03C7AE66-E182-4895-85B7-3FCDFC72437B - 94a486d7bb5c9ae2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.LoginViewModel.loginUser(email: Swift.String, password: Swift.String, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/LoginScreens/LoginViewController/ViewModel/LoginViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "03C7AE66-E182-4895-85B7-3FCDFC72437B - b1a7f9aa7afe4003"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.LoginViewModel.loginUser(email: Swift.String, password: Swift.String, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/LoginScreens/LoginViewController/ViewModel/LoginViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "88">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -719,7 +512,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
             endingLineNumber = "135"
-            landmarkName = "setDataInDocument(data:completion:)"
+            landmarkName = "setObject(_:subCollectionName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -735,70 +528,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "setDataInDocument(data:completion:)"
+            landmarkName = "setObject(_:subCollectionName:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0B255F99-1994-46B7-9396-7577B93657D1 - b406741dbb378eaa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.FirestoreService.setDataInDocument(data: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "328">
-               </Location>
-               <Location
-                  uuid = "0B255F99-1994-46B7-9396-7577B93657D1 - 4f529d1818c0e4c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.setDataInDocument(data: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  uuid = "0B255F99-1994-46B7-9396-7577B93657D1 - b406741dbb378e2e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.FirestoreService.setDataInDocument(data: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "328">
-               </Location>
-               <Location
-                  uuid = "0B255F99-1994-46B7-9396-7577B93657D1 - 4f529d1818c0e44d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.setDataInDocument(data: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -813,7 +544,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "136"
             endingLineNumber = "136"
-            landmarkName = "setDataInDocument(data:completion:)"
+            landmarkName = "setObject(_:subCollectionName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -829,40 +560,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
             endingLineNumber = "138"
-            landmarkName = "setDataInDocument(data:completion:)"
+            landmarkName = "setObject(_:subCollectionName:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "FD7CD125-7156-422B-8472-C8C42DB32A82 - 4f529d1818c0e4c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.setDataInDocument(data: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "156">
-               </Location>
-               <Location
-                  uuid = "FD7CD125-7156-422B-8472-C8C42DB32A82 - 4f529d1818c0e4c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.setDataInDocument(data: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "104">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -895,38 +594,6 @@
             endingLineNumber = "65"
             landmarkName = "updateChartData()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9A8DA9D8-B8C8-468A-8392-3093B556A654 - dd0f2d7895929805"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.CategoriesGraphCollectionViewCell.updateChartData() -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/Cells/CategoriesGraphCollectionViewCell/CategoriesGraphCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "360">
-               </Location>
-               <Location
-                  uuid = "9A8DA9D8-B8C8-468A-8392-3093B556A654 - a08501edc35d543b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 (Swift.Int, Swift.Double) -&gt; Charts.ChartDataEntry in FinanceApp_BackFront.CategoriesGraphCollectionViewCell.updateChartData() -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/Cells/CategoriesGraphCollectionViewCell/CategoriesGraphCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "56">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -941,7 +608,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "206"
             endingLineNumber = "206"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -957,7 +624,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "195"
             endingLineNumber = "195"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -989,40 +656,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "99"
             endingLineNumber = "99"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getObjectsList(forObjectType:documentReadName:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D5373F98-795E-498D-98EA-CE9CFEE7068F - 16e15c6ee7cd0a7d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.FirestoreService.getObjectsArrayData&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_0: Swift.Encodable&gt;(forObjectType: &#x3c4;_0_0.Type, documentReadName: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "96">
-               </Location>
-               <Location
-                  uuid = "D5373F98-795E-498D-98EA-CE9CFEE7068F - f1a55be004665e7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.getObjectsArrayData&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_0: Swift.Encodable&gt;(forObjectType: &#x3c4;_0_0.Type, documentReadName: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "316">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1053,40 +688,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
             endingLineNumber = "85"
-            landmarkName = "getProfileInformations(completion:)"
+            landmarkName = "getCreditCards(completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1F833D0C-50F6-4BD1-BDBD-3611FA425E63 - 592d9ae238142047"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.HomeViewModel.updateProfileInformations(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "220">
-               </Location>
-               <Location
-                  uuid = "1F833D0C-50F6-4BD1-BDBD-3611FA425E63 - 7bde50e17c50293"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;FinanceApp_BackFront.Profile&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.updateProfileInformations(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54"
-                  offsetFromSymbolStart = "132">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1101,40 +704,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
-            landmarkName = "getProfileInformations(completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E14D529B-C2B3-4247-B845-8D1395125921 - 7bde50e17c5025d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;FinanceApp_BackFront.Profile&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.updateProfileInformations(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "152">
-               </Location>
-               <Location
-                  uuid = "E14D529B-C2B3-4247-B845-8D1395125921 - 7bde50e17c5025d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;FinanceApp_BackFront.Profile&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.updateProfileInformations(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "212">
-               </Location>
-            </Locations>
+            landmarkName = "HomeViewModel"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1151,53 +722,6 @@
             endingLineNumber = "49"
             landmarkName = "getTransactions(completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "98F693DC-0E39-4AD9-A0B5-091D88D3ED89 - 405de5060792a49d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 () -&gt; () in FinanceApp_BackFront.HomeViewModel.getAllData(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "72">
-               </Location>
-               <Location
-                  uuid = "98F693DC-0E39-4AD9-A0B5-091D88D3ED89 - 3e58d5eee8ebefa7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.HomeViewModel.getTransactions(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  uuid = "98F693DC-0E39-4AD9-A0B5-091D88D3ED89 - 925348894a3d884e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;FinanceApp_BackFront.Transactions&gt;, Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.getTransactions(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1214,53 +738,6 @@
             endingLineNumber = "61"
             landmarkName = "getAccounts(completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B62DD239-DC9F-411A-A73C-874F43B22A30 - 925348894a3d8ae3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;FinanceApp_BackFront.Transactions&gt;, Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.getTransactions(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "584">
-               </Location>
-               <Location
-                  uuid = "B62DD239-DC9F-411A-A73C-874F43B22A30 - f4276e6170ddc9e8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.HomeViewModel.getAccounts(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  uuid = "B62DD239-DC9F-411A-A73C-874F43B22A30 - 8887445b7c03f7c8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;FinanceApp_BackFront.BankAccount&gt;, Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.getAccounts(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1277,38 +754,6 @@
             endingLineNumber = "62"
             landmarkName = "getAccounts(completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "85F66251-3F46-471F-ADC6-494067C8981F - 925348894a3d8ae3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;FinanceApp_BackFront.Transactions&gt;, Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.getTransactions(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "584">
-               </Location>
-               <Location
-                  uuid = "85F66251-3F46-471F-ADC6-494067C8981F - 8887445b7c03f7c8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;FinanceApp_BackFront.BankAccount&gt;, Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.getAccounts(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1325,38 +770,6 @@
             endingLineNumber = "50"
             landmarkName = "getTransactions(completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "759C613B-B735-48CA-B037-8A1F4CF335ED - 405de5060792a4fe"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 () -&gt; () in FinanceApp_BackFront.HomeViewModel.getAllData(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "228">
-               </Location>
-               <Location
-                  uuid = "759C613B-B735-48CA-B037-8A1F4CF335ED - 925348894a3d884e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;FinanceApp_BackFront.Transactions&gt;, Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.HomeViewModel.getTransactions(completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/ViewModel/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1371,40 +784,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getObjectsList(forObjectType:documentReadName:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D937BE90-8F4F-43CC-8D46-7DFF3EE16827 - f1a55be0046645c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.getObjectsArrayData&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_0: Swift.Encodable&gt;(forObjectType: &#x3c4;_0_0.Type, documentReadName: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "95"
-                  endingLineNumber = "95"
-                  offsetFromSymbolStart = "372">
-               </Location>
-               <Location
-                  uuid = "D937BE90-8F4F-43CC-8D46-7DFF3EE16827 - f1a55be0046645c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FinanceApp_BackFront.FirestoreService.getObjectsArrayData&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_0: Swift.Encodable&gt;(forObjectType: &#x3c4;_0_0.Type, documentReadName: Swift.String, completion: (Swift.Result&lt;Swift.Array&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Services/FirestoreService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "95"
-                  endingLineNumber = "95"
-                  offsetFromSymbolStart = "556">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1419,7 +800,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getObjectsList(forObjectType:documentReadName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1435,7 +816,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
             endingLineNumber = "101"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getObjectsList(forObjectType:documentReadName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1451,7 +832,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
             endingLineNumber = "116"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getLastObjectsList(forObjectType:documentReadName:limit:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1467,7 +848,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getLastObjectsList(forObjectType:documentReadName:limit:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1483,7 +864,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
             endingLineNumber = "107"
-            landmarkName = "getObjectsArrayData(forObjectType:documentReadName:completion:)"
+            landmarkName = "getObjectsList(forObjectType:documentReadName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1517,68 +898,6 @@
             endingLineNumber = "90"
             landmarkName = "editAccount(account:indexAccount:newBalance:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E15CB4AB-19F4-43AD-AD14-560599D855B5 - 5d058baabcc1add2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "356">
-               </Location>
-               <Location
-                  uuid = "E15CB4AB-19F4-43AD-AD14-560599D855B5 - 5d058baabcc1add2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "476">
-               </Location>
-               <Location
-                  uuid = "E15CB4AB-19F4-43AD-AD14-560599D855B5 - 5d058baabcc1ad2e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "896">
-               </Location>
-               <Location
-                  uuid = "E15CB4AB-19F4-43AD-AD14-560599D855B5 - 5d058baabcc1ad2e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "884">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1611,53 +930,6 @@
             endingLineNumber = "83"
             landmarkName = "editAccount(account:indexAccount:newBalance:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5D37735E-739F-4FAD-8A15-CA3FD0B25BB5 - 5d058baabcc1ae31"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "252">
-               </Location>
-               <Location
-                  uuid = "5D37735E-739F-4FAD-8A15-CA3FD0B25BB5 - 5d058baabcc1ae31"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "260">
-               </Location>
-               <Location
-                  uuid = "5D37735E-739F-4FAD-8A15-CA3FD0B25BB5 - 5d058baabcc1ae31"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FinanceApp_BackFront.BankAccountsViewModel.editAccount(account: FinanceApp_BackFront.BankAccount, indexAccount: Swift.Int, newBalance: Swift.Double, completion: () -&gt; ()) -&gt; ()"
-                  moduleName = "FinanceApp_BackFront"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gabrielromano/FinanceApp/FinanceApp_BackFront/FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "268">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1721,6 +993,102 @@
             startingLineNumber = "39"
             endingLineNumber = "39"
             landmarkName = "setupTableView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9F53F47-92FA-47EB-806A-5783F326F6FF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/TabBarScreens/HomeScreens/HomeViewController/View/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "setupStrings()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EBE2ED6B-4ABF-491C-A03E-4ADCC702654B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/TabBarScreens/TransactionsScreens/FilteringTransactionsViewController/FilteringTransactionsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "tappedAccountsModalButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "794A8E13-B275-48F9-86A5-16A07A9F0E46"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/ModalScreens/SelectionModalScreen/View/SelectionModalScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70747534-51F9-48E4-BA85-2AC5437106F7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/ModalScreens/SelectionModalScreen/Cell/SelectionTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "setupCell(title:itemSelected:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F47158AC-7E75-43E4-86DC-EFAF911E8D59"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/ModalScreens/SelectionModalScreen/View/SelectionModalScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "updateTableView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77267D1C-A2E1-4BE2-994C-22D343879F49"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/ModalScreens/SelectionModalScreen/View/SelectionModalScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "updateTableView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

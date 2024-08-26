@@ -110,10 +110,15 @@ class FilteringTransactionsViewController: UIViewController {
             return accountItem.desc
         }
         
+        var selectedItens: [Bool] = Array(repeating: true, count: bankAccountsList.count)
+        
+        selectedItens[0] = false 
+        
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
-            return SelectionModalScreen(coder: coder, titleName: "Contas Bancarias", list: list, selectionType: .multiSelection)
+            return SelectionModalScreen(coder: coder, titleName: "Contas Bancarias", list: list, selectedItens: selectedItens, selectionType: .multiSelection)
         }
+        
         vc.delegate = self
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
@@ -148,7 +153,7 @@ class FilteringTransactionsViewController: UIViewController {
             return category.name
         }
         
-        incomeCategories.compactMap { category in
+        for category in incomeCategories {
             list.append(category.name)
         }
         
@@ -227,9 +232,8 @@ class FilteringTransactionsViewController: UIViewController {
 
 extension FilteringTransactionsViewController: SelectionModalDelegate {
     
-    func didSelectItem(_ index: Int) {
-        print("item selected: \(index)")
+    func didSelectItem(_ selectionResult: [Bool]) {
+        print("item selected: \(selectionResult)")
     }
-    
     
 }

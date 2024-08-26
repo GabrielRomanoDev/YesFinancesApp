@@ -194,7 +194,7 @@ extension RegisterIncomeViewController: UITextFieldDelegate {
 }
 
 
-extension RegisterIncomeViewController:CategoriesModalDelegate, AccountsModalDelegate, InsertNumbersModalProtocol {
+extension RegisterIncomeViewController: CategoriesModalDelegate, AccountsModalDelegate, InsertNumbersModalProtocol {
     func didSelectCategory(_ indexCategory: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

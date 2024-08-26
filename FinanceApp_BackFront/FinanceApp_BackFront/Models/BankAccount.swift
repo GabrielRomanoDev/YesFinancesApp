@@ -7,6 +7,16 @@
 
 import Foundation
 
+//struct AccountsSingleton {
+//    
+//    static let shared = AccountsSingleton()
+//    
+//    private init() {}
+//    
+//    var accounts: [BankAccount]
+//    
+//}
+
 struct BankAccount: Codable, Equatable {
     
     private var id: String = UUID().uuidString

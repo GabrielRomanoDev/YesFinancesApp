@@ -9,22 +9,32 @@ import Foundation
 
 class SelectionModalScreenViewModel {
     
+    private let list: [String]
     private let selectionType: SelectionType
-    var listSelections: [Bool]
+    var selectedItens: [Bool]
     
-    init(selectionType: SelectionType, listSelections: [Bool]) {
+    init(list: [String], selectionType: SelectionType, selectedItens: [Bool]?) {
+        
+        self.list = list
         self.selectionType = selectionType
-        self.listSelections = listSelections
+        
+        if let selectedItens = selectedItens {
+            self.selectedItens = selectedItens
+        } else {
+            let falseArray: [Bool] = Array(repeating: false, count: list.count)
+            self.selectedItens = falseArray
+        }
+        
     }
     
     func updateSelections(indexPressed: Int) {
        
-        var result: [Bool] = listSelections
+        var result: [Bool] = selectedItens
         
         switch selectionType {
         case .uniqueSelection:
             
-            for i in 0..<listSelections.count {
+            for i in 0..<selectedItens.count {
                 result[i] = false
             }
             
@@ -34,8 +44,16 @@ class SelectionModalScreenViewModel {
             result[indexPressed].toggle()
         }
         
-        self.listSelections = result
+        self.selectedItens = result
         
+    }
+    
+    func nameItem(index: Int) -> String {
+        return list[index]
+    }
+    
+    func itensCount() -> Int {
+        return list.count
     }
     
 }
