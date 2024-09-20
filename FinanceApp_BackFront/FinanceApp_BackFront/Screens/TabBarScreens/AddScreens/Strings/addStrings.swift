@@ -24,9 +24,6 @@ enum addStrings {
     static let forgotExpenseAmountValue = "Opa, esqueceu de informar valor gasto!"
     static let amountMustBeHigherThenZero = "Opa, informe um valor positivo!"
     
-    static let yesterdayText = "Ontem"
-    static let todayText = "Hoje"
-    static let tomorrowText = "Amanhã"
     static let bankText = "Banco"
     static let standardDate = "01/01/2023"
 }

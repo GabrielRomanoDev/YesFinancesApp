@@ -24,7 +24,7 @@ class TransactionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
-        showNoTransactionsLabel()
+        showNoTransactionsMessage(title: transactionsStrings.noTransactionsRegistered)
         viewModel.reordenateTransactions()
         setupCollectionView()
         transactionsCollectionView.reloadData()
@@ -43,16 +43,18 @@ class TransactionsViewController: UIViewController {
     private func setupStrings() {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         titleLabel.text = transactionsStrings.title
+        noTransactionsLabel.text = transactionsStrings.noTransactionsRegistered
     }
     
-    private func showNoTransactionsLabel() {
-        if transactionsList.count <= 0 {
+    private func showNoTransactionsMessage(title: String) {
+        if viewModel.getTransactionsCount() <= 0 {
             noTransactionsLabel.isHidden = false
             transactionsCollectionView.isHidden = true
         } else {
             noTransactionsLabel.isHidden = true
             transactionsCollectionView.isHidden = false
         }
+        noTransactionsLabel.text = title
     }
     
     private func setupCollectionView(){
@@ -90,8 +92,11 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
 }
 
 extension TransactionsViewController: FilterTransactionsDelegate {
-    func didFilter() {
-        
+    
+    func didFilter(transactions: [Transactions]) {
+        viewModel.filteredTransactions = transactions
+        showNoTransactionsMessage(title: transactionsStrings.noTransactionsFiltered)
+        transactionsCollectionView.reloadData()
     }
     
 }

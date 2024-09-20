@@ -120,7 +120,7 @@ class BankAccountsViewModel {
             desc: "Ajuste de saldo na Conta",
             amount: valueNewTransaction,
             categoryIndex: 0,
-            date: Date().toString(format: "dd/MM/yyyy"),
+            date: Date().toString(format: globalStrings.dateFormat),
             type: transactionType,
             accountId: account.getId,
             obs: "Conta: \(account.desc)"

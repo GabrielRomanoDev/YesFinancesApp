@@ -47,7 +47,7 @@ struct CreditCard: Codable, Equatable {
             transactionType = .expense
         }
         
-        creditCardExpenses.append(CreditCardExpense(desc: "Ajuste valor de Fatura", amount: valueNewTransaction, categoryIndex: 0, date: Date().toString(format: "dd/MM/yyyy"), type: transactionType, cardId: id, obs: ""))
+        creditCardExpenses.append(CreditCardExpense(desc: moreOptionsStrings.updateAccountAmount, amount: valueNewTransaction, categoryIndex: 0, date: Date().toString(format: globalStrings.dateFormat), type: transactionType, cardId: id, obs: globalStrings.emptyString))
     }
     
 }

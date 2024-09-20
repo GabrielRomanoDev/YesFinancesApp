@@ -26,4 +26,22 @@ extension String {
             return 0.0
         }
     }
+    
+    func toDate(format: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = Locale(identifier: "pt_BR")
+        dateFormatter.timeZone = TimeZone.current
+        
+        if self == globalStrings.todayText {
+            return Date()
+        } else if self == globalStrings.yesterdayText {
+            return Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        } else if self == globalStrings.tomorrowText {
+            return Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        } else {
+            return dateFormatter.date(from: self)
+        }
+    }
+    
 }

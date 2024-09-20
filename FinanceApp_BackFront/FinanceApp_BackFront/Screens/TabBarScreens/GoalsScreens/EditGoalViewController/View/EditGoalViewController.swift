@@ -184,7 +184,7 @@ extension EditGoalViewController: UITextFieldDelegate {
 }
 
 extension EditGoalViewController: InsertNumbersModalProtocol, CategoryImagesModalProtocol {
-    func didSelectedNumber(_ value: Double, id: Int) {
+    func didSelectNumber(_ value: Double, id: Int) {
         if id == 0 {
             updateInitialAmountValue(value)
         } else if id == 1 {

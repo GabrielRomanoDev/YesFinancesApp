@@ -9,6 +9,8 @@ import Foundation
 
 struct TransactionsViewModel {
     
+    var filteredTransactions: [Transactions]? = nil
+    
     public func reordenateTransactions(){
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = globalStrings.dateFormat
@@ -19,22 +21,48 @@ struct TransactionsViewModel {
             return data1 > data2
         })
         
-        let filteredTransactions = transactionsList.filter { transaction in
-            transaction.categoryIndex == 1
-        }
     }
     
     public func getTransactionsCount() -> Int {
-        return transactionsList.count
+        
+        if let filtered = filteredTransactions {
+            return filtered.count
+        } else {
+            return transactionsList.count
+        }
+       
     }
     
     public func getItemTransactions(_ index:Int) -> Transactions {
-        return transactionsList[index]
+        
+        if let filtered = filteredTransactions {
+            return filtered[index]
+        } else {
+            return transactionsList[index]
+        }
+        
     }
     
     public func getCellSize(viewWidth:CGFloat) -> CGSize {
         return CGSize (width: viewWidth - 30, height: 85)
     }
+    
+    // Função para filtrar as transações por mês e ano
+    func filterTransactionsByMonth(transactions: [Transactions], month: Int, year: Int) -> [Transactions] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = globalStrings.dateFormat
+        let filteredTransactions = transactions.filter { transaction in
+            if let date = dateFormatter.date(from: transaction.date) {
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.month, .year], from: date)
+                return components.month == month && components.year == year
+            }
+            return false
+        }
+        
+        return filteredTransactions
+    }
+    
 }
 
 var transactionsList: [Transactions] = []

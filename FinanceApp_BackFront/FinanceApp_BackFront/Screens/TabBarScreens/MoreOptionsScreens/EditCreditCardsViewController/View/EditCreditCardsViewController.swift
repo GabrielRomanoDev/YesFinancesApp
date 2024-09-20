@@ -254,7 +254,7 @@ extension EditCreditCardsViewController: UIPickerViewDelegate, UIPickerViewDataS
 }
 
 extension EditCreditCardsViewController: InsertNumbersModalProtocol {
-    func didSelectedNumber(_ value: Double, id: Int) {
+    func didSelectNumber(_ value: Double, id: Int) {
         updateLimitValue(value)
     }
 }

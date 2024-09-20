@@ -101,7 +101,7 @@ class GoalInfoViewController: UIViewController {
 
 extension GoalInfoViewController: InsertNumbersModalProtocol {
     
-    func didSelectedNumber(_ value: Double, id: Int) {
+    func didSelectNumber(_ value: Double, id: Int) {
         goal.savedAmount += value
         setSavedAmountValue(goal.savedAmount)
         delegate?.didSavedMoney(value, index: id)

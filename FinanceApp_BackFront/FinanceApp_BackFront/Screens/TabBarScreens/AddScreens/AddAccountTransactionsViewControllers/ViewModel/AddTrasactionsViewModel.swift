@@ -120,11 +120,11 @@ class AddAccountTransactionsViewModel{
         
         switch dataSelecionada.toString(format: globalStrings.dateFormat) {
         case today.toString(format: globalStrings.dateFormat):
-            return addStrings.todayText
+            return globalStrings.todayText
         case yesterday.toString(format: globalStrings.dateFormat):
-            return addStrings.yesterdayText
+            return globalStrings.yesterdayText
         case tomorrow.toString(format: globalStrings.dateFormat):
-            return addStrings.tomorrowText
+            return globalStrings.tomorrowText
         default:
             return date.toString(format: globalStrings.dateFormat)
         }

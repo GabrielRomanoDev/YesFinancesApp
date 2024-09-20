@@ -171,7 +171,7 @@ class RegisterIncomeViewController: UIViewController {
         accountBackground.backgroundColor = viewModel.getBankBackColor(indexAccount)
     }
     
-    private func setupDataPicker(){
+    private func setupDataPicker() {
         let datePicker = UIDatePicker ()
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(dateChange (datePicker:)), for: UIControl.Event.valueChanged)
@@ -210,7 +210,7 @@ extension RegisterIncomeViewController: CategoriesModalDelegate, AccountsModalDe
         }
     }
     
-    func didSelectedNumber(_ value: Double, id: Int) {
+    func didSelectNumber(_ value: Double, id: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateAmountValue(value)
         }

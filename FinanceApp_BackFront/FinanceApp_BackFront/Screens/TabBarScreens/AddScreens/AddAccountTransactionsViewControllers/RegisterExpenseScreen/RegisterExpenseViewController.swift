@@ -209,7 +209,7 @@ extension RegisterExpenseViewController: CategoriesModalDelegate, AccountsModalD
         }
     }
     
-    func didSelectedNumber(_ value: Double, id: Int) {
+    func didSelectNumber(_ value: Double, id: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateAmountValue(value)
         }

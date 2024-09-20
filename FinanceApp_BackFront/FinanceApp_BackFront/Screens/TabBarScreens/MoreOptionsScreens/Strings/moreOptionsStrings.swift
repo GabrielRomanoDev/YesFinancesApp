@@ -29,6 +29,7 @@ enum moreOptionsStrings {
     static let accountNameText = "Nome"
     static let accountInitialBalanceText = "Saldo inicial na conta"
     static let accountBalanceUpdateText = "Ajustar saldo na conta"
+    static let updateAccountAmount = "Ajuste valor de Fatura"
     static let overdrawText = "Cheque Especial"
     static let standardAccountText = "Conta Padrão"
     static let obsText = "Obs."

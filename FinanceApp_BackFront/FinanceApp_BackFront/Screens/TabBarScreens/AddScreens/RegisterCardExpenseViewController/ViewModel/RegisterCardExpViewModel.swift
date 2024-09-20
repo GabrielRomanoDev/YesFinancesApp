@@ -90,11 +90,11 @@ class RegisterCardExpViewModel{
         
         switch formatDate(date: dataSelecionada){
         case formatDate(date: today):
-            return addStrings.todayText
+            return globalStrings.todayText
         case formatDate(date: yesterday):
-            return addStrings.yesterdayText
+            return globalStrings.yesterdayText
         case formatDate(date: tomorrow):
-            return addStrings.tomorrowText
+            return globalStrings.tomorrowText
         default:
             return formatDate(date: date)
         }

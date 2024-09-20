@@ -19,4 +19,7 @@ enum globalStrings {
     static let loadingLottie = "145264-loading"
     static let spaceChar = " "
     static let delete = "Apagar"
+    static let yesterdayText = "Ontem"
+    static let todayText = "Hoje"
+    static let tomorrowText = "Amanhã"
 }
