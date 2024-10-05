@@ -27,7 +27,7 @@ extension String {
         }
     }
     
-    func toDate(format: String) -> Date? {
+    func toDate(format: String = globalStrings.dateFormat) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.locale = Locale(identifier: "pt_BR")

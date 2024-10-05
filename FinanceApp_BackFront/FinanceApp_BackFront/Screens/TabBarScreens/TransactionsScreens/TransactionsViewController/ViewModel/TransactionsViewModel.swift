@@ -9,7 +9,10 @@ import Foundation
 
 struct TransactionsViewModel {
     
+    var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker()
     var filteredTransactions: [Transactions]? = nil
+    var filteringParameters: FilteringParameters? = nil
+
     
     public func reordenateTransactions(){
         let dateFormatter = DateFormatter()
@@ -47,20 +50,9 @@ struct TransactionsViewModel {
         return CGSize (width: viewWidth - 30, height: 85)
     }
     
-    // Função para filtrar as transações por mês e ano
-    func filterTransactionsByMonth(transactions: [Transactions], month: Int, year: Int) -> [Transactions] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = globalStrings.dateFormat
-        let filteredTransactions = transactions.filter { transaction in
-            if let date = dateFormatter.date(from: transaction.date) {
-                let calendar = Calendar.current
-                let components = calendar.dateComponents([.month, .year], from: date)
-                return components.month == month && components.year == year
-            }
-            return false
-        }
-        
-        return filteredTransactions
+    mutating func filterTransactions(parameters: FilteringParameters) {
+        filteringParameters = parameters
+        filteredTransactions = filteringWorker.filterTransactions(parameters: parameters)
     }
     
 }

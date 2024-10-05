@@ -172,6 +172,7 @@
 		A1FDB7E92A45F2D3006B3459 /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FDB7E82A45F2D3006B3459 /* ExchangeRate.swift */; };
 		A1FDB7EB2A4622D9006B3459 /* CurrencyInfos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FDB7EA2A4622D9006B3459 /* CurrencyInfos.swift */; };
 		A1FDB7ED2A4636D4006B3459 /* CurrencyPickerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FDB7EC2A4636D3006B3459 /* CurrencyPickerOptions.swift */; };
+		A1FFCA322CA8DAC500B1C6A6 /* TransactionsFilterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFCA312CA8DAB500B1C6A6 /* TransactionsFilterWorker.swift */; };
 		E35D084A29BDAD100098F0B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35D084929BDAD100098F0B5 /* AppDelegate.swift */; };
 		E35D084C29BDAD100098F0B5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35D084B29BDAD100098F0B5 /* SceneDelegate.swift */; };
 		E35D085129BDAD100098F0B5 /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E35D084F29BDAD100098F0B5 /* MainViewController.storyboard */; };
@@ -359,6 +360,7 @@
 		A1FDB7E82A45F2D3006B3459 /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
 		A1FDB7EA2A4622D9006B3459 /* CurrencyInfos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInfos.swift; sourceTree = "<group>"; };
 		A1FDB7EC2A4636D3006B3459 /* CurrencyPickerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerOptions.swift; sourceTree = "<group>"; };
+		A1FFCA312CA8DAB500B1C6A6 /* TransactionsFilterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsFilterWorker.swift; sourceTree = "<group>"; };
 		E35D084629BDAD100098F0B5 /* FinanceApp_BackFront.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinanceApp_BackFront.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E35D084929BDAD100098F0B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E35D084B29BDAD100098F0B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -833,6 +835,7 @@
 		A16688FA29F17E1B00568217 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A1FFCA312CA8DAB500B1C6A6 /* TransactionsFilterWorker.swift */,
 				A16688FB29F17E5200568217 /* TransactionsViewModel.swift */,
 			);
 			path = ViewModel;
@@ -1973,6 +1976,7 @@
 				A14DAE6329D4E94200714208 /* TransactionsViewController.swift in Sources */,
 				A17C89E92A09E8F900B5DB2F /* OptionalExtension.swift in Sources */,
 				A1E107BD29E4F432005A3F4F /* CreditCardsViewController.swift in Sources */,
+				A1FFCA322CA8DAC500B1C6A6 /* TransactionsFilterWorker.swift in Sources */,
 				A14F99B02A259F0800257B67 /* CreditCardModalViewModel.swift in Sources */,
 				A1A92BBF29F812B600E14EE8 /* CreditCardModalCell.swift in Sources */,
 				A189A39929F58A4700C22A6D /* BankProperties.swift in Sources */,

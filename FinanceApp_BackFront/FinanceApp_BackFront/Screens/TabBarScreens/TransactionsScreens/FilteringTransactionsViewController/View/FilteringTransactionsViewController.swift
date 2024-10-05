@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FilterTransactionsDelegate: AnyObject {
-    func didFilter(transactions: [Transactions])
+    func didFilter(parameters: FilteringParameters?)
 }
 
 class FilteringTransactionsViewController: UIViewController {
@@ -16,14 +16,19 @@ class FilteringTransactionsViewController: UIViewController {
     static let identifier:String = String(describing: FilteringTransactionsViewController.self)
     
     weak var delegate: FilterTransactionsDelegate?
-    var viewModel = FilteringTransactionsViewModel()
+    var viewModel: FilteringTransactionsViewModel
     
     var calculatedStackViewHeight: CGFloat {
         return 470 + timeIntervalHeightConstraint.constant + valueHeightConstraint.constant
     }
     
-    required init?(coder: NSCoder) {
+    init?(coder: NSCoder, parameters: FilteringParameters?) {
+        self.viewModel = FilteringTransactionsViewModel(parameters: parameters)
         super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     @IBOutlet weak var filtersLabel: UILabel!
@@ -67,7 +72,7 @@ class FilteringTransactionsViewController: UIViewController {
     
     @IBAction func tappedResolvedTransactionsButton(_ sender: UIButton) {
         
-//        viewModel.resolvedTransactions.toggle()
+//        viewModel.parameters.resolvedTransactions.toggle()
         
 //        togleButton(resolvedTransactionsButton, value: resolvedTransactions)
         
@@ -75,38 +80,38 @@ class FilteringTransactionsViewController: UIViewController {
     
     @IBAction func tappedPendingTransactionsButton(_ sender: UIButton) {
         
-        //        viewModel.pendingTransactions.toggle()
+        //        viewModel.parameters.pendingTransactions.toggle()
         
 //        togleButton(pendingTransactionsButton, value: pendingTransactions)
     }
     
     @IBAction func tappedFutureTransactionsButton(_ sender: UIButton) {
         
-        //        viewModel.futureTransactions.toggle()
+        //        viewModel.parameters.futureTransactions.toggle()
         
 //        togleButton(futureTransactionsButton, value: futureTransactions)
     }
     
     @IBAction func tappedEarningButton(_ sender: UIButton) {
         
-        if let types = viewModel.types {
-            viewModel.types?.incomes = !types.incomes
-            togleButton(incomesButton, value: !types.incomes)
+        if let types = viewModel.parameters.types {
+            viewModel.parameters.types?.incomes = !types.incomes
+            updateButtonCollor(incomesButton, value: !types.incomes)
         } else {
-            viewModel.types = TransactionFilteringTypes(incomes: true)
-            togleButton(incomesButton, value: true)
+            viewModel.parameters.types = TransactionFilteringTypes(incomes: true)
+            updateButtonCollor(incomesButton, value: true)
         }
         
     }
     
     @IBAction func tappedExpensesButton(_ sender: UIButton) {
         
-        if let types = viewModel.types {
-            viewModel.types?.expenses = !types.expenses
-            togleButton(expensesButton, value: !types.expenses)
+        if let types = viewModel.parameters.types {
+            viewModel.parameters.types?.expenses = !types.expenses
+            updateButtonCollor(expensesButton, value: !types.expenses)
         } else {
-            viewModel.types = TransactionFilteringTypes(expenses: true)
-            togleButton(expensesButton, value: true)
+            viewModel.parameters.types = TransactionFilteringTypes(expenses: true)
+            updateButtonCollor(expensesButton, value: true)
         }
         
     }
@@ -215,11 +220,11 @@ class FilteringTransactionsViewController: UIViewController {
             valueHiddenStackView.isHidden = false
             let minValue = minValueTextField.text?.toDouble() ?? 0.0
             let maxValue = maxValueTextField.text?.toDouble() ?? 0.0
-            viewModel.limits = TransactionFilteringValue(min: minValue, max: maxValue)
+            viewModel.parameters.limits = TransactionFilteringValue(min: minValue, max: maxValue)
         } else {
             valueHeightConstraint.constant = 70
             valueHiddenStackView.isHidden = true
-            viewModel.limits = nil
+            viewModel.parameters.limits = nil
         }
         
         stackViewHeightConstraint.constant = calculatedStackViewHeight
@@ -227,11 +232,8 @@ class FilteringTransactionsViewController: UIViewController {
     }
     
     @IBAction func tappedFilterButton(_ sender: UIButton) {
-        
-        let filteredTransactions = viewModel.filterTransactions()
-        delegate?.didFilter(transactions: filteredTransactions)
+        delegate?.didFilter(parameters: viewModel.parameters)
         dismiss(animated: true)
-        
     }
     
     
@@ -240,12 +242,12 @@ class FilteringTransactionsViewController: UIViewController {
     }
     
     private func setupElements() {
-        setupButton(resolvedTransactionsButton)
-        setupButton(pendingTransactionsButton)
-        setupButton(futureTransactionsButton)
-        setupButton(incomesButton)
-        setupButton(expensesButton)
-        setupButton(creditExpensesButton)
+        setupButton(resolvedTransactionsButton, value: false)
+        setupButton(pendingTransactionsButton, value: false)
+        setupButton(futureTransactionsButton, value: false)
+        setupButton(incomesButton, value: viewModel.parameters.types?.incomes)
+        setupButton(expensesButton, value: viewModel.parameters.types?.expenses)
+        setupButton(creditExpensesButton, value: false)
         minValueTextField.delegate = self
         minValueTextField.text = 0.0.toStringMoney()
         maxValueTextField.delegate = self
@@ -253,18 +255,17 @@ class FilteringTransactionsViewController: UIViewController {
         
     }
     
-    private func setupButton(_ button: UIButton) {
+    private func setupButton(_ button: UIButton, value: Bool?) {
         button.layer.cornerRadius = 15
         button.clipsToBounds = true
         button.layer.masksToBounds = true
         
-        button.backgroundColor = .systemGray6
-        button.tintColor = .black
+        updateButtonCollor(button, value: value ?? false)
         
         button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
-    private func togleButton(_ button: UIButton, value: Bool) {
+    private func updateButtonCollor(_ button: UIButton, value: Bool) {
     
         if value {
             button.backgroundColor = .systemBlue
@@ -303,19 +304,19 @@ class FilteringTransactionsViewController: UIViewController {
         
         if activeTextField == fromDateTextField {
             fromDateTextField.text = datePickerChange(date: datePicker.date)
-            viewModel.dates?.from =  fromDateTextField.text.orEmpty
+            viewModel.parameters.dates?.from =  fromDateTextField.text.orEmpty
             
-            if let toDate = toDateTextField.text?.toDate(format: globalStrings.dateFormat), datePicker.date > toDate {
+            if let toDate = toDateTextField.text?.toDate(), datePicker.date > toDate {
                 toDateTextField.text = fromDateTextField.text.orEmpty
-                viewModel.dates?.to =  fromDateTextField.text.orEmpty
+                viewModel.parameters.dates?.to =  fromDateTextField.text.orEmpty
             }
         } else if activeTextField == toDateTextField {
             toDateTextField.text = datePickerChange(date: datePicker.date)
-            viewModel.dates?.to =  toDateTextField.text.orEmpty
+            viewModel.parameters.dates?.to =  toDateTextField.text.orEmpty
             
-            if let fromDate = fromDateTextField.text?.toDate(format: globalStrings.dateFormat), datePicker.date < fromDate {
+            if let fromDate = fromDateTextField.text?.toDate(), datePicker.date < fromDate {
                 fromDateTextField.text = toDateTextField.text
-                viewModel.dates?.from =  fromDateTextField.text.orEmpty
+                viewModel.parameters.dates?.from =  fromDateTextField.text.orEmpty
             }
         }
         
@@ -339,14 +340,6 @@ class FilteringTransactionsViewController: UIViewController {
         default:
             return date.toString(format: globalStrings.dateFormat)
         }
-    }
-    
-    public func setValueToString(_ value: Double) -> String {
-        var amount: String = String(value)
-        if amount.hasSuffix(".0") {
-            amount = String(amount.dropLast(2))
-        }
-        return amount
     }
 
 }
@@ -380,9 +373,9 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             let text = updateSelectionText(from: selectionResult, items: accounts)
             allAccountsLabel.text = text.isEmpty ? "Todas Contas" : text
 
-            viewModel.accounts = []
+            viewModel.parameters.accounts = []
             updateViewModel(selectionResult: selectionResult, items: bankAccountsList) { account in
-                viewModel.accounts?.append(account.getId)
+                viewModel.parameters.accounts?.append(account.getId)
             }
 
         } else if button === cardsButton {
@@ -390,9 +383,9 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             let text = updateSelectionText(from: selectionResult, items: cards)
             allCreditCardsLabel.text = text.isEmpty ? "Todos Cartões" : text
 
-            viewModel.creditCards = []
+            viewModel.parameters.creditCards = []
             updateViewModel(selectionResult: selectionResult, items: creditCardsList) { card in
-                viewModel.creditCards?.append(card.getId)
+                viewModel.parameters.creditCards?.append(card.getId)
             }
 
         } else if button === categoriesButton {
@@ -400,9 +393,9 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             let text = updateSelectionText(from: selectionResult, items: categories)
             allCategoriesLabel.text = text.isEmpty ? "Todas Categorias" : text
 
-            viewModel.categories = []
+            viewModel.parameters.categories = []
             updateViewModel(selectionResult: selectionResult, items: categories) { category in
-                viewModel.categories?.append(category)
+                viewModel.parameters.categories?.append(category)
             }
         }
     }
@@ -449,7 +442,7 @@ extension FilteringTransactionsViewController: InsertNumbersModalProtocol {
 
     func didSelectNumber(_ value: Double, id: Int) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self, let limits = self.viewModel.limits else { return }
+            guard let self = self, let limits = self.viewModel.parameters.limits else { return }
 
             var updatedLimits = limits
 
@@ -476,7 +469,7 @@ extension FilteringTransactionsViewController: InsertNumbersModalProtocol {
                 break
             }
 
-            self.viewModel.limits = updatedLimits
+            self.viewModel.parameters.limits = updatedLimits
         }
     }
 }

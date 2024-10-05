@@ -32,8 +32,8 @@ class TransactionsViewController: UIViewController {
     
     @IBAction func tappedTransactionsFilterButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: FilteringTransactionsViewController.identifier, bundle: nil)
-        let vc = storyboard.instantiateViewController(identifier: FilteringTransactionsViewController.identifier) {coder -> FilteringTransactionsViewController? in
-            return FilteringTransactionsViewController(coder: coder)
+        let vc = storyboard.instantiateViewController(identifier: FilteringTransactionsViewController.identifier) { [weak self] coder -> FilteringTransactionsViewController? in
+            return FilteringTransactionsViewController(coder: coder, parameters: self?.viewModel.filteringParameters)
         }
         vc.delegate = self
         present(vc, animated: true)
@@ -57,7 +57,7 @@ class TransactionsViewController: UIViewController {
         noTransactionsLabel.text = title
     }
     
-    private func setupCollectionView(){
+    private func setupCollectionView() {
         transactionsCollectionView.delegate = self
         transactionsCollectionView.dataSource = self
 
@@ -92,9 +92,11 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
 }
 
 extension TransactionsViewController: FilterTransactionsDelegate {
-    
-    func didFilter(transactions: [Transactions]) {
-        viewModel.filteredTransactions = transactions
+    func didFilter(parameters: FilteringParameters?) {
+        
+        guard let parameters = parameters else { return }
+        
+        viewModel.filterTransactions(parameters: parameters)
         showNoTransactionsMessage(title: transactionsStrings.noTransactionsFiltered)
         transactionsCollectionView.reloadData()
     }
