@@ -86,7 +86,7 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return viewModel.getCellSize(viewWidth: view.frame.width)
+        return CGSize(width: view.frame.width - 30, height: 85)
     }
     
 }

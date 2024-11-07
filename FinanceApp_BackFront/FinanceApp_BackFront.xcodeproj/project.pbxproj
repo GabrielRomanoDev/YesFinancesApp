@@ -57,7 +57,6 @@
 		A14F99AD2A259DF300257B67 /* creditCardModalStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F99AC2A259DF300257B67 /* creditCardModalStrings.swift */; };
 		A14F99B02A259F0800257B67 /* CreditCardModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F99AF2A259F0800257B67 /* CreditCardModalViewModel.swift */; };
 		A15162202A09444700C5AD42 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A151621F2A09444700C5AD42 /* Formatters.swift */; };
-		A1527C1A2C7C2D5000B1D1AF /* FilteringTransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1527C192C7C2D5000B1D1AF /* FilteringTransactionsViewModel.swift */; };
 		A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA3E2A21A47800372C00 /* loginStrings.swift */; };
 		A152AA422A21A69B00372C00 /* registerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA412A21A69B00372C00 /* registerStrings.swift */; };
 		A158390E2A5721DA001A0A03 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158390D2A5721DA001A0A03 /* Utils.swift */; };
@@ -69,6 +68,8 @@
 		A16688F929F0B32900568217 /* TransactionsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A16688F729F0B32900568217 /* TransactionsCollectionViewCell.xib */; };
 		A16688FC29F17E5200568217 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16688FB29F17E5200568217 /* TransactionsViewModel.swift */; };
 		A166B96229DF4BD600F33A98 /* ListedCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166B96129DF4BD600F33A98 /* ListedCategories.swift */; };
+		A16A8D472CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */; };
+		A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */; };
 		A17C89DE2A09C76700B5DB2F /* BanksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C89DC2A09C76700B5DB2F /* BanksCell.swift */; };
 		A17C89DF2A09C76700B5DB2F /* BanksCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17C89DD2A09C76700B5DB2F /* BanksCell.xib */; };
 		A17C89E32A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17C89E22A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard */; };
@@ -247,7 +248,6 @@
 		A14F99AC2A259DF300257B67 /* creditCardModalStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = creditCardModalStrings.swift; sourceTree = "<group>"; };
 		A14F99AF2A259F0800257B67 /* CreditCardModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardModalViewModel.swift; sourceTree = "<group>"; };
 		A151621F2A09444700C5AD42 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
-		A1527C192C7C2D5000B1D1AF /* FilteringTransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTransactionsViewModel.swift; sourceTree = "<group>"; };
 		A152AA3E2A21A47800372C00 /* loginStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginStrings.swift; sourceTree = "<group>"; };
 		A152AA412A21A69B00372C00 /* registerStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerStrings.swift; sourceTree = "<group>"; };
 		A158390D2A5721DA001A0A03 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -259,6 +259,8 @@
 		A16688F729F0B32900568217 /* TransactionsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionsCollectionViewCell.xib; sourceTree = "<group>"; };
 		A16688FB29F17E5200568217 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
 		A166B96129DF4BD600F33A98 /* ListedCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListedCategories.swift; sourceTree = "<group>"; };
+		A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTransacitonsCollectionViewCell.swift; sourceTree = "<group>"; };
+		A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilteringTransacitonsCollectionViewCell.xib; sourceTree = "<group>"; };
 		A17C89DC2A09C76700B5DB2F /* BanksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanksCell.swift; sourceTree = "<group>"; };
 		A17C89DD2A09C76700B5DB2F /* BanksCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BanksCell.xib; sourceTree = "<group>"; };
 		A17C89E22A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCreditCardsViewController.storyboard; sourceTree = "<group>"; };
@@ -414,8 +416,8 @@
 		A100FAA42C74002D006DCD47 /* FilteringTransactionsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A16A8D442CB630D40094E163 /* FilteringTransacitonsCollectionViewCell */,
 				A1527C172C7C2D2B00B1D1AF /* View */,
-				A1527C182C7C2D3400B1D1AF /* ViewModel */,
 			);
 			path = FilteringTransactionsViewController;
 			sourceTree = "<group>";
@@ -742,14 +744,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A1527C182C7C2D3400B1D1AF /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				A1527C192C7C2D5000B1D1AF /* FilteringTransactionsViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		A152AA3D2A21A45600372C00 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,6 +833,15 @@
 				A16688FB29F17E5200568217 /* TransactionsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A16A8D442CB630D40094E163 /* FilteringTransacitonsCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */,
+				A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */,
+			);
+			path = FilteringTransacitonsCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		A16B56A229C1076500E53727 /* Screens */ = {
@@ -1795,6 +1798,7 @@
 				A1D22DB62A53016A0042D060 /* CategoryImagesCollectionViewCell.xib in Resources */,
 				A1C908B62A48B84600A04F84 /* 8943-money-greenbg.json in Resources */,
 				A1D2F84E29E9E5B100DCA6E4 /* CategoriesModalCell.xib in Resources */,
+				A16A8D472CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib in Resources */,
 				A12329F129FB0F2C0053AC38 /* BankAccountsViewController.storyboard in Resources */,
 				E35D087329BDB20C0098F0B5 /* MoreOptionsViewController.storyboard in Resources */,
 				A1C4526B2C7BC63B00B8BBE7 /* SelectionTableViewCell.xib in Resources */,
@@ -1955,6 +1959,7 @@
 				A1C8BA712A22ECE000590758 /* addStrings.swift in Sources */,
 				A18ED59E2A21469D00F564BD /* MoreOptionsViewModel.swift in Sources */,
 				A11BDA7229F4C04A006CF6B2 /* BankAccount.swift in Sources */,
+				A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */,
 				A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */,
 				A19742A52A2247FB00455DB0 /* mainStrings.swift in Sources */,
 				A17DC6842A0989B900D12C3C /* TabBarController.swift in Sources */,
@@ -1982,7 +1987,6 @@
 				A189A39929F58A4700C22A6D /* BankProperties.swift in Sources */,
 				E3E9089129BFAF1B00B34864 /* CategoriesGraphViewController.swift in Sources */,
 				A16636EF29DE33C500162872 /* Transactions.swift in Sources */,
-				A1527C1A2C7C2D5000B1D1AF /* FilteringTransactionsViewModel.swift in Sources */,
 				A1FDB7ED2A4636D4006B3459 /* CurrencyPickerOptions.swift in Sources */,
 				A158390E2A5721DA001A0A03 /* Utils.swift in Sources */,
 				A101916C29FAB3FA00776A67 /* AccountCollectionViewCell.swift in Sources */,

@@ -57,7 +57,10 @@ class TransactionsFilterWorker {
         if let accountsSelection = parameters.accounts {
             
             filteredTransactions = filteredTransactions.filter { transaction in
-                accountsSelection.contains(transaction.accountId)
+                accountsSelection.contains { account in
+                    account.getId == transaction.accountId
+                    
+                }
             }
             
         }
@@ -133,7 +136,7 @@ class TransactionsFilterWorker {
 struct FilteringParameters {
     
     var types: TransactionFilteringTypes? = nil
-    var accounts: [String]? = nil
+    var accounts: [BankAccount]? = nil
     var creditCards: [String]? = nil
     var categories: [String]? = nil
     var limits: TransactionFilteringValue? = nil

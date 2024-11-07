@@ -40,7 +40,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "625D3C3B-FADF-4D91-B773-1EF46AF54A9A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FinanceApp_BackFront/Screens/ModalScreens/insertNumbersModalViewController/ViewModel/insertNumbersModalViewModel.swift"
@@ -888,7 +888,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E15CB4AB-19F4-43AD-AD14-560599D855B5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
@@ -920,7 +920,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5D37735E-739F-4FAD-8A15-CA3FD0B25BB5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FinanceApp_BackFront/Screens/TabBarScreens/MoreOptionsScreens/BankAccountsViewController/ViewModel/BankAccountsViewModel.swift"
@@ -1105,6 +1105,22 @@
             startingLineNumber = "136"
             endingLineNumber = "136"
             landmarkName = "tappedCardsModalButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE4350B7-7203-4CAF-858E-EC8CEFDD8B47"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FinanceApp_BackFront/Screens/TabBarScreens/TransactionsScreens/FilteringTransactionsViewController/View/FilteringTransactionsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
+            landmarkName = "updateCollectionViewContent()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

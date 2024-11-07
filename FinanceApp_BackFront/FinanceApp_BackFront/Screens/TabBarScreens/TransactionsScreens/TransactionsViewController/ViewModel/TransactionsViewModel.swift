@@ -47,7 +47,7 @@ struct TransactionsViewModel {
     }
     
     public func getCellSize(viewWidth:CGFloat) -> CGSize {
-        return CGSize (width: viewWidth - 30, height: 85)
+        return CGSize(width: viewWidth - 30, height: 85)
     }
     
     mutating func filterTransactions(parameters: FilteringParameters) {
