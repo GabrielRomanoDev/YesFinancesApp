@@ -19,7 +19,7 @@ class FilteringTransactionsViewController: UIViewController {
     var parameters: FilteringParameters
     
     var calculatedStackViewHeight: CGFloat {
-        return 380 + timeIntervalHeightConstraint.constant + valueHeightConstraint.constant + accountsViewHeightConstraint.constant
+        return 200 + timeIntervalHeightConstraint.constant + valueHeightConstraint.constant + accountsViewHeightConstraint.constant + creditCardsViewHeightConstraint.constant + categoriesViewHeightConstraint.constant
     }
     
     init?(coder: NSCoder, parameters: FilteringParameters?) {
@@ -47,9 +47,13 @@ class FilteringTransactionsViewController: UIViewController {
     @IBOutlet weak var accountsButton: UIButton!
     @IBOutlet weak var creditCardsLabel: UILabel!
     @IBOutlet weak var allCreditCardsLabel: UILabel!
+    @IBOutlet weak var creditCardsCollectionView: UICollectionView!
+    @IBOutlet weak var creditCardsViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var cardsButton: UIButton!
     @IBOutlet weak var categoriesLabel: UILabel!
     @IBOutlet weak var allCategoriesLabel: UILabel!
+    @IBOutlet weak var categoriesCollectionView: UICollectionView!
+    @IBOutlet weak var categoriesViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var categoriesButton: UIButton!
     @IBOutlet weak var timeIntervalView: UIView!
     @IBOutlet weak var timeIntervalHeightConstraint: NSLayoutConstraint!
@@ -58,9 +62,11 @@ class FilteringTransactionsViewController: UIViewController {
     @IBOutlet weak var valueHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var timeIntervalSwitch: UISwitch!
     @IBOutlet weak var fromDateTextField: UITextField!
     @IBOutlet weak var toDateTextField: UITextField!
     @IBOutlet weak var timeIntervalHiddenStackView: UIStackView!
+    @IBOutlet weak var valueSwitch: UISwitch!
     @IBOutlet weak var minValueTextField: UITextField!
     @IBOutlet weak var maxValueTextField: UITextField!
     @IBOutlet weak var valueHiddenStackView: UIStackView!
@@ -69,8 +75,16 @@ class FilteringTransactionsViewController: UIViewController {
         super.viewDidLoad()
         setupStrings()
         setupElements()
-        setupCollectionView()
+        setupCollectionView(collectionView: accountsCollectionView)
+        setupCollectionView(collectionView: creditCardsCollectionView)
+        setupCollectionView(collectionView: categoriesCollectionView)
+        updateCollectionViewContent()
         setupDataPicker()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate?.didFilter(parameters: parameters)
+        dismiss(animated: true)
     }
     
     @IBAction func tappedResolvedTransactionsButton(_ sender: UIButton) {
@@ -200,35 +214,13 @@ class FilteringTransactionsViewController: UIViewController {
     
     @IBAction func tappedTimeIntervalSwitch(_ sender: UISwitch) {
         
-        if sender.isOn {
-            timeIntervalHeightConstraint.constant = 140
-            timeIntervalHiddenStackView.isHidden = false
-            
-            
-        } else {
-            timeIntervalHeightConstraint.constant = 70
-            timeIntervalHiddenStackView.isHidden = true
-        }
-        
-        stackViewHeightConstraint.constant = calculatedStackViewHeight
+        updateTimeIntervalViewHeight(value: sender.isOn)
         
     }
     
     @IBAction func tappedValueFilterSwitch(_ sender: UISwitch) {
         
-        if sender.isOn {
-            valueHeightConstraint.constant = 140
-            valueHiddenStackView.isHidden = false
-            let minValue = minValueTextField.text?.toDouble() ?? 0.0
-            let maxValue = maxValueTextField.text?.toDouble() ?? 0.0
-            parameters.limits = TransactionFilteringValue(min: minValue, max: maxValue)
-        } else {
-            valueHeightConstraint.constant = 70
-            valueHiddenStackView.isHidden = true
-            parameters.limits = nil
-        }
-        
-        stackViewHeightConstraint.constant = calculatedStackViewHeight
+        updateValueViewHeight(value: sender.isOn)
         
     }
     
@@ -243,28 +235,37 @@ class FilteringTransactionsViewController: UIViewController {
     }
     
     private func setupElements() {
+        
         setupButton(resolvedTransactionsButton, value: false)
         setupButton(pendingTransactionsButton, value: false)
         setupButton(futureTransactionsButton, value: false)
         setupButton(incomesButton, value: parameters.types?.incomes)
         setupButton(expensesButton, value: parameters.types?.expenses)
         setupButton(creditExpensesButton, value: false)
+        
+        timeIntervalSwitch.isOn = parameters.dates != nil
+        updateTimeIntervalViewHeight(value: timeIntervalSwitch.isOn)
+        fromDateTextField.text = parameters.dates?.from ?? ""
+        toDateTextField.text = parameters.dates?.to ?? ""
+        
+        valueSwitch.isOn = parameters.limits != nil
+        updateValueViewHeight(value: valueSwitch.isOn)
         minValueTextField.delegate = self
-        minValueTextField.text = 0.0.toStringMoney()
         maxValueTextField.delegate = self
-        maxValueTextField.text = 0.0.toStringMoney()
+        minValueTextField.text = parameters.limits?.min.toStringMoney() ?? 0.0.toStringMoney()
+        maxValueTextField.text = parameters.limits?.max.toStringMoney() ?? 0.0.toStringMoney()
         
     }
     
-    private func setupCollectionView() {
-        accountsCollectionView.delegate = self
-        accountsCollectionView.dataSource = self
-        if let layout = accountsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+    private func setupCollectionView(collectionView: UICollectionView) {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
             layout.estimatedItemSize = .zero
             layout.sectionInset = UIEdgeInsets(top: 10, left: 15, bottom: 0, right: 15)
         }
-        accountsCollectionView.register(FilteringTransacitonsCollectionViewCell.nib(), forCellWithReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier)
+        collectionView.register(FilteringTransacitonsCollectionViewCell.nib(), forCellWithReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier)
         
         updateCollectionViewContent()
         
@@ -301,15 +302,38 @@ class FilteringTransactionsViewController: UIViewController {
             if let selectedAccounts = self.parameters.accounts {
                 accountsCollectionView.isHidden = false
                 allAccountsSelectedLabel.isHidden = true
-                self.accountsViewHeightConstraint.constant = 45 + 50 * CGFloat(self.parameters.accounts?.count ?? 1)
+                self.accountsViewHeightConstraint.constant = 45 + 50 * CGFloat(selectedAccounts.count)
             } else {
                 accountsCollectionView.isHidden = true
                 allAccountsSelectedLabel.isHidden = false
                 self.accountsViewHeightConstraint.constant = 85
             }
             
+            if let selectedCards = self.parameters.creditCards {
+                creditCardsCollectionView.isHidden = false
+                allCreditCardsLabel.isHidden = true
+                self.creditCardsViewHeightConstraint.constant = 45 + 50 * CGFloat(selectedCards.count)
+            } else {
+                creditCardsCollectionView.isHidden = true
+                allCreditCardsLabel.isHidden = false
+                self.creditCardsViewHeightConstraint.constant = 85
+            }
+            
+            if let selectedCategories = self.parameters.categories {
+                categoriesCollectionView.isHidden = false
+                allCategoriesLabel.isHidden = true
+                self.categoriesViewHeightConstraint.constant = 45 + 50 * CGFloat(selectedCategories.count)
+            } else {
+                categoriesCollectionView.isHidden = true
+                allCategoriesLabel.isHidden = false
+                self.categoriesViewHeightConstraint.constant = 85
+            }
+            
             self.stackViewHeightConstraint.constant = self.calculatedStackViewHeight
+            
             self.accountsCollectionView.reloadData()
+            self.creditCardsCollectionView.reloadData()
+            self.categoriesCollectionView.reloadData()
             
         }
         
@@ -338,30 +362,39 @@ class FilteringTransactionsViewController: UIViewController {
     }
     
     @objc func dateChange(datePicker: UIDatePicker) {
+        
         guard let activeTextField = activeTextField else { return }
         
-        if activeTextField == fromDateTextField {
-            fromDateTextField.text = datePickerChange(date: datePicker.date)
-            parameters.dates?.from =  fromDateTextField.text.orEmpty
-            
-            if let toDate = toDateTextField.text?.toDate(), datePicker.date > toDate {
-                toDateTextField.text = fromDateTextField.text.orEmpty
-                parameters.dates?.to =  fromDateTextField.text.orEmpty
-            }
-        } else if activeTextField == toDateTextField {
-            toDateTextField.text = datePickerChange(date: datePicker.date)
-            parameters.dates?.to =  toDateTextField.text.orEmpty
-            
-            if let fromDate = fromDateTextField.text?.toDate(), datePicker.date < fromDate {
-                fromDateTextField.text = toDateTextField.text
-                parameters.dates?.from =  fromDateTextField.text.orEmpty
-            }
+        let selectedDateText = datePickerChange(date: datePicker.date)
+        let isFromDate = activeTextField == fromDateTextField
+        let oppositeTextField = isFromDate ? toDateTextField : fromDateTextField
+        
+        activeTextField.text = selectedDateText
+        updateParametersDate(for: isFromDate, with: selectedDateText)
+        
+        if let oppositeDate = oppositeTextField?.text?.toDate(),
+           (isFromDate && datePicker.date > oppositeDate) || (!isFromDate && datePicker.date < oppositeDate) {
+            oppositeTextField?.text = selectedDateText
+            updateParametersDate(for: !isFromDate, with: selectedDateText)
         }
         
         activeTextField.resignFirstResponder()
+        
+    }
+
+    private func updateParametersDate(for isFromDate: Bool, with date: String) {
+        
+        if parameters.dates == nil {
+            parameters.dates = TransactionFilteringDates(from: date, to: date)
+        } else if isFromDate {
+            parameters.dates?.from = date
+        } else {
+            parameters.dates?.to = date
+        }
+        
     }
     
-    func datePickerChange(date: Date) -> String {
+    private func datePickerChange(date: Date) -> String {
         let calendar = Calendar.current
         let today = Date()
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
@@ -377,6 +410,40 @@ class FilteringTransactionsViewController: UIViewController {
         default:
             return date.toString(format: globalStrings.dateFormat)
         }
+    }
+    
+    private func updateTimeIntervalViewHeight(value: Bool) {
+        
+        if value {
+            timeIntervalHeightConstraint.constant = 140
+            timeIntervalHiddenStackView.isHidden = false
+            
+            
+        } else {
+            timeIntervalHeightConstraint.constant = 70
+            timeIntervalHiddenStackView.isHidden = true
+        }
+        
+        stackViewHeightConstraint.constant = calculatedStackViewHeight
+        
+    }
+    
+    private func updateValueViewHeight(value: Bool) {
+        
+        if value {
+            valueHeightConstraint.constant = 140
+            valueHiddenStackView.isHidden = false
+            let minValue = minValueTextField.text?.toDouble() ?? 0.0
+            let maxValue = maxValueTextField.text?.toDouble() ?? 0.0
+            parameters.limits = TransactionFilteringValue(min: minValue, max: maxValue)
+        } else {
+            valueHeightConstraint.constant = 70
+            valueHiddenStackView.isHidden = true
+            parameters.limits = nil
+        }
+        
+        stackViewHeightConstraint.constant = calculatedStackViewHeight
+        
     }
 
 }
@@ -412,10 +479,17 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             parameters.accounts = []
             updateParameters(selectionResult: selectionResult, items: bankAccountsList) { account in
                 parameters.accounts?.append(account)
-                
-                updateCollectionViewContent()
-                
             }
+            
+            updateCollectionViewContent()
+            
+        } else if button === categoriesButton {
+            
+            parameters.categories = []
+            updateParameters(selectionResult: selectionResult, items: expenseCategories) { category in
+                parameters.categories?.append(category)
+            }
+            updateCollectionViewContent()
         }
 //        } else if button === cardsButton {
 //            let cards = creditCardsList.map { $0.desc }
@@ -517,20 +591,43 @@ extension FilteringTransactionsViewController: UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        guard let accountsNumber = parameters.accounts?.count else { return 0 }
-        
-        return accountsNumber
+        switch collectionView {
+        case accountsCollectionView:
+            return parameters.accounts?.count ?? 0
+        case creditCardsCollectionView:
+            return parameters.creditCards?.count ?? 0
+        case categoriesCollectionView:
+            return parameters.categories?.count ?? 0
+        default:
+            return 0
+        }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = accountsCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
+        var cell: FilteringTransacitonsCollectionViewCell
+        var item: Any?
+        
+        switch collectionView {
+        case accountsCollectionView:
+            cell = accountsCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
+            item = parameters.accounts?[indexPath.row]
+        case creditCardsCollectionView:
+            cell = creditCardsCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
+            item = parameters.creditCards?[indexPath.row]
+        case categoriesCollectionView:
+            cell = categoriesCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
+            item = parameters.categories?[indexPath.row]
+        default:
+            return UICollectionViewCell()
+        }
+        
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         cell.delegate = self
         cell.index = indexPath.row
-        cell.setupCell(item: parameters.accounts?[indexPath.row])
+        cell.setupCell(item: item)
         return cell
         
     }
@@ -543,19 +640,32 @@ extension FilteringTransactionsViewController: UICollectionViewDataSource, UICol
 
 extension FilteringTransactionsViewController: FilteringTransacitonsCollectionViewCellProtocol {
     
-    func didRemoveItem(index: Int?) {
+    func didRemoveItem(index: Int?, item: Any?) {
         
         guard let index = index else { return }
         
-        parameters.accounts?.remove(at: index)
+        if let _ = item as? BankAccount {
+            parameters.accounts?.remove(at: index)
+            
+            if let accounts = parameters.accounts?.count, accounts <= 0 {
+                parameters.accounts = nil
+            }
+        } else if let _ = item as? CreditCard {
+            parameters.creditCards?.remove(at: index)
+            
+            if let creditCards = parameters.creditCards?.count, creditCards <= 0 {
+                parameters.creditCards = nil
+            }
+        } else if let _ = item as? TransactionCategory {
+            parameters.categories?.remove(at: index)
+            
+            if let categories = parameters.categories?.count, categories <= 0 {
+                parameters.categories = nil
+            }
+        }
+        
         updateCollectionViewContent()
         
-        if let accounts = parameters.accounts?.count, accounts <= 0 {
-            parameters.accounts = nil
-            allAccountsSelectedLabel.isHidden = false
-        } else {
-            allAccountsSelectedLabel.isHidden = true
-        }
     }
     
 }

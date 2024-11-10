@@ -67,7 +67,7 @@
 		A16688EB29F08CF600568217 /* BalanceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16688EA29F08CF600568217 /* BalanceCard.swift */; };
 		A16688F929F0B32900568217 /* TransactionsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A16688F729F0B32900568217 /* TransactionsCollectionViewCell.xib */; };
 		A16688FC29F17E5200568217 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16688FB29F17E5200568217 /* TransactionsViewModel.swift */; };
-		A166B96229DF4BD600F33A98 /* ListedCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166B96129DF4BD600F33A98 /* ListedCategories.swift */; };
+		A166B96229DF4BD600F33A98 /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166B96129DF4BD600F33A98 /* TransactionCategory.swift */; };
 		A16A8D472CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */; };
 		A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */; };
 		A17C89DE2A09C76700B5DB2F /* BanksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C89DC2A09C76700B5DB2F /* BanksCell.swift */; };
@@ -258,7 +258,7 @@
 		A16688EA29F08CF600568217 /* BalanceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCard.swift; sourceTree = "<group>"; };
 		A16688F729F0B32900568217 /* TransactionsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionsCollectionViewCell.xib; sourceTree = "<group>"; };
 		A16688FB29F17E5200568217 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
-		A166B96129DF4BD600F33A98 /* ListedCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListedCategories.swift; sourceTree = "<group>"; };
+		A166B96129DF4BD600F33A98 /* TransactionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategory.swift; sourceTree = "<group>"; };
 		A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTransacitonsCollectionViewCell.swift; sourceTree = "<group>"; };
 		A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilteringTransacitonsCollectionViewCell.xib; sourceTree = "<group>"; };
 		A17C89DC2A09C76700B5DB2F /* BanksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanksCell.swift; sourceTree = "<group>"; };
@@ -774,7 +774,7 @@
 				A11BDA7929F4C47F006CF6B2 /* Enums */,
 				A16636EE29DE33C500162872 /* Transactions.swift */,
 				A1A92BC529F81D6200E14EE8 /* CreditCardExpense.swift */,
-				A166B96129DF4BD600F33A98 /* ListedCategories.swift */,
+				A166B96129DF4BD600F33A98 /* TransactionCategory.swift */,
 				A140933C29E6EC3D0037662B /* CategoriesSum.swift */,
 				A16688EA29F08CF600568217 /* BalanceCard.swift */,
 				A11BDA7129F4C04A006CF6B2 /* BankAccount.swift */,
@@ -1950,7 +1950,7 @@
 				A1B8F3492A13C9E500F7CCB5 /* CategoriesGraphCollectionViewCell.swift in Sources */,
 				A1A92BB729F8124400E14EE8 /* CreditCardModalViewController.swift in Sources */,
 				A125C10B2A3A51E100A78390 /* InsertNumbersModalViewModel.swift in Sources */,
-				A166B96229DF4BD600F33A98 /* ListedCategories.swift in Sources */,
+				A166B96229DF4BD600F33A98 /* TransactionCategory.swift in Sources */,
 				A140934F29E7625A0037662B /* AddTrasactionsViewModel.swift in Sources */,
 				A1F86C6E2A4E2F5400D2534A /* FirestoreService.swift in Sources */,
 				A19F851529F973D20044F7DE /* EditGoalViewController.swift in Sources */,

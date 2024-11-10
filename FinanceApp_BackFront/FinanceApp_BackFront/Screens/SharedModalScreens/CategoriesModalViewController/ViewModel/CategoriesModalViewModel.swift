@@ -9,7 +9,7 @@ import Foundation
 
 class CategoriesModalViewModel{
     
-    var filteredCategories: [ListedCategories]
+    var filteredCategories: [TransactionCategory]
     
     init(transactionType:TransactionType) {
         if transactionType == .expense {
@@ -24,7 +24,7 @@ class CategoriesModalViewModel{
         return filteredCategories.count
     }
     
-    public func getItemCategory(_ index:Int) -> ListedCategories {
+    public func getItemCategory(_ index:Int) -> TransactionCategory {
         return filteredCategories[index]
     }
     

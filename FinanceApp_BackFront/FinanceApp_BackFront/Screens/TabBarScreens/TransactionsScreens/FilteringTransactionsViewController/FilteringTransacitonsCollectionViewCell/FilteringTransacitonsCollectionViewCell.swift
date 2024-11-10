@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FilteringTransacitonsCollectionViewCellProtocol: AnyObject {
-    func didRemoveItem(index: Int?)
+    func didRemoveItem(index: Int?, item: Any?)
 }
 
 class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
@@ -21,6 +21,7 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
     static let identifier:String = String(describing: FilteringTransacitonsCollectionViewCell.self)
     weak var delegate: FilteringTransacitonsCollectionViewCellProtocol?
     var index: Int?
+    var item: Any?
     
     static func nib() -> UINib {
         return UINib(nibName: identifier, bundle: nil)
@@ -32,22 +33,34 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func tappedDeleteButton(_ sender: UIButton) {
-        delegate?.didRemoveItem(index: index)
+        delegate?.didRemoveItem(index: index, item: self.item)
     }
     
     func setupCell(item: Any?) {
+        
+        self.item = item
         
         if let account = item as? BankAccount {
             descLabel.text = account.desc
             self.layer.borderWidth = 1
             self.layer.borderColor = UIColor.systemGray5.cgColor
             self.deleteButton.isHidden = false
-        } else {
-            descLabel.text = "Todas as Contas"
+        } else if let creditCard = item as? CreditCard {
+            descLabel.text = creditCard.desc
             self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.white.cgColor
-            self.deleteButton.isHidden = true
-        }
+            self.layer.borderColor = UIColor.systemGray5.cgColor
+            self.deleteButton.isHidden = false
+        } else if let category = item as? TransactionCategory {
+            descLabel.text = category.name
+            self.layer.borderWidth = 1
+            self.layer.borderColor = UIColor.systemGray5.cgColor
+            self.deleteButton.isHidden = false
+        } //else {
+//            descLabel.text = "Todas as Contas"
+//            self.layer.borderWidth = 1
+//            self.layer.borderColor = UIColor.white.cgColor
+//            self.deleteButton.isHidden = true
+//        }
         
         imageView.image = UIImage(systemName: "ball")
     }

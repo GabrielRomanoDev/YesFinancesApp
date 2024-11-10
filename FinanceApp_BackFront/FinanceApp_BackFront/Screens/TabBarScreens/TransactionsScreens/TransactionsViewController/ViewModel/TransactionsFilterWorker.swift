@@ -80,8 +80,12 @@ class TransactionsFilterWorker {
         if let categoriesSelection = parameters.categories {
             
             filteredTransactions = filteredTransactions.filter { transaction in
-                categoriesSelection.contains(transaction.desc)
+                categoriesSelection.contains { category in
+                    category.name == expenseCategories[transaction.categoryIndex].name
+                    
+                }
             }
+            
             
         }
         
@@ -137,8 +141,8 @@ struct FilteringParameters {
     
     var types: TransactionFilteringTypes? = nil
     var accounts: [BankAccount]? = nil
-    var creditCards: [String]? = nil
-    var categories: [String]? = nil
+    var creditCards: [CreditCard]? = nil
+    var categories: [TransactionCategory]? = nil
     var limits: TransactionFilteringValue? = nil
     var dates: TransactionFilteringDates? = nil
     
