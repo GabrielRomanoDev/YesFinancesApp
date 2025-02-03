@@ -1,0 +1,96 @@
+//
+//  FilteringTransacitonsCollectionViewCell.swift
+//  FinanceApp_BackFront
+//
+//  Created by Gabriel Luz Romano on 09/10/24.
+//
+
+import UIKit
+
+protocol FilteringTransactionsCollectionViewCellProtocol: AnyObject {
+    func didRemoveItem(index: Int?, item: Any?)
+}
+
+class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var boxView: UIView!
+    
+    static let identifier:String = String(describing: FilteringTransacitonsCollectionViewCell.self)
+    weak var delegate: FilteringTransactionsCollectionViewCellProtocol?
+    var index: Int?
+    var item: Any?
+    
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupElements()
+    }
+    
+    override func prepareForReuse() {
+        setupElements()
+        descLabel.text = ""
+        item = nil
+    }
+    
+    @IBAction func tappedDeleteButton(_ sender: UIButton) {
+        delegate?.didRemoveItem(index: index, item: self.item)
+    }
+    
+    func setupCell(bankAccount: BankAccount?) {
+        
+        self.item = bankAccount
+        
+        if let account = bankAccount {
+            descLabel.text = account.desc
+        } else {
+            allSelected(FilteringTransactionsStrings.allAccounts)
+        }
+        
+    }
+    
+    func setupCell(creditCard: CreditCard?) {
+        
+        self.item = creditCard
+        
+        if let card = creditCard {
+            descLabel.text = card.desc
+        } else {
+            allSelected(FilteringTransactionsStrings.allCards)
+        }
+
+    }
+    
+    func setupCell(category: TransactionCategory?) {
+        
+        self.item = category
+        
+        if let category = category {
+            descLabel.text = category.name
+        } else {
+            allSelected(FilteringTransactionsStrings.allCategories)
+        }
+        
+    }
+    
+    private func setupElements() {
+        //imageView.image = UIImage(systemName: "ballon.fill")
+        deleteButton.isHidden = false
+        imageView.isHidden = false
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.systemGray5.cgColor
+    }
+    
+    private func allSelected(_ text: String) {
+        descLabel.text = text
+        deleteButton.isHidden = true
+        self.layer.borderColor = UIColor.white.cgColor
+        
+    }
+    
+}

@@ -7,47 +7,71 @@
 
 import UIKit
 
-class SelectItensTableViewCell: UITableViewCell {
+protocol SelectItensTableViewCellDelegate: AnyObject {
+    func didSelectCell(type: ModalSelectionItemOptions)
+    func didRemoveItem(index: Int?, item: Any?)
+}
 
+class SelectItensTableViewCell: UITableViewCell {
+    
+    static let identifier:String = String(describing: SelectItensTableViewCell.self)
+    
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    weak var delegate: FilteringTransacitonsCollectionViewCellProtocol?
+    weak var delegate: SelectItensTableViewCellDelegate?
     var screenWidth: CGFloat?
-    var accounts: [BankAccount]? = nil
-    var cards: [CreditCard]? = nil
-    var categories: [TransactionCategory]? = nil
+    var itemType: ModalSelectionItemOptions = .other
+    var accounts: [BankAccount] = []
+    var cards: [CreditCard] = []
+    var categories: [TransactionCategory] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    override func prepareForReuse() {
+        accounts = []
+        cards = []
+        categories = []
+        itemType = .other
     }
     
-    func setupCell(accounts: [BankAccount]) {
+    func setupCell(accounts: [BankAccount]?) {
         self.titleLabel.text = FilteringTransactionsStrings.accounts
-        self.accounts = accounts
+    
+        self.itemType = .accounts
+        self.accounts = accounts ?? []
         
         setupCollectionView()
+        collectionView.reloadData()
     }
     
-    func setupCell(creditCards: [CreditCard]) {
+    func setupCell(creditCards: [CreditCard]?) {
+       
         self.titleLabel.text = FilteringTransactionsStrings.creditCards
-        self.cards = creditCards
+        
+        self.itemType = .creditCards
+        self.cards = creditCards ?? []
         
         setupCollectionView()
+        collectionView.reloadData()
     }
     
-    func setupCell(categories: [TransactionCategory]) {
+    func setupCell(categories: [TransactionCategory]?) {
+        
         self.titleLabel.text = FilteringTransactionsStrings.categories
-        self.categories = categories
+
+        self.itemType = .categories
+        self.categories = categories ?? []
         
         setupCollectionView()
+        collectionView.reloadData()
     }
     
     private func setupCollectionView() {
@@ -64,16 +88,47 @@ class SelectItensTableViewCell: UITableViewCell {
         
     }
     
+//    private func openSelectItensScreen() {
+//        
+//        let list = bankAccountsList.compactMap { accountItem in
+//            return accountItem.desc
+//        }
+//        
+//        let selectedItens: [Bool] = Array(repeating: false, count: bankAccountsList.count)
+//        
+//        let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
+//        let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
+//            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.accounts, list: list, selectedItens: selectedItens, selectionType: .multiSelection)
+//        }
+//        
+//        vc.delegate = self
+//        vc.triggeringButton = sender
+//        
+//        if let presentationController = vc.presentationController as? UISheetPresentationController{
+//            presentationController.detents = [.medium()]
+//        }
+//        self.present(vc, animated: true)
+//        
+//    }
+    
     private func removeCollectionViewItem(index: Int?, item: Any?) {
         
         if let position = index {
-            self.accounts?.remove(at: position)
-            self.cards?.remove(at: position)
-            self.categories?.remove(at: position)
+            switch itemType {
+            case .accounts:
+                self.accounts.remove(at: position)
+            case .creditCards:
+                self.cards.remove(at: position)
+            case .categories:
+                self.categories.remove(at: position)
+            case .other:
+                break
+            }
+
         }
         
         delegate?.didRemoveItem(index: index, item: item)
-        collectionView.reloadData()
+//        collectionView.reloadData()
         
     }
     
@@ -83,53 +138,55 @@ extension SelectItensTableViewCell: UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if let accounts = self.accounts {
+        switch itemType {
+        case .accounts:
             return (accounts.count > 0) ? accounts.count : 1
-        }
-        
-        if let cards = self.cards {
+        case .creditCards:
             return (cards.count > 0) ? cards.count : 1
-        }
-        
-        if let categories = self.categories {
+        case .categories:
             return (categories.count > 0) ? categories.count : 1
+        case .other:
+            return 0
         }
-        
-        return 0
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
         
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         cell.delegate = self
         cell.index = indexPath.row
         
-        if let accounts = self.accounts {
-            if accounts.count > 0 {
-                cell.setupCell(bankAccount: accounts[indexPath.row])
-            } else {
-                cell.setupCell(bankAccount: nil)
-            }
-        }
-        
-        if let cards = self.cards {
-            if cards.count > 0 {
-                cell.setupCell(creditCard: cards[indexPath.row])
-            } else {
-                cell.setupCell(creditCard: nil)
-            }
-        }
-        
-        if let categories = self.categories {
-            if categories.count > 0 {
-                cell.setupCell(category: categories[indexPath.row])
-            } else {
-                cell.setupCell(category: nil)
-            }
+        switch itemType {
+        case .accounts:
+            
+                if accounts.count > 0 {
+                    cell.setupCell(bankAccount: accounts[indexPath.row])
+                } else {
+                    cell.setupCell(bankAccount: nil)
+                }
+
+        case .creditCards:
+            
+                if cards.count > 0 {
+                    cell.setupCell(creditCard: cards[indexPath.row])
+                } else {
+                    cell.setupCell(creditCard: nil)
+                }
+            
+        case .categories:
+            
+                if categories.count > 0 {
+                    cell.setupCell(category: categories[indexPath.row])
+                } else {
+                    cell.setupCell(category: nil)
+                }
+            
+        case .other:
+            return cell
         }
         
         return cell
@@ -140,12 +197,18 @@ extension SelectItensTableViewCell: UICollectionViewDataSource, UICollectionView
         return CGSize(width: (screenWidth ?? 300) - 30, height: 35)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("SelectItensTableViewCell selected: \(itemType)")
+        delegate?.didSelectCell(type: itemType)
+    }
+    
 }
 
-extension SelectItensTableViewCell: FilteringTransacitonsCollectionViewCellProtocol {
+extension SelectItensTableViewCell: FilteringTransactionsCollectionViewCellProtocol {
     
     func didRemoveItem(index: Int?, item: Any?) {
         removeCollectionViewItem(index: index, item: item)
     }
     
 }
+

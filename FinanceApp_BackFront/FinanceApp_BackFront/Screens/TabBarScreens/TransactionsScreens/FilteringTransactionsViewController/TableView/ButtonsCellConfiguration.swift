@@ -15,14 +15,14 @@ struct ButtonsCellConfiguration {
     var button2Value: Bool
     var button3Value: Bool
     
-    init(filteringTypes: TransactionFilteringTypes) {
+    init(filteringTypes: TransactionFilteringTypes?) {
         self.configurationTitle = FilteringTransactionsStrings.transactionType
         self.button1Title = FilteringTransactionsStrings.income
         self.button2Title = FilteringTransactionsStrings.expense
         self.button3Title = FilteringTransactionsStrings.creditCard
-        self.button1Value = filteringTypes.incomes
-        self.button2Value = filteringTypes.expenses
-        self.button3Value = filteringTypes.creditCard
+        self.button1Value = filteringTypes?.incomes ?? false
+        self.button2Value = filteringTypes?.expenses ?? false
+        self.button3Value = filteringTypes?.creditCard ?? false
         
     }
 }

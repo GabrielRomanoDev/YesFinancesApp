@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,15 +35,15 @@
                                     <action selector="tappedDeleteButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="C4A-SU-hNj"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="graduationcap.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rNb-h9-439">
-                                <rect key="frame" x="15" y="13.666666666666668" width="25" height="27.000000000000004"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rNb-h9-439">
+                                <rect key="frame" x="10" y="12.666666666666668" width="25" height="25.000000000000004"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="6F0-nG-jEg"/>
                                     <constraint firstAttribute="width" constant="25" id="gyQ-hN-hnr"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lG-aJ-bk6">
-                                <rect key="frame" x="50" y="14.666666666666668" width="290" height="21.000000000000004"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lG-aJ-bk6">
+                                <rect key="frame" x="45" y="14.666666666666668" width="295" height="21.000000000000004"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -57,7 +57,7 @@
                             <constraint firstItem="4lG-aJ-bk6" firstAttribute="leading" secondItem="rNb-h9-439" secondAttribute="trailing" constant="10" id="NaJ-3f-hER"/>
                             <constraint firstItem="eV3-IF-qlz" firstAttribute="centerY" secondItem="cyA-Hh-wCQ" secondAttribute="centerY" id="PIS-ol-bhq"/>
                             <constraint firstAttribute="trailing" secondItem="eV3-IF-qlz" secondAttribute="trailing" id="b6g-dn-NfO"/>
-                            <constraint firstItem="rNb-h9-439" firstAttribute="leading" secondItem="cyA-Hh-wCQ" secondAttribute="leading" constant="15" id="gxV-WG-sl9"/>
+                            <constraint firstItem="rNb-h9-439" firstAttribute="leading" secondItem="cyA-Hh-wCQ" secondAttribute="leading" constant="10" id="gxV-WG-sl9"/>
                             <constraint firstItem="rNb-h9-439" firstAttribute="centerY" secondItem="cyA-Hh-wCQ" secondAttribute="centerY" id="iSp-Xf-G7z"/>
                         </constraints>
                     </view>
@@ -80,7 +80,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="graduationcap.fill" catalog="system" width="128" height="108"/>
         <image name="xmark.square" catalog="system" width="128" height="114"/>
     </resources>
 </document>

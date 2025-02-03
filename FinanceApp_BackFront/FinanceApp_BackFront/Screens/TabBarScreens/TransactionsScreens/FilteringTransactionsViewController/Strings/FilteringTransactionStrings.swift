@@ -8,6 +8,9 @@
 import Foundation
 
 enum FilteringTransactionsStrings {
+    
+    static let filters = "Filtros"
+    
     static let transactionType = "Tipo de Transação"
     static let income = "Ganho"
     static let expense = "Gasto"

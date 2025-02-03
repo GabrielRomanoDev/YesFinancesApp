@@ -22,4 +22,6 @@ enum globalStrings {
     static let yesterdayText = "Ontem"
     static let todayText = "Hoje"
     static let tomorrowText = "Amanhã"
+    static let confirm = "Confirmar"
+    static let apply = "Aplicar"
 }

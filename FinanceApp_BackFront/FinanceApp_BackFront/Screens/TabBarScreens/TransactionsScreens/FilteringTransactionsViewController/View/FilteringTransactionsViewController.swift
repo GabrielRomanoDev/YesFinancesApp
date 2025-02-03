@@ -18,68 +18,22 @@ class FilteringTransactionsViewController: UIViewController {
     weak var delegate: FilterTransactionsDelegate?
     var parameters: FilteringParameters
     
-    var calculatedStackViewHeight: CGFloat {
-        return 200 + timeIntervalHeightConstraint.constant + valueHeightConstraint.constant + accountsViewHeightConstraint.constant + creditCardsViewHeightConstraint.constant + categoriesViewHeightConstraint.constant
-    }
-    
     init?(coder: NSCoder, parameters: FilteringParameters?) {
         self.parameters = parameters ?? FilteringParameters()
         super.init(coder: coder)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(globalStrings.initError)
     }
     
     @IBOutlet weak var filtersLabel: UILabel!
-    @IBOutlet weak var situationLabel: UILabel!
-    @IBOutlet weak var resolvedTransactionsButton: UIButton!
-    @IBOutlet weak var pendingTransactionsButton: UIButton!
-    @IBOutlet weak var futureTransactionsButton: UIButton!
-    @IBOutlet weak var transactionTypeLabel: UILabel!
-    @IBOutlet weak var incomesButton: UIButton!
-    @IBOutlet weak var expensesButton: UIButton!
-    @IBOutlet weak var creditExpensesButton: UIButton!
-    @IBOutlet weak var accountsLabel: UILabel!
-    @IBOutlet weak var allAccountsSelectedLabel: UILabel!
-    @IBOutlet weak var accountsCollectionView: UICollectionView!
-    @IBOutlet weak var accountsViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var accountsButton: UIButton!
-    @IBOutlet weak var creditCardsLabel: UILabel!
-    @IBOutlet weak var allCreditCardsLabel: UILabel!
-    @IBOutlet weak var creditCardsCollectionView: UICollectionView!
-    @IBOutlet weak var creditCardsViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var cardsButton: UIButton!
-    @IBOutlet weak var categoriesLabel: UILabel!
-    @IBOutlet weak var allCategoriesLabel: UILabel!
-    @IBOutlet weak var categoriesCollectionView: UICollectionView!
-    @IBOutlet weak var categoriesViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var categoriesButton: UIButton!
-    @IBOutlet weak var timeIntervalView: UIView!
-    @IBOutlet weak var timeIntervalHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var timeIntervalLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var valueHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var stackViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var timeIntervalSwitch: UISwitch!
-    @IBOutlet weak var fromDateTextField: UITextField!
-    @IBOutlet weak var toDateTextField: UITextField!
-    @IBOutlet weak var timeIntervalHiddenStackView: UIStackView!
-    @IBOutlet weak var valueSwitch: UISwitch!
-    @IBOutlet weak var minValueTextField: UITextField!
-    @IBOutlet weak var maxValueTextField: UITextField!
-    @IBOutlet weak var valueHiddenStackView: UIStackView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStrings()
-        setupElements()
-        setupCollectionView(collectionView: accountsCollectionView)
-        setupCollectionView(collectionView: creditCardsCollectionView)
-        setupCollectionView(collectionView: categoriesCollectionView)
-        updateCollectionViewContent()
-        setupDataPicker()
+        setupTableView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,61 +41,7 @@ class FilteringTransactionsViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @IBAction func tappedResolvedTransactionsButton(_ sender: UIButton) {
-        
-//        parameters.resolvedTransactions.toggle()
-        
-//        togleButton(resolvedTransactionsButton, value: resolvedTransactions)
-        
-    }
-    
-    @IBAction func tappedPendingTransactionsButton(_ sender: UIButton) {
-        
-        //        parameters.pendingTransactions.toggle()
-        
-//        togleButton(pendingTransactionsButton, value: pendingTransactions)
-    }
-    
-    @IBAction func tappedFutureTransactionsButton(_ sender: UIButton) {
-        
-        //        parameters.futureTransactions.toggle()
-        
-//        togleButton(futureTransactionsButton, value: futureTransactions)
-    }
-    
-    @IBAction func tappedEarningButton(_ sender: UIButton) {
-        
-        if let types = parameters.types {
-            parameters.types?.incomes = !types.incomes
-            updateButtonCollor(incomesButton, value: !types.incomes)
-        } else {
-            parameters.types = TransactionFilteringTypes(incomes: true)
-            updateButtonCollor(incomesButton, value: true)
-        }
-        
-    }
-    
-    @IBAction func tappedExpensesButton(_ sender: UIButton) {
-        
-        if let types = parameters.types {
-            parameters.types?.expenses = !types.expenses
-            updateButtonCollor(expensesButton, value: !types.expenses)
-        } else {
-            parameters.types = TransactionFilteringTypes(expenses: true)
-            updateButtonCollor(expensesButton, value: true)
-        }
-        
-    }
-    
-    @IBAction func tappedCreditExpensesButton(_ sender: UIButton) {
-        
-//        creditExpenses.toggle()
-//        
-//        togleButton(creditExpensesButton, value: creditExpenses)
-        
-    }
-    
-    @IBAction func tappedAccountsModalButton(_ sender: UIButton) {
+    private func openSelectAccountsModal() {
         
         let list = bankAccountsList.compactMap { accountItem in
             return accountItem.desc
@@ -151,11 +51,11 @@ class FilteringTransactionsViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
-            return SelectionModalScreen(coder: coder, titleName: "Contas Bancarias", list: list, selectedItens: selectedItens, selectionType: .multiSelection)
+            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.accounts, list: list, selectedItens: selectedItens, selectionType: .multiSelection)
         }
         
         vc.delegate = self
-        vc.triggeringButton = sender
+        vc.selectionItemType = .accounts
         
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
@@ -164,30 +64,30 @@ class FilteringTransactionsViewController: UIViewController {
         
     }
     
-    @IBAction func tappedCardsModalButton(_ sender: UIButton) {
+    private func openSelectCardsModal() {
         
-        
-        let list = creditCardsList.compactMap { card in
-            return card.desc
+        let list = creditCardsList.compactMap { cardItem in
+            return cardItem.desc
         }
+        
+        let selectedItens: [Bool] = Array(repeating: false, count: creditCardsList.count)
         
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
-            return SelectionModalScreen(coder: coder, titleName: "Cartões", list: list, selectionType: .multiSelection)
+            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.creditCards, list: list, selectedItens: selectedItens, selectionType: .multiSelection)
         }
         
         vc.delegate = self
-        vc.triggeringButton = sender
+        vc.selectionItemType = .creditCards
         
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
         }
         self.present(vc, animated: true)
         
-        
     }
-    
-    @IBAction func tappedCategoriesModalButton(_ sender: UIButton) {
+
+    func openSelectCategoriesModal() {
         
         var list = expenseCategories.compactMap { category in
             return category.name
@@ -199,11 +99,11 @@ class FilteringTransactionsViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
-            return SelectionModalScreen(coder: coder, titleName: "Cartões", list: list, selectionType: .multiSelection)
+            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.categories, list: list, selectionType: .multiSelection)
         }
         
         vc.delegate = self
-        vc.triggeringButton = sender
+        vc.selectionItemType = .categories
         
         if let presentationController = vc.presentationController as? UISheetPresentationController{
             presentationController.detents = [.medium()]
@@ -212,433 +112,47 @@ class FilteringTransactionsViewController: UIViewController {
         
     }
     
-    @IBAction func tappedTimeIntervalSwitch(_ sender: UISwitch) {
-        
-        updateTimeIntervalViewHeight(value: sender.isOn)
-        
-    }
-    
-    @IBAction func tappedValueFilterSwitch(_ sender: UISwitch) {
-        
-        updateValueViewHeight(value: sender.isOn)
-        
-    }
-    
-    @IBAction func tappedFilterButton(_ sender: UIButton) {
-        delegate?.didFilter(parameters: parameters)
-        dismiss(animated: true)
-    }
-    
-    
     private func setupStrings() {
-        
+        filtersLabel.text = FilteringTransactionsStrings.filters
     }
     
-    private func setupElements() {
-        
-        setupButton(resolvedTransactionsButton, value: false)
-        setupButton(pendingTransactionsButton, value: false)
-        setupButton(futureTransactionsButton, value: false)
-        setupButton(incomesButton, value: parameters.types?.incomes)
-        setupButton(expensesButton, value: parameters.types?.expenses)
-        setupButton(creditExpensesButton, value: false)
-        
-        timeIntervalSwitch.isOn = parameters.dates != nil
-        updateTimeIntervalViewHeight(value: timeIntervalSwitch.isOn)
-        fromDateTextField.text = parameters.dates?.from ?? ""
-        toDateTextField.text = parameters.dates?.to ?? ""
-        
-        valueSwitch.isOn = parameters.limits != nil
-        updateValueViewHeight(value: valueSwitch.isOn)
-        minValueTextField.delegate = self
-        maxValueTextField.delegate = self
-        minValueTextField.text = parameters.limits?.min.toStringMoney() ?? 0.0.toStringMoney()
-        maxValueTextField.text = parameters.limits?.max.toStringMoney() ?? 0.0.toStringMoney()
-        
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ButtonsTableViewCell.nib(), forCellReuseIdentifier: ButtonsTableViewCell.identifier)
+        tableView.register(SelectItensTableViewCell.nib(), forCellReuseIdentifier: SelectItensTableViewCell.identifier)
+        tableView.register(ValueFilteringTableViewCell.nib(), forCellReuseIdentifier: ValueFilteringTableViewCell.identifier)
+        tableView.register(DateFilteringTableViewCell.nib(), forCellReuseIdentifier: DateFilteringTableViewCell.identifier)
+        tableView.register(ButtonTableViewCell.nib(), forCellReuseIdentifier: ButtonTableViewCell.identifier)
     }
     
-    private func setupCollectionView(collectionView: UICollectionView) {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-            layout.estimatedItemSize = .zero
-            layout.sectionInset = UIEdgeInsets(top: 10, left: 15, bottom: 0, right: 15)
-        }
-        collectionView.register(FilteringTransacitonsCollectionViewCell.nib(), forCellWithReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier)
+    private func openSelectScreen(itemType: ModalSelectionItemOptions) {
         
-        updateCollectionViewContent()
-        
-    }
-    
-    private func setupButton(_ button: UIButton, value: Bool?) {
-        button.layer.cornerRadius = 15
-        button.clipsToBounds = true
-        button.layer.masksToBounds = true
-        
-        updateButtonCollor(button, value: value ?? false)
-        
-        button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
-    }
-    
-    private func updateButtonCollor(_ button: UIButton, value: Bool) {
-    
-        if value {
-            button.backgroundColor = .systemBlue
-            button.tintColor = .white
-        } else {
-            button.backgroundColor = .systemGray6
-            button.tintColor = .black
-        }
-        
-    }
-    
-    private func updateCollectionViewContent() {
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else { return }
-            
-            if let selectedAccounts = self.parameters.accounts {
-                accountsCollectionView.isHidden = false
-                allAccountsSelectedLabel.isHidden = true
-                self.accountsViewHeightConstraint.constant = 45 + 50 * CGFloat(selectedAccounts.count)
-            } else {
-                accountsCollectionView.isHidden = true
-                allAccountsSelectedLabel.isHidden = false
-                self.accountsViewHeightConstraint.constant = 85
-            }
-            
-            if let selectedCards = self.parameters.creditCards {
-                creditCardsCollectionView.isHidden = false
-                allCreditCardsLabel.isHidden = true
-                self.creditCardsViewHeightConstraint.constant = 45 + 50 * CGFloat(selectedCards.count)
-            } else {
-                creditCardsCollectionView.isHidden = true
-                allCreditCardsLabel.isHidden = false
-                self.creditCardsViewHeightConstraint.constant = 85
-            }
-            
-            if let selectedCategories = self.parameters.categories {
-                categoriesCollectionView.isHidden = false
-                allCategoriesLabel.isHidden = true
-                self.categoriesViewHeightConstraint.constant = 45 + 50 * CGFloat(selectedCategories.count)
-            } else {
-                categoriesCollectionView.isHidden = true
-                allCategoriesLabel.isHidden = false
-                self.categoriesViewHeightConstraint.constant = 85
-            }
-            
-            self.stackViewHeightConstraint.constant = self.calculatedStackViewHeight
-            
-            self.accountsCollectionView.reloadData()
-            self.creditCardsCollectionView.reloadData()
-            self.categoriesCollectionView.reloadData()
-            
-        }
-        
-    }
-    
-    var activeTextField: UITextField?
-
-    private func setupDataPicker(){
-        let datePickerFrom = UIDatePicker()
-        datePickerFrom.datePickerMode = .date
-        datePickerFrom.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
-        datePickerFrom.frame.size = CGSize(width: 0, height: 300)
-        datePickerFrom.preferredDatePickerStyle = .inline
-        fromDateTextField.inputView = datePickerFrom
-        
-        let datePickerTo = UIDatePicker()
-        datePickerTo.datePickerMode = .date
-        datePickerTo.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
-        datePickerTo.frame.size = CGSize(width: 0, height: 300)
-        datePickerTo.preferredDatePickerStyle = .inline
-        toDateTextField.inputView = datePickerTo
-        
-        // Adicionar observador para saber qual textField está ativo
-        fromDateTextField.addTarget(self, action: #selector(textFieldShouldBeginEditing(_:)), for: .editingDidBegin)
-        toDateTextField.addTarget(self, action: #selector(textFieldShouldBeginEditing(_:)), for: .editingDidBegin)
-    }
-    
-    @objc func dateChange(datePicker: UIDatePicker) {
-        
-        guard let activeTextField = activeTextField else { return }
-        
-        let selectedDateText = datePickerChange(date: datePicker.date)
-        let isFromDate = activeTextField == fromDateTextField
-        let oppositeTextField = isFromDate ? toDateTextField : fromDateTextField
-        
-        activeTextField.text = selectedDateText
-        updateParametersDate(for: isFromDate, with: selectedDateText)
-        
-        if let oppositeDate = oppositeTextField?.text?.toDate(),
-           (isFromDate && datePicker.date > oppositeDate) || (!isFromDate && datePicker.date < oppositeDate) {
-            oppositeTextField?.text = selectedDateText
-            updateParametersDate(for: !isFromDate, with: selectedDateText)
-        }
-        
-        activeTextField.resignFirstResponder()
-        
-    }
-
-    private func updateParametersDate(for isFromDate: Bool, with date: String) {
-        
-        if parameters.dates == nil {
-            parameters.dates = TransactionFilteringDates(from: date, to: date)
-        } else if isFromDate {
-            parameters.dates?.from = date
-        } else {
-            parameters.dates?.to = date
-        }
-        
-    }
-    
-    private func datePickerChange(date: Date) -> String {
-        let calendar = Calendar.current
-        let today = Date()
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
-        
-        switch date.toString(format: globalStrings.dateFormat) {
-        case today.toString(format: globalStrings.dateFormat):
-            return globalStrings.todayText
-        case yesterday.toString(format: globalStrings.dateFormat):
-            return globalStrings.yesterdayText
-        case tomorrow.toString(format: globalStrings.dateFormat):
-            return globalStrings.tomorrowText
-        default:
-            return date.toString(format: globalStrings.dateFormat)
-        }
-    }
-    
-    private func updateTimeIntervalViewHeight(value: Bool) {
-        
-        if value {
-            timeIntervalHeightConstraint.constant = 140
-            timeIntervalHiddenStackView.isHidden = false
-            
-            
-        } else {
-            timeIntervalHeightConstraint.constant = 70
-            timeIntervalHiddenStackView.isHidden = true
-        }
-        
-        stackViewHeightConstraint.constant = calculatedStackViewHeight
-        
-    }
-    
-    private func updateValueViewHeight(value: Bool) {
-        
-        if value {
-            valueHeightConstraint.constant = 140
-            valueHiddenStackView.isHidden = false
-            let minValue = minValueTextField.text?.toDouble() ?? 0.0
-            let maxValue = maxValueTextField.text?.toDouble() ?? 0.0
-            parameters.limits = TransactionFilteringValue(min: minValue, max: maxValue)
-        } else {
-            valueHeightConstraint.constant = 70
-            valueHiddenStackView.isHidden = true
-            parameters.limits = nil
-        }
-        
-        stackViewHeightConstraint.constant = calculatedStackViewHeight
-        
-    }
-
-}
-
-// Funções auxiliares
-extension FilteringTransactionsViewController {
-//
-//    private func updateSelectionText(from selectionResult: [Bool], items: [String]) -> String {
-//        let selectedItems = items.enumerated().compactMap { selectionResult[$0.offset] ? $0.element : nil }
-//        return selectedItems.isEmpty ? "" : selectedItems.joined(separator: ", ")
-//    }
-//    
-    private func updateParameters<T>(selectionResult: [Bool], items: [T], updateClosure: (T) -> Void) {
-        
-        for (index, item) in items.enumerated() {
-            if selectionResult[index] {
-                updateClosure(item)
-            }
-        }
-        
-    }
-}
-
-// Recebendo resultados da seleção
-extension FilteringTransactionsViewController: SelectionModalDelegate {
-
-    func didSelectItem(_ selectionResult: [Bool], fromButton button: UIButton?) {
-
-        guard let button = button else { return }
-
-        if button === accountsButton {
-            
-            parameters.accounts = []
-            updateParameters(selectionResult: selectionResult, items: bankAccountsList) { account in
-                parameters.accounts?.append(account)
-            }
-            
-            updateCollectionViewContent()
-            
-        } else if button === categoriesButton {
-            
-            parameters.categories = []
-            updateParameters(selectionResult: selectionResult, items: expenseCategories) { category in
-                parameters.categories?.append(category)
-            }
-            updateCollectionViewContent()
-        }
-//        } else if button === cardsButton {
-//            let cards = creditCardsList.map { $0.desc }
-//            let text = updateSelectionText(from: selectionResult, items: cards)
-//            allCreditCardsLabel.text = text.isEmpty ? "Todos Cartões" : text
-//
-//            parameters.creditCards = []
-//            updateViewModel(selectionResult: selectionResult, items: creditCardsList) { card in
-//                parameters.creditCards?.append(card.getId)
-//            }
-//
-//        } else if button === categoriesButton {
-//            let categories = expenseCategories.map { $0.name } + incomeCategories.map { $0.name }
-//            let text = updateSelectionText(from: selectionResult, items: categories)
-//            allCategoriesLabel.text = text.isEmpty ? "Todas Categorias" : text
-//
-//            parameters.categories = []
-//            updateViewModel(selectionResult: selectionResult, items: categories) { category in
-//                parameters.categories?.append(category)
-//            }
-//        }
-    }
-}
-
-extension FilteringTransactionsViewController: UITextFieldDelegate {
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        activeTextField = textField
-        
-        switch textField {
-        case minValueTextField:
-            
-            let storyboard = UIStoryboard(name: InsertNumbersModalViewController.identifier, bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: InsertNumbersModalViewController.identifier) {coder ->
-                InsertNumbersModalViewController? in
-                return InsertNumbersModalViewController(coder: coder, id: 0)
-            }
-            vc.delegate = self
-            self.present(vc, animated: true)
-            
-        case maxValueTextField:
-            
-            let storyboard = UIStoryboard(name: InsertNumbersModalViewController.identifier, bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: InsertNumbersModalViewController.identifier) {coder ->
-                InsertNumbersModalViewController? in
-                return InsertNumbersModalViewController(coder: coder, id: 1)
-            }
-            vc.delegate = self
-            self.present(vc, animated: true)
-            
-        default:
+        switch itemType {
+        case .accounts:
+            openSelectAccountsModal()
+        case .creditCards:
+            openSelectCardsModal()
+        case .categories:
+            openSelectCategoriesModal()
+        case .other:
             break
         }
         
-        return false
-        
     }
     
-}
-
-extension FilteringTransactionsViewController: InsertNumbersModalProtocol {
-
-    func didSelectNumber(_ value: Double, id: Int) {
+    private func updateTableViewContent() {
+        
         DispatchQueue.main.async { [weak self] in
-            guard let self = self, let limits = self.parameters.limits else { return }
-
-            var updatedLimits = limits
-
-            switch id {
-            case 0:
-                self.minValueTextField.text = value.toStringMoney()
-                updatedLimits.min = value
-
-                if updatedLimits.max < value {
-                    self.maxValueTextField.text = value.toStringMoney()
-                    updatedLimits.max = value
-                }
-
-            case 1:
-                self.maxValueTextField.text = value.toStringMoney()
-                updatedLimits.max = value
-
-                if updatedLimits.min > value {
-                    self.minValueTextField.text = value.toStringMoney()
-                    updatedLimits.min = value
-                }
-
-            default:
-                break
-            }
-
-            self.parameters.limits = updatedLimits
+            self?.tableView.reloadData()
         }
+        
     }
+
 }
 
-extension FilteringTransactionsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        switch collectionView {
-        case accountsCollectionView:
-            return parameters.accounts?.count ?? 0
-        case creditCardsCollectionView:
-            return parameters.creditCards?.count ?? 0
-        case categoriesCollectionView:
-            return parameters.categories?.count ?? 0
-        default:
-            return 0
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        var cell: FilteringTransacitonsCollectionViewCell
-        var item: Any?
-        
-        switch collectionView {
-        case accountsCollectionView:
-            cell = accountsCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
-            item = parameters.accounts?[indexPath.row]
-        case creditCardsCollectionView:
-            cell = creditCardsCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
-            item = parameters.creditCards?[indexPath.row]
-        case categoriesCollectionView:
-            cell = categoriesCollectionView.dequeueReusableCell(withReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier, for: indexPath) as! FilteringTransacitonsCollectionViewCell
-            item = parameters.categories?[indexPath.row]
-        default:
-            return UICollectionViewCell()
-        }
-        
-        cell.layer.cornerRadius = 10
-        cell.layer.masksToBounds = true
-        cell.delegate = self
-        cell.index = indexPath.row
-        cell.setupCell(item: item)
-        return cell
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 30, height: 35)
-    }
-    
-}
 
-extension FilteringTransactionsViewController: FilteringTransacitonsCollectionViewCellProtocol {
+extension FilteringTransactionsViewController: FilteringTransactionsCollectionViewCellProtocol {
     
     func didRemoveItem(index: Int?, item: Any?) {
         
@@ -664,8 +178,266 @@ extension FilteringTransactionsViewController: FilteringTransacitonsCollectionVi
             }
         }
         
-        updateCollectionViewContent()
+        updateTableViewContent()
         
+    }
+    
+}
+
+extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonsTableViewCell.identifier, for: indexPath) as? ButtonsTableViewCell
+            cell?.setupCell(configuration: ButtonsCellConfiguration(filteringTypes: parameters.types) )
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
+            cell?.screenWidth = view.layer.bounds.width
+            cell?.setupCell(accounts: parameters.accounts)
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
+            cell?.setupCell(creditCards: parameters.creditCards)
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
+            cell?.setupCell(categories: parameters.categories)
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: DateFilteringTableViewCell.identifier, for: indexPath) as? DateFilteringTableViewCell
+            cell?.setupCell(filteringDates: parameters.dates)
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ValueFilteringTableViewCell.identifier, for: indexPath) as? ValueFilteringTableViewCell
+            cell?.setupCell(filteringValues: parameters.limits)
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        case 6:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.identifier, for: indexPath) as? ButtonTableViewCell
+            cell?.setupCell(title: globalStrings.apply)
+            cell?.delegate = self
+            return cell ?? UITableViewCell()
+        default:
+            return UITableViewCell()
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.row {
+        case 0:
+            return 90
+        case 1:
+            var count = parameters.accounts?.count ?? 1
+            if count <= 0 { count = 1 }
+            return CGFloat(50 + 45 * count)
+        case 2:
+            var count = parameters.creditCards?.count ?? 1
+            if count <= 0 { count = 1 }
+            return CGFloat(50 + 45 * count)
+        case 3:
+            var count = parameters.categories?.count ?? 1
+            if count <= 0 { count = 1 }
+            return CGFloat(50 + 45 * count)
+        case 4:
+            return parameters.dates.enabled ? 130 : 70
+        case 5:
+            return parameters.limits.enabled ? 130 : 70
+        case 6:
+            return 60
+        default:
+            return 70
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        switch indexPath.row {
+        case 1:
+            openSelectScreen(itemType: .accounts)
+        case 2:
+            openSelectScreen(itemType: .creditCards)
+        case 3:
+            openSelectScreen(itemType: .categories)
+        default:
+            break //Does not execute anything to other cells
+        }
+        
+        
+        
+    }
+    
+}
+
+extension FilteringTransactionsViewController: ButtonTableViewCellDelegate {
+    
+    func didTappedButton() {
+        delegate?.didFilter(parameters: parameters)
+        dismiss(animated: true)
+    }
+    
+}
+
+extension FilteringTransactionsViewController: ButtonsTableViewCellDelegate {
+    
+    func didTappedButton1(value: Bool) {
+        parameters.types.incomes = value
+    }
+    
+    func didTappedButton2(value: Bool) {
+        parameters.types.expenses = value
+    }
+    
+    func didTappedButton3(value: Bool) {
+        parameters.types.creditCard = value
+    }
+    
+    
+}
+
+extension FilteringTransactionsViewController: SelectionModalDelegate {
+    
+    func didSelectItem(_ selectionResult: [Bool], itemType: ModalSelectionItemOptions) {
+//        guard let button = button else { return }
+        
+        switch itemType {
+        case .accounts:
+            parameters.accounts = []
+            updateParameters(selectionResult: selectionResult, items: bankAccountsList) { account in
+                parameters.accounts?.append(account)
+            }
+            
+            updateTableViewContent()
+            
+        case .creditCards:
+            break
+//            let cards = creditCardsList.map { $0.desc }
+            //            let text = updateSelectionText(from: selectionResult, items: cards)
+            //            allCreditCardsLabel.text = text.isEmpty ? "Todos Cartões" : text
+            //
+            //            parameters.creditCards = []
+            //            updateViewModel(selectionResult: selectionResult, items: creditCardsList) { card in
+            //                parameters.creditCards?.append(card.getId)
+            //            }
+        case .categories:
+            parameters.categories = []
+            updateParameters(selectionResult: selectionResult, items: expenseCategories) { category in
+                parameters.categories?.append(category)
+            }
+            updateTableViewContent()
+        case .other:
+            break
+        }
+
+    }
+    
+}
+
+extension FilteringTransactionsViewController {
+//
+//    private func updateSelectionText(from selectionResult: [Bool], items: [String]) -> String {
+//        let selectedItems = items.enumerated().compactMap { selectionResult[$0.offset] ? $0.element : nil }
+//        return selectedItems.isEmpty ? "" : selectedItems.joined(separator: ", ")
+//    }
+//
+    private func updateParameters<T>(selectionResult: [Bool], items: [T], updateClosure: (T) -> Void) {
+        
+        for (index, item) in items.enumerated() {
+            if selectionResult[index] {
+                updateClosure(item)
+            }
+        }
+        
+    }
+}
+
+extension FilteringTransactionsViewController: SelectItensTableViewCellDelegate {
+    
+    func didSelectCell(type: ModalSelectionItemOptions) {
+        openSelectScreen(itemType: type)
+    }
+    
+}
+
+extension FilteringTransactionsViewController: InsertNumbersModalProtocol {
+
+    func didSelectNumber(_ value: Double, id: Int) {
+
+            switch id {
+            case 0:
+                parameters.limits.min = value
+
+                if parameters.limits.max < value {
+                    parameters.limits.max = value
+                }
+            case 1:
+                parameters.limits.max = value
+
+                if parameters.limits.min > value {
+                    parameters.limits.min = value
+                }
+            default:
+                break
+            }
+
+            updateTableViewContent()
+    }
+    
+}
+
+extension FilteringTransactionsViewController: DateFilteringTableViewCellDelegate {
+    
+    func didUpdateDates(isInitialDate: Bool, date: String) {
+            
+        if isInitialDate {
+            parameters.dates.initial = date
+        } else {
+            parameters.dates.final = date
+        }
+            
+    }
+    
+    
+    func didTapDateSwitch(_ value: Bool) {
+        
+        self.parameters.dates.enabled = value
+        updateTableViewContent()
+        
+    }
+    
+}
+
+extension FilteringTransactionsViewController: ValueFilteringTableViewCellDelegate {
+    
+    func didTapValueSwitch(_ value: Bool) {
+        
+        self.parameters.limits.enabled = value
+        updateTableViewContent()
+        
+    }
+    
+    func didTapTextField(cell: ValueFilteringTableViewCell, type: FieldType) {
+        let storyboard = UIStoryboard(name: InsertNumbersModalViewController.identifier, bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: InsertNumbersModalViewController.identifier) { coder in
+            InsertNumbersModalViewController(coder: coder, id: type == .minValue ? 0 : 1)
+        }
+        vc.delegate = self
+        self.present(vc, animated: true)
     }
     
 }

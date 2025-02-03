@@ -8,16 +8,17 @@
 import UIKit
 
 protocol SelectionModalDelegate: AnyObject {
-    func didSelectItem(_ selectionResult: [Bool], fromButton button: UIButton?)
+    func didSelectItem(_ selectionResult: [Bool], itemType: ModalSelectionItemOptions)
 }
 
 class SelectionModalScreen: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     private var titleName: String = ""
-    var triggeringButton: UIButton?
+    var selectionItemType: ModalSelectionItemOptions = .other
     
     static let identifier: String = String(describing: SelectionModalScreen.self)
     weak var delegate: SelectionModalDelegate?
@@ -35,10 +36,6 @@ class SelectionModalScreen: UIViewController {
         fatalError(globalStrings.initError)
     }
     
-    deinit {
-        delegate?.didSelectItem(viewModel.selectedItens, fromButton: self.triggeringButton)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitle(text: self.titleName)
@@ -46,6 +43,10 @@ class SelectionModalScreen: UIViewController {
         
     }
 
+    @IBAction func confirmButtonClicked(_ sender: UIButton) {
+        delegate?.didSelectItem(viewModel.selectedItens, itemType: self.selectionItemType)
+        self.dismiss(animated: true)
+    }
     
     private func setupTitle(text: String) {
         titleLabel.text = text
@@ -86,4 +87,11 @@ extension SelectionModalScreen : UITableViewDataSource, UITableViewDelegate {
         
     }
     
+}
+
+enum ModalSelectionItemOptions {
+    case accounts
+    case creditCards
+    case categories
+    case other
 }

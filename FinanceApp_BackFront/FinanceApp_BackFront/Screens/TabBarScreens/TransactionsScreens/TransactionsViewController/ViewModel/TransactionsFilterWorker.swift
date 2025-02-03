@@ -30,11 +30,11 @@ class TransactionsFilterWorker {
     
     private func typeFiltering() {
         
-        guard let types = self.parameters.types, types.incomes || types.expenses else {
+        guard parameters.types.incomes || parameters.types.expenses else {
             return
         }
         
-        if !types.incomes {
+        if !parameters.types.incomes {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 transaction.amount < 0
@@ -42,7 +42,7 @@ class TransactionsFilterWorker {
             
         }
         
-        if !types.expenses {
+        if !parameters.types.expenses {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 transaction.amount > 0
@@ -93,25 +93,25 @@ class TransactionsFilterWorker {
     
     private func valueFiltering() {
         
-        guard let limits = parameters.limits else {
+        guard parameters.limits.enabled else {
             return
         }
         
         filteredTransactions = self.filteredTransactions.filter { transaction in
-            abs(transaction.amount) > limits.min && abs(transaction.amount) < limits.max
+            abs(transaction.amount) > parameters.limits.min && abs(transaction.amount) < parameters.limits.max
         }
         
     }
     
     private func dateFiltering() {
         
-        guard let dates = self.parameters.dates, let from = dates.from.toDate(), let to = dates.to.toDate() else {
+        guard parameters.dates.enabled, let initialDate = parameters.dates.initial.toDate(), let finalDate = parameters.dates.final.toDate() else {
             return
         }
         
         filteredTransactions = self.filteredTransactions.filter { transaction in
             if let date = transaction.date.toDate() {
-                return date >= from && date <= to
+                return date >= initialDate && date <= finalDate
             }
             return false
         }
@@ -139,12 +139,12 @@ class TransactionsFilterWorker {
 
 struct FilteringParameters {
     
-    var types: TransactionFilteringTypes? = nil
+    var types: TransactionFilteringTypes = TransactionFilteringTypes()
     var accounts: [BankAccount]? = nil
     var creditCards: [CreditCard]? = nil
     var categories: [TransactionCategory]? = nil
-    var limits: TransactionFilteringValue? = nil
-    var dates: TransactionFilteringDates? = nil
+    var limits: TransactionFilteringValue = TransactionFilteringValue()
+    var dates: TransactionFilteringDates = TransactionFilteringDates()
     
 }
 
@@ -152,10 +152,12 @@ struct TransactionFilteringValue {
     
     var min: Double
     var max: Double
+    var enabled: Bool
     
-    init(min: Double = 0.0, max: Double = 0.0) {
+    init(min: Double = 0.0, max: Double = 0.0, enabled: Bool = false) {
         self.min = min
         self.max = max
+        self.enabled = enabled
     }
     
 }
@@ -176,12 +178,14 @@ struct TransactionFilteringTypes {
 
 struct TransactionFilteringDates {
     
-    var from: String
-    var to: String
+    var initial: String
+    var final: String
+    var enabled: Bool
     
-    init(from: String, to: String) {
-        self.from = from
-        self.to = to
+    init(initial: String = Date().toString(), final: String = Date().toString(), enabled: Bool = false) {
+        self.initial = initial
+        self.final = final
+        self.enabled = enabled
     }
     
 }

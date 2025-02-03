@@ -15,6 +15,12 @@ protocol ButtonsTableViewCellDelegate: AnyObject {
 
 class ButtonsTableViewCell: UITableViewCell {
     
+    static let identifier:String = String(describing: ButtonsTableViewCell.self)
+    
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
@@ -28,12 +34,6 @@ class ButtonsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
   
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     @IBAction func tappedFirstButton(_ sender: UIButton) {
@@ -54,12 +54,12 @@ class ButtonsTableViewCell: UITableViewCell {
         delegate?.didTappedButton3(value: button3Value)
     }
     
-    func setupCell(_ configuration: ButtonsCellConfiguration) {
+    func setupCell(configuration: ButtonsCellConfiguration) {
         
         self.titleLabel.text = configuration.configurationTitle
-        self.firstButton.titleLabel?.text = configuration.button1Title
-        self.secondButton.titleLabel?.text = configuration.button2Title
-        self.thirdButton.titleLabel?.text = configuration.button3Title
+        self.firstButton.setTitle(configuration.button1Title, for: .normal)
+        self.secondButton.setTitle(configuration.button2Title, for: .normal)
+        self.thirdButton.setTitle(configuration.button3Title, for: .normal)
         
         setupButton(firstButton, value: configuration.button1Value)
         setupButton(secondButton, value: configuration.button2Value)

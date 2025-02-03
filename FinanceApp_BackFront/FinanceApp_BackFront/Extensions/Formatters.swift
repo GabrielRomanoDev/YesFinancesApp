@@ -8,11 +8,16 @@
 import Foundation
 
 extension Date {
-    func toString(format: String) -> String {
+    func toString(format: String = globalStrings.dateFormat, adjustDate: Bool = false) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         
-        return formatter.string(from: self)
+        if adjustDate {
+            return formatter.string(from: self).adjustDate()
+        } else {
+            return formatter.string(from: self)
+        }
+        
     }
 }
 

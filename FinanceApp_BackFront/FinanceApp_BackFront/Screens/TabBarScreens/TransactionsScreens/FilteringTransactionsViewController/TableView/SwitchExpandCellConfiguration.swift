@@ -11,12 +11,12 @@ struct SwitchExpandCellConfiguration {
     var configurationTitle: String
     var switchValue: Bool
     
-    init(filteringDates: TransactionFilteringDates) {
+    init(filteringDates: TransactionFilteringDates?) {
         self.configurationTitle = FilteringTransactionsStrings.timeInterval
         self.switchValue = false
     }
     
-    init(filteringValue: TransactionFilteringValue) {
+    init(filteringValue: TransactionFilteringValue?) {
         self.configurationTitle = FilteringTransactionsStrings.value
         self.switchValue = false
     }
