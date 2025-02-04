@@ -47,7 +47,13 @@ class FilteringTransactionsViewController: UIViewController {
             return accountItem.desc
         }
         
-        let selectedItens: [Bool] = Array(repeating: false, count: bankAccountsList.count)
+        var selectedItens: [Bool] = Array(repeating: false, count: bankAccountsList.count)
+        
+        if let accounts = parameters.accounts {
+            selectedItens = bankAccountsList.map{ account in
+                accounts.contains(where: { $0.getId == account.getId })
+            }
+        }
         
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
@@ -70,7 +76,13 @@ class FilteringTransactionsViewController: UIViewController {
             return cardItem.desc
         }
         
-        let selectedItens: [Bool] = Array(repeating: false, count: creditCardsList.count)
+        var selectedItens: [Bool] = Array(repeating: false, count: creditCardsList.count)
+        
+        if let creditCards = parameters.creditCards {
+            selectedItens = creditCardsList.map{ card in
+                creditCards.contains(where: { $0.getId == card.getId })
+            }
+        }
         
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
@@ -97,9 +109,17 @@ class FilteringTransactionsViewController: UIViewController {
             list.append(category.name)
         }
         
+        var selectedItens: [Bool] = Array(repeating: false, count: list.count)
+        
+        if let categories = parameters.categories {
+            selectedItens = list.map{ category in
+                categories.contains(where: { $0.name == category })
+            }
+        }
+        
         let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
-            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.categories, list: list, selectionType: .multiSelection)
+            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.categories, list: list, selectedItens: selectedItens,selectionType: .multiSelection)
         }
         
         vc.delegate = self
@@ -199,18 +219,23 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
             return cell ?? UITableViewCell()
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
-            cell?.screenWidth = view.layer.bounds.width
             cell?.setupCell(accounts: parameters.accounts)
+            cell?.screenWidth = view.layer.bounds.width
+            cell?.selectionStyle = .none
             cell?.delegate = self
             return cell ?? UITableViewCell()
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
             cell?.setupCell(creditCards: parameters.creditCards)
+            cell?.screenWidth = view.layer.bounds.width
+            cell?.selectionStyle = .none
             cell?.delegate = self
             return cell ?? UITableViewCell()
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
             cell?.setupCell(categories: parameters.categories)
+            cell?.screenWidth = view.layer.bounds.width
+            cell?.selectionStyle = .none
             cell?.delegate = self
             return cell ?? UITableViewCell()
         case 4:
@@ -278,8 +303,6 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
             break //Does not execute anything to other cells
         }
         
-        
-        
     }
     
 }
@@ -313,7 +336,6 @@ extension FilteringTransactionsViewController: ButtonsTableViewCellDelegate {
 extension FilteringTransactionsViewController: SelectionModalDelegate {
     
     func didSelectItem(_ selectionResult: [Bool], itemType: ModalSelectionItemOptions) {
-//        guard let button = button else { return }
         
         switch itemType {
         case .accounts:
@@ -349,21 +371,15 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
 }
 
 extension FilteringTransactionsViewController {
-//
-//    private func updateSelectionText(from selectionResult: [Bool], items: [String]) -> String {
-//        let selectedItems = items.enumerated().compactMap { selectionResult[$0.offset] ? $0.element : nil }
-//        return selectedItems.isEmpty ? "" : selectedItems.joined(separator: ", ")
-//    }
-//
+
     private func updateParameters<T>(selectionResult: [Bool], items: [T], updateClosure: (T) -> Void) {
-        
         for (index, item) in items.enumerated() {
             if selectionResult[index] {
                 updateClosure(item)
             }
         }
-        
     }
+    
 }
 
 extension FilteringTransactionsViewController: SelectItensTableViewCellDelegate {

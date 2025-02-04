@@ -36,6 +36,7 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
         setupElements()
         descLabel.text = ""
         item = nil
+        imageView.image = nil
     }
     
     @IBAction func tappedDeleteButton(_ sender: UIButton) {
@@ -48,6 +49,7 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
         
         if let account = bankAccount {
             descLabel.text = account.desc
+            descLabel.textAlignment = .left
         } else {
             allSelected(FilteringTransactionsStrings.allAccounts)
         }
@@ -60,6 +62,7 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
         
         if let card = creditCard {
             descLabel.text = card.desc
+            descLabel.textAlignment = .left
         } else {
             allSelected(FilteringTransactionsStrings.allCards)
         }
@@ -70,8 +73,15 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
         
         self.item = category
         
-        if let category = category {
+        if let category {
+            
             descLabel.text = category.name
+            descLabel.textAlignment = .left
+            
+            self.imageView.image = UIImage(imageLiteralResourceName: category.imageName).withRenderingMode(.alwaysTemplate)
+            self.imageView.tintColor = categoryColors[category.colorIndex]
+            self.layer.borderColor = categoryColors[category.colorIndex]?.cgColor
+            
         } else {
             allSelected(FilteringTransactionsStrings.allCategories)
         }
@@ -79,7 +89,6 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupElements() {
-        //imageView.image = UIImage(systemName: "ballon.fill")
         deleteButton.isHidden = false
         imageView.isHidden = false
         self.layer.borderWidth = 1
@@ -87,7 +96,9 @@ class FilteringTransacitonsCollectionViewCell: UICollectionViewCell {
     }
     
     private func allSelected(_ text: String) {
+        
         descLabel.text = text
+        descLabel.textAlignment = .center
         deleteButton.isHidden = true
         self.layer.borderColor = UIColor.white.cgColor
         

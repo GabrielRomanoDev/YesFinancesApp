@@ -75,7 +75,6 @@ class DateFilteringTableViewCell: UITableViewCell {
         datePickerFinal.preferredDatePickerStyle = .inline
         finalDateTextField.inputView = datePickerFinal
         
-//         Adicionar observador para saber qual textField está ativo
         initialDateTextField.addTarget(self, action: #selector(textFieldShouldBeginEditing(_:)), for: .editingDidBegin)
         finalDateTextField.addTarget(self, action: #selector(textFieldShouldBeginEditing(_:)), for: .editingDidBegin)
     }

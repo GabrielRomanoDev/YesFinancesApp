@@ -53,7 +53,6 @@ class SelectionModalScreen: UIViewController {
     }
     
     private func setupTableView() {
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SelectionTableViewCell.nib(), forCellReuseIdentifier: SelectionTableViewCell.identifier)

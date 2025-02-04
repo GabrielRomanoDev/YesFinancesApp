@@ -75,6 +75,7 @@ class SelectItensTableViewCell: UITableViewCell {
     }
     
     private func setupCollectionView() {
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -84,32 +85,7 @@ class SelectItensTableViewCell: UITableViewCell {
         }
         collectionView.register(FilteringTransacitonsCollectionViewCell.nib(), forCellWithReuseIdentifier: FilteringTransacitonsCollectionViewCell.identifier)
         
-        //updateCollectionViewContent()
-        
     }
-    
-//    private func openSelectItensScreen() {
-//        
-//        let list = bankAccountsList.compactMap { accountItem in
-//            return accountItem.desc
-//        }
-//        
-//        let selectedItens: [Bool] = Array(repeating: false, count: bankAccountsList.count)
-//        
-//        let storyboard = UIStoryboard(name: SelectionModalScreen.identifier, bundle: nil)
-//        let vc = storyboard.instantiateViewController(identifier: SelectionModalScreen.identifier) {coder -> SelectionModalScreen? in
-//            return SelectionModalScreen(coder: coder, titleName: FilteringTransactionsStrings.accounts, list: list, selectedItens: selectedItens, selectionType: .multiSelection)
-//        }
-//        
-//        vc.delegate = self
-//        vc.triggeringButton = sender
-//        
-//        if let presentationController = vc.presentationController as? UISheetPresentationController{
-//            presentationController.detents = [.medium()]
-//        }
-//        self.present(vc, animated: true)
-//        
-//    }
     
     private func removeCollectionViewItem(index: Int?, item: Any?) {
         
@@ -128,7 +104,6 @@ class SelectItensTableViewCell: UITableViewCell {
         }
         
         delegate?.didRemoveItem(index: index, item: item)
-//        collectionView.reloadData()
         
     }
     
@@ -198,7 +173,6 @@ extension SelectItensTableViewCell: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("SelectItensTableViewCell selected: \(itemType)")
         delegate?.didSelectCell(type: itemType)
     }
     
