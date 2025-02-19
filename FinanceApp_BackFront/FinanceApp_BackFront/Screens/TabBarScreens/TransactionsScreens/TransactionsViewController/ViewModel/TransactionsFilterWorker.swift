@@ -23,8 +23,25 @@ class TransactionsFilterWorker {
         categoriesFiltering()
         valueFiltering()
         dateFiltering()
+        return self.filteredTransactions
         
-        return filteredTransactions
+    }
+    
+    func searchForTransactions(_ text: String?) -> [Transactions] {
+        
+        if self.filteredTransactions.isEmpty {
+            self.filteredTransactions = transactionsList
+        }
+        
+        if let text, !text.isEmpty {
+            
+            let arrayTransactions = filteredTransactions.filter { $0.desc.localizedCaseInsensitiveContains(text) }
+            
+            return arrayTransactions
+            
+        } else {
+            return filteredTransactions
+        }
         
     }
     

@@ -10,16 +10,17 @@ import UIKit
 class TransactionsViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var transactionsCollectionView: UICollectionView!
     @IBOutlet weak var noTransactionsLabel: UILabel!
     
     static let identifier:String = String(describing: TransactionsViewController.self)
-    private var viewModel : TransactionsViewModel = TransactionsViewModel()
+    private var viewModel: TransactionsViewModel = TransactionsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStrings()
-
+        setupSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +34,8 @@ class TransactionsViewController: UIViewController {
     @IBAction func tappedTransactionsFilterButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: FilteringTransactionsViewController.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: FilteringTransactionsViewController.identifier) { [weak self] coder -> FilteringTransactionsViewController? in
-            return FilteringTransactionsViewController(coder: coder, parameters: self?.viewModel.filteringParameters)
+            guard let self else { return nil }
+            return FilteringTransactionsViewController(coder: coder, parameters: self.viewModel.filteringWorker.parameters)
         }
         vc.delegate = self
         present(vc, animated: true)
@@ -44,6 +46,10 @@ class TransactionsViewController: UIViewController {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         titleLabel.text = transactionsStrings.title
         noTransactionsLabel.text = transactionsStrings.noTransactionsRegistered
+    }
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
     }
     
     private func showNoTransactionsMessage(title: String) {
@@ -91,12 +97,26 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
     
 }
 
+extension TransactionsViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.searchForTransactions(searchBar.text)
+        transactionsCollectionView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchForTransactions(searchBar.text)
+        transactionsCollectionView.reloadData()
+    }
+    
+}
+
 extension TransactionsViewController: FilterTransactionsDelegate {
     func didFilter(parameters: FilteringParameters?) {
         
         guard let parameters = parameters else { return }
         
-        viewModel.filterTransactions(parameters: parameters)
+        viewModel.filterTransactions(parameters: parameters, textSearch: searchBar.text)
         showNoTransactionsMessage(title: transactionsStrings.noTransactionsFiltered)
         transactionsCollectionView.reloadData()
     }

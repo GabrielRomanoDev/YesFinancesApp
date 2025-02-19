@@ -11,7 +11,6 @@ struct TransactionsViewModel {
     
     var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker()
     var filteredTransactions: [Transactions]? = nil
-    var filteringParameters: FilteringParameters? = nil
 
     
     public func reordenateTransactions(){
@@ -50,9 +49,16 @@ struct TransactionsViewModel {
         return CGSize(width: viewWidth - 30, height: 85)
     }
     
-    mutating func filterTransactions(parameters: FilteringParameters) {
-        filteringParameters = parameters
+    mutating func filterTransactions(parameters: FilteringParameters, textSearch: String? = "") {
         filteredTransactions = filteringWorker.filterTransactions(parameters: parameters)
+        filteredTransactions = filteringWorker.searchForTransactions(textSearch)
+    }
+    
+    mutating func searchForTransactions(_ text: String?) {
+        if filteringWorker.filteredTransactions.isEmpty {
+            filteringWorker.filteredTransactions = transactionsList
+        }
+        filteredTransactions = filteringWorker.searchForTransactions(text)
     }
     
 }
