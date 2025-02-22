@@ -101,11 +101,11 @@ class FilteringTransactionsViewController: UIViewController {
 
     func openSelectCategoriesModal() {
         
-        var list = expenseCategories.compactMap { category in
+        var list = CategoriesRepository.shared.expenses.compactMap { category in
             return category.name
         }
         
-        for category in incomeCategories {
+        for category in CategoriesRepository.shared.incomes {
             list.append(category.name)
         }
         
@@ -358,7 +358,7 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             //            }
         case .categories:
             parameters.categories = []
-            updateParameters(selectionResult: selectionResult, items: expenseCategories) { category in
+            updateParameters(selectionResult: selectionResult, items: CategoriesRepository.shared.expenses) { category in
                 parameters.categories?.append(category)
             }
             updateTableViewContent()

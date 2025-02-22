@@ -40,6 +40,8 @@ struct HomeViewModel {
             group.leave()
         }
         
+        getCategories()
+        
         group.notify(queue: .main) {
             completion()
         }
@@ -82,6 +84,34 @@ struct HomeViewModel {
             }
             completion()
         }
+    }
+    
+    private func getCategories() {
+        
+        CategoriesRepository.shared.expenses = [
+            TransactionCategory(name: "Alimentação", imageName: "image35", colorIndex: 0),
+            TransactionCategory(name: "Assinaturas", imageName: "image13", colorIndex: 1),
+            TransactionCategory(name: "Casa", imageName: "image4", colorIndex: 2),
+            TransactionCategory(name: "Educação", imageName: "image46", colorIndex: 3),
+            TransactionCategory(name: "Esportes", imageName: "image8", colorIndex: 4),
+            TransactionCategory(name: "Lazer", imageName: "image3", colorIndex: 5),
+            TransactionCategory(name: "Serviços", imageName: "image40", colorIndex: 6),
+            TransactionCategory(name: "Transferências", imageName: "image43", colorIndex: 7),
+            TransactionCategory(name: "Transporte", imageName: "image0", colorIndex: 8),
+            TransactionCategory(name: "Vestuario", imageName: "image1", colorIndex: 9),
+            TransactionCategory(name: "Viagem", imageName: "image21", colorIndex: 10),
+            TransactionCategory(name: "Outros", imageName: "image37", colorIndex: 11),
+        ]
+
+        CategoriesRepository.shared.incomes = [
+            TransactionCategory(name: "Salario", imageName: "image7", colorIndex: 0),
+            TransactionCategory(name: "Seguro Desemprego", imageName: "image15", colorIndex: 1),
+            TransactionCategory(name: "Transferência", imageName: "image43", colorIndex: 2),
+            TransactionCategory(name: "Apostas", imageName: "image3", colorIndex: 3),
+            TransactionCategory(name: "Vendas", imageName: "image11", colorIndex: 4),
+            TransactionCategory(name: "Outros", imageName: "image37", colorIndex: 5),
+        ]
+        
     }
     
     public func getProfileInformations(completion: @escaping () -> Void) {

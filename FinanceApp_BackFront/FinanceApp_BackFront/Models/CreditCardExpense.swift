@@ -16,7 +16,3 @@ struct CreditCardExpense {
     var cardId:String
     var obs:String
 }
-
-
-
-var creditCardExpenses: [CreditCardExpense] = []

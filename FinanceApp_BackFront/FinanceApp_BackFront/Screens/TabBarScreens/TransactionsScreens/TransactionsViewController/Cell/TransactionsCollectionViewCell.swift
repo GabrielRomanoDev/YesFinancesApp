@@ -35,14 +35,14 @@ class TransactionsCollectionViewCell: UICollectionViewCell {
         
         switch transactions.type {
         case .expense:
-            categoryLabel.text = expenseCategories[transactions.categoryIndex].name
-            categoryImage.image = UIImage(imageLiteralResourceName: expenseCategories[transactions.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
-            categoryPanelView.backgroundColor = categoryColors[expenseCategories[transactions.categoryIndex].colorIndex] ?? UIColor.cyan
+            categoryLabel.text = CategoriesRepository.shared.expenses[transactions.categoryIndex].name
+            categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[transactions.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
+            categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transactions.categoryIndex].colorIndex] ?? UIColor.cyan
             valueLabel.textColor = .RedGeneralExpenses
         case .income:
-            categoryLabel.text = incomeCategories[transactions.categoryIndex].name
-            categoryImage.image = UIImage(imageLiteralResourceName: incomeCategories[transactions.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
-            categoryPanelView.backgroundColor = categoryColors[incomeCategories[transactions.categoryIndex].colorIndex] ?? UIColor.cyan
+            categoryLabel.text = CategoriesRepository.shared.incomes[transactions.categoryIndex].name
+            categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.incomes[transactions.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
+            categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.incomes[transactions.categoryIndex].colorIndex] ?? UIColor.cyan
             valueLabel.textColor = .GreenGeneralIncomes
         }
         

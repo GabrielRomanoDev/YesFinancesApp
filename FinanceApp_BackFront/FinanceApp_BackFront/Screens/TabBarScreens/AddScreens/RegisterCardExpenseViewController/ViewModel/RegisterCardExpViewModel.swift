@@ -16,9 +16,9 @@ class RegisterCardExpViewModel{
         var newExpense: CreditCardExpense = expense
         
         if newExpense.desc.isEmptyTest() {
-            newExpense.desc = expenseCategories[newExpense.categoryIndex].name
+            newExpense.desc = CategoriesRepository.shared.expenses[newExpense.categoryIndex].name
         }
-        creditCardExpenses.append(newExpense)
+        CreditCardExpensesRepository.shared.list.append(newExpense)
     }
     
     var standardCardIndex: Int {
@@ -40,15 +40,15 @@ class RegisterCardExpViewModel{
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {
-        return expenseCategories[indexCategory].name
+        return CategoriesRepository.shared.expenses[indexCategory].name
     }
     
     public func getCategoryImageName(_ indexCategory:Int) -> UIImage{
-        return UIImage(imageLiteralResourceName: expenseCategories[indexCategory].imageName)
+        return UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[indexCategory].imageName)
     }
     
     public func getCategoryBackgroungColor(_ indexCategory:Int) -> UIColor{
-        return categoryColors[expenseCategories[indexCategory].colorIndex] ?? UIColor.cyan
+        return categoryColors[CategoriesRepository.shared.expenses[indexCategory].colorIndex] ?? UIColor.cyan
     }
     
     public func getCardLabel(_ indexAccount:Int) -> String{

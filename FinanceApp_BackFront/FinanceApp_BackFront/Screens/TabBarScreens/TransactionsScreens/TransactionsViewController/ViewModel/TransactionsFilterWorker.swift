@@ -98,7 +98,7 @@ class TransactionsFilterWorker {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 categoriesSelection.contains { category in
-                    category.name == expenseCategories[transaction.categoryIndex].name
+                    category.name == CategoriesRepository.shared.expenses[transaction.categoryIndex].name
                     
                 }
             }

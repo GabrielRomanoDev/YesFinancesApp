@@ -167,6 +167,8 @@
 		A1E0B6D22D656EE5002892BD /* TransactionsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B6D12D656EDE002892BD /* TransactionsRepository.swift */; };
 		A1E0B6FF2D6A09B9002892BD /* BankAccountsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B6FE2D6A09AF002892BD /* BankAccountsRepository.swift */; };
 		A1E0B7012D6A09EA002892BD /* CreditCardsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B7002D6A09E2002892BD /* CreditCardsRepository.swift */; };
+		A1E0B7032D6A0CFD002892BD /* CreditCardExpensesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B7022D6A0C39002892BD /* CreditCardExpensesRepository.swift */; };
+		A1E0B7052D6A0EC8002892BD /* CategoriesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B7042D6A0EBB002892BD /* CategoriesRepository.swift */; };
 		A1E107BB29E4F426005A3F4F /* CreditCardsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E107BA29E4F426005A3F4F /* CreditCardsViewController.storyboard */; };
 		A1E107BD29E4F432005A3F4F /* CreditCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E107BC29E4F432005A3F4F /* CreditCardsViewController.swift */; };
 		A1E107C029E4F63D005A3F4F /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E107BF29E4F63D005A3F4F /* ProfileViewController.storyboard */; };
@@ -375,6 +377,8 @@
 		A1E0B6D12D656EDE002892BD /* TransactionsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepository.swift; sourceTree = "<group>"; };
 		A1E0B6FE2D6A09AF002892BD /* BankAccountsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsRepository.swift; sourceTree = "<group>"; };
 		A1E0B7002D6A09E2002892BD /* CreditCardsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardsRepository.swift; sourceTree = "<group>"; };
+		A1E0B7022D6A0C39002892BD /* CreditCardExpensesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardExpensesRepository.swift; sourceTree = "<group>"; };
+		A1E0B7042D6A0EBB002892BD /* CategoriesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesRepository.swift; sourceTree = "<group>"; };
 		A1E107BA29E4F426005A3F4F /* CreditCardsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreditCardsViewController.storyboard; sourceTree = "<group>"; };
 		A1E107BC29E4F432005A3F4F /* CreditCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardsViewController.swift; sourceTree = "<group>"; };
 		A1E107BF29E4F63D005A3F4F /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
@@ -1591,6 +1595,8 @@
 		A1E0B6D02D656E88002892BD /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				A1E0B7042D6A0EBB002892BD /* CategoriesRepository.swift */,
+				A1E0B7022D6A0C39002892BD /* CreditCardExpensesRepository.swift */,
 				A1E0B7002D6A09E2002892BD /* CreditCardsRepository.swift */,
 				A1E0B6FE2D6A09AF002892BD /* BankAccountsRepository.swift */,
 				A1E0B6D12D656EDE002892BD /* TransactionsRepository.swift */,
@@ -2136,6 +2142,7 @@
 				A1E0B6FF2D6A09B9002892BD /* BankAccountsRepository.swift in Sources */,
 				A14F99942A250A3800257B67 /* goalStrings.swift in Sources */,
 				A16688FC29F17E5200568217 /* TransactionsViewModel.swift in Sources */,
+				A1E0B7032D6A0CFD002892BD /* CreditCardExpensesRepository.swift in Sources */,
 				A1CE092D2A0026800028028B /* Alert.swift in Sources */,
 				A1C9EFE529E60A880029B69F /* SplashViewController.swift in Sources */,
 				A19742D52A225F6E00455DB0 /* tabBarStrings.swift in Sources */,
@@ -2146,6 +2153,7 @@
 				E35D084C29BDAD100098F0B5 /* SceneDelegate.swift in Sources */,
 				A11BDA7429F4C173006CF6B2 /* Banks.swift in Sources */,
 				A1C9EFE729E60BB60029B69F /* MainViewController.swift in Sources */,
+				A1E0B7052D6A0EC8002892BD /* CategoriesRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

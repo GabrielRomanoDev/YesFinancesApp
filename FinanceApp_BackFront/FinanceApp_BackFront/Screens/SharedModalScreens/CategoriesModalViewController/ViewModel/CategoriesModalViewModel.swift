@@ -12,10 +12,11 @@ class CategoriesModalViewModel{
     var filteredCategories: [TransactionCategory]
     
     init(transactionType:TransactionType) {
+        
         if transactionType == .expense {
-            self.filteredCategories = expenseCategories
+            self.filteredCategories = CategoriesRepository.shared.expenses
         } else{
-            self.filteredCategories = incomeCategories
+            self.filteredCategories = CategoriesRepository.shared.incomes
         }
         
     }
