@@ -50,7 +50,7 @@ struct HomeViewModel {
         service.getObjectsList(forObjectType: Transactions.self, documentReadName: firebaseSubCollectionNames.transactions) { result in
             switch result {
             case .success(let objectsArray):
-                transactionsList = objectsArray
+                TransactionsRepository.shared.list = objectsArray
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -100,7 +100,7 @@ struct HomeViewModel {
         lastIncomeDate = globalStrings.emptyString
         lastExpenseDate = globalStrings.emptyString
         
-        for transaction in transactionsList {
+        for transaction in TransactionsRepository.shared.list {
             if transaction.type == .income {
                 incomesTotal += transaction.amount
                 if lastIncomeDate.isEmpty {

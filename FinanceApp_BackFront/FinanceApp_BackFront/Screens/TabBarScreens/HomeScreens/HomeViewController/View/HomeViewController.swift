@@ -181,7 +181,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case horizontalCollectionView:
             return 1
         case verticalCollectionView:
-            if transactionsList.count > 0 {
+            if TransactionsRepository.shared.list.count > 0 {
                 return 4
             } else {
                 return 2
@@ -200,7 +200,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return 1
             } else {
                 let maxVisibleTransactions = 4
-                return min(transactionsList.count, maxVisibleTransactions)
+                return min(TransactionsRepository.shared.list.count, maxVisibleTransactions)
             }
         default:
             return 0
@@ -238,7 +238,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransactionsCollectionViewCell.identifier, for: indexPath) as! TransactionsCollectionViewCell
                 cell.layer.cornerRadius = 10
                 cell.layer.masksToBounds = true
-                cell.setup(with: transactionsList[indexPath.row])
+                cell.setup(with: TransactionsRepository.shared.list[indexPath.row])
                 return cell
             default:
                 return UICollectionViewCell()

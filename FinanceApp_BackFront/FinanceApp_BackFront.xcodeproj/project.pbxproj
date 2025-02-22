@@ -164,6 +164,7 @@
 		A1D22DB62A53016A0042D060 /* CategoryImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1D22DB42A53016A0042D060 /* CategoryImagesCollectionViewCell.xib */; };
 		A1D2F84D29E9E5B100DCA6E4 /* CategoriesModalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2F84B29E9E5B100DCA6E4 /* CategoriesModalCell.swift */; };
 		A1D2F84E29E9E5B100DCA6E4 /* CategoriesModalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1D2F84C29E9E5B100DCA6E4 /* CategoriesModalCell.xib */; };
+		A1E0B6D22D656EE5002892BD /* TransactionsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B6D12D656EDE002892BD /* TransactionsRepository.swift */; };
 		A1E107BB29E4F426005A3F4F /* CreditCardsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E107BA29E4F426005A3F4F /* CreditCardsViewController.storyboard */; };
 		A1E107BD29E4F432005A3F4F /* CreditCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E107BC29E4F432005A3F4F /* CreditCardsViewController.swift */; };
 		A1E107C029E4F63D005A3F4F /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E107BF29E4F63D005A3F4F /* ProfileViewController.storyboard */; };
@@ -369,6 +370,7 @@
 		A1D22DB42A53016A0042D060 /* CategoryImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryImagesCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1D2F84B29E9E5B100DCA6E4 /* CategoriesModalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModalCell.swift; sourceTree = "<group>"; };
 		A1D2F84C29E9E5B100DCA6E4 /* CategoriesModalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoriesModalCell.xib; sourceTree = "<group>"; };
+		A1E0B6D12D656EDE002892BD /* TransactionsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepository.swift; sourceTree = "<group>"; };
 		A1E107BA29E4F426005A3F4F /* CreditCardsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreditCardsViewController.storyboard; sourceTree = "<group>"; };
 		A1E107BC29E4F432005A3F4F /* CreditCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardsViewController.swift; sourceTree = "<group>"; };
 		A1E107BF29E4F63D005A3F4F /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
@@ -880,6 +882,7 @@
 		A16636ED29DE1B0400162872 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A1E0B6D02D656E88002892BD /* Repositories */,
 				A11BDA7929F4C47F006CF6B2 /* Enums */,
 				A16636EE29DE33C500162872 /* Transactions.swift */,
 				A1A92BC529F81D6200E14EE8 /* CreditCardExpense.swift */,
@@ -1581,6 +1584,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		A1E0B6D02D656E88002892BD /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				A1E0B6D12D656EDE002892BD /* TransactionsRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		A1E107B129E4E977005A3F4F /* BankAccountsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2036,6 +2047,7 @@
 				E35D086129BDB0310098F0B5 /* HomeViewController.swift in Sources */,
 				A18991A82A11DC9800D47427 /* CardsBallanceCollectionViewCell.swift in Sources */,
 				A16688EB29F08CF600568217 /* BalanceCard.swift in Sources */,
+				A1E0B6D22D656EE5002892BD /* TransactionsRepository.swift in Sources */,
 				A1E87E652A3BA9E600077D49 /* insertNumberStrings.swift in Sources */,
 				A162B2472CFCF0AA0036350A /* ValueFilteringTableViewCell.swift in Sources */,
 				A12329F229FB0F2C0053AC38 /* BankAccountsViewController.swift in Sources */,

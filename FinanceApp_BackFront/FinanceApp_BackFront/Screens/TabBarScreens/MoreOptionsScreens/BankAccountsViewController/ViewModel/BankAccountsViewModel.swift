@@ -131,7 +131,7 @@ class BankAccountsViewModel {
             if result != "Success" {
                 print(result)
             }
-            transactionsList.append(newTransaction)
+            TransactionsRepository.shared.list.append(newTransaction)
             completion()
         }
     }

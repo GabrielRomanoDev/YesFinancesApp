@@ -15,7 +15,7 @@ class TransactionsFilterWorker {
     
     func filterTransactions(parameters: FilteringParameters) -> [Transactions] {
         
-        self.filteredTransactions = transactionsList
+        self.filteredTransactions = TransactionsRepository.shared.list
         self.parameters = parameters
         
         typeFiltering()
@@ -30,7 +30,7 @@ class TransactionsFilterWorker {
     func searchForTransactions(_ text: String?) -> [Transactions] {
         
         if self.filteredTransactions.isEmpty {
-            self.filteredTransactions = transactionsList
+            self.filteredTransactions = TransactionsRepository.shared.list
         }
         
         if let text, !text.isEmpty {

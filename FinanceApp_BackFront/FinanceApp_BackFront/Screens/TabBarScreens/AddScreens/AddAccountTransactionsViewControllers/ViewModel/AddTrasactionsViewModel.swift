@@ -32,7 +32,7 @@ class AddAccountTransactionsViewModel{
             }
         }
         
-        transactionsList.append(newTransaction)
+        TransactionsRepository.shared.list.append(newTransaction)
         service.addObject(newTransaction, id: newTransaction.id) { result in
             if result != "Success" {
                 print(result)

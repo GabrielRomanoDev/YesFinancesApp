@@ -17,7 +17,7 @@ struct TransactionsViewModel {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = globalStrings.dateFormat
 
-        transactionsList = transactionsList.sorted(by: { transaction1, transaction2 in
+        TransactionsRepository.shared.list = TransactionsRepository.shared.list.sorted(by: { transaction1, transaction2 in
             let data1 = dateFormatter.date(from: transaction1.date)!
             let data2 = dateFormatter.date(from: transaction2.date)!
             return data1 > data2
@@ -30,7 +30,7 @@ struct TransactionsViewModel {
         if let filtered = filteredTransactions {
             return filtered.count
         } else {
-            return transactionsList.count
+            return TransactionsRepository.shared.list.count
         }
        
     }
@@ -40,7 +40,7 @@ struct TransactionsViewModel {
         if let filtered = filteredTransactions {
             return filtered[index]
         } else {
-            return transactionsList[index]
+            return TransactionsRepository.shared.list[index]
         }
         
     }
@@ -56,12 +56,10 @@ struct TransactionsViewModel {
     
     mutating func searchForTransactions(_ text: String?) {
         if filteringWorker.filteredTransactions.isEmpty {
-            filteringWorker.filteredTransactions = transactionsList
+            filteringWorker.filteredTransactions = TransactionsRepository.shared.list
         }
         filteredTransactions = filteringWorker.searchForTransactions(text)
     }
     
 }
-
-var transactionsList: [Transactions] = []
 
