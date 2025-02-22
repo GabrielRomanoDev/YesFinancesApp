@@ -116,13 +116,13 @@ class BankAccountsViewModel {
             transactionType = .expense
         }
         
-        let newTransaction = Transactions(
+        let newTransaction = AccountTransaction(
             desc: "Ajuste de saldo na Conta",
             amount: valueNewTransaction,
             categoryIndex: 0,
             date: Date().toString(format: globalStrings.dateFormat),
             type: transactionType,
-            accountId: account.id,
+            sourceId: account.id,
             obs: "Conta: \(account.desc)"
         )
         

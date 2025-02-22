@@ -9,7 +9,7 @@ class TransactionsRepository {
     
     static let shared = TransactionsRepository()
     
-    var list: [Transactions] = []
+    var list: [AccountTransaction] = []
     
     private init(){}
     

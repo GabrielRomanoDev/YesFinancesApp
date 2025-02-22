@@ -31,9 +31,9 @@ class DetailsTransactionsViewController: UIViewController {
     
     static let identifier:String = String(describing: DetailsTransactionsViewController.self)
     
-    var transaction: Transactions
+    var transaction: AccountTransaction
     
-    init?(coder: NSCoder, transaction: Transactions) {
+    init?(coder: NSCoder, transaction: AccountTransaction) {
         self.transaction = transaction
         super.init(coder: coder)
     }
@@ -47,7 +47,7 @@ class DetailsTransactionsViewController: UIViewController {
 
     }
     
-    private func populateInfos(transaction: Transactions) {
+    private func populateInfos(transaction: AccountTransaction) {
         switch transaction.type {
         case .income:
             titleLabel.text = "Detalhes da Receita"

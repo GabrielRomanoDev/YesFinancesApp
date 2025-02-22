@@ -27,7 +27,7 @@ struct BankAccount: Codable, Equatable {
     var obs: String
     
     var balance: Double {
-        let filteredTransactions = TransactionsRepository.shared.list.filter { $0.accountId == id}
+        let filteredTransactions = TransactionsRepository.shared.list.filter { $0.sourceId == id}
         return filteredTransactions.reduce(0, {$0 + $1.amount})
     }
     

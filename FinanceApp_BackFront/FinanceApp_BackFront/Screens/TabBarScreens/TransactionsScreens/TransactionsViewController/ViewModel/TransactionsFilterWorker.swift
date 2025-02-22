@@ -9,11 +9,11 @@ import Foundation
 
 class TransactionsFilterWorker {
     
-    var filteredTransactions: [Transactions] = []
+    var filteredTransactions: [AccountTransaction] = []
     var parameters: FilteringParameters = FilteringParameters()
     
     
-    func filterTransactions(parameters: FilteringParameters) -> [Transactions] {
+    func filterTransactions(parameters: FilteringParameters) -> [AccountTransaction] {
         
         self.filteredTransactions = TransactionsRepository.shared.list
         self.parameters = parameters
@@ -27,7 +27,7 @@ class TransactionsFilterWorker {
         
     }
     
-    func searchForTransactions(_ text: String?) -> [Transactions] {
+    func searchForTransactions(_ text: String?) -> [AccountTransaction] {
         
         if self.filteredTransactions.isEmpty {
             self.filteredTransactions = TransactionsRepository.shared.list
@@ -75,7 +75,7 @@ class TransactionsFilterWorker {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 accountsSelection.contains { account in
-                    account.id == transaction.accountId
+                    account.id == transaction.sourceId
                     
                 }
             }
@@ -135,7 +135,7 @@ class TransactionsFilterWorker {
         
     }
     
-    private func filterTransactionsByMonth(transactions: [Transactions], month: Int, year: Int) -> [Transactions] {
+    private func filterTransactionsByMonth(transactions: [AccountTransaction], month: Int, year: Int) -> [AccountTransaction] {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = globalStrings.dateFormat

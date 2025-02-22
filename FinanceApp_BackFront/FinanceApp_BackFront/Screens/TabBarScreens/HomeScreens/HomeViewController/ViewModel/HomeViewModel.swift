@@ -49,7 +49,7 @@ struct HomeViewModel {
     
     private func getTransactions(completion: @escaping () -> Void) {
         
-        service.getObjectsList(forObjectType: Transactions.self, documentReadName: firebaseSubCollectionNames.transactions) { result in
+        service.getObjectsList(forObjectType: AccountTransaction.self, documentReadName: firebaseSubCollectionNames.transactions) { result in
             switch result {
             case .success(let objectsArray):
                 TransactionsRepository.shared.list = objectsArray

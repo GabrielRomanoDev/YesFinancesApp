@@ -10,8 +10,7 @@ import Foundation
 struct TransactionsViewModel {
     
     var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker()
-    var filteredTransactions: [Transactions]? = nil
-
+    var filteredTransactions: [AccountTransaction]? = nil
     
     public func reordenateTransactions(){
         let dateFormatter = DateFormatter()
@@ -35,7 +34,7 @@ struct TransactionsViewModel {
        
     }
     
-    public func getItemTransactions(_ index:Int) -> Transactions {
+    public func getItemTransactions(_ index:Int) -> AccountTransaction {
         
         if let filtered = filteredTransactions {
             return filtered[index]

@@ -1,22 +1,22 @@
 //
-//  creditCardExpenses.swift
+//  File.swift
 //  FinanceApp_BackFront
 //
-//  Created by Gabriel Luz Romano on 25/04/23.
+//  Created by Gabriel Luz Romano on 05/04/23.
 //
 
 import Foundation
 
-struct CreditCardExpense: Transactions, Codable, Equatable  {
-   
-    var id: String = UUID().uuidString
-    var desc:String
-    var amount:Double
-    var categoryIndex:Int
-    var date:String
+struct AccountTransaction: Transactions, Codable, Equatable {
+    
+    private(set) var id: String = UUID().uuidString
+    var desc: String
+    var amount: Double
+    var categoryIndex: Int
+    var date: String
     var type: TransactionType
-    var sourceId:String
-    var obs:String
+    var sourceId: String
+    var obs: String
     
     init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, sourceId: String, obs: String) {
         self.desc = desc
@@ -29,3 +29,5 @@ struct CreditCardExpense: Transactions, Codable, Equatable  {
     }
     
 }
+
+

@@ -104,13 +104,13 @@ class RegisterExpenseViewController: UIViewController {
             amountContainerView.layer.borderColor = UIColor.red.cgColor
             showSimpleAlert(title: globalStrings.attention, message: addStrings.amountMustBeHigherThenZero)
         } else {
-            viewModel.addTransaction(transaction: Transactions(
+            viewModel.addTransaction(transaction: AccountTransaction(
                 desc: descTextField.text.orEmpty,
                 amount: -amount,
                 categoryIndex: indexCategorySelected,
                 date: viewModel.dataSelecionada.toString(format: globalStrings.dateFormat),
                 type: .expense,
-                accountId: idAccountSelected,
+                sourceId: idAccountSelected,
                 obs: obsTextField.text.orEmpty
             )) {
                 DispatchQueue.main.async { [weak self] in

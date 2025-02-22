@@ -19,8 +19,8 @@ class AddAccountTransactionsViewModel{
         transactionType=type
     }
     
-    public func addTransaction(transaction: Transactions, completion: @escaping () -> Void) {
-        var newTransaction: Transactions = transaction
+    public func addTransaction(transaction: AccountTransaction, completion: @escaping () -> Void) {
+        var newTransaction: AccountTransaction = transaction
         
         if newTransaction.desc.isEmptyTest() {
             switch transactionType{

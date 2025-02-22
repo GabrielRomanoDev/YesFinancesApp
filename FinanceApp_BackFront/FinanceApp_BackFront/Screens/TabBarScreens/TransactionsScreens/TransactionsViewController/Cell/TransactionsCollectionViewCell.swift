@@ -28,7 +28,7 @@ class TransactionsCollectionViewCell: UICollectionViewCell {
     }
     
     
-    func setup(with transactions:Transactions) {
+    func setup(with transactions:AccountTransaction) {
         descLabel.text = transactions.desc
         valueLabel.text = transactions.amount.toStringMoney()
         dateLabel.text = transactions.date

@@ -109,7 +109,7 @@ class RegisterCardExpenseViewController: UIViewController{
                 categoryIndex: indexCategorySelected,
                 date: viewModel.dataSelecionada.toString(format: globalStrings.dateFormat),
                 type: .expense,
-                cardId: idCardSelected,
+                sourceId: idCardSelected,
                 obs: obsTextField.text.orEmpty
             ))
             dismiss(animated: true, completion: nil)

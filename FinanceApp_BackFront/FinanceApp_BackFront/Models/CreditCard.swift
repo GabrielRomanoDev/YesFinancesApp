@@ -19,7 +19,7 @@ struct CreditCard: Codable, Equatable {
     var obs:String
     
     var invoiceTotal: Double {
-        let filteredExpenses = CreditCardExpensesRepository.shared.list.filter{ $0.cardId == id}
+        let filteredExpenses = CreditCardExpensesRepository.shared.list.filter{ $0.sourceId == id}
         return filteredExpenses.reduce(0, {$0 + $1.amount})
     }
     
@@ -43,7 +43,7 @@ struct CreditCard: Codable, Equatable {
             transactionType = .expense
         }
         
-        CreditCardExpensesRepository.shared.list.append(CreditCardExpense(desc: moreOptionsStrings.updateAccountAmount, amount: valueNewTransaction, categoryIndex: 0, date: Date().toString(format: globalStrings.dateFormat), type: transactionType, cardId: id, obs: globalStrings.emptyString))
+        CreditCardExpensesRepository.shared.list.append(CreditCardExpense(desc: moreOptionsStrings.updateAccountAmount, amount: valueNewTransaction, categoryIndex: 0, date: Date().toString(format: globalStrings.dateFormat), type: transactionType, sourceId: id, obs: globalStrings.emptyString))
     }
     
 }
