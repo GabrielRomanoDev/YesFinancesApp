@@ -206,7 +206,7 @@ extension RegisterIncomeViewController: CategoriesModalDelegate, AccountsModalDe
     func didSelectAccount(_ indexAccount: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateAccountField(indexAccount)
-            self?.idAccountSelected = bankAccountsList[indexAccount].id
+            self?.idAccountSelected = BankAccountsRepository.shared.list[indexAccount].id
         }
     }
     

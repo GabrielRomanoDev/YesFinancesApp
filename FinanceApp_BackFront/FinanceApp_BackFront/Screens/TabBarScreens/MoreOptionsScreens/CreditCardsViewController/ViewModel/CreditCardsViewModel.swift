@@ -16,7 +16,7 @@ class CreditCardsViewModel {
         service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
             switch result {
             case .success(let objectArray):
-                creditCardsList = objectArray
+                CreditCardsRepository.shared.list = objectArray
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -25,11 +25,11 @@ class CreditCardsViewModel {
     }
     
     public func getCardsCount() -> Int {
-            return creditCardsList.count
+            return CreditCardsRepository.shared.list.count
     }
     
     public func getCard(_ index:Int) -> CreditCard {
-        return creditCardsList[index]
+        return CreditCardsRepository.shared.list[index]
     }
     
     public func getCellSize(viewWidth:CGFloat) -> CGSize {
@@ -53,7 +53,7 @@ class CreditCardsViewModel {
             clearStandardCard()
         }
         
-        creditCardsList.append(newCard)
+        CreditCardsRepository.shared.list.append(newCard)
         service.addObject(newCard, id: newCard.id) { result in
             if result != "Success" {
                 print(result)
@@ -67,7 +67,7 @@ class CreditCardsViewModel {
             clearStandardCard()
         }
         
-        var updatedCard = creditCardsList[indexCard]
+        var updatedCard = CreditCardsRepository.shared.list[indexCard]
         updatedCard.desc = card.desc
         updatedCard.limit = card.limit
         updatedCard.bank = card.bank
@@ -80,31 +80,29 @@ class CreditCardsViewModel {
             if result != "Success" {
                 print(result)
             }
-            creditCardsList[indexCard] = card
+            CreditCardsRepository.shared.list[indexCard] = card
             completion()
         }
     }
     
     public func deleteCard(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: creditCardsList[index].id) { result in
+        service.deleteObject(id: CreditCardsRepository.shared.list[index].id) { result in
             if result != "Success" {
                 print(result)
             }
-            creditCardsList.remove(at: index)
+            CreditCardsRepository.shared.list.remove(at: index)
             completion()
         }
     }
     
     private func clearStandardCard() {
         
-        for i in 0..<creditCardsList.count {
-            creditCardsList[i].standardCard = false
-            service.updateObjectField(change: ["standardCard":false], objectID: creditCardsList[i].id)
+        for i in 0..<CreditCardsRepository.shared.list.count {
+            CreditCardsRepository.shared.list[i].standardCard = false
+            service.updateObjectField(change: ["standardCard":false], objectID: CreditCardsRepository.shared.list[i].id)
         }
         
     }
     
 }
-
-var creditCardsList : [CreditCard] = []

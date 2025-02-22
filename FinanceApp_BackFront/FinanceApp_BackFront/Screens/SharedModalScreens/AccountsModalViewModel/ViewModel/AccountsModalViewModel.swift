@@ -10,11 +10,11 @@ import Foundation
 class AccountsModalViewModel {
     
     public func getAccountsCount() -> Int {
-        return bankAccountsList.count
+        return BankAccountsRepository.shared.list.count
     }
     
     public func getItemAccount(_ index:Int) -> BankAccount {
-        return bankAccountsList[index]
+        return BankAccountsRepository.shared.list[index]
     }
     
     public func getHeightSize() -> CGFloat {

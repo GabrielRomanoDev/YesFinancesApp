@@ -45,7 +45,7 @@ class AddAccountTransactionsViewModel{
     }
     
     var standardAccountIndex: Int {
-        for (index, account) in bankAccountsList.enumerated() {
+        for (index, account) in BankAccountsRepository.shared.list.enumerated() {
             if account.standardAccount == true {
                 return index
             }
@@ -54,12 +54,12 @@ class AddAccountTransactionsViewModel{
     }
     
     var standardAccountId: String {
-        for account in bankAccountsList {
+        for account in BankAccountsRepository.shared.list {
             if account.standardAccount == true {
                 return account.id
             }
         }
-        return bankAccountsList[0].id
+        return BankAccountsRepository.shared.list[0].id
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {
@@ -90,23 +90,23 @@ class AddAccountTransactionsViewModel{
     }
     
     public func getAccountLabel(_ indexAccount:Int) -> String{
-        return bankAccountsList[indexAccount].desc
+        return BankAccountsRepository.shared.list[indexAccount].desc
     }
     
     public func getBankLabelText(_ indexAccount:Int) -> String{
-        return bankProperties[bankAccountsList[indexAccount].bank]?.logoTextLabel ?? addStrings.bankText
+        return bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.logoTextLabel ?? addStrings.bankText
     }
     
     public func getBankLabelTextFont(_ indexAccount:Int) -> UIFont{
-        return UIFont.systemFont(ofSize: bankProperties[bankAccountsList[indexAccount].bank]?.logoTextSize ?? 17, weight: .bold)
+        return UIFont.systemFont(ofSize: bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.logoTextSize ?? 17, weight: .bold)
     }
     
     public func getBankLabelColor(_ indexAccount:Int) -> UIColor{
-        return bankProperties[bankAccountsList[indexAccount].bank]?.labelBankColor ?? .black
+        return bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.labelBankColor ?? .black
     }
     
     public func getBankBackColor(_ indexAccount:Int) -> UIColor{
-        return bankProperties[bankAccountsList[indexAccount].bank]?.backgroundColor ?? .gray
+        return bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.backgroundColor ?? .gray
     }
     
     

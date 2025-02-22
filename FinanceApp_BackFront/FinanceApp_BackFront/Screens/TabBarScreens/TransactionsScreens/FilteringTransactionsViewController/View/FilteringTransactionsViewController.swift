@@ -43,14 +43,14 @@ class FilteringTransactionsViewController: UIViewController {
     
     private func openSelectAccountsModal() {
         
-        let list = bankAccountsList.compactMap { accountItem in
+        let list = BankAccountsRepository.shared.list.compactMap { accountItem in
             return accountItem.desc
         }
         
-        var selectedItens: [Bool] = Array(repeating: false, count: bankAccountsList.count)
+        var selectedItens: [Bool] = Array(repeating: false, count: BankAccountsRepository.shared.list.count)
         
         if let accounts = parameters.accounts {
-            selectedItens = bankAccountsList.map{ account in
+            selectedItens = BankAccountsRepository.shared.list.map{ account in
                 accounts.contains(where: { $0.id == account.id })
             }
         }
@@ -72,14 +72,14 @@ class FilteringTransactionsViewController: UIViewController {
     
     private func openSelectCardsModal() {
         
-        let list = creditCardsList.compactMap { cardItem in
+        let list = CreditCardsRepository.shared.list.compactMap { cardItem in
             return cardItem.desc
         }
         
-        var selectedItens: [Bool] = Array(repeating: false, count: creditCardsList.count)
+        var selectedItens: [Bool] = Array(repeating: false, count: CreditCardsRepository.shared.list.count)
         
         if let creditCards = parameters.creditCards {
-            selectedItens = creditCardsList.map{ card in
+            selectedItens = CreditCardsRepository.shared.list.map{ card in
                 creditCards.contains(where: { $0.id == card.id })
             }
         }
@@ -340,7 +340,7 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
         switch itemType {
         case .accounts:
             parameters.accounts = []
-            updateParameters(selectionResult: selectionResult, items: bankAccountsList) { account in
+            updateParameters(selectionResult: selectionResult, items: BankAccountsRepository.shared.list) { account in
                 parameters.accounts?.append(account)
             }
             
@@ -348,12 +348,12 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             
         case .creditCards:
             break
-//            let cards = creditCardsList.map { $0.desc }
+//            let cards = CreditCardsRepository.shared.list.map { $0.desc }
             //            let text = updateSelectionText(from: selectionResult, items: cards)
             //            allCreditCardsLabel.text = text.isEmpty ? "Todos Cartões" : text
             //
             //            parameters.creditCards = []
-            //            updateViewModel(selectionResult: selectionResult, items: creditCardsList) { card in
+            //            updateViewModel(selectionResult: selectionResult, items: CreditCardsRepository.shared.list) { card in
             //                parameters.creditCards?.append(card.id)
             //            }
         case .categories:

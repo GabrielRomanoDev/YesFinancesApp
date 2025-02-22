@@ -62,10 +62,10 @@ struct HomeViewModel {
         service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
             case .success(let accounts):
-                bankAccountsList = accounts
+                BankAccountsRepository.shared.list = accounts
             case .failure(let error):
                 print(error.localizedDescription)
-                bankAccountsList = []
+                BankAccountsRepository.shared.list = []
             }
             completion()
         }
@@ -75,10 +75,10 @@ struct HomeViewModel {
         service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
             switch result {
             case .success(let creditCards):
-                creditCardsList = creditCards
+                CreditCardsRepository.shared.list = creditCards
             case .failure(let error):
                 print(error.localizedDescription)
-                creditCardsList = []
+                CreditCardsRepository.shared.list = []
             }
             completion()
         }

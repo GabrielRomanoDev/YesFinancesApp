@@ -9,11 +9,11 @@ import Foundation
 
 class CreditCardModalViewModel {
     public func getCreditCardsCount() -> Int {
-        return creditCardsList.count
+        return CreditCardsRepository.shared.list.count
     }
     
     public func getItemCard(_ index:Int) -> CreditCard {
-        return creditCardsList[index]
+        return CreditCardsRepository.shared.list[index]
     }
     
     public func getHeightSize() -> CGFloat {

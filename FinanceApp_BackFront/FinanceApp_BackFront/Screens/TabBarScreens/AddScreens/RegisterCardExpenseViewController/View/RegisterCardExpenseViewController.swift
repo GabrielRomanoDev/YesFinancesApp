@@ -202,7 +202,7 @@ extension RegisterCardExpenseViewController:CategoriesModalDelegate, CardModalDe
     func didSelectCard(_ indexCard: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateCardField(indexCard)
-            self?.idCardSelected = creditCardsList[indexCard].id
+            self?.idCardSelected = CreditCardsRepository.shared.list[indexCard].id
         }
     }
     

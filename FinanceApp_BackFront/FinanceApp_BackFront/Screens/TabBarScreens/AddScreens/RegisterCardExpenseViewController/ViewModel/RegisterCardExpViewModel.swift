@@ -22,7 +22,7 @@ class RegisterCardExpViewModel{
     }
     
     var standardCardIndex: Int {
-        for (index, card) in creditCardsList.enumerated(){
+        for (index, card) in CreditCardsRepository.shared.list.enumerated(){
             if card.standardCard == true {
                 return index
             }
@@ -31,12 +31,12 @@ class RegisterCardExpViewModel{
     }
     
     var standardCardId: String {
-        for card in creditCardsList{
+        for card in CreditCardsRepository.shared.list{
             if card.standardCard == true{
                 return card.id
             }
         }
-        return creditCardsList[0].id
+        return CreditCardsRepository.shared.list[0].id
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {
@@ -52,24 +52,24 @@ class RegisterCardExpViewModel{
     }
     
     public func getCardLabel(_ indexAccount:Int) -> String{
-        return creditCardsList[indexAccount].desc
+        return CreditCardsRepository.shared.list[indexAccount].desc
     }
     
     public func getBankLabelText(_ indexCard:Int) -> String{
-        return bankProperties[creditCardsList[indexCard].bank]?.logoTextLabel ?? addStrings.bankText
+        return bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.logoTextLabel ?? addStrings.bankText
     }
     
     public func getBankLabelTextFont(_ indexCard:Int) -> UIFont{
         
-        return UIFont.systemFont(ofSize: bankProperties[creditCardsList[indexCard].bank]?.logoTextSize ?? 16, weight: .bold)
+        return UIFont.systemFont(ofSize: bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.logoTextSize ?? 16, weight: .bold)
     }
     
     public func getBankLabelColor(_ indexCard:Int) -> UIColor{
-        return bankProperties[creditCardsList[indexCard].bank]?.labelBankColor ?? .black
+        return bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.labelBankColor ?? .black
     }
     
     public func getBankBackColor(_ indexCard:Int) -> UIColor{
-        return bankProperties[creditCardsList[indexCard].bank]?.backgroundColor ?? .gray
+        return bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.backgroundColor ?? .gray
     }
     
     public func setValueToString(_ value: Double) -> String {

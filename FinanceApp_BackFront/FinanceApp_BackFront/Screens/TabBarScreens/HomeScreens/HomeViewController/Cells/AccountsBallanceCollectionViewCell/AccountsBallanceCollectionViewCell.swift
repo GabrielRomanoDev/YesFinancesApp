@@ -78,7 +78,7 @@ class AccountsBallanceCollectionViewCell: UICollectionViewCell {
             }
             self.bankAccountList = accountsList
             self.hideInformations = hideInformations
-            tableViewHeightConstraint.constant = CGFloat(bankAccountsList.count * 60)
+            tableViewHeightConstraint.constant = CGFloat(BankAccountsRepository.shared.list.count * 60)
             accountsTableView.reloadData()
         }
     }

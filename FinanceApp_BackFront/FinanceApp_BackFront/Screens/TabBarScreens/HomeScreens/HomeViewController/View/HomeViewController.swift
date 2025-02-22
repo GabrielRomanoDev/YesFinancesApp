@@ -218,13 +218,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             switch indexPath.section {
             case 0:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AccountsBallanceCollectionViewCell.identifier, for: indexPath) as? AccountsBallanceCollectionViewCell
-                cell?.setupCell(accountsList: bankAccountsList, hideInformations: self.hideInformations)
+                cell?.setupCell(accountsList: BankAccountsRepository.shared.list, hideInformations: self.hideInformations)
                 cell?.layer.cornerRadius = 10
                 cell?.layer.masksToBounds = true
                 return cell ?? UICollectionViewCell()
             case 1:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardsBallanceCollectionViewCell.identifier, for: indexPath) as? CardsBallanceCollectionViewCell
-                cell?.setupCell(cardsList: creditCardsList, hideInformations: self.hideInformations)
+                cell?.setupCell(cardsList: CreditCardsRepository.shared.list, hideInformations: self.hideInformations)
                 cell?.layer.cornerRadius = 10
                 cell?.layer.masksToBounds = true
                 return cell ?? UICollectionViewCell()
@@ -253,18 +253,18 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             switch indexPath.section {
             case 0:
                 var height: Int
-                if bankAccountsList.isEmpty {
+                if BankAccountsRepository.shared.list.isEmpty {
                     height = 110
                 } else {
-                    height = (60 + bankAccountsList.count * 60)
+                    height = (60 + BankAccountsRepository.shared.list.count * 60)
                 }
                 return CGSize(width: Int(view.frame.width) - 30, height: height)
             case 1:
                 var height: Int
-                if creditCardsList.isEmpty {
+                if CreditCardsRepository.shared.list.isEmpty {
                     height = 110
                 } else {
-                    height = (60 + creditCardsList.count * 60)
+                    height = (60 + CreditCardsRepository.shared.list.count * 60)
                 }
                 return CGSize(width: Int(view.frame.width) - 30, height: height)
             case 2:

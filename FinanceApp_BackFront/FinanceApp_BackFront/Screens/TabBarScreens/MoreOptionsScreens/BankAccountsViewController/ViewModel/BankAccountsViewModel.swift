@@ -17,7 +17,7 @@ class BankAccountsViewModel {
         service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
             case .success(let objectArray):
-                bankAccountsList = objectArray
+                BankAccountsRepository.shared.list = objectArray
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -26,12 +26,12 @@ class BankAccountsViewModel {
     }
     
     public func getAccountsCount() -> Int {
-        return bankAccountsList.count
+        return BankAccountsRepository.shared.list.count
     }
     
     public func getAccount(_ index:Int) -> BankAccount {
-        if index < bankAccountsList.count {
-            return bankAccountsList[index]
+        if index < BankAccountsRepository.shared.list.count {
+            return BankAccountsRepository.shared.list[index]
         } else {
             return BankAccount(desc: "", bank: .bancoDoBrasil, overdraft: 0, standardAccount: false, obs: "")
         }
@@ -64,7 +64,7 @@ class BankAccountsViewModel {
             if result != "Success" {
                 print(result)
             }
-            bankAccountsList.append(newAccount)
+            BankAccountsRepository.shared.list.append(newAccount)
             
             if newBalance != 0{
                 self?.service.setSubCollectionName(firebaseSubCollectionNames.transactions)
@@ -76,13 +76,13 @@ class BankAccountsViewModel {
     }
     
     public func editAccount(account: BankAccount, indexAccount: Int, newBalance: Double, completion: @escaping () -> Void) {
-        let oldBalance: Double = bankAccountsList[indexAccount].balance
+        let oldBalance: Double = BankAccountsRepository.shared.list[indexAccount].balance
         
         if account.standardAccount {
             clearStandardAccount()
         }
         
-        var updatedAccount = bankAccountsList[indexAccount]
+        var updatedAccount = BankAccountsRepository.shared.list[indexAccount]
         updatedAccount.desc = account.desc
         updatedAccount.overdraft = account.overdraft
         updatedAccount.bank = account.bank
@@ -95,7 +95,7 @@ class BankAccountsViewModel {
                 print(result)
             }
             
-            bankAccountsList[indexAccount] = updatedAccount
+            BankAccountsRepository.shared.list[indexAccount] = updatedAccount
             
             if newBalance != oldBalance {
                 self?.adjustBalance(newBalance: newBalance, oldBalance: oldBalance, account: updatedAccount, completion: completion)
@@ -138,24 +138,22 @@ class BankAccountsViewModel {
     
     public func deleteAccount(index: Int, completion: @escaping () -> Void) {
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.deleteObject(id: bankAccountsList[index].id) { result in
+        service.deleteObject(id: BankAccountsRepository.shared.list[index].id) { result in
             if result != "Success" {
                 print(result)
             }
-            bankAccountsList.remove(at: index)
+            BankAccountsRepository.shared.list.remove(at: index)
             completion()
         }
     }
     
     private func clearStandardAccount() {
         
-        for i in 0..<bankAccountsList.count {
-            bankAccountsList[i].standardAccount = false
-            service.updateObjectField(change: ["standardAccount":false], objectID: bankAccountsList[i].id)
+        for i in 0..<BankAccountsRepository.shared.list.count {
+            BankAccountsRepository.shared.list[i].standardAccount = false
+            service.updateObjectField(change: ["standardAccount":false], objectID: BankAccountsRepository.shared.list[i].id)
         }
         
     }
     
 }
-
-var bankAccountsList: [BankAccount] = []

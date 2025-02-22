@@ -70,7 +70,7 @@ extension CreditCardsViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if  indexPath.row < creditCardsList.count{
+        if  indexPath.row < CreditCardsRepository.shared.list.count{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CreditCardCollectionViewCell.identifier, for: indexPath) as? CreditCardCollectionViewCell
             cell?.layer.cornerRadius = viewModel.getCellCornerRadius()
             cell?.layer.masksToBounds = true
