@@ -33,7 +33,7 @@ class AddAccountTransactionsViewModel{
         }
         
         transactionsList.append(newTransaction)
-        service.addObject(newTransaction, id: newTransaction.getId) { result in
+        service.addObject(newTransaction, id: newTransaction.id) { result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -56,10 +56,10 @@ class AddAccountTransactionsViewModel{
     var standardAccountId: String {
         for account in bankAccountsList {
             if account.standardAccount == true {
-                return account.getId
+                return account.id
             }
         }
-        return bankAccountsList[0].getId
+        return bankAccountsList[0].id
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {

@@ -51,7 +51,7 @@ class FilteringTransactionsViewController: UIViewController {
         
         if let accounts = parameters.accounts {
             selectedItens = bankAccountsList.map{ account in
-                accounts.contains(where: { $0.getId == account.getId })
+                accounts.contains(where: { $0.id == account.id })
             }
         }
         
@@ -80,7 +80,7 @@ class FilteringTransactionsViewController: UIViewController {
         
         if let creditCards = parameters.creditCards {
             selectedItens = creditCardsList.map{ card in
-                creditCards.contains(where: { $0.getId == card.getId })
+                creditCards.contains(where: { $0.id == card.id })
             }
         }
         
@@ -354,7 +354,7 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             //
             //            parameters.creditCards = []
             //            updateViewModel(selectionResult: selectionResult, items: creditCardsList) { card in
-            //                parameters.creditCards?.append(card.getId)
+            //                parameters.creditCards?.append(card.id)
             //            }
         case .categories:
             parameters.categories = []

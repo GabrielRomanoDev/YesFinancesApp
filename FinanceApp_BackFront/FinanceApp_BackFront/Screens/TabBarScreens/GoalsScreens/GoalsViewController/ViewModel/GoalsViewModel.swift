@@ -41,7 +41,7 @@ class GoalsViewModel {
     
     public func createNewGoal(_ newGoal: Goal, completion: @escaping () -> Void) {
         
-        service.addObject(newGoal, id: newGoal.getId) { [weak self] result in
+        service.addObject(newGoal, id: newGoal.id) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -54,7 +54,7 @@ class GoalsViewModel {
     
     public func editGoal(goal: Goal, indexGoal: Int, completion: @escaping () -> Void) {
         
-        service.updateObject(goal, id: goalsList[indexGoal].getId) { [weak self] result in
+        service.updateObject(goal, id: goalsList[indexGoal].id) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -68,7 +68,7 @@ class GoalsViewModel {
     
     public func deleteGoal(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: goalsList[index].getId) { [weak self] result in
+        service.deleteObject(id: goalsList[index].id) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()

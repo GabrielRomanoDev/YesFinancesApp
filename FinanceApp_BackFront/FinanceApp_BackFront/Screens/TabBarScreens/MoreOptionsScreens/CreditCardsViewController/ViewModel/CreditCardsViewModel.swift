@@ -54,7 +54,7 @@ class CreditCardsViewModel {
         }
         
         creditCardsList.append(newCard)
-        service.addObject(newCard, id: newCard.getId) { result in
+        service.addObject(newCard, id: newCard.id) { result in
             if result != "Success" {
                 print(result)
             }
@@ -76,7 +76,7 @@ class CreditCardsViewModel {
         updatedCard.standardCard = card.standardCard
         updatedCard.obs = card.obs
         
-        service.updateObject(updatedCard, id: updatedCard.getId) { result in
+        service.updateObject(updatedCard, id: updatedCard.id) { result in
             if result != "Success" {
                 print(result)
             }
@@ -87,7 +87,7 @@ class CreditCardsViewModel {
     
     public func deleteCard(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: creditCardsList[index].getId) { result in
+        service.deleteObject(id: creditCardsList[index].id) { result in
             if result != "Success" {
                 print(result)
             }
@@ -100,7 +100,7 @@ class CreditCardsViewModel {
         
         for i in 0..<creditCardsList.count {
             creditCardsList[i].standardCard = false
-            service.updateObjectField(change: ["standardCard":false], objectID: creditCardsList[i].getId)
+            service.updateObjectField(change: ["standardCard":false], objectID: creditCardsList[i].id)
         }
         
     }

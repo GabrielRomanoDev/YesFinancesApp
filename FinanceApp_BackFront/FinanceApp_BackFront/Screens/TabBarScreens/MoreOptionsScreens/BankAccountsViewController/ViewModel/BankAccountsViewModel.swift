@@ -60,7 +60,7 @@ class BankAccountsViewModel {
         }
         
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.addObject(newAccount, id: newAccount.getId) { [weak self] result in
+        service.addObject(newAccount, id: newAccount.id) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
@@ -90,7 +90,7 @@ class BankAccountsViewModel {
         updatedAccount.obs = account.obs
         
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.updateObject(updatedAccount, id: updatedAccount.getId) { [weak self] result in
+        service.updateObject(updatedAccount, id: updatedAccount.id) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
@@ -122,12 +122,12 @@ class BankAccountsViewModel {
             categoryIndex: 0,
             date: Date().toString(format: globalStrings.dateFormat),
             type: transactionType,
-            accountId: account.getId,
+            accountId: account.id,
             obs: "Conta: \(account.desc)"
         )
         
         service.setSubCollectionName(firebaseSubCollectionNames.transactions)
-        service.addObject(newTransaction, id: newTransaction.getId) { result in
+        service.addObject(newTransaction, id: newTransaction.id) { result in
             if result != "Success" {
                 print(result)
             }
@@ -138,7 +138,7 @@ class BankAccountsViewModel {
     
     public func deleteAccount(index: Int, completion: @escaping () -> Void) {
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.deleteObject(id: bankAccountsList[index].getId) { result in
+        service.deleteObject(id: bankAccountsList[index].id) { result in
             if result != "Success" {
                 print(result)
             }
@@ -151,7 +151,7 @@ class BankAccountsViewModel {
         
         for i in 0..<bankAccountsList.count {
             bankAccountsList[i].standardAccount = false
-            service.updateObjectField(change: ["standardAccount":false], objectID: bankAccountsList[i].getId)
+            service.updateObjectField(change: ["standardAccount":false], objectID: bankAccountsList[i].id)
         }
         
     }

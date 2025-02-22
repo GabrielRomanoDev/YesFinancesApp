@@ -205,7 +205,7 @@ extension RegisterExpenseViewController: CategoriesModalDelegate, AccountsModalD
     func didSelectAccount(_ indexAccount: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.updateAccountField(indexAccount)
-            self?.idAccountSelected = bankAccountsList[indexAccount].getId
+            self?.idAccountSelected = bankAccountsList[indexAccount].id
         }
     }
     

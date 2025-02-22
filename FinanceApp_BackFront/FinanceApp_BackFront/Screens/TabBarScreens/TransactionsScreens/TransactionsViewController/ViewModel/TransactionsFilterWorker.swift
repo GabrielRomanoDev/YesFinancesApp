@@ -75,7 +75,7 @@ class TransactionsFilterWorker {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 accountsSelection.contains { account in
-                    account.getId == transaction.accountId
+                    account.id == transaction.accountId
                     
                 }
             }

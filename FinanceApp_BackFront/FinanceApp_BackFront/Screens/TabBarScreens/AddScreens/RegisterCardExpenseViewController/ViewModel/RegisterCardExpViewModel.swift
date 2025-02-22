@@ -33,10 +33,10 @@ class RegisterCardExpViewModel{
     var standardCardId: String {
         for card in creditCardsList{
             if card.standardCard == true{
-                return card.getId
+                return card.id
             }
         }
-        return creditCardsList[0].getId
+        return creditCardsList[0].id
     }
     
     public func getCategoryLabel(_ indexCategory:Int) -> String {

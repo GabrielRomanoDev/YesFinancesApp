@@ -19,16 +19,12 @@ import Foundation
 
 struct BankAccount: Codable, Equatable {
     
-    private var id: String = UUID().uuidString
+    private(set) var id: String = UUID().uuidString
     var desc : String
     var bank : Banks
     var overdraft: Double
     var standardAccount: Bool
     var obs: String
-    
-    var getId: String {
-        return id
-    }
     
     var balance: Double {
         let filteredTransactions = transactionsList.filter { $0.accountId == id}

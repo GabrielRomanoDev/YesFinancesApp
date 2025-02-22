@@ -9,16 +9,12 @@ import Foundation
 
 struct Goal: Codable, Equatable {
     
-    private var id: String = UUID().uuidString
+    private(set) var id: String = UUID().uuidString
     var desc: String
     var imageName: String
     var savedAmount: Double
     var goalValue: Double
     var targetDate: String
-    
-    var getId: String {
-        return id
-    }
     
     public var daysToDate: Int {
         let formatter = DateFormatter()

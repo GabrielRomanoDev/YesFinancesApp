@@ -9,7 +9,7 @@ import Foundation
 
 struct CreditCard: Codable, Equatable {
     
-    private var id: String = UUID().uuidString
+    private(set) var id: String = UUID().uuidString
     var desc : String
     var limit: Double
     var bank : Banks
@@ -17,10 +17,6 @@ struct CreditCard: Codable, Equatable {
     var dueDate : Int
     var standardCard: Bool
     var obs:String
-    
-    var getId: String {
-        return id
-    }
     
     var invoiceTotal: Double {
         let filteredTransactions = creditCardExpenses.filter{ $0.cardId == id}

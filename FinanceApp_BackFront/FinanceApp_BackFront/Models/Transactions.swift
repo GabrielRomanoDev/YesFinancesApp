@@ -9,7 +9,7 @@ import Foundation
 
 struct Transactions: Codable, Equatable {
     
-    private var id: String = UUID().uuidString
+    private(set) var id: String = UUID().uuidString
     var desc: String
     var amount: Double
     var categoryIndex: Int
@@ -17,10 +17,6 @@ struct Transactions: Codable, Equatable {
     var type: TransactionType
     var accountId: String
     var obs: String
-    
-    var getId: String {
-        return id
-    }
     
     init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, accountId: String, obs: String) {
         self.desc = desc
