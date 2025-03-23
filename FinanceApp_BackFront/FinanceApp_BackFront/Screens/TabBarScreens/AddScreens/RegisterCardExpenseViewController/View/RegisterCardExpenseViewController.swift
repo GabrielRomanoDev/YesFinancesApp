@@ -107,12 +107,18 @@ class RegisterCardExpenseViewController: UIViewController{
                 desc: descTextField.text.orEmpty,
                 amount: -amount,
                 categoryIndex: indexCategorySelected,
-                date: viewModel.dataSelecionada.toString(format: globalStrings.dateFormat),
+                date: viewModel.selectedDate.toString(format: globalStrings.dateFormat),
                 type: .expense,
                 sourceId: idCardSelected,
+                paymentStatus: .pendent,
+                invoiceMonth: viewModel.selectedDate.getMonth(),
                 obs: obsTextField.text.orEmpty
-            ))
-            dismiss(animated: true, completion: nil)
+            )) { [weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     

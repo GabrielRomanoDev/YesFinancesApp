@@ -72,7 +72,7 @@ class CreditCardsViewModel {
         updatedCard.limit = card.limit
         updatedCard.bank = card.bank
         updatedCard.closingDay = card.closingDay
-        updatedCard.dueDate = card.dueDate
+        updatedCard.dueDay = card.dueDay
         updatedCard.standardCard = card.standardCard
         updatedCard.obs = card.obs
         

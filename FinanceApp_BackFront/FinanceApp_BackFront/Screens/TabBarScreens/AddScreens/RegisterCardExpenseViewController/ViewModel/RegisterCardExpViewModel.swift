@@ -10,15 +10,26 @@ import UIKit
 
 class RegisterCardExpViewModel{
     
-    public var dataSelecionada = Date()
+    public var selectedDate = Date()
+    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCardExpenses)
     
-    public func addExpense(expense: CreditCardExpense) {
+    public func addExpense(expense: CreditCardExpense, completion: @escaping () -> Void) {
         var newExpense: CreditCardExpense = expense
         
         if newExpense.desc.isEmptyTest() {
             newExpense.desc = CategoriesRepository.shared.expenses[newExpense.categoryIndex].name
         }
         CreditCardExpensesRepository.shared.list.append(newExpense)
+        
+        service.addObject(newExpense, id: newExpense.id) { result in
+            if result != "Success" {
+                print(result)
+                completion()
+                return
+            }
+            completion()
+        }
+        
     }
     
     var standardCardIndex: Int {
@@ -86,9 +97,9 @@ class RegisterCardExpViewModel{
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
         
-        dataSelecionada = date
+        selectedDate = date
         
-        switch formatDate(date: dataSelecionada){
+        switch formatDate(date: selectedDate){
         case formatDate(date: today):
             return globalStrings.todayText
         case formatDate(date: yesterday):

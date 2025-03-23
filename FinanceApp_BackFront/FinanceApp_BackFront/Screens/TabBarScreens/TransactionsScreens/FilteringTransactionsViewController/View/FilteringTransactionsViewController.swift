@@ -226,29 +226,22 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
             return cell ?? UITableViewCell()
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
-            cell?.setupCell(creditCards: parameters.creditCards)
-            cell?.screenWidth = view.layer.bounds.width
-            cell?.selectionStyle = .none
-            cell?.delegate = self
-            return cell ?? UITableViewCell()
-        case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: SelectItensTableViewCell.identifier, for: indexPath) as? SelectItensTableViewCell
             cell?.setupCell(categories: parameters.categories)
             cell?.screenWidth = view.layer.bounds.width
             cell?.selectionStyle = .none
             cell?.delegate = self
             return cell ?? UITableViewCell()
-        case 4:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: DateFilteringTableViewCell.identifier, for: indexPath) as? DateFilteringTableViewCell
             cell?.setupCell(filteringDates: parameters.dates)
             cell?.delegate = self
             return cell ?? UITableViewCell()
-        case 5:
+        case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: ValueFilteringTableViewCell.identifier, for: indexPath) as? ValueFilteringTableViewCell
             cell?.setupCell(filteringValues: parameters.limits)
             cell?.delegate = self
             return cell ?? UITableViewCell()
-        case 6:
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.identifier, for: indexPath) as? ButtonTableViewCell
             cell?.setupCell(title: globalStrings.apply)
             cell?.delegate = self
@@ -269,18 +262,14 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
             if count <= 0 { count = 1 }
             return CGFloat(50 + 45 * count)
         case 2:
-            var count = parameters.creditCards?.count ?? 1
-            if count <= 0 { count = 1 }
-            return CGFloat(50 + 45 * count)
-        case 3:
             var count = parameters.categories?.count ?? 1
             if count <= 0 { count = 1 }
             return CGFloat(50 + 45 * count)
-        case 4:
+        case 3:
             return parameters.dates.enabled ? 130 : 70
-        case 5:
+        case 4:
             return parameters.limits.enabled ? 130 : 70
-        case 6:
+        case 5:
             return 60
         default:
             return 70
@@ -296,8 +285,6 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
         case 1:
             openSelectScreen(itemType: .accounts)
         case 2:
-            openSelectScreen(itemType: .creditCards)
-        case 3:
             openSelectScreen(itemType: .categories)
         default:
             break //Does not execute anything to other cells
@@ -326,11 +313,6 @@ extension FilteringTransactionsViewController: ButtonsTableViewCellDelegate {
         parameters.types.expenses = value
     }
     
-    func didTappedButton3(value: Bool) {
-        parameters.types.creditCard = value
-    }
-    
-    
 }
 
 extension FilteringTransactionsViewController: SelectionModalDelegate {
@@ -347,15 +329,12 @@ extension FilteringTransactionsViewController: SelectionModalDelegate {
             updateTableViewContent()
             
         case .creditCards:
-            break
-//            let cards = CreditCardsRepository.shared.list.map { $0.desc }
-            //            let text = updateSelectionText(from: selectionResult, items: cards)
-            //            allCreditCardsLabel.text = text.isEmpty ? "Todos Cartões" : text
-            //
-            //            parameters.creditCards = []
-            //            updateViewModel(selectionResult: selectionResult, items: CreditCardsRepository.shared.list) { card in
-            //                parameters.creditCards?.append(card.id)
-            //            }
+            parameters.creditCards = []
+            updateParameters(selectionResult: selectionResult, items: CreditCardsRepository.shared.list) { card in
+                parameters.creditCards?.append(card)
+            }
+            
+            updateTableViewContent()
         case .categories:
             parameters.categories = []
             updateParameters(selectionResult: selectionResult, items: CategoriesRepository.shared.expenses) { category in

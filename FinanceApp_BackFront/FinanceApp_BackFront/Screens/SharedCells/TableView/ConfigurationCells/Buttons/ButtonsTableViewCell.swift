@@ -10,7 +10,6 @@ import UIKit
 protocol ButtonsTableViewCellDelegate: AnyObject {
     func didTappedButton1(value: Bool)
     func didTappedButton2(value: Bool)
-    func didTappedButton3(value: Bool)
 }
 
 class ButtonsTableViewCell: UITableViewCell {
@@ -24,12 +23,10 @@ class ButtonsTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
-    @IBOutlet weak var thirdButton: UIButton!
     
     weak var delegate: ButtonsTableViewCellDelegate?
     var button1Value: Bool = false
     var button2Value: Bool = false
-    var button3Value: Bool = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,26 +45,17 @@ class ButtonsTableViewCell: UITableViewCell {
         delegate?.didTappedButton2(value: button2Value)
     }
     
-    @IBAction func tappedThirdButton(_ sender: UIButton) {
-        button3Value.toggle()
-        updateButtonCollor(thirdButton, value: button3Value)
-        delegate?.didTappedButton3(value: button3Value)
-    }
-    
     func setupCell(configuration: ButtonsCellConfiguration) {
         
         self.titleLabel.text = configuration.configurationTitle
         self.firstButton.setTitle(configuration.button1Title, for: .normal)
         self.secondButton.setTitle(configuration.button2Title, for: .normal)
-        self.thirdButton.setTitle(configuration.button3Title, for: .normal)
         
         setupButton(firstButton, value: configuration.button1Value)
         setupButton(secondButton, value: configuration.button2Value)
-        setupButton(thirdButton, value: configuration.button3Value)
         
         button1Value = configuration.button1Value
         button2Value = configuration.button2Value
-        button3Value = configuration.button3Value
     
     }
     

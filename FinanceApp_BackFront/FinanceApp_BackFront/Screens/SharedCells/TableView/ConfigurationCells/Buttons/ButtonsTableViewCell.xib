@@ -27,7 +27,7 @@
                         <rect key="frame" x="5" y="40.333333333333329" width="310" height="34.333333333333329"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRr-Gn-v4j">
-                                <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="34.333333333333336"/>
+                                <rect key="frame" x="0.0" y="0.0" width="143.33333333333334" height="34.333333333333336"/>
                                 <color key="tintColor" white="0.1739742772" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="button1" cornerStyle="dynamic">
@@ -38,7 +38,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-Kt-oI1">
-                                <rect key="frame" x="103.33333333333331" y="0.0" width="96.666666666666686" height="34.333333333333336"/>
+                                <rect key="frame" x="153.33333333333337" y="0.0" width="156.66666666666663" height="34.333333333333336"/>
                                 <color key="tintColor" white="0.1739742772" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="button2" cornerStyle="dynamic">
@@ -46,17 +46,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="tappedSecondButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NSF-6q-3Ja"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGl-0B-zn5">
-                                <rect key="frame" x="210" y="0.0" width="100" height="34.333333333333336"/>
-                                <color key="tintColor" white="0.1739742772" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="button3" cornerStyle="dynamic">
-                                    <backgroundConfiguration key="background"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="tappedThirdButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="mA6-3i-Tyz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -75,7 +64,6 @@
             <connections>
                 <outlet property="firstButton" destination="lRr-Gn-v4j" id="BAD-Fj-6sm"/>
                 <outlet property="secondButton" destination="kzc-Kt-oI1" id="I15-ep-B2U"/>
-                <outlet property="thirdButton" destination="EGl-0B-zn5" id="6ab-6Q-2Gq"/>
                 <outlet property="titleLabel" destination="EQr-Co-avV" id="Yeq-hr-EHL"/>
             </connections>
             <point key="canvasLocation" x="-2" y="-11"/>

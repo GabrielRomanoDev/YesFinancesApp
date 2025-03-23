@@ -29,5 +29,3 @@ struct AccountTransaction: Transactions, Codable, Equatable {
     }
     
 }
-
-

@@ -119,7 +119,7 @@ extension CreditCardsViewController: CreateItemButtonCellDelegate, EditCreditCar
     }
     
     func didTappedNewItemButton() {
-        let emptyCard = CreditCard(desc: globalStrings.emptyString, limit: 0.0, bank: .bancoDoBrasil, closingDay: 05, dueDate: 10, standardCard: false, obs: globalStrings.emptyString)
+        let emptyCard = CreditCard(desc: globalStrings.emptyString, limit: 0.0, bank: .bancoDoBrasil, closingDay: 05, dueDay: 10, standardCard: false, obs: globalStrings.emptyString)
         let storyboard = UIStoryboard(name: EditCreditCardsViewController.identifier, bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: EditCreditCardsViewController.identifier) {coder -> EditCreditCardsViewController? in
             return EditCreditCardsViewController(coder: coder, card: emptyCard, indexCard: 0, configType: .createNew)

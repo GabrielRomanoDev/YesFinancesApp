@@ -26,6 +26,11 @@ struct HomeViewModel {
         }
         
         group.enter()
+        getCreditCardExpenses() {
+            group.leave()
+        }
+        
+        group.enter()
         getAccounts() {
             group.leave()
         }
@@ -53,6 +58,19 @@ struct HomeViewModel {
             switch result {
             case .success(let objectsArray):
                 TransactionsRepository.shared.list = objectsArray
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            completion()
+        }
+    }
+    
+    private func getCreditCardExpenses(completion: @escaping () -> Void) {
+        
+        service.getObjectsList(forObjectType: CreditCardExpense.self, documentReadName: firebaseSubCollectionNames.creditCardExpenses) { result in
+            switch result {
+            case .success(let objectsArray):
+                CreditCardExpensesRepository.shared.list = objectsArray
             case .failure(let error):
                 print(error.localizedDescription)
             }

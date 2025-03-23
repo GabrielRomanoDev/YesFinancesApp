@@ -34,8 +34,8 @@ class CreditCardCollectionViewCell: UICollectionViewCell {
     
     func setupCell(card:CreditCard){
         nameLabel.text = card.desc
-        invoiceLabel.text = card.invoiceTotal.toStringMoney()
-        if card.invoiceTotal < 0 {
+        invoiceLabel.text = card.currentInvoiceTotal.toStringMoney()
+        if card.currentInvoiceTotal < 0 {
             invoiceLabel.textColor = .RedGeneralExpenses
         } else{
             invoiceLabel.textColor = .GreyInformations

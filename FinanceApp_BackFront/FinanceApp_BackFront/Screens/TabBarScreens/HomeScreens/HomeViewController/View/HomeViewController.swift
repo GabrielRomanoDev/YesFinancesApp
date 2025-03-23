@@ -182,7 +182,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return 1
         case verticalCollectionView:
             if TransactionsRepository.shared.list.count > 0 {
-                return 4
+                return CreditCardsRepository.shared.list.isEmpty ? 3 : 4
             } else {
                 return 2
             }
@@ -196,9 +196,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case horizontalCollectionView:
             return 3
         case verticalCollectionView:
-            if section <= 2 {
+            
+            if section <= 1 || (section == 2 && !TransactionsRepository.shared.list.isEmpty) {
                 return 1
             } else {
+                //last transactions
                 let maxVisibleTransactions = 4
                 return min(TransactionsRepository.shared.list.count, maxVisibleTransactions)
             }
@@ -208,6 +210,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if collectionView == horizontalCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resumeBalanceCollectionViewCell.identifier, for: indexPath) as? resumeBalanceCollectionViewCell
             cell?.layer.cornerRadius = 10
@@ -215,7 +218,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell?.setupCell(card: viewModel.getCardInformation(cardNumber: indexPath.row), hideInformations: self.hideInformations)
             return cell ?? UICollectionViewCell()
         } else {
-            switch indexPath.section {
+            
+            let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
+            
+            switch adjustedSection {
             case 0:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AccountsBallanceCollectionViewCell.identifier, for: indexPath) as? AccountsBallanceCollectionViewCell
                 cell?.setupCell(accountsList: BankAccountsRepository.shared.list, hideInformations: self.hideInformations)
@@ -250,7 +256,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == horizontalCollectionView{
             return CGSize(width: 250, height: 150)
         } else {
-            switch indexPath.section {
+            
+            let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
+            
+            switch adjustedSection {
             case 0:
                 var height: Int
                 if BankAccountsRepository.shared.list.isEmpty {
@@ -260,12 +269,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 }
                 return CGSize(width: Int(view.frame.width) - 30, height: height)
             case 1:
-                var height: Int
-                if CreditCardsRepository.shared.list.isEmpty {
-                    height = 110
-                } else {
-                    height = (60 + CreditCardsRepository.shared.list.count * 60)
-                }
+                var height = (60 + CreditCardsRepository.shared.list.count * 60)
                 return CGSize(width: Int(view.frame.width) - 30, height: height)
             case 2:
                 return CGSize(width: Int(view.frame.width) - 30, height: 200)
@@ -283,7 +287,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if collectionView == verticalCollectionView {
                 if kind == UICollectionView.elementKindSectionHeader {
                     let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier, for: indexPath) as? TitleHeaderCollectionReusableView
-                    switch indexPath.section {
+                    
+                    let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
+                    
+                    switch adjustedSection {
                     case 0:
                         title = homeStrings.bankAccountsText
                     case 1:

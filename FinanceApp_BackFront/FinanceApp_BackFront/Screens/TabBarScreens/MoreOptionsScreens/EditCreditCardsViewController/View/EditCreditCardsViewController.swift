@@ -147,7 +147,7 @@ class EditCreditCardsViewController: UIViewController {
         nameTextField.text = initialCard.desc
         limitTextField.text = limitValue.toStringMoney()
         closingDayNumberLabel.text = String(initialCard.closingDay)
-        dueDateNumberLabel.text = String(initialCard.dueDate)
+        dueDateNumberLabel.text = String(initialCard.dueDay)
         standardCardSwitch.isOn = initialCard.standardCard
         obsTextField.text = initialCard.obs
         selectedBank = initialCard.bank
@@ -167,7 +167,7 @@ class EditCreditCardsViewController: UIViewController {
         card.limit = limitValue
         card.bank = selectedBank
         card.closingDay = Int(closingDayNumberLabel.text.orEmpty) ?? 0
-        card.dueDate = Int(dueDateNumberLabel.text.orEmpty) ?? 0
+        card.dueDay = Int(dueDateNumberLabel.text.orEmpty) ?? 0
         card.standardCard = standardCardSwitch.isOn
         card.obs = obsTextField.text.orEmpty
         

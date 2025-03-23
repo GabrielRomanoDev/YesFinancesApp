@@ -11,6 +11,7 @@ class TransactionsViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var transactionsFilterButton: UIButton!
     @IBOutlet weak var transactionsCollectionView: UICollectionView!
     @IBOutlet weak var noTransactionsLabel: UILabel!
     
@@ -21,11 +22,13 @@ class TransactionsViewController: UIViewController {
         super.viewDidLoad()
         setupStrings()
         setupSearchBar()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         showNoTransactionsMessage(title: transactionsStrings.noTransactionsRegistered)
+        viewModel.checkInvoices()
         viewModel.reordenateTransactions()
         setupCollectionView()
         transactionsCollectionView.reloadData()
@@ -56,9 +59,13 @@ class TransactionsViewController: UIViewController {
         if viewModel.getTransactionsCount() <= 0 {
             noTransactionsLabel.isHidden = false
             transactionsCollectionView.isHidden = true
+            searchBar.isHidden = true
+            transactionsFilterButton.isHidden = true
         } else {
             noTransactionsLabel.isHidden = true
             transactionsCollectionView.isHidden = false
+            searchBar.isHidden = false
+            transactionsFilterButton.isHidden = false
         }
         noTransactionsLabel.text = title
     }
@@ -73,6 +80,9 @@ class TransactionsViewController: UIViewController {
             layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15)
         }
         transactionsCollectionView.register(TransactionsCollectionViewCell.nib(), forCellWithReuseIdentifier: TransactionsCollectionViewCell.identifier)
+        transactionsCollectionView.register(CardExpensesCollectionViewCell.nib(), forCellWithReuseIdentifier: CardExpensesCollectionViewCell.identifier)
+        transactionsCollectionView.register(PendingInvoicesCollectionViewCell.nib(), forCellWithReuseIdentifier: PendingInvoicesCollectionViewCell.identifier)
+        
     }
 
 }
@@ -84,15 +94,52 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransactionsCollectionViewCell.identifier, for: indexPath) as! TransactionsCollectionViewCell
-        cell.layer.cornerRadius = 10
-        cell.layer.masksToBounds = true
-        cell.setup(with: viewModel.getItemTransactions(indexPath.row))
-        return cell
+        
+        if indexPath.row < viewModel.pendingInvoices.count {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PendingInvoicesCollectionViewCell.identifier, for: indexPath) as! PendingInvoicesCollectionViewCell
+            cell.layer.cornerRadius = 10
+            cell.layer.masksToBounds = true
+            
+            cell.setup(with: viewModel.pendingInvoices[indexPath.row])
+            return cell
+        } else {
+            
+            let transactionsIndex = indexPath.row - viewModel.pendingInvoices.count
+            
+            if let accountTransaction = viewModel.getItemTransactions(transactionsIndex) as? AccountTransaction {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransactionsCollectionViewCell.identifier, for: indexPath) as! TransactionsCollectionViewCell
+                cell.layer.cornerRadius = 10
+                cell.layer.masksToBounds = true
+                
+                cell.setup(with: accountTransaction)
+                return cell
+            }
+            
+            if let creditCardTransaction = viewModel.getItemTransactions(transactionsIndex) as? CreditCardExpense {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardExpensesCollectionViewCell.identifier, for: indexPath) as! CardExpensesCollectionViewCell
+                cell.layer.cornerRadius = 10
+                cell.layer.masksToBounds = true
+                
+                cell.setup(with: creditCardTransaction)
+                return cell
+            }
+        }
+        
+        return UICollectionViewCell()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 30, height: 85)
+        
+        if indexPath.row < viewModel.pendingInvoices.count {
+            return CGSize(width: view.frame.width - 30, height: 100)
+        } else {
+            return CGSize(width: view.frame.width - 30, height: 85)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
     
 }

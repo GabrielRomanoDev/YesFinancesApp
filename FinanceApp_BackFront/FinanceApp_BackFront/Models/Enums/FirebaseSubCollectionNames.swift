@@ -9,6 +9,7 @@ import Foundation
 
 enum firebaseSubCollectionNames {
     static let transactions = "transactions"
+    static let creditCardExpenses = "creditCardExpenses"
     static let bankAccounts = "bankAccounts"
     static let creditCards = "creditCards"
     static let goals = "goals"

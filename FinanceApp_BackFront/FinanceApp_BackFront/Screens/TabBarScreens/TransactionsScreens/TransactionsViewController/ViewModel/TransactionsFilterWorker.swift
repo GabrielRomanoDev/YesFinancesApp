@@ -51,7 +51,7 @@ class TransactionsFilterWorker {
             return
         }
         
-        if !parameters.types.incomes {
+        if parameters.types.expenses {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 transaction.amount < 0
@@ -59,7 +59,7 @@ class TransactionsFilterWorker {
             
         }
         
-        if !parameters.types.expenses {
+        if parameters.types.incomes {
             
             filteredTransactions = filteredTransactions.filter { transaction in
                 transaction.amount > 0
@@ -81,14 +81,6 @@ class TransactionsFilterWorker {
             }
             
         }
-        
-        //        if let creditCardsSelection = creditCards {
-        //
-        //            filteredTransactions = filteredTransactions.filter { transaction in
-        //                creditCardsSelection.contains(transaction.cardId)
-        //            }
-        //
-        //        }
         
     }
     
@@ -183,12 +175,10 @@ struct TransactionFilteringTypes {
     
     var incomes: Bool
     var expenses: Bool
-    var creditCard: Bool
     
-    init(incomes: Bool = false, expenses: Bool = false, creditCard: Bool = false) {
+    init(incomes: Bool = false, expenses: Bool = false) {
         self.incomes = incomes
         self.expenses = expenses
-        self.creditCard = creditCard
     }
     
 }

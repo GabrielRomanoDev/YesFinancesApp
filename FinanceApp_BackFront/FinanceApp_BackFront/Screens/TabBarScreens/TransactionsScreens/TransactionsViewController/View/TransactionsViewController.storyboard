@@ -110,6 +110,7 @@
                         <outlet property="searchBar" destination="fQC-up-fgi" id="E2d-ZV-RQm"/>
                         <outlet property="titleLabel" destination="xUZ-uS-HtM" id="u24-Sa-eka"/>
                         <outlet property="transactionsCollectionView" destination="ubS-ol-4ID" id="drk-jF-hFe"/>
+                        <outlet property="transactionsFilterButton" destination="M7i-0q-SQM" id="sUd-bM-SIa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oxa-AH-YMr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
