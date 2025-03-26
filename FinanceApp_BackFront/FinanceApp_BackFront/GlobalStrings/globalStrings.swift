@@ -24,4 +24,18 @@ enum globalStrings {
     static let tomorrowText = "Amanhã"
     static let confirm = "Confirmar"
     static let apply = "Aplicar"
+    
+    static let january = "Janeiro"
+    static let february = "Fevereiro"
+    static let march = "Março"
+    static let april = "Abril"
+    static let may = "Maio"
+    static let june = "Junho"
+    static let july = "Julho"
+    static let august = "Agosto"
+    static let september = "Setembro"
+    static let october = "Outubro"
+    static let november = "Novembro"
+    static let december = "Dezembro"
+    
 }

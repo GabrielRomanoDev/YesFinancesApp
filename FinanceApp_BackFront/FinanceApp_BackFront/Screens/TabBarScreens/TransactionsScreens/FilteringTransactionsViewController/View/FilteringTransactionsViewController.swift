@@ -17,9 +17,11 @@ class FilteringTransactionsViewController: UIViewController {
     
     weak var delegate: FilterTransactionsDelegate?
     var parameters: FilteringParameters
+    var type: TransactionsScreenType
     
-    init?(coder: NSCoder, parameters: FilteringParameters?) {
+    init?(coder: NSCoder, parameters: FilteringParameters?, type: TransactionsScreenType) {
         self.parameters = parameters ?? FilteringParameters()
+        self.type = type
         super.init(coder: coder)
     }
     
@@ -206,12 +208,14 @@ extension FilteringTransactionsViewController: FilteringTransactionsCollectionVi
 
 extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return (type == .transactions) ? 6 : 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
+        let indexAdjusted = (type == .transactions) ? indexPath.row : indexPath.row + 2
+        
+        switch indexAdjusted {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonsTableViewCell.identifier, for: indexPath) as? ButtonsTableViewCell
             cell?.setupCell(configuration: ButtonsCellConfiguration(filteringTypes: parameters.types) )
@@ -245,6 +249,7 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.identifier, for: indexPath) as? ButtonTableViewCell
             cell?.setupCell(title: globalStrings.apply)
             cell?.delegate = self
+            cell?.separatorInset = UIEdgeInsets(top: 0, left: cell?.bounds.size.width ?? UIScreen.main.bounds.width, bottom: 0, right: 0)
             return cell ?? UITableViewCell()
         default:
             return UITableViewCell()
@@ -254,7 +259,9 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        switch indexPath.row {
+        let indexAdjusted = (type == .transactions) ? indexPath.row : indexPath.row + 2
+        
+        switch indexAdjusted {
         case 0:
             return 90
         case 1:
@@ -270,7 +277,7 @@ extension FilteringTransactionsViewController: UITableViewDelegate, UITableViewD
         case 4:
             return parameters.limits.enabled ? 130 : 70
         case 5:
-            return 60
+            return 115
         default:
             return 70
         }

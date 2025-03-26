@@ -13,4 +13,21 @@ struct MonthDate: Codable, Equatable {
         self.month = month
         self.year = year
     }
+    
+    mutating func nextMonth() {
+        self.month += 1
+        if self.month > 12 {
+            self.month = 1
+            self.year += 1
+        }
+    }
+    
+    mutating func lastMonth() {
+        self.month -= 1
+        if self.month < 1 {
+            self.month = 12
+            self.year -= 1
+        }
+    }
+    
 }

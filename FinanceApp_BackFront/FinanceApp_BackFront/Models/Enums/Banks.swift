@@ -17,15 +17,3 @@ enum Banks: String, Codable {
     case bancoDoBrasil
     case other
 }
-
-let bankList:[Banks]=[
-    .itau,
-    .bradesco,
-    .nubank,
-    .inter,
-    .santander,
-    .caixa,
-    .bancoDoBrasil,
-    .other
-]
-

@@ -13,5 +13,4 @@ protocol Transactions: Codable, Equatable {
     var date: String {get set}
     var type: TransactionType {get set}
     var sourceId: String {get set}
-    var obs: String {get set}
 }

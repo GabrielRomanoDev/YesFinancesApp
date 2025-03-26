@@ -8,7 +8,23 @@
 import Foundation
 
 enum transactionsStrings {
-    static let title = "Registros"
+    static let transactionsTitle = "Registros"
     static let noTransactionsRegistered = "Nenhuma transação cadastrada por enquanto!"
     static let noTransactionsFiltered = "Nenhuma transação atende os requisitos de filtro!"
+    static let noExpenseFiltered = "Nenhuma despesa atende os requisitos de filtro!"
+    
+    static let invoiceTitle = "Fatura"
+    static let invoiceTotal = "Total"
+    static let status = "Status"
+    static let closingDate = "Fecha em"
+    static let dueDate = "Vence em"
+    
+    static let payInvoice = "Pagar Fatura"
+    static let advanceInvoicePayment = "Adiantar Pagamento"
+    
+    static let open = "Aberta"
+    static let paid = "Paga"
+    static let pendent = "Pendente"
+    static let future = "Futuro"
+    static let overdue = "Atrasada"
 }

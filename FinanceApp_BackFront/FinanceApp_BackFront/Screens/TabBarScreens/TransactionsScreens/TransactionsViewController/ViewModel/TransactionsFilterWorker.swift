@@ -9,60 +9,67 @@ import Foundation
 
 class TransactionsFilterWorker {
     
-    var filteredTransactions: [AccountTransaction] = []
+    var filteredTransactions: [any Transactions]? = nil
     var parameters: FilteringParameters = FilteringParameters()
     
     
-    func filterTransactions(parameters: FilteringParameters) -> [AccountTransaction] {
+    func filterTransactions(transactions: [any Transactions], parameters: FilteringParameters?, monthDisplayed: MonthDate) -> [any Transactions] {
         
-        self.filteredTransactions = TransactionsRepository.shared.list
-        self.parameters = parameters
+        if let parameters = parameters {
+            self.parameters = parameters
+        }
+        
+        self.filteredTransactions = transactions
+        
+        if self.parameters.dates.enabled {
+            dateFiltering()
+        } else {
+            self.filteredTransactions = filterTransactionsByMonth(monthDate: monthDisplayed)
+        }
         
         typeFiltering()
         sourceFiltering()
         categoriesFiltering()
         valueFiltering()
-        dateFiltering()
-        return self.filteredTransactions
+        
+        return self.filteredTransactions ?? []
         
     }
     
-    func searchForTransactions(_ text: String?) -> [AccountTransaction] {
-        
-        if self.filteredTransactions.isEmpty {
-            self.filteredTransactions = TransactionsRepository.shared.list
-        }
+    func searchForTransactions(_ text: String?, transactions: [any Transactions]) -> [any Transactions] {
         
         if let text, !text.isEmpty {
             
-            let arrayTransactions = filteredTransactions.filter { $0.desc.localizedCaseInsensitiveContains(text) }
+            let arrayTransactions = transactions.filter { $0.desc.localizedCaseInsensitiveContains(text) }
             
             return arrayTransactions
             
         } else {
-            return filteredTransactions
+            return transactions
         }
         
     }
     
     private func typeFiltering() {
         
-        guard parameters.types.incomes || parameters.types.expenses else {
+        guard let filteredTransactions else { return }
+        
+        if parameters.types.incomes && parameters.types.expenses {
             return
         }
         
         if parameters.types.expenses {
             
-            filteredTransactions = filteredTransactions.filter { transaction in
-                transaction.amount < 0
+            self.filteredTransactions = filteredTransactions.filter { transaction in
+                return transaction.amount < 0
             }
             
         }
         
         if parameters.types.incomes {
             
-            filteredTransactions = filteredTransactions.filter { transaction in
-                transaction.amount > 0
+            self.filteredTransactions = filteredTransactions.filter { transaction in
+                return transaction.amount > 0
             }
             
         }
@@ -71,26 +78,25 @@ class TransactionsFilterWorker {
     
     private func sourceFiltering() {
         
-        if let accountsSelection = parameters.accounts {
-            
-            filteredTransactions = filteredTransactions.filter { transaction in
-                accountsSelection.contains { account in
-                    account.id == transaction.sourceId
-                    
-                }
+        guard let filteredTransactions, let accountsSelection = parameters.accounts else { return }
+        
+        self.filteredTransactions = filteredTransactions.filter { transaction in
+            accountsSelection.contains { account in
+                return account.id == transaction.sourceId
             }
-            
         }
         
     }
     
     private func categoriesFiltering() {
         
+        guard let filteredTransactions else { return }
+        
         if let categoriesSelection = parameters.categories {
             
-            filteredTransactions = filteredTransactions.filter { transaction in
+            self.filteredTransactions = filteredTransactions.filter { transaction in
                 categoriesSelection.contains { category in
-                    category.name == CategoriesRepository.shared.expenses[transaction.categoryIndex].name
+                    return category.name == CategoriesRepository.shared.expenses[transaction.categoryIndex].name
                     
                 }
             }
@@ -102,46 +108,44 @@ class TransactionsFilterWorker {
     
     private func valueFiltering() {
         
+        guard let filteredTransactions else { return }
+        
         guard parameters.limits.enabled else {
             return
         }
         
-        filteredTransactions = self.filteredTransactions.filter { transaction in
-            abs(transaction.amount) > parameters.limits.min && abs(transaction.amount) < parameters.limits.max
+        self.filteredTransactions = filteredTransactions.filter { transaction in
+            return abs(transaction.amount) > parameters.limits.min && abs(transaction.amount) < parameters.limits.max
         }
         
     }
     
     private func dateFiltering() {
         
+        guard let filteredTransactions else { return }
+        
         guard parameters.dates.enabled, let initialDate = parameters.dates.initial.toDate(), let finalDate = parameters.dates.final.toDate() else {
             return
         }
         
-        filteredTransactions = self.filteredTransactions.filter { transaction in
-            if let date = transaction.date.toDate() {
-                return date >= initialDate && date <= finalDate
-            }
-            return false
+        self.filteredTransactions = filteredTransactions.filter { transaction in
+            guard let date = transaction.date.toDate() else { return false }
+            return date >= initialDate && date <= finalDate
         }
         
     }
     
-    private func filterTransactionsByMonth(transactions: [AccountTransaction], month: Int, year: Int) -> [AccountTransaction] {
+    private func filterTransactionsByMonth(monthDate: MonthDate) -> [any Transactions] {
+        guard let filteredTransactions else { return [] }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = globalStrings.dateFormat
         
-        let filteredTransactions = transactions.filter { transaction in
-            if let date = dateFormatter.date(from: transaction.date) {
-                let calendar = Calendar.current
-                let components = calendar.dateComponents([.month, .year], from: date)
-                return components.month == month && components.year == year
-            }
-            return false
+        return filteredTransactions.filter {
+            guard let date = dateFormatter.date(from: $0.date) else { return false }
+            let components = Calendar.current.dateComponents([.month, .year], from: date)
+            return components.month == monthDate.month && components.year == monthDate.year
         }
-        
-        return filteredTransactions
     }
     
 }

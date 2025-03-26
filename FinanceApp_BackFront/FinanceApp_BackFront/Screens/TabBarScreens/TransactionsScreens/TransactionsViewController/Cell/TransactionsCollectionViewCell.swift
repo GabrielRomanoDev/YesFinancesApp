@@ -28,9 +28,16 @@ class TransactionsCollectionViewCell: UICollectionViewCell {
     }
     
     
-    func setup(with transactions:AccountTransaction) {
+    func setup(with transactions: any Transactions) {
+        
         descLabel.text = transactions.desc
+        descLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        descLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
         valueLabel.text = transactions.amount.toStringMoney()
+        valueLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
         dateLabel.text = transactions.date
         
         switch transactions.type {

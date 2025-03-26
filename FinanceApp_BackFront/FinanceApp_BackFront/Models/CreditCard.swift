@@ -28,15 +28,15 @@ struct CreditCard: Codable, Equatable {
         self.obs = obs
     }
     
-    var currentInvoiceTotal: Double {
-        var endDate = getNextDateFor(day: closingDay)!
+    func invoiceTotal(monthDate: MonthDate = Date().getMonth()) -> Double {
+        var endDate = Date().setDate(day: closingDay, month: monthDate)
         var startDate = Calendar.current.date(byAdding: .month, value: -1, to: endDate)!
         endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
         
         
         let filteredExpenses = CreditCardExpensesRepository.shared.list.filter { expense in
             if let transactionDate = expense.date.toDate() {
-                return expense.sourceId == id && transactionDate >= startDate && transactionDate <= endDate
+                return expense.sourceId == self.id && transactionDate >= startDate && transactionDate <= endDate
             }
             return false
         }
@@ -44,28 +44,15 @@ struct CreditCard: Codable, Equatable {
         return filteredExpenses.reduce(0, { $0 + $1.amount })
     }
     
-    func printStartAndEndDates() {
-        var endDate = getNextDateFor(day: closingDay)!
-        var startDate = Calendar.current.date(byAdding: .month, value: -1, to: endDate)!
-        endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
-        
-        print("Gastos entre \(startDate.toString()) e \(endDate.toString()) serão fechados no dia \(getNextDateFor(day: closingDay)!.toString())")
-    }
-    
-    var nextDueDate: Date {
-        return getNextDateFor(day: dueDay)!
-    }
-    
-    func adjustInvoice(newInvoice: Double) {
-        let valueNewTransaction: Double = newInvoice - currentInvoiceTotal
-        let transactionType: TransactionType = valueNewTransaction >= 0 ? .income : .expense
+    func adjustInvoice(newValue: Double) {
+        let valueNewTransaction: Double = newValue - invoiceTotal()
         
         CreditCardExpensesRepository.shared.list.append(CreditCardExpense(
             desc: moreOptionsStrings.updateAccountAmount,
             amount: valueNewTransaction,
             categoryIndex: 0,
             date: Date().toString(format: globalStrings.dateFormat),
-            type: transactionType,
+            type: .expense,
             sourceId: id,
             paymentStatus: .pendent,
             invoiceMonth: Date().getMonth(),
@@ -73,36 +60,19 @@ struct CreditCard: Codable, Equatable {
         ))
     }
     
-    private func getNextDateFor(day: Int) -> Date? {
-        let currentDate = Date()
-        let calendar = Calendar.current
-        let currentDay = calendar.component(.day, from: Date())
-
-        return calendar.date(bySetting: .day, value: day, of: currentDate)
+    
+    
+    func getInvoice(month: MonthDate) -> Invoice {
+        return Invoice(
+            desc: transactionsStrings.invoiceTitle + " " + self.desc,
+            amount: self.invoiceTotal(monthDate: month),
+            closingDate: Date().setDate(day: self.closingDay, month: month).toString(),//card.closingDay.getNextDate().toString(),
+            dueDate: Date().setDate(day: self.dueDay, month: month).toString(),
+            sourceId: self.id,
+            paymentStatus: .future,
+            month: month
+        )
+        
     }
-    
-//    private func getStartDateAndEndDate() -> (startDate: Date, endDate: Date)? {
-//        guard let startOfThisMonth = getNextDateFor(day: closingDay) else { return nil }
-//        
-//        let calendar = Calendar.current
-//        let currentDate = Date()
-//        
-//        var startDate: Date
-//        var endDate: Date
-//        
-//        if currentDate >= startOfThisMonth {
-//            endDate = calendar.date(byAdding: .month, value: 1, to: startOfThisMonth)!
-//            endDate = calendar.date(bySetting: .day, value: closingDay - 1, of: endDate)!
-//            startDate = startOfThisMonth
-//        } else {
-//            let lastMonth = calendar.date(byAdding: .month, value: -1, to: startOfThisMonth)!
-//            startDate = calendar.date(bySetting: .day, value: closingDay, of: lastMonth)!
-//            endDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
-//            endDate = calendar.date(bySetting: .day, value: closingDay - 1, of: endDate)!
-//        }
-//        
-//        return (startDate, endDate)
-//    }
-    
     
 }

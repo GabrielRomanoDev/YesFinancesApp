@@ -6,6 +6,7 @@
 //
 
 enum PaymentStatus: Codable {
+    case open
     case paid
     case pendent
     case future

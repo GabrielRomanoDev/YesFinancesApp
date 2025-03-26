@@ -18,7 +18,7 @@
         <!--TransactionsScreen-->
         <scene sceneID="Nf1-fZ-uEJ">
             <objects>
-                <viewController storyboardIdentifier="TransactionsViewController" title="TransactionsScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VAX-P1-LoX" customClass="TransactionsViewController" customModule="FinanceApp_BackFront" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InvoiceViewController" title="TransactionsScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VAX-P1-LoX" customClass="InvoiceViewController" customModule="FinanceApp_BackFront" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZeL-Ov-oQu">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,14 +29,14 @@
                                     <constraint firstAttribute="height" constant="95" id="RDb-fO-Y2N"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registros" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xUZ-uS-HtM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fatura" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xUZ-uS-HtM">
                                 <rect key="frame" x="20" y="89" width="353" height="24"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ubS-ol-4ID">
-                                <rect key="frame" x="0.0" y="196" width="393" height="622"/>
+                                <rect key="frame" x="0.0" y="154" width="393" height="664"/>
                                 <color key="backgroundColor" name="BackgroundColor"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dwJ-ub-3Ew">
@@ -57,18 +57,6 @@
                                 <color key="textColor" name="GreyInformations"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQC-up-fgi">
-                                <rect key="frame" x="5" y="156" width="383" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="iz5-cx-f2Q"/>
-                                </constraints>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="VAX-P1-LoX" id="4Qk-za-sdJ"/>
-                                </connections>
-                            </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zof-Ph-tkW">
                                 <rect key="frame" x="60" y="126" width="273" height="24"/>
                                 <subviews>
@@ -148,18 +136,16 @@
                         <viewLayoutGuide key="safeArea" id="yTs-lZ-WbB"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ubS-ol-4ID" firstAttribute="top" secondItem="fQC-up-fgi" secondAttribute="bottom" id="6Uh-Wi-R8X"/>
+                            <constraint firstItem="362-gn-C9v" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" id="0U6-Bj-jbW"/>
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="bottom" secondItem="ubS-ol-4ID" secondAttribute="bottom" id="DeC-5M-7NN"/>
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="M7i-0q-SQM" secondAttribute="trailing" id="FWo-AC-4BH"/>
                             <constraint firstItem="xUZ-uS-HtM" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" constant="30" id="JT8-03-OX8"/>
+                            <constraint firstItem="ubS-ol-4ID" firstAttribute="top" secondItem="362-gn-C9v" secondAttribute="bottom" id="Lzi-y4-tVD"/>
                             <constraint firstItem="362-gn-C9v" firstAttribute="leading" secondItem="yTs-lZ-WbB" secondAttribute="leading" id="MmK-Xj-Mgw"/>
-                            <constraint firstItem="362-gn-C9v" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" id="Oj0-0h-CQ4"/>
-                            <constraint firstItem="fQC-up-fgi" firstAttribute="leading" secondItem="yTs-lZ-WbB" secondAttribute="leading" constant="5" id="SRi-Uz-VSL"/>
                             <constraint firstItem="xUZ-uS-HtM" firstAttribute="leading" secondItem="ZeL-Ov-oQu" secondAttribute="leading" constant="20" id="Sjh-JO-HFs"/>
                             <constraint firstItem="zof-Ph-tkW" firstAttribute="top" secondItem="xUZ-uS-HtM" secondAttribute="bottom" constant="13" id="TkM-hI-eYa"/>
                             <constraint firstItem="ubS-ol-4ID" firstAttribute="leading" secondItem="yTs-lZ-WbB" secondAttribute="leading" id="UmR-mo-Uhe"/>
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="ubS-ol-4ID" secondAttribute="trailing" id="XlM-Gj-qUw"/>
-                            <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="fQC-up-fgi" secondAttribute="trailing" constant="5" id="Yqu-W7-f4i"/>
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="zof-Ph-tkW" secondAttribute="trailing" constant="60" id="ZBH-UY-HZ8"/>
                             <constraint firstItem="M7i-0q-SQM" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" id="db4-ga-pHz"/>
                             <constraint firstItem="DXu-Bn-doJ" firstAttribute="centerY" secondItem="ZeL-Ov-oQu" secondAttribute="centerY" constant="15" id="fWj-75-xc2"/>
@@ -167,14 +153,12 @@
                             <constraint firstItem="362-gn-C9v" firstAttribute="trailing" secondItem="yTs-lZ-WbB" secondAttribute="trailing" id="ih6-wg-8XA"/>
                             <constraint firstAttribute="trailing" secondItem="xUZ-uS-HtM" secondAttribute="trailing" constant="20" id="n7K-Kk-0YY"/>
                             <constraint firstItem="zof-Ph-tkW" firstAttribute="leading" secondItem="yTs-lZ-WbB" secondAttribute="leading" constant="60" id="vdd-ED-nCs"/>
-                            <constraint firstItem="fQC-up-fgi" firstAttribute="top" secondItem="362-gn-C9v" secondAttribute="bottom" constant="2" id="y7f-KL-k4F"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WEc-bv-5Q3"/>
                     <connections>
                         <outlet property="monthLabel" destination="rO2-cU-qFW" id="Vwp-9d-74L"/>
                         <outlet property="noTransactionsLabel" destination="DXu-Bn-doJ" id="GER-lV-WcB"/>
-                        <outlet property="searchBar" destination="fQC-up-fgi" id="E2d-ZV-RQm"/>
                         <outlet property="titleLabel" destination="xUZ-uS-HtM" id="u24-Sa-eka"/>
                         <outlet property="transactionsCollectionView" destination="ubS-ol-4ID" id="drk-jF-hFe"/>
                         <outlet property="transactionsFilterButton" destination="M7i-0q-SQM" id="sUd-bM-SIa"/>

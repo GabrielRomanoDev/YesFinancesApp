@@ -125,6 +125,8 @@
 		A19742DB2A227E9B00455DB0 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19742DA2A227E9B00455DB0 /* UIColor.swift */; };
 		A19742DD2A2282DC00455DB0 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19742DC2A2282DC00455DB0 /* UIImage.swift */; };
 		A1998AF52D8F741300BDDADC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1998AF42D8F740D00BDDADC /* ViewController.swift */; };
+		A1998B052D90A11700BDDADC /* BanksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1998B042D90A11100BDDADC /* BanksList.swift */; };
+		A1998B072D90A14800BDDADC /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1998B062D90A14500BDDADC /* Months.swift */; };
 		A19F850929F963C40044F7DE /* GoalsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F850729F963C40044F7DE /* GoalsCollectionViewCell.swift */; };
 		A19F850A29F963C40044F7DE /* GoalsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A19F850829F963C40044F7DE /* GoalsCollectionViewCell.xib */; };
 		A19F851529F973D20044F7DE /* EditGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F851429F973D20044F7DE /* EditGoalViewController.swift */; };
@@ -184,6 +186,8 @@
 		A1E107C729E4F784005A3F4F /* CurrencyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E107C629E4F784005A3F4F /* CurrencyViewController.storyboard */; };
 		A1E107C929E4F78F005A3F4F /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E107C829E4F78F005A3F4F /* CurrencyViewController.swift */; };
 		A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E47F7A29F8A70000039F08 /* Goal.swift */; };
+		A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */; };
+		A1E64B9D2D92550A00E31F9C /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E64B9C2D92550800E31F9C /* Invoice.swift */; };
 		A1E87E652A3BA9E600077D49 /* insertNumberStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E87E642A3BA9E600077D49 /* insertNumberStrings.swift */; };
 		A1F4210329F6215B005C346B /* AccountsModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4210229F6215B005C346B /* AccountsModalViewModel.swift */; };
 		A1F4210829F62379005C346B /* CategoriesModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4210729F62379005C346B /* CategoriesModalViewModel.swift */; };
@@ -341,6 +345,8 @@
 		A19742DA2A227E9B00455DB0 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		A19742DC2A2282DC00455DB0 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		A1998AF42D8F740D00BDDADC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A1998B042D90A11100BDDADC /* BanksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanksList.swift; sourceTree = "<group>"; };
+		A1998B062D90A14500BDDADC /* Months.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Months.swift; sourceTree = "<group>"; };
 		A19F850729F963C40044F7DE /* GoalsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCollectionViewCell.swift; sourceTree = "<group>"; };
 		A19F850829F963C40044F7DE /* GoalsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalsCollectionViewCell.xib; sourceTree = "<group>"; };
 		A19F851429F973D20044F7DE /* EditGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalViewController.swift; sourceTree = "<group>"; };
@@ -402,6 +408,8 @@
 		A1E107C629E4F784005A3F4F /* CurrencyViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CurrencyViewController.storyboard; sourceTree = "<group>"; };
 		A1E107C829E4F78F005A3F4F /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		A1E47F7A29F8A70000039F08 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScreenType.swift; sourceTree = "<group>"; };
+		A1E64B9C2D92550800E31F9C /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
 		A1E87E642A3BA9E600077D49 /* insertNumberStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = insertNumberStrings.swift; sourceTree = "<group>"; };
 		A1F4210229F6215B005C346B /* AccountsModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsModalViewModel.swift; sourceTree = "<group>"; };
 		A1F4210729F62379005C346B /* CategoriesModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModalViewModel.swift; sourceTree = "<group>"; };
@@ -439,6 +447,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A1998AF62D908D6A00BDDADC /* InvoiceViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = InvoiceViewController; sourceTree = "<group>"; };
 		A1E0B7102D6A76D1002892BD /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -562,6 +571,7 @@
 		A11BDA7929F4C47F006CF6B2 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */,
 				A12A75FB2C3C960900C5D8DD /* FirebaseSubCollectionNames.swift */,
 				A11BDA7329F4C173006CF6B2 /* Banks.swift */,
 				A11BDA7A29F4C4A3006CF6B2 /* TransactionType.swift */,
@@ -922,16 +932,18 @@
 		A16636ED29DE1B0400162872 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A1998B032D90A0FE00BDDADC /* Constants */,
 				A1E0B6D02D656E88002892BD /* Repositories */,
 				A11BDA7929F4C47F006CF6B2 /* Enums */,
 				A1E0B70D2D6A75BD002892BD /* TransactionProtocol.swift */,
 				A16636EE29DE33C500162872 /* AccountTransaction.swift */,
 				A1A92BC529F81D6200E14EE8 /* CreditCardExpense.swift */,
+				A11BDA7129F4C04A006CF6B2 /* BankAccount.swift */,
+				A11BDA7529F4C24B006CF6B2 /* CreditCard.swift */,
+				A1E64B9C2D92550800E31F9C /* Invoice.swift */,
 				A166B96129DF4BD600F33A98 /* TransactionCategory.swift */,
 				A140933C29E6EC3D0037662B /* CategoriesSum.swift */,
 				A16688EA29F08CF600568217 /* BalanceCard.swift */,
-				A11BDA7129F4C04A006CF6B2 /* BankAccount.swift */,
-				A11BDA7529F4C24B006CF6B2 /* CreditCard.swift */,
 				A189A39829F58A4700C22A6D /* BankProperties.swift */,
 				A1E47F7A29F8A70000039F08 /* Goal.swift */,
 				A1FDB7E82A45F2D3006B3459 /* ExchangeRate.swift */,
@@ -983,8 +995,8 @@
 		A16688FA29F17E1B00568217 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A1FFCA312CA8DAB500B1C6A6 /* TransactionsFilterWorker.swift */,
 				A16688FB29F17E5200568217 /* TransactionsViewModel.swift */,
+				A1FFCA312CA8DAB500B1C6A6 /* TransactionsFilterWorker.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1110,6 +1122,7 @@
 				A14DAE6129D4E92300714208 /* TransactionsViewController */,
 				A1B821392A60E5D700281A52 /* DetailsTransactionsViewController */,
 				A100FAA42C74002D006DCD47 /* FilteringTransactionsViewController */,
+				A1998AF62D908D6A00BDDADC /* InvoiceViewController */,
 			);
 			path = TransactionsScreens;
 			sourceTree = "<group>";
@@ -1348,6 +1361,15 @@
 				A17C89E82A09E8F900B5DB2F /* OptionalExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A1998B032D90A0FE00BDDADC /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				A1998B062D90A14500BDDADC /* Months.swift */,
+				A1998B042D90A11100BDDADC /* BanksList.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		A19F850B29F96E2A0044F7DE /* Cells */ = {
@@ -1897,6 +1919,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				A1998AF62D908D6A00BDDADC /* InvoiceViewController */,
 				A1E0B7102D6A76D1002892BD /* Utils */,
 			);
 			name = FinanceApp_BackFront;
@@ -1922,6 +1945,7 @@
 				TargetAttributes = {
 					E35D084529BDAD100098F0B5 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -2080,6 +2104,7 @@
 				A17DC6912A09AE0000D12C3C /* CreditCardCollectionViewCell.swift in Sources */,
 				A1C9D23E2A0C4C4C008CAFAD /* resumeBalanceCollectionViewCell.swift in Sources */,
 				A1C9EFEC29E60D080029B69F /* RegisterViewController.swift in Sources */,
+				A1E64B9D2D92550A00E31F9C /* Invoice.swift in Sources */,
 				A12E87D92D74F23400FA3295 /* Date.swift in Sources */,
 				A162B23C2CFCC13B0036350A /* SelectItensTableViewCell.swift in Sources */,
 				A125C1072A3A24E700A78390 /* InsertNumbersModalViewController.swift in Sources */,
@@ -2135,6 +2160,7 @@
 				A1E107C229E4F646005A3F4F /* ProfileViewController.swift in Sources */,
 				A17C89DE2A09C76700B5DB2F /* BanksCell.swift in Sources */,
 				A13E249929F98BDB00E9EF7A /* EditGoalViewModel.swift in Sources */,
+				A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */,
 				A18991A92A11DC9800D47427 /* CardsResumeTableViewCell.swift in Sources */,
 				A19742DB2A227E9B00455DB0 /* UIColor.swift in Sources */,
 				A12E87DD2D74F77800FA3295 /* MonthDate.swift in Sources */,
@@ -2154,6 +2180,7 @@
 				A19F851529F973D20044F7DE /* EditGoalViewController.swift in Sources */,
 				A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */,
 				A17C89E52A09C9BA00B5DB2F /* EditCreditCardsViewController.swift in Sources */,
+				A1998B052D90A11700BDDADC /* BanksList.swift in Sources */,
 				A12E87D72D73BD6000FA3295 /* CardExpensesCollectionViewCell.swift in Sources */,
 				A1C8BA712A22ECE000590758 /* addStrings.swift in Sources */,
 				A18ED59E2A21469D00F564BD /* MoreOptionsViewModel.swift in Sources */,
@@ -2164,6 +2191,7 @@
 				A19742A52A2247FB00455DB0 /* mainStrings.swift in Sources */,
 				A17DC6842A0989B900D12C3C /* TabBarController.swift in Sources */,
 				A13E249E29F9958900E9EF7A /* GoalInfoViewController.swift in Sources */,
+				A1998B072D90A14800BDDADC /* Months.swift in Sources */,
 				E35D084A29BDAD100098F0B5 /* AppDelegate.swift in Sources */,
 				A1D2F84D29E9E5B100DCA6E4 /* CategoriesModalCell.swift in Sources */,
 				A101917C29FAC4F900776A67 /* EditBankAccountsViewController.swift in Sources */,
@@ -2359,6 +2387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2380,6 +2409,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2391,6 +2421,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

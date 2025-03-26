@@ -10,15 +10,15 @@ import Foundation
 struct CreditCardExpense: Transactions, Codable, Equatable  {
    
     private(set) var  id: String = UUID().uuidString
-    var desc:String
-    var amount:Double
-    var categoryIndex:Int
-    var date:String
+    var desc: String
+    var amount: Double
+    var categoryIndex: Int
+    var date: String
     var type: TransactionType
-    var sourceId:String
+    var sourceId: String
     var paymentStatus: PaymentStatus
     var invoiceMonth: MonthDate
-    var obs:String
+    var obs: String
     
     init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, sourceId: String, paymentStatus: PaymentStatus, invoiceMonth: MonthDate, obs: String) {
         self.desc = desc
