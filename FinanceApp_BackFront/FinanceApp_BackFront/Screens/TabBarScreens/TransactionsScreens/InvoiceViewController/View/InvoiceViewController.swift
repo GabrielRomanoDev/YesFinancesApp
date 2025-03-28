@@ -75,13 +75,9 @@ class InvoiceViewController: UIViewController {
     private func showNoTransactionsMessage(title: String) {
         if viewModel.getTransactionsCount() <= 0 {
             noTransactionsLabel.isHidden = false
-            transactionsCollectionView.isHidden = true
-            transactionsFilterButton.isHidden = true
             noTransactionsLabel.text = title
         } else {
             noTransactionsLabel.isHidden = true
-            transactionsCollectionView.isHidden = false
-            transactionsFilterButton.isHidden = false
         }
     }
     
@@ -95,7 +91,7 @@ class InvoiceViewController: UIViewController {
             layout.estimatedItemSize = .zero
             layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         }
-        transactionsCollectionView.register(InvoceInfoCollectionViewCell.nib(), forCellWithReuseIdentifier: InvoceInfoCollectionViewCell.identifier)
+        transactionsCollectionView.register(InvoiceInfoCollectionViewCell.nib(), forCellWithReuseIdentifier: InvoiceInfoCollectionViewCell.identifier)
         transactionsCollectionView.register(CardExpensesCollectionViewCell.nib(), forCellWithReuseIdentifier: CardExpensesCollectionViewCell.identifier)
         
     }
@@ -111,20 +107,21 @@ class InvoiceViewController: UIViewController {
 extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getTransactionsCount()
+        return viewModel.getTransactionsCount() + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.row == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InvoceInfoCollectionViewCell.identifier, for: indexPath) as! InvoceInfoCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InvoiceInfoCollectionViewCell.identifier, for: indexPath) as! InvoiceInfoCollectionViewCell
             cell.layer.cornerRadius = 10
             cell.layer.masksToBounds = true
             cell.searchBar.delegate = self
             cell.searchBar.searchBarStyle = .minimal
+            cell.delegate = self
             cell.setupCell(invoice: viewModel.invoice)
             return cell
-            } else if let creditCardTransaction = viewModel.getItemTransactions(indexPath.row) as? CreditCardExpense {
+            } else if let creditCardTransaction = viewModel.getItemTransactions(indexPath.row - 1) as? CreditCardExpense {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardExpensesCollectionViewCell.identifier, for: indexPath) as! CardExpensesCollectionViewCell
             cell.layer.cornerRadius = 10
             cell.layer.masksToBounds = true
@@ -140,7 +137,14 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if indexPath.row == 0 {
-            return viewModel.invoice.paymentStatus != .paid ? CGSize(width: view.frame.width, height: 176) : CGSize(width: view.frame.width, height: 130)
+            
+            switch viewModel.invoice.paymentStatus {
+            case .open, .overdue, .pendent:
+                return CGSize(width: view.frame.width, height: 176)
+            case .paid, .future, .zeroed:
+                return CGSize(width: view.frame.width, height: 130)
+            }
+            
         } else {
             return CGSize(width: view.frame.width - 30, height: 85)
         }
@@ -152,7 +156,7 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
     
 }
 
-extension InvoiceViewController: InvoceInfoCollectionViewCellDelegate {
+extension InvoiceViewController: InvoiceInfoCollectionViewCellDelegate {
     
     func didTapPayInvoiceButton() {
         viewModel.payInvoice()

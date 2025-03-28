@@ -24,7 +24,7 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
     }
     
     
-    func setup(with transaction: CreditCardExpense) {
+    func setup(with transaction: Invoice) {
         
         descLabel.text = transaction.desc
         descLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -37,7 +37,7 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         
         dateLabel.text = transaction.date
         
-        categoryLabel.text = "Vencimento em:"
+        categoryLabel.text = transactionsStrings.dueDate
         categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[transaction.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
         categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transaction.categoryIndex].colorIndex] ?? UIColor.cyan
         valueLabel.textColor = .RedGeneralExpenses
@@ -48,14 +48,17 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         statusLabel.clipsToBounds = true
         
         switch transaction.paymentStatus {
-        case .future:
-            statusLabel.text = " Pagamento futuro "
+        case .future, .open:
+            //open invoices also can be considered future expenses
+            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.future
         case .paid:
-            statusLabel.text = "Fatura paga"
+            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.paid
         case .pendent:
-            statusLabel.text = "Pagamento pendente"
+            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.pendent
         case .overdue:
-            statusLabel.text = "Fatura atrasada"
+            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.overdue
+        case .zeroed:
+            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.zeroed
         }
         
     }

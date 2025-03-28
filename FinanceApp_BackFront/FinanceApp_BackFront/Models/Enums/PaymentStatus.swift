@@ -11,4 +11,5 @@ enum PaymentStatus: Codable {
     case pendent
     case future
     case overdue
+    case zeroed
 }

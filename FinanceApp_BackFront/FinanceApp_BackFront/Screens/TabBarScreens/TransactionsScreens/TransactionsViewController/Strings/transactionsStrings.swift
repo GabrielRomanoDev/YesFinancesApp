@@ -16,8 +16,12 @@ enum transactionsStrings {
     static let invoiceTitle = "Fatura"
     static let invoiceTotal = "Total"
     static let status = "Status"
+    
     static let closingDate = "Fecha em"
     static let dueDate = "Vence em"
+    static let closedDate = "Fechou em"
+    static let invoiceWasDueDate = "Venceu em"
+    
     
     static let payInvoice = "Pagar Fatura"
     static let advanceInvoicePayment = "Adiantar Pagamento"
@@ -27,4 +31,5 @@ enum transactionsStrings {
     static let pendent = "Pendente"
     static let future = "Futuro"
     static let overdue = "Atrasada"
+    static let zeroed = "Zerada"
 }

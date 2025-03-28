@@ -9,6 +9,7 @@ import Foundation
 
 struct InvoiceViewModel {
     
+    private let creditCard: CreditCard
     private(set) var invoice: Invoice
     private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker()
     private var cardExpenses: [CreditCardExpense] = []
@@ -16,7 +17,9 @@ struct InvoiceViewModel {
     
     init(invoice: Invoice) {
         self.invoice = invoice
+        self.creditCard = CreditCardsRepository.shared.list.first(where: { $0.id == invoice.sourceId } )!
         self.fetchExpenses()
+        
     }
     
     public mutating func reordenateTransactions() {
@@ -58,24 +61,16 @@ struct InvoiceViewModel {
     
     mutating func displayNextMonth() {
         
-        invoice.month.month += 1
-        if invoice.month.month > 12 {
-            invoice.month.month = 1
-            invoice.month.year += 1
-        }
+        invoice.month.nextMonth()
+        invoice = creditCard.getInvoice(month: invoice.month)
         filteringWorker.parameters.dates.enabled = false
-        
-        card.bankName = ""
         
     }
     
     mutating func displayLastMonth() {
         
-        invoice.month.month -= 1
-        if invoice.month.month < 1 {
-            invoice.month.month = 12
-            invoice.month.year -= 1
-        }
+        invoice.month.lastMonth()
+        invoice = creditCard.getInvoice(month: invoice.month)
         filteringWorker.parameters.dates.enabled = false
         
     }
@@ -95,9 +90,15 @@ struct InvoiceViewModel {
     
     mutating func filterTransactions(parameters: FilteringParameters? = nil, textSearch: String? = "") {
         
+        var editedParameters = parameters ?? filteringWorker.parameters
+        editedParameters.dates.enabled = true
+        let (openingDate, closingDate) = self.creditCard.invoiceMonthPeriod(month: self.invoice.month)
+        editedParameters.dates.initial = openingDate.toString()
+        editedParameters.dates.final = closingDate.toString()
+        
         self.filteredTransactions = self.cardExpenses
         
-        self.filteredTransactions = filteringWorker.filterTransactions(transactions: self.filteredTransactions, parameters: parameters, monthDisplayed: self.invoice.month)
+        self.filteredTransactions = filteringWorker.filterTransactions(transactions: self.filteredTransactions, parameters: editedParameters)
         
         if let text = textSearch, !text.isEmpty {
             self.filteredTransactions = filteringWorker.searchForTransactions(textSearch, transactions: self.filteredTransactions)

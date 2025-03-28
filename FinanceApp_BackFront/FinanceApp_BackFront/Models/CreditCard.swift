@@ -30,13 +30,12 @@ struct CreditCard: Codable, Equatable {
     
     func invoiceTotal(monthDate: MonthDate = Date().getMonth()) -> Double {
         var endDate = Date().setDate(day: closingDay, month: monthDate)
-        var startDate = Calendar.current.date(byAdding: .month, value: -1, to: endDate)!
+        let startDate = Calendar.current.date(byAdding: .month, value: -1, to: endDate)!
         endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
-        
         
         let filteredExpenses = CreditCardExpensesRepository.shared.list.filter { expense in
             if let transactionDate = expense.date.toDate() {
-                return expense.sourceId == self.id && transactionDate >= startDate && transactionDate <= endDate
+                return expense.sourceId == self.id && transactionDate >= startDate && transactionDate <= endDate && expense.paymentStatus != .paid
             }
             return false
         }
@@ -60,16 +59,51 @@ struct CreditCard: Codable, Equatable {
         ))
     }
     
+    func invoiceMonthPeriod(month: MonthDate) -> (Date, Date) {
+        var closingDate = Date().setDate(day: self.closingDay, month: month)
+        let openingDate = Calendar.current.date(byAdding: .month, value: -1, to: closingDate)!
+        closingDate = Calendar.current.date(byAdding: .day, value: -1, to: closingDate)!
+        
+        return (openingDate, closingDate)
+    }
     
     
     func getInvoice(month: MonthDate) -> Invoice {
+        
+        let invoiceAmount = self.invoiceTotal(monthDate: month)
+        
+        let (openingDate, closingDate) = invoiceMonthPeriod(month: month)
+        let currentDate = Date()
+        let dueDate = Date().setDate(day: self.dueDay, month: month)
+        
+        var status: PaymentStatus
+        
+        if currentDate > closingDate {
+            
+            if abs(invoiceAmount) > 0 {
+                
+                if currentDate >= dueDate {
+                    status = .overdue
+                } else {
+                    status = .pendent
+                }
+                
+            } else {
+                let expensesPaid = CreditCardExpensesRepository.shared.list.first(where: { $0.sourceId == self.id && $0.paymentStatus == .paid }) != nil
+                status = expensesPaid ? .paid : .zeroed
+            }
+            
+        } else {
+            status = (currentDate >= openingDate) ? .open : .future
+        }
+        
         return Invoice(
             desc: transactionsStrings.invoiceTitle + " " + self.desc,
-            amount: self.invoiceTotal(monthDate: month),
-            closingDate: Date().setDate(day: self.closingDay, month: month).toString(),//card.closingDay.getNextDate().toString(),
-            dueDate: Date().setDate(day: self.dueDay, month: month).toString(),
+            amount: invoiceAmount,
+            closingDate: closingDate.toString(),
+            dueDate: dueDate.toString(),
             sourceId: self.id,
-            paymentStatus: .future,
+            paymentStatus: status,
             month: month
         )
         
