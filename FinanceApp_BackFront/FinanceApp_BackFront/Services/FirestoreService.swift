@@ -9,6 +9,10 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+protocol FirestoreObject: Codable {
+    var id: String { get }
+}
+
 class FirestoreService {
     private let db = Firestore.firestore()
     public var user: String
@@ -19,54 +23,40 @@ class FirestoreService {
     }
     
     init(subCollectionName: String = "default") {
-        self.user = "user_" + (userLogged ?? "default")
+        self.user = "user_" + userLogged
         self.subCollectionName = subCollectionName
     }
     
     public func setUser(_ userUid: String) {
-        user = "user_" + (userLogged ?? "default")
+        user = "user_" + userLogged
     }
     
     public func setSubCollectionName(_ name: String) {
         self.subCollectionName = name
     }
     
-    public func addObject <T: Encodable> (_ object: T, id: String, completion: @escaping (String) -> Void) {
+    public func setObject <T: FirestoreObject> (_ object: T, subCollectionName: String? = nil, completion: @escaping (String) -> Void) {
+        
+        var collection: CollectionReference
+        
+        if let subCollection = subCollectionName {
+            collection = db.collection("users").document(self.user).collection(subCollection)
+        } else {
+            collection = collectionRef
+        }
         
         Task {
             do {
                 
                 let objectData = try Firestore.Encoder().encode(object)
-                
-                try await collectionRef.document(id).setData(objectData)
-                
+                try await collection.document(object.id).setData(objectData)
                 completion("Success")
                 
             } catch {
-                print("Error adding documents: \(error)")
                 completion(error.localizedDescription)
             }
         }
     
-    }
-    
-    public func updateObject <T: Encodable & Equatable> (_ updatedObject: T, id: String, completion: @escaping (String) -> Void) {
-        
-        Task {
-            do {
-                
-                let objectData = try Firestore.Encoder().encode(updatedObject)
-                
-                try await collectionRef.document(id).setData(objectData)
-                
-                completion("Success")
-                
-            } catch {
-                print("Error adding documents: \(error)")
-                completion(error.localizedDescription)
-            }
-        }
-        
     }
     
     public func deleteObject(id: String, completion: @escaping (String) -> Void) {
@@ -84,7 +74,7 @@ class FirestoreService {
         }
     }
     
-    public func getObjectsList<T: Codable>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
+    public func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
         
         self.setSubCollectionName(documentReadName)
         let colRef = collectionRef
@@ -106,7 +96,7 @@ class FirestoreService {
         
     }
     
-    public func getLastObjectsList<T: Codable>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
+    public func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
         
         self.setSubCollectionName(documentReadName)
         let colRef = collectionRef.order(by: "date", descending: true).limit(to: 4)
@@ -128,18 +118,7 @@ class FirestoreService {
         
     }
     
-    public func setObject<T: Encodable>(_ object: T, subCollectionName: String, completion: @escaping () -> Void) {
-        self.setSubCollectionName(subCollectionName)
-        do {
-            try collectionRef.document().setData(from: object)
-            completion()
-        } catch let error {
-            print("Error writing document: \(error.localizedDescription)!")
-            completion()
-        }
-    }
-    
-    public func getObject<T: Decodable>(subCollectionName: String, objectType: T.Type, completion: @escaping (T) -> Void) {
+    public func getObject<T: FirestoreObject>(subCollectionName: String, objectType: T.Type, completion: @escaping (T) -> Void) {
         self.setSubCollectionName(subCollectionName)
         Task {
             
@@ -152,14 +131,42 @@ class FirestoreService {
                 
             } catch {
                 print(error)
-                completion(Profile(name: "Erro", email: "erro") as! T)
+                completion(Profile(id: "", name: "Erro", email: "erro") as! T)
             }
         }
         
     }
     
     public func updateObjectField(change: [AnyHashable : Any], objectID: String) {
-        collectionRef.document(objectID).updateData(change)
+        collectionRef.document(objectID).updateData(change) { error in
+            if let error = error {
+                print(error)
+            }
+        }
+    }
+    
+    func setObjectsList<T: FirestoreObject>(objects: [T], completion: @escaping (String) -> Void) {
+        
+        let batch = db.batch()
+        
+        for object in objects {
+            do {
+                let documentRef = collectionRef.document(object.id)
+                try batch.setData(from: object, forDocument: documentRef)
+            } catch let error {
+                print("Error writing document: \(error.localizedDescription)!")
+            }
+            
+        }
+        
+        batch.commit { error in
+            if let error = error {
+                completion("Error setting documents: \(error)")
+            } else {
+                completion("Success")
+            }
+        }
+        
     }
     
 }

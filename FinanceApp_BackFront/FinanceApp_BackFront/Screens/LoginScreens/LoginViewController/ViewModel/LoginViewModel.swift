@@ -12,7 +12,7 @@ class LoginViewModel {
     public func loginUser(email: String, password: String, completion: @escaping (String) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error == nil {
-                userLogged = authResult?.user.uid
+                userLogged = authResult?.user.uid ?? UUID().uuidString
                 completion(loginStrings.loginSuccessMessage)
             } else {
                 let errorMessage = self.getLocalizedErrorMessage(for: error)
@@ -39,5 +39,3 @@ class LoginViewModel {
         }
     }
 }
-
-var userLogged: String? = "default"

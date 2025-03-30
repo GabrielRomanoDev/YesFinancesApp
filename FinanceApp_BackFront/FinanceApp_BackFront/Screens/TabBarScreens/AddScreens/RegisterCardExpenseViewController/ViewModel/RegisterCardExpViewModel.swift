@@ -21,7 +21,7 @@ class RegisterCardExpViewModel{
         }
         CreditCardExpensesRepository.shared.list.append(newExpense)
         
-        service.addObject(newExpense, id: newExpense.id) { result in
+        service.setObject(newExpense) { result in
             if result != "Success" {
                 print(result)
                 completion()

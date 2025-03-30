@@ -30,13 +30,13 @@ class CardExpensesCollectionViewCell: UICollectionViewCell {
     
     func setup(with transaction: CreditCardExpense) {
         
-        descLabel.text = transaction.desc
+        descLabel.text = "Paga: \(transaction.desc)"
         descLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        descLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        descLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         valueLabel.text = abs(transaction.amount).toStringMoney()
-        valueLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)  // O label 2 se adapta ao texto
-        valueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        valueLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
         valueLabel.text = transaction.amount.toStringMoney()
         dateLabel.text = transaction.date

@@ -71,13 +71,9 @@ class TransactionsViewController: UIViewController {
         if viewModel.getTransactionsCount() <= 0 {
             noTransactionsLabel.isHidden = false
             transactionsCollectionView.isHidden = true
-            searchBar.isHidden = true
-            transactionsFilterButton.isHidden = true
         } else {
             noTransactionsLabel.isHidden = true
             transactionsCollectionView.isHidden = false
-            searchBar.isHidden = false
-            transactionsFilterButton.isHidden = false
         }
         noTransactionsLabel.text = title
     }
@@ -140,10 +136,10 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if let _ = viewModel.getItemTransactions(indexPath.row) as? CreditCardExpense {
-            return CGSize(width: view.frame.width - 30, height: 100)
+        if let _ = viewModel.getItemTransactions(indexPath.row) as? Invoice {
+            return CGSize(width: view.frame.width - 30, height: 92)
         } else {
-            return CGSize(width: view.frame.width - 30, height: 85)
+            return CGSize(width: view.frame.width - 30, height: 79)
         }
     }
     

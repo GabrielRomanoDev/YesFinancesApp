@@ -34,6 +34,7 @@ class InvoiceInfoCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.searchBar.searchBarStyle = .minimal
         
     }
 
@@ -77,6 +78,10 @@ class InvoiceInfoCollectionViewCell: UICollectionViewCell {
             dueDateLabel.text = transactionsStrings.invoiceWasDueDate + ": " + invoice.dueDate
         } else {
             dueDateLabel.text = transactionsStrings.dueDate + ": " + invoice.dueDate
+        }
+        
+        if invoice.amount == 0 {
+            payInvoiceButton.isHidden = true
         }
         
     }

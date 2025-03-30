@@ -44,9 +44,10 @@ class RegisterViewController: UIViewController {
         
         let email = emailTextfield.text.orEmpty
         let password = passwordTextfield.text.orEmpty
-
-        createUser(email: email, password: password) { registerSuccess in
-            if registerSuccess {
+        
+        viewModel.createUser(email: email, password: password) { resultRegister in
+            
+            if resultRegister == registerStrings.registerSuccessText {
                 self.showSimpleAlert(title: registerStrings.registerSuccessMessage, message: globalStrings.emptyString) {
                     
                     let storyboard:UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
@@ -54,7 +55,10 @@ class RegisterViewController: UIViewController {
                         self.present(tbc, animated: true)
                     }
                 }
+            } else {
+                self.showSimpleAlert(title: globalStrings.attention, message: resultRegister)
             }
+            
         }
     }
                                                 
@@ -96,25 +100,6 @@ class RegisterViewController: UIViewController {
         
         let newConstraint = containerView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: 40)
         newConstraint.isActive = true
-    }
-    
-    private func createUser(email: String, password: String, completion: @escaping (Bool) -> Void) {
-        viewModel.createUser(email: email, password: password) { resultRegister in
-            if resultRegister == registerStrings.registerSuccessText {
-                let profile: Profile = Profile(
-                    name: self.nameTextfield.text.orEmpty,
-                    email: self.emailTextfield.text.orEmpty
-                )
-                
-                self.viewModel.setProfileValues(profile: profile) {
-                    completion(true)
-                }
-            } else {
-                self.showSimpleAlert(title: globalStrings.attention, message: resultRegister) {
-                    completion(false)
-                }
-            }
-        }
     }
     
     private func checkTextFields() -> Bool {

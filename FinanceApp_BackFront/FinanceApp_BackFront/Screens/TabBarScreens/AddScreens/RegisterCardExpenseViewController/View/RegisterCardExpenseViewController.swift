@@ -109,9 +109,9 @@ class RegisterCardExpenseViewController: UIViewController{
                 categoryIndex: indexCategorySelected,
                 date: viewModel.selectedDate.toString(format: globalStrings.dateFormat),
                 type: .expense,
-                sourceId: idCardSelected,
                 paymentStatus: .pendent,
-                invoiceMonth: viewModel.selectedDate.getMonth(),
+                month: viewModel.selectedDate.getMonth(),
+                sourceId: idCardSelected,
                 obs: obsTextField.text.orEmpty
             )) { [weak self] in
                 DispatchQueue.main.async { [weak self] in

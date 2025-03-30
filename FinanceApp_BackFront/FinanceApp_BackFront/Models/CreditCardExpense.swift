@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreditCardExpense: Transactions, Codable, Equatable  {
+struct CreditCardExpense: FirestoreObject, Transactions, Codable, Equatable  {
    
     private(set) var  id: String = UUID().uuidString
     var desc: String
@@ -15,21 +15,32 @@ struct CreditCardExpense: Transactions, Codable, Equatable  {
     var categoryIndex: Int
     var date: String
     var type: TransactionType
-    var sourceId: String
+    var month: MonthDate
+    var isMonthly: Bool?
     var paymentStatus: PaymentStatus
-    var invoiceMonth: MonthDate
+    var installment: installment?
+    var attachmentUrl: String?
+    var sourceId: String
     var obs: String
     
-    init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, sourceId: String, paymentStatus: PaymentStatus, invoiceMonth: MonthDate, obs: String) {
+    init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, paymentStatus: PaymentStatus, month: MonthDate, sourceId: String, obs: String) {
         self.desc = desc
         self.amount = amount
         self.categoryIndex = categoryIndex
         self.date = date
         self.type = type
-        self.sourceId = sourceId
+        self.isMonthly = nil
         self.paymentStatus = paymentStatus
-        self.invoiceMonth = invoiceMonth
+        self.month = month
+        self.installment = nil
+        self.attachmentUrl = nil
+        self.sourceId = sourceId
         self.obs = obs
     }
     
+}
+
+struct installment: Codable, Equatable {
+    var current: Int
+    var total: Int
 }

@@ -60,7 +60,7 @@ class BankAccountsViewModel {
         }
         
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.addObject(newAccount, id: newAccount.id) { [weak self] result in
+        service.setObject(newAccount) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
@@ -90,7 +90,7 @@ class BankAccountsViewModel {
         updatedAccount.obs = account.obs
         
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.updateObject(updatedAccount, id: updatedAccount.id) { [weak self] result in
+        service.setObject(updatedAccount) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
@@ -127,7 +127,7 @@ class BankAccountsViewModel {
         )
         
         service.setSubCollectionName(firebaseSubCollectionNames.transactions)
-        service.addObject(newTransaction, id: newTransaction.id) { result in
+        service.setObject(newTransaction) { result in
             if result != "Success" {
                 print(result)
             }
@@ -151,7 +151,7 @@ class BankAccountsViewModel {
         
         for i in 0..<BankAccountsRepository.shared.list.count {
             BankAccountsRepository.shared.list[i].standardAccount = false
-            service.updateObjectField(change: ["standardAccount":false], objectID: BankAccountsRepository.shared.list[i].id)
+            service.updateObjectField(change: ["standardAccount": false], objectID: BankAccountsRepository.shared.list[i].id)
         }
         
     }

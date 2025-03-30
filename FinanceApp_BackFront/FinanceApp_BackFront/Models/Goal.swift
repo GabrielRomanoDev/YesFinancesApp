@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Goal: Codable, Equatable {
+struct Goal: FirestoreObject, Equatable {
     
     private(set) var id: String = UUID().uuidString
     var desc: String

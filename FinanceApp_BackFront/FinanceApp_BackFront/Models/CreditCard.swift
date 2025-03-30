@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreditCard: Codable, Equatable {
+struct CreditCard: FirestoreObject, Codable, Equatable {
     
     private(set) var id: String = UUID().uuidString
     var desc: String
@@ -29,13 +29,9 @@ struct CreditCard: Codable, Equatable {
     }
     
     func invoiceTotal(monthDate: MonthDate = Date().getMonth()) -> Double {
-        var endDate = Date().setDate(day: closingDay, month: monthDate)
-        let startDate = Calendar.current.date(byAdding: .month, value: -1, to: endDate)!
-        endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
-        
         let filteredExpenses = CreditCardExpensesRepository.shared.list.filter { expense in
             if let transactionDate = expense.date.toDate() {
-                return expense.sourceId == self.id && transactionDate >= startDate && transactionDate <= endDate && expense.paymentStatus != .paid
+                return expense.sourceId == self.id && expense.month == monthDate && expense.paymentStatus != .paid
             }
             return false
         }
@@ -45,6 +41,12 @@ struct CreditCard: Codable, Equatable {
     
     func adjustInvoice(newValue: Double) {
         let valueNewTransaction: Double = newValue - invoiceTotal()
+        let today = Calendar.current.component(.day, from: Date())
+        
+        var invoiceMonth = Date().getMonth()
+        if today >= closingDay {
+            invoiceMonth.nextMonth()
+        }
         
         CreditCardExpensesRepository.shared.list.append(CreditCardExpense(
             desc: moreOptionsStrings.updateAccountAmount,
@@ -52,21 +54,20 @@ struct CreditCard: Codable, Equatable {
             categoryIndex: 0,
             date: Date().toString(format: globalStrings.dateFormat),
             type: .expense,
-            sourceId: id,
             paymentStatus: .pendent,
-            invoiceMonth: Date().getMonth(),
+            month: invoiceMonth,
+            sourceId: id,
             obs: globalStrings.emptyString
         ))
     }
     
-    func invoiceMonthPeriod(month: MonthDate) -> (Date, Date) {
+    private func invoiceMonthPeriod(month: MonthDate) -> (Date, Date) {
         var closingDate = Date().setDate(day: self.closingDay, month: month)
         let openingDate = Calendar.current.date(byAdding: .month, value: -1, to: closingDate)!
         closingDate = Calendar.current.date(byAdding: .day, value: -1, to: closingDate)!
         
         return (openingDate, closingDate)
     }
-    
     
     func getInvoice(month: MonthDate) -> Invoice {
         

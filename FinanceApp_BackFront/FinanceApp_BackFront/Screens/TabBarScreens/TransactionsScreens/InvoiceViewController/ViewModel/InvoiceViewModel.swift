@@ -9,9 +9,10 @@ import Foundation
 
 struct InvoiceViewModel {
     
+    let service = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCardExpenses)
     private let creditCard: CreditCard
     private(set) var invoice: Invoice
-    private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker()
+    private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker(filterType: .invoiceExepenses)
     private var cardExpenses: [CreditCardExpense] = []
     private var filteredTransactions: [any Transactions] = CreditCardExpensesRepository.shared.list
     
@@ -41,18 +42,30 @@ struct InvoiceViewModel {
         }
         
         reordenateTransactions()
+        invoice = creditCard.getInvoice(month: invoice.month)
     }
     
     public func getTransactionsCount() -> Int {
         return filteredTransactions.count
     }
     
-    public func getItemTransactions(_ index: Int) -> any Transactions {
+    public func getExpense(_ index: Int) -> any Transactions {
         return filteredTransactions[index]
     }
     
-    public func getCellSize(viewWidth:CGFloat) -> CGSize {
-        return CGSize(width: viewWidth - 30, height: 85)
+    func getSizeForCell(index: Int, viewWidth: CGFloat) -> CGSize {
+        
+        if index == 0 {
+            switch invoice.paymentStatus {
+            case .open, .overdue, .pendent:
+                return CGSize(width: viewWidth, height: 176)
+            case .paid, .future, .zeroed:
+                return CGSize(width: viewWidth, height: 130)
+            }
+        } else {
+            return CGSize(width: viewWidth - 30, height: 85)
+        }
+        
     }
     
     func getParameters() -> FilteringParameters {
@@ -90,15 +103,9 @@ struct InvoiceViewModel {
     
     mutating func filterTransactions(parameters: FilteringParameters? = nil, textSearch: String? = "") {
         
-        var editedParameters = parameters ?? filteringWorker.parameters
-        editedParameters.dates.enabled = true
-        let (openingDate, closingDate) = self.creditCard.invoiceMonthPeriod(month: self.invoice.month)
-        editedParameters.dates.initial = openingDate.toString()
-        editedParameters.dates.final = closingDate.toString()
-        
         self.filteredTransactions = self.cardExpenses
         
-        self.filteredTransactions = filteringWorker.filterTransactions(transactions: self.filteredTransactions, parameters: editedParameters)
+        self.filteredTransactions = filteringWorker.filterTransactions(transactions: self.filteredTransactions, parameters: parameters, monthDisplayed: invoice.month)
         
         if let text = textSearch, !text.isEmpty {
             self.filteredTransactions = filteringWorker.searchForTransactions(textSearch, transactions: self.filteredTransactions)
@@ -106,8 +113,55 @@ struct InvoiceViewModel {
         
     }
     
-    func payInvoice() {
-        print("Paga a fatura")
+    func payInvoice(completion: @escaping () -> Void) {
+    
+        var expensesToPay: [CreditCardExpense] = []
+        var totalAmount = 0.0
+        
+        var invoiceExpenses = CreditCardExpensesRepository.shared.list.enumerated().filter { (index, expense) in
+            if let transactionDate = expense.date.toDate() {
+                if expense.sourceId == creditCard.id && expense.month == invoice.month && expense.paymentStatus != .paid {
+                    var paidExpense = expense
+                    paidExpense.paymentStatus = .paid
+                    CreditCardExpensesRepository.shared.list[index] = paidExpense
+                    expensesToPay.append(paidExpense)
+                    totalAmount += expense.amount
+                }
+            }
+            return false
+        }
+        
+        if (BankAccountsRepository.shared.list.count >= 1) {
+            
+            let accountSourceId = BankAccountsRepository.shared.list[0].id
+            
+            let invoicePaymentTransaction = AccountTransaction(
+                desc: "Pagamento Fatura \(creditCard.desc)",
+                amount: totalAmount,
+                categoryIndex: 0,
+                date: Date().toString(),
+                type: .expense,
+                sourceId: accountSourceId,
+                obs: ""
+            )
+            
+            TransactionsRepository.shared.list.append(invoicePaymentTransaction)
+            
+            service.setObject(invoicePaymentTransaction, subCollectionName: firebaseSubCollectionNames.transactions) { result in
+                
+                if result != "Success" {
+                    print(result)
+                }
+            }
+            
+        }
+        
+        service.setObjectsList(objects: expensesToPay) { result in
+            if result != "Success" {
+                print(result)
+            }
+        }
+        
     }
     
 }

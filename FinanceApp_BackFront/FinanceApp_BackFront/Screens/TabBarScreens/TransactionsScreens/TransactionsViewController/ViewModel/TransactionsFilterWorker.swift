@@ -11,6 +11,11 @@ class TransactionsFilterWorker {
     
     var filteredTransactions: [any Transactions]? = nil
     var parameters: FilteringParameters = FilteringParameters()
+    var filterType: FilterType
+    
+    init(filterType: FilterType) {
+        self.filterType = filterType
+    }
     
     func filterTransactions(transactions: [any Transactions], parameters: FilteringParameters?, monthDisplayed: MonthDate? = nil) -> [any Transactions] {
         
@@ -30,7 +35,7 @@ class TransactionsFilterWorker {
             
         } else {
             
-            let monthSpec = MonthSpecification(monthDisplayed: monthDisplayed)
+            let monthSpec = MonthSpecification(monthDisplayed: monthDisplayed, filterType: self.filterType)
             compositeSpec.add(monthSpec)
             
         }

@@ -28,16 +28,20 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         
         descLabel.text = transaction.desc
         descLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        descLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        descLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         valueLabel.text = transaction.amount.toStringMoney()
-        valueLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)  // O label 2 se adapta ao texto
-        valueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        
+        valueLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
         dateLabel.text = transaction.date
         
-        categoryLabel.text = transactionsStrings.dueDate
+        if let date = transaction.date.toDate(), date <= Date() {
+            categoryLabel.text = transactionsStrings.invoiceWasDueDate
+        } else {
+            categoryLabel.text = transactionsStrings.dueDate
+        }
+        
         categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[transaction.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
         categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transaction.categoryIndex].colorIndex] ?? UIColor.cyan
         valueLabel.textColor = .RedGeneralExpenses
@@ -50,15 +54,15 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         switch transaction.paymentStatus {
         case .future, .open:
             //open invoices also can be considered future expenses
-            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.future
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.future) "
         case .paid:
-            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.paid
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.paid) "
         case .pendent:
-            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.pendent
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.pendent) "
         case .overdue:
-            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.overdue
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.overdue) "
         case .zeroed:
-            statusLabel.text = transactionsStrings.invoiceTitle + " " + transactionsStrings.zeroed
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.zeroed) "
         }
         
     }

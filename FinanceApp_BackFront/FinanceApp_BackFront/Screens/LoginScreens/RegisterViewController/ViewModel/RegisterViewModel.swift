@@ -13,22 +13,37 @@ class RegisterViewModel {
     var serviceFirestore: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.profile)
     
     public func createUser(email: String, password: String, completion: @escaping (String) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if error == nil {
-                userLogged = authResult?.user.uid ?? ""
-                self.serviceFirestore.setUser(authResult?.user.uid ?? "")
-                completion(registerStrings.registerSuccessText)
-            } else {
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+            
+            guard let self = self else { return }
+            
+            guard error == nil else {
                 let errorMessage = self.getLocalizedErrorMessage(for: error)
                 completion(registerStrings.failToRegisterErrorMessage + errorMessage)
+                return
             }
+            
+            userLogged = authResult?.user.uid ?? ""
+            self.serviceFirestore.setUser(userLogged)
+            
+            let profile: Profile = Profile(
+                id: userLogged,
+                name: email,
+                email: password
+            )
+            
+            self.serviceFirestore.setObject(profile, subCollectionName: firebaseSubCollectionNames.profile) { result in
+                if result == "Success" {
+                    completion(registerStrings.registerSuccessText)
+                } else {
+                    completion("\(registerStrings.failToRegisterErrorMessage) \(result)")
+                }
+                
+            }
+            
         }
-    }
-    
-    public func setProfileValues(profile: Profile, completion: @escaping () -> Void) {
-        serviceFirestore.setObject(profile, subCollectionName: firebaseSubCollectionNames.profile) {
-            completion()
-        }
+        
     }
     
     private func getLocalizedErrorMessage(for error: Error?) -> String {
@@ -55,3 +70,5 @@ class RegisterViewModel {
     }
     
 }
+
+var userLogged: String = "default"

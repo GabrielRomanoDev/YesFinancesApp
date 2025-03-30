@@ -9,7 +9,7 @@ import Foundation
 
 struct TransactionsViewModel {
     
-    private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker()
+    private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker(filterType: .transactions)
     private var filteredTransactions: [any Transactions] = TransactionsRepository.shared.list
     private var pendingInvoices: [Invoice] = []
     private var monthDisplayed: MonthDate = MonthDate( month: Calendar.current.component(.month, from: Date() ), year: Calendar.current.component(.year, from: Date() ))

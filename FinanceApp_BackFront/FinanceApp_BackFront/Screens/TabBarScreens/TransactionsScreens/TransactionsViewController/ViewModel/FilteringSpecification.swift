@@ -63,11 +63,19 @@ struct DateSpecification: Specification {
 
 struct MonthSpecification: Specification {
     let monthDisplayed: MonthDate?
+    let filterType: FilterType
     
     func isSatisfied(by item: any Transactions) -> Bool {
-        guard let date = item.date.toDate(), let monthDisplayed = monthDisplayed else { return false }
-        let components = Calendar.current.dateComponents([.month, .year], from: date)
-        return components.month == monthDisplayed.month && components.year == monthDisplayed.year
+        
+        switch self.filterType {
+        case .transactions:
+            guard let date = item.date.toDate(), let monthDisplayed = monthDisplayed else { return false }
+            let components = Calendar.current.dateComponents([.month, .year], from: date)
+            return components.month == monthDisplayed.month && components.year == monthDisplayed.year
+        case .invoiceExepenses:
+            return monthDisplayed == item.month
+        }
+        
     }
 }
 

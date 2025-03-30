@@ -117,11 +117,10 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
             cell.layer.cornerRadius = 10
             cell.layer.masksToBounds = true
             cell.searchBar.delegate = self
-            cell.searchBar.searchBarStyle = .minimal
             cell.delegate = self
             cell.setupCell(invoice: viewModel.invoice)
             return cell
-            } else if let creditCardTransaction = viewModel.getItemTransactions(indexPath.row - 1) as? CreditCardExpense {
+            } else if let creditCardTransaction = viewModel.getExpense(indexPath.row - 1) as? CreditCardExpense {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardExpensesCollectionViewCell.identifier, for: indexPath) as! CardExpensesCollectionViewCell
             cell.layer.cornerRadius = 10
             cell.layer.masksToBounds = true
@@ -135,19 +134,7 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if indexPath.row == 0 {
-            
-            switch viewModel.invoice.paymentStatus {
-            case .open, .overdue, .pendent:
-                return CGSize(width: view.frame.width, height: 176)
-            case .paid, .future, .zeroed:
-                return CGSize(width: view.frame.width, height: 130)
-            }
-            
-        } else {
-            return CGSize(width: view.frame.width - 30, height: 85)
-        }
+        return viewModel.getSizeForCell(index: indexPath.row, viewWidth: view.frame.width)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -159,7 +146,9 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
 extension InvoiceViewController: InvoiceInfoCollectionViewCellDelegate {
     
     func didTapPayInvoiceButton() {
-        viewModel.payInvoice()
+        viewModel.payInvoice() { [weak self] in
+            self?.transactionsCollectionView.reloadData()
+        }
     }
     
 }

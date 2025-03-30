@@ -282,39 +282,40 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         var title:String
-            
-            if collectionView == verticalCollectionView {
-                if kind == UICollectionView.elementKindSectionHeader {
-                    let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier, for: indexPath) as? TitleHeaderCollectionReusableView
-                    
-                    let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
-                    
-                    switch adjustedSection {
-                    case 0:
-                        title = homeStrings.bankAccountsText
-                    case 1:
-                        title = homeStrings.creditCardsText
-                    case 2:
-                        title = homeStrings.expensesPerCategoryText
-                    case 3:
-                        title = homeStrings.lastTransactionsText
-                    default:
-                        title = globalStrings.emptyString
-                    }
-                    headerView?.setupCell(title: title)
-                    return headerView ?? UICollectionReusableView()
+        
+        if collectionView == verticalCollectionView {
+            if kind == UICollectionView.elementKindSectionHeader {
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier, for: indexPath) as? TitleHeaderCollectionReusableView
+                
+                let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
+                
+                switch adjustedSection {
+                case 0:
+                    title = homeStrings.bankAccountsText
+                case 1:
+                    title = homeStrings.creditCardsText
+                case 2:
+                    title = homeStrings.expensesPerCategoryText
+                case 3:
+                    title = homeStrings.lastTransactionsText
+                default:
+                    title = globalStrings.emptyString
                 }
+                headerView?.setupCell(title: title)
+                return headerView ?? UICollectionReusableView()
             }
-            return UICollectionReusableView()
         }
+        return UICollectionReusableView()
+    }
 
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-            if collectionView == verticalCollectionView {
-                return CGSize(width: collectionView.frame.width, height: 50)
-            }
-            return CGSize()
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionView == verticalCollectionView {
+            return CGSize(width: collectionView.frame.width, height: 50)
         }
+        return CGSize()
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)

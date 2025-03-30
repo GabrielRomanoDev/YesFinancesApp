@@ -54,7 +54,7 @@ class CreditCardsViewModel {
         }
         
         CreditCardsRepository.shared.list.append(newCard)
-        service.addObject(newCard, id: newCard.id) { result in
+        service.setObject(newCard) { result in
             if result != "Success" {
                 print(result)
             }
@@ -76,7 +76,7 @@ class CreditCardsViewModel {
         updatedCard.standardCard = card.standardCard
         updatedCard.obs = card.obs
         
-        service.updateObject(updatedCard, id: updatedCard.id) { result in
+        service.setObject(updatedCard) { result in
             if result != "Success" {
                 print(result)
             }

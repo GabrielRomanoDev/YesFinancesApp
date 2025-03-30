@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AccountTransaction: Transactions, Codable, Equatable {
+struct AccountTransaction: FirestoreObject, Transactions, Codable, Equatable {
     
     private(set) var id: String = UUID().uuidString
     var desc: String
@@ -15,6 +15,9 @@ struct AccountTransaction: Transactions, Codable, Equatable {
     var categoryIndex: Int
     var date: String
     var type: TransactionType
+    var month: MonthDate
+    var isMonthly: Bool?
+    var attachmentUrl: String?
     var sourceId: String
     var obs: String
     
@@ -26,6 +29,7 @@ struct AccountTransaction: Transactions, Codable, Equatable {
         self.type = type
         self.sourceId = sourceId
         self.obs = obs
+        self.month = date.toDate()?.getMonth() ?? Date().getMonth()
     }
     
 }
