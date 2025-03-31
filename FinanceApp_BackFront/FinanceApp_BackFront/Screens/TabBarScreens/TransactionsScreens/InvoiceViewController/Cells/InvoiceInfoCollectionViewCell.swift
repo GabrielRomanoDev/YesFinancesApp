@@ -21,6 +21,9 @@ class InvoiceInfoCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: InvoiceInfoCollectionViewCellDelegate?
     
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cardNameLabel: UILabel!
     @IBOutlet weak var invoiceTotalLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     
@@ -35,7 +38,11 @@ class InvoiceInfoCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.searchBar.searchBarStyle = .minimal
-        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.invoiceTotalLabel.text = globalStrings.emptyString
     }
 
     @IBAction func tappedPayInvoiceButton(_ sender: UIButton) {
@@ -44,16 +51,19 @@ class InvoiceInfoCollectionViewCell: UICollectionViewCell {
     
     func setupCell(invoice: Invoice) {
         
-        invoiceTotalLabel.text = transactionsStrings.invoiceTotal + ": " + "\(invoice.amount.toStringMoney())"
-        payInvoiceButton.isHidden = false
+        cardNameLabel.text = invoice.desc.replacingOccurrences(of: transactionsStrings.invoiceTitle + " ", with: globalStrings.emptyString)
+        cardNameLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        
+        invoiceTotalLabel.text = transactionsStrings.invoiceTotal + ": " + "\(abs(invoice.amount).toStringMoney())"
+        payInvoiceButton.isEnabled = true
         
         switch invoice.paymentStatus {
         case .future:
             statusLabel.text = transactionsStrings.status + ": " + transactionsStrings.future
-            payInvoiceButton.isHidden = true
+            payInvoiceButton.isEnabled = false
         case .paid:
             statusLabel.text = transactionsStrings.status + ": " + transactionsStrings.paid
-            payInvoiceButton.isHidden = true
+            payInvoiceButton.isEnabled = false
         case .overdue:
             statusLabel.text = transactionsStrings.status + ": " + transactionsStrings.overdue
             payInvoiceButton.setTitle(transactionsStrings.payInvoice, for: .normal)
@@ -65,24 +75,26 @@ class InvoiceInfoCollectionViewCell: UICollectionViewCell {
             payInvoiceButton.setTitle(transactionsStrings.payInvoice, for: .normal)
         case .zeroed:
             statusLabel.text = transactionsStrings.status + ": " + transactionsStrings.pendent
-            payInvoiceButton.isHidden = true
-        }
-        
-        if let closingDate = invoice.closingDate.toDate(), closingDate < Date() {
-            closingDateLabel.text = transactionsStrings.closedDate + ": " + invoice.closingDate
-        } else {
-            closingDateLabel.text = transactionsStrings.closingDate + ": " + invoice.closingDate
-        }
-        
-        if let dueDate = invoice.dueDate.toDate(), dueDate >= Date() {
-            dueDateLabel.text = transactionsStrings.invoiceWasDueDate + ": " + invoice.dueDate
-        } else {
-            dueDateLabel.text = transactionsStrings.dueDate + ": " + invoice.dueDate
+            payInvoiceButton.isEnabled = false
         }
         
         if invoice.amount == 0 {
-            payInvoiceButton.isHidden = true
+            payInvoiceButton.isEnabled = false
         }
+        
+        if let closingDate = invoice.closingDate.toDate(), closingDate < Date() {
+            closingDateLabel.text = transactionsStrings.closedDate + ": " + String(invoice.closingDate.dropLast(5))
+        } else {
+            closingDateLabel.text = transactionsStrings.closingDate + ": " + String(invoice.closingDate.dropLast(5))
+        }
+        
+        if let dueDate = invoice.dueDate.toDate(), dueDate <= Date() {
+            dueDateLabel.text = transactionsStrings.invoiceWasDueDate + ": " + String(invoice.dueDate.dropLast(5))
+        } else {
+            dueDateLabel.text = transactionsStrings.dueDate + ": " + String(invoice.dueDate.dropLast(5))
+        }
+        
+        self.containerView.roundCorners([.bottomLeft, .bottomRight], radius: 20)
         
     }
     

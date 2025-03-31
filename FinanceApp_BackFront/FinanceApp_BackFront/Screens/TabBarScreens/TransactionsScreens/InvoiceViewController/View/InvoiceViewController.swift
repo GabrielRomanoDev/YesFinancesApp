@@ -97,9 +97,24 @@ class InvoiceViewController: UIViewController {
     }
     
     private func updateData() {
-        viewModel.filterTransactions(parameters: nil)
-        transactionsCollectionView.reloadData()
-        showNoTransactionsMessage(title: transactionsStrings.noExpenseFiltered)
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self else { return }
+            
+            self.viewModel.filterTransactions(parameters: nil)
+            self.transactionsCollectionView.reloadData()
+            self.transactionsCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+            let context = transactionsCollectionView.collectionViewLayout.invalidationContext(forBoundsChange: transactionsCollectionView.bounds)
+            context.contentOffsetAdjustment = CGPoint.zero
+            transactionsCollectionView.collectionViewLayout.invalidateLayout(with: context)
+            transactionsCollectionView.layoutSubviews()
+            self.transactionsCollectionView.collectionViewLayout.invalidateLayout()
+            self.transactionsCollectionView.layoutSubviews()
+            self.showNoTransactionsMessage(title: transactionsStrings.noExpenseFiltered)
+            
+        }
+        
     }
 
 }
@@ -146,9 +161,18 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
 extension InvoiceViewController: InvoiceInfoCollectionViewCellDelegate {
     
     func didTapPayInvoiceButton() {
-        viewModel.payInvoice() { [weak self] in
-            self?.transactionsCollectionView.reloadData()
+        
+        if viewModel.invoice.amount < 0 {
+            showAlertWithCancelOption(title: "Pagar fatura", message: "Deseja realizar pagamento de \(abs(viewModel.invoice.amount).toStringMoney()) da \(viewModel.invoice.desc)?") { [weak self] in
+                self?.viewModel.payInvoice() {
+                    self?.updateData()
+                }
+            }
+        } else {
+            showSimpleAlert(title: globalStrings.attention, message: transactionsStrings.errorZeroedInvoice)
         }
+        
+        
     }
     
 }

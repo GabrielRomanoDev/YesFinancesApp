@@ -56,14 +56,9 @@ struct InvoiceViewModel {
     func getSizeForCell(index: Int, viewWidth: CGFloat) -> CGSize {
         
         if index == 0 {
-            switch invoice.paymentStatus {
-            case .open, .overdue, .pendent:
-                return CGSize(width: viewWidth, height: 176)
-            case .paid, .future, .zeroed:
-                return CGSize(width: viewWidth, height: 130)
-            }
+            return CGSize(width: viewWidth, height: 255)
         } else {
-            return CGSize(width: viewWidth - 30, height: 85)
+            return CGSize(width: viewWidth - 30, height: 74)
         }
         
     }

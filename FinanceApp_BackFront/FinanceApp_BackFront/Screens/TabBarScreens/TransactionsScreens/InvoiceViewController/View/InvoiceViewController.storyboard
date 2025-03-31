@@ -48,7 +48,7 @@
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nenhuma transação cadastrada por enquanto!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXu-Bn-doJ">
-                                <rect key="frame" x="71.666666666666686" y="420" width="250" height="42"/>
+                                <rect key="frame" x="71.666666666666686" y="555" width="250" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="5kx-FM-QKA"/>
                                     <constraint firstAttribute="height" constant="42" id="cJR-on-4Qq"/>
@@ -148,7 +148,7 @@
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="ubS-ol-4ID" secondAttribute="trailing" id="XlM-Gj-qUw"/>
                             <constraint firstItem="yTs-lZ-WbB" firstAttribute="trailing" secondItem="zof-Ph-tkW" secondAttribute="trailing" constant="60" id="ZBH-UY-HZ8"/>
                             <constraint firstItem="M7i-0q-SQM" firstAttribute="top" secondItem="yTs-lZ-WbB" secondAttribute="top" id="db4-ga-pHz"/>
-                            <constraint firstItem="DXu-Bn-doJ" firstAttribute="centerY" secondItem="ZeL-Ov-oQu" secondAttribute="centerY" constant="15" id="fWj-75-xc2"/>
+                            <constraint firstItem="DXu-Bn-doJ" firstAttribute="centerY" secondItem="ZeL-Ov-oQu" secondAttribute="centerY" constant="150" id="fWj-75-xc2"/>
                             <constraint firstItem="DXu-Bn-doJ" firstAttribute="centerX" secondItem="ZeL-Ov-oQu" secondAttribute="centerX" id="feO-0R-mtH"/>
                             <constraint firstItem="362-gn-C9v" firstAttribute="trailing" secondItem="yTs-lZ-WbB" secondAttribute="trailing" id="ih6-wg-8XA"/>
                             <constraint firstAttribute="trailing" secondItem="xUZ-uS-HtM" secondAttribute="trailing" constant="20" id="n7K-Kk-0YY"/>

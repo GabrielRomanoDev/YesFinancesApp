@@ -127,6 +127,7 @@
 		A1990E312D96370500FDA183 /* FilteringSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990E302D96367C00FDA183 /* FilteringSpecification.swift */; };
 		A1990E332D963AE200FDA183 /* FilteringParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990E322D963ADB00FDA183 /* FilteringParameters.swift */; };
 		A1990E462D98B29A00FDA183 /* FilterTpe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990E452D98B29400FDA183 /* FilterTpe.swift */; };
+		A1990E482D99EC9800FDA183 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1990E472D99EC9400FDA183 /* UIView.swift */; };
 		A1998AF52D8F741300BDDADC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1998AF42D8F740D00BDDADC /* ViewController.swift */; };
 		A1998B052D90A11700BDDADC /* BanksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1998B042D90A11100BDDADC /* BanksList.swift */; };
 		A1998B072D90A14800BDDADC /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1998B062D90A14500BDDADC /* Months.swift */; };
@@ -350,6 +351,7 @@
 		A1990E302D96367C00FDA183 /* FilteringSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringSpecification.swift; sourceTree = "<group>"; };
 		A1990E322D963ADB00FDA183 /* FilteringParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringParameters.swift; sourceTree = "<group>"; };
 		A1990E452D98B29400FDA183 /* FilterTpe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTpe.swift; sourceTree = "<group>"; };
+		A1990E472D99EC9400FDA183 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A1998AF42D8F740D00BDDADC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A1998B042D90A11100BDDADC /* BanksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanksList.swift; sourceTree = "<group>"; };
 		A1998B062D90A14500BDDADC /* Months.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Months.swift; sourceTree = "<group>"; };
@@ -1359,6 +1361,7 @@
 		A19742D92A227E6000455DB0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A1990E472D99EC9400FDA183 /* UIView.swift */,
 				A1998AF42D8F740D00BDDADC /* ViewController.swift */,
 				A12E87D82D74F23100FA3295 /* Date.swift */,
 				A19742DA2A227E9B00455DB0 /* UIColor.swift */,
@@ -2208,6 +2211,7 @@
 				A1D2F84D29E9E5B100DCA6E4 /* CategoriesModalCell.swift in Sources */,
 				A101917C29FAC4F900776A67 /* EditBankAccountsViewController.swift in Sources */,
 				A12A75FC2C3C960A00C5D8DD /* FirebaseSubCollectionNames.swift in Sources */,
+				A1990E482D99EC9800FDA183 /* UIView.swift in Sources */,
 				A140934429E73AD20037662B /* RegisterIncomeViewController.swift in Sources */,
 				A162B2492CFCF2020036350A /* SwitchExpandCellConfiguration.swift in Sources */,
 				A1C9EFEF29E60D7D0029B69F /* LoginViewController.swift in Sources */,

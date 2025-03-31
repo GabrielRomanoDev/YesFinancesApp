@@ -27,10 +27,14 @@ class CardExpensesCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: identifier, bundle: nil)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.descLabel.text = globalStrings.emptyString
+    }
     
     func setup(with transaction: CreditCardExpense) {
         
-        descLabel.text = "Paga: \(transaction.desc)"
+        descLabel.text = transaction.desc
         descLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         descLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         

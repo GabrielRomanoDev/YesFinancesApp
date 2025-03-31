@@ -21,6 +21,7 @@ enum transactionsStrings {
     static let dueDate = "Vence em"
     static let closedDate = "Fechou em"
     static let invoiceWasDueDate = "Venceu em"
+    static let errorZeroedInvoice = "A fatura está zerada então não é possível realizar pagamento!"
     
     
     static let payInvoice = "Pagar Fatura"
