@@ -13,7 +13,7 @@ class BankAccountsViewModel {
     private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.bankAccounts)
     
     
-    public func updateAccounts(completion: @escaping () -> Void) {
+    func updateAccounts(completion: @escaping () -> Void) {
         service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
             case .success(let objectArray):
@@ -25,11 +25,11 @@ class BankAccountsViewModel {
         }
     }
     
-    public func getAccountsCount() -> Int {
+    func getAccountsCount() -> Int {
         return BankAccountsRepository.shared.list.count
     }
     
-    public func getAccount(_ index:Int) -> BankAccount {
+    func getAccount(_ index:Int) -> BankAccount {
         if index < BankAccountsRepository.shared.list.count {
             return BankAccountsRepository.shared.list[index]
         } else {
@@ -38,23 +38,23 @@ class BankAccountsViewModel {
         
     }
     
-    public func getCellSize(viewWidth:CGFloat) -> CGSize {
+    func getCellSize(viewWidth:CGFloat) -> CGSize {
         return CGSize(width: viewWidth - 30, height: 80)
     }
     
-    public func getCellCornerRadius()-> CGFloat {
+    func getCellCornerRadius()-> CGFloat {
         return 10
     }
     
-    public func getCollectionEdgeInsets()-> UIEdgeInsets {
+    func getCollectionEdgeInsets()-> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15)
     }
     
-    public func getNewAccountButtonText() -> String {
+    func getNewAccountButtonText() -> String {
         return moreOptionsStrings.newBankAccountButtonTitle
     }
     
-    public func createNewAccount(_ newAccount: BankAccount, newBalance: Double, completion: @escaping () -> Void) {
+    func createNewAccount(_ newAccount: BankAccount, newBalance: Double, completion: @escaping () -> Void) {
         if newAccount.standardAccount {
             clearStandardAccount()
         }
@@ -75,7 +75,7 @@ class BankAccountsViewModel {
         }
     }
     
-    public func editAccount(account: BankAccount, indexAccount: Int, newBalance: Double, completion: @escaping () -> Void) {
+    func editAccount(account: BankAccount, indexAccount: Int, newBalance: Double, completion: @escaping () -> Void) {
         let oldBalance: Double = BankAccountsRepository.shared.list[indexAccount].balance
         
         if account.standardAccount {
@@ -136,7 +136,7 @@ class BankAccountsViewModel {
         }
     }
     
-    public func deleteAccount(index: Int, completion: @escaping () -> Void) {
+    func deleteAccount(index: Int, completion: @escaping () -> Void) {
         service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
         service.deleteObject(id: BankAccountsRepository.shared.list[index].id) { result in
             if result != "Success" {

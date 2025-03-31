@@ -57,7 +57,7 @@ class AccountsBallanceCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    public func setupCell(accountsList: [BankAccount], hideInformations: Bool) {
+    func setupCell(accountsList: [BankAccount], hideInformations: Bool) {
         if accountsList.isEmpty {
             noAccountsToShow(noCards: true)
         } else {

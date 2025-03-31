@@ -18,35 +18,35 @@ class EditCreditCardsViewModel{
         self.card = card
     }
     
-    public func creditCardEmptyDesc(newCardBank: Banks) -> String {
+    func creditCardEmptyDesc(newCardBank: Banks) -> String {
             return "\(moreOptionsStrings.cardText) \(bankProperties[newCardBank]?.textNameBank ?? moreOptionsStrings.ofCreditText)"
     }
     
-    public func getBankListCount() -> Int {
+    func getBankListCount() -> Int {
         return bankList.count
     }
     
-    public func getBankName(_ bank:Banks) -> String {
+    func getBankName(_ bank:Banks) -> String {
         return bankProperties[bank]?.textNameBank ?? globalStrings.emptyString
     }
     
-    public func getRowHeight() ->CGFloat{
+    func getRowHeight() ->CGFloat{
         return 44
     }
     
-    public func getBankLabelText(_ bank:Banks) -> String{
+    func getBankLabelText(_ bank:Banks) -> String{
         return bankProperties[bank]?.logoTextLabel ?? globalStrings.emptyString
     }
     
-    public func getBankLabelTextFont(_ bank:Banks) -> UIFont{
+    func getBankLabelTextFont(_ bank:Banks) -> UIFont{
         return UIFont.systemFont(ofSize: bankProperties[bank]?.logoTextSize ?? 17, weight: .bold)
     }
     
-    public func getBankLabelColor(_ bank:Banks) -> UIColor{
+    func getBankLabelColor(_ bank:Banks) -> UIColor{
         return bankProperties[bank]?.labelBankColor ?? UIColor.white
     }
     
-    public func getBankBackColor(_ bank:Banks) -> UIColor{
+    func getBankBackColor(_ bank:Banks) -> UIColor{
         return bankProperties[bank]?.backgroundColor ??  UIColor.systemBlue
     }
 }

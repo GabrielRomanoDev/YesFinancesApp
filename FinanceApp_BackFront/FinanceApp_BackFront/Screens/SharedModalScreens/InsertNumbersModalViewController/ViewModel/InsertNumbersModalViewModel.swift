@@ -11,7 +11,7 @@ class InsertNumbersModalViewModel {
 
     var expression: String = insertNumberStrings.number0
     
-    public func insertNumber(_ char: String) -> String {
+    func insertNumber(_ char: String) -> String {
         
         if expression == insertNumberStrings.number0 {
             expression = char
@@ -20,14 +20,14 @@ class InsertNumbersModalViewModel {
         }
         return expression
     }
-    public func insertPoint() -> String {
+    func insertPoint() -> String {
         if !expression.contains(insertNumberStrings.point) {
             expression += insertNumberStrings.point
         }
         return expression
     }
     
-    public func insertOperator(_ oper: Character) -> String {
+    func insertOperator(_ oper: Character) -> String {
         if expression.count > 2 {
             let string = expression.dropLast(1)
             if let _ = string.range(of: insertNumberStrings.operators, options: .regularExpression) {
@@ -45,7 +45,7 @@ class InsertNumbersModalViewModel {
         return expression
     }
     
-    public func calculateExpression() -> Double {
+    func calculateExpression() -> Double {
        
         if checkOperations(expression) {
             let operators: Set<Character> = [
@@ -88,7 +88,7 @@ class InsertNumbersModalViewModel {
         }
     }
     
-    public func eraseChar() -> String {
+    func eraseChar() -> String {
         if expression.count > 0 {
             expression.removeLast()
         }
@@ -99,14 +99,14 @@ class InsertNumbersModalViewModel {
         return expression
     }
     
-    public func checkOperations(_ text: String) -> Bool {
+    func checkOperations(_ text: String) -> Bool {
         let regex = try! NSRegularExpression(pattern: insertNumberStrings.regexPattern, options: [])
         let range = NSRange(text.startIndex ..< text.endIndex, in: text)
         let isMatch = regex.firstMatch(in: text, options: [], range: range) != nil
         return isMatch
     }
     
-    public func setValueToExpression(_ value: Double) -> String {
+    func setValueToExpression(_ value: Double) -> String {
         var amount: String = String(value)
         if amount.hasSuffix(insertNumberStrings.decimal0) {
             amount = String(amount.dropLast(2))

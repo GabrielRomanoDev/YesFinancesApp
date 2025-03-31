@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 
 class LoginViewModel {
-    public func loginUser(email: String, password: String, completion: @escaping (String) -> Void) {
+    func loginUser(email: String, password: String, completion: @escaping (String) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error == nil {
                 userLogged = authResult?.user.uid ?? UUID().uuidString

@@ -57,7 +57,7 @@ class CardsBallanceCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    public func setupCell(cardsList: [CreditCard], hideInformations: Bool) {
+    func setupCell(cardsList: [CreditCard], hideInformations: Bool) {
         if cardsList.isEmpty {
             tableViewHeightConstraint.constant = CGFloat(60)
             noCardsToShow(noCards: true)

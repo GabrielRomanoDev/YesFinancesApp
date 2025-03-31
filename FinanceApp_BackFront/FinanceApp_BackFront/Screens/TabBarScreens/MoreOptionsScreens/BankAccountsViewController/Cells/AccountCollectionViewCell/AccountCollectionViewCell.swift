@@ -32,7 +32,7 @@ class AccountCollectionViewCell: UICollectionViewCell {
         balanceValueTextLabel.text = moreOptionsStrings.accountAmountText
     }
 
-    public func setupCell(account:BankAccount){
+    func setupCell(account:BankAccount){
         nameLabel.text = account.desc
         balanceLabel.text = account.balance.toStringMoney()
         if account.balance > 0 {

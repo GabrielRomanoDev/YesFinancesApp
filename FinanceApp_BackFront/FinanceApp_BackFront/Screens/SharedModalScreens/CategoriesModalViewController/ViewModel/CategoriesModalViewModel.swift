@@ -21,15 +21,15 @@ class CategoriesModalViewModel{
         
     }
     
-    public func getCategoriesCount() -> Int {
+    func getCategoriesCount() -> Int {
         return filteredCategories.count
     }
     
-    public func getItemCategory(_ index:Int) -> TransactionCategory {
+    func getItemCategory(_ index:Int) -> TransactionCategory {
         return filteredCategories[index]
     }
     
-    public func getHeightSize() -> CGFloat {
+    func getHeightSize() -> CGFloat {
         return 60
     }
 }

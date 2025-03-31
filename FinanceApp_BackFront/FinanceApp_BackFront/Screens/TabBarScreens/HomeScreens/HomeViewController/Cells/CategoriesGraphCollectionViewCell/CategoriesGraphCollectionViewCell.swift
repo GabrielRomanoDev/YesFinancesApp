@@ -57,7 +57,7 @@ class CategoriesGraphCollectionViewCell: UICollectionViewCell {
 
     }
 
-    public func updateChartData() {
+    func updateChartData() {
         let sum: [CategoriesSum] = sumExpensesByCategory()
         let values: [Double] = sum.map{$0.amount}
         let labels: [String] = sum.map{$0.category}

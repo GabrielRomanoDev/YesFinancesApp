@@ -12,7 +12,7 @@ class RegisterViewModel {
     
     var serviceFirestore: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.profile)
     
-    public func createUser(email: String, password: String, completion: @escaping (String) -> Void) {
+    func createUser(email: String, password: String, completion: @escaping (String) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             
@@ -59,13 +59,13 @@ class RegisterViewModel {
         }
     }
     
-    public func checkEmail(email : String) -> Bool{
+    func checkEmail(email : String) -> Bool{
         let emailRegex = registerStrings.emailRegexFormat
         let emailPredicate = NSPredicate(format: registerStrings.emailPredicatedFormat, emailRegex)
         return emailPredicate.evaluate(with: email)
     }
     
-    public func checkPassword(password: String) -> Bool {
+    func checkPassword(password: String) -> Bool {
         return password.count >= 8
     }
     

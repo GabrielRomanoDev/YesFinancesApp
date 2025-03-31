@@ -24,7 +24,7 @@ class CurrencyViewModel {
         return lastRequestDate == Date().toString(format: globalStrings.dateFormat)
     }
     
-    public func updateExchangeRate() {
+    func updateExchangeRate() {
         let today: String = Date().toString(format: globalStrings.dateFormat)
         if lastRequestDate != today {
             service.getExchangeRate { result in
@@ -40,7 +40,7 @@ class CurrencyViewModel {
         }
     }
 
-    public func getConvertedValue(sourceCoin: CurrencyInfos, targetCoin: CurrencyInfos, value: Double) -> String {
+    func getConvertedValue(sourceCoin: CurrencyInfos, targetCoin: CurrencyInfos, value: Double) -> String {
         let baseValue = exchangeRate?.conversionRates[exchangeRate?.baseCode ?? moreOptionsStrings.baseCurrency] ?? 0
         let sourceRate = exchangeRate?.conversionRates[sourceCoin.code] ?? 0
         let targetRate = exchangeRate?.conversionRates[targetCoin.code] ?? 0
@@ -50,21 +50,21 @@ class CurrencyViewModel {
         return targetCoin.symbol + globalStrings.spaceChar + formatNumberCurrency(value: result)
     }
     
-    public func getCoinInfo(index: Int) -> CurrencyInfos {
+    func getCoinInfo(index: Int) -> CurrencyInfos {
         return coinsList[index]
     }
     
-    public func getLastExchangeQuote(sourceSymbol: String, targetSymbol: String) -> String {
+    func getLastExchangeQuote(sourceSymbol: String, targetSymbol: String) -> String {
         return sourceSymbol + moreOptionsStrings.oneMoneyEqual + targetSymbol + globalStrings.spaceChar + formatNumberCurrency(value: currencyExchangeRate)
     }
     
-    public func getActualDate() -> String {
+    func getActualDate() -> String {
         let unixTimestamp: TimeInterval = exchangeRate?.timeLastUpdateUnix ?? 0.0
         let date = Date(timeIntervalSince1970: unixTimestamp)
         return date.toString(format: moreOptionsStrings.momentDateFormat)
     }
     
-    public func formatNumberCurrency(value: Double) -> String {
+    func formatNumberCurrency(value: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 2

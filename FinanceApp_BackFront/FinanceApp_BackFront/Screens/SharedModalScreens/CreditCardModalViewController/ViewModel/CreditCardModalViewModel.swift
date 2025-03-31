@@ -8,15 +8,15 @@
 import Foundation
 
 class CreditCardModalViewModel {
-    public func getCreditCardsCount() -> Int {
+    func getCreditCardsCount() -> Int {
         return CreditCardsRepository.shared.list.count
     }
     
-    public func getItemCard(_ index:Int) -> CreditCard {
+    func getItemCard(_ index:Int) -> CreditCard {
         return CreditCardsRepository.shared.list[index]
     }
     
-    public func getHeightSize() -> CGFloat {
+    func getHeightSize() -> CGFloat {
         return 60
     }
 }

@@ -45,11 +45,11 @@ struct InvoiceViewModel {
         invoice = creditCard.getInvoice(month: invoice.month)
     }
     
-    public func getTransactionsCount() -> Int {
+    func getTransactionsCount() -> Int {
         return filteredTransactions.count
     }
     
-    public func getExpense(_ index: Int) -> any Transactions {
+    func getExpense(_ index: Int) -> any Transactions {
         return filteredTransactions[index]
     }
     

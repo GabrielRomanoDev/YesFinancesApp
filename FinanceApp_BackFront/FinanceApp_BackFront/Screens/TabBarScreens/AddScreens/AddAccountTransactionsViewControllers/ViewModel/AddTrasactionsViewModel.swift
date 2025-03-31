@@ -19,7 +19,7 @@ class AddAccountTransactionsViewModel{
         transactionType=type
     }
     
-    public func addTransaction(transaction: AccountTransaction, completion: @escaping () -> Void) {
+    func addTransaction(transaction: AccountTransaction, completion: @escaping () -> Void) {
         var newTransaction: AccountTransaction = transaction
         
         if newTransaction.desc.isEmptyTest() {
@@ -62,7 +62,7 @@ class AddAccountTransactionsViewModel{
         return BankAccountsRepository.shared.list[0].id
     }
     
-    public func getCategoryLabel(_ indexCategory:Int) -> String {
+    func getCategoryLabel(_ indexCategory:Int) -> String {
         switch transactionType{
         case .expense:
             return CategoriesRepository.shared.expenses[indexCategory].name
@@ -71,7 +71,7 @@ class AddAccountTransactionsViewModel{
         }
     }
     
-    public func getCategoryImageName(_ indexCategory:Int) -> UIImage{
+    func getCategoryImageName(_ indexCategory:Int) -> UIImage{
         switch transactionType{
         case .expense:
             return UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[indexCategory].imageName)
@@ -80,7 +80,7 @@ class AddAccountTransactionsViewModel{
         }
     }
     
-    public func getCategoryBackgroungColor(_ indexCategory:Int) -> UIColor{
+    func getCategoryBackgroungColor(_ indexCategory:Int) -> UIColor{
         switch transactionType{
         case .expense:
             return categoryColors[CategoriesRepository.shared.expenses[indexCategory].colorIndex] ?? UIColor.cyan
@@ -89,28 +89,28 @@ class AddAccountTransactionsViewModel{
         }
     }
     
-    public func getAccountLabel(_ indexAccount:Int) -> String{
+    func getAccountLabel(_ indexAccount:Int) -> String{
         return BankAccountsRepository.shared.list[indexAccount].desc
     }
     
-    public func getBankLabelText(_ indexAccount:Int) -> String{
+    func getBankLabelText(_ indexAccount:Int) -> String{
         return bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.logoTextLabel ?? addStrings.bankText
     }
     
-    public func getBankLabelTextFont(_ indexAccount:Int) -> UIFont{
+    func getBankLabelTextFont(_ indexAccount:Int) -> UIFont{
         return UIFont.systemFont(ofSize: bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.logoTextSize ?? 17, weight: .bold)
     }
     
-    public func getBankLabelColor(_ indexAccount:Int) -> UIColor{
+    func getBankLabelColor(_ indexAccount:Int) -> UIColor{
         return bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.labelBankColor ?? .black
     }
     
-    public func getBankBackColor(_ indexAccount:Int) -> UIColor{
+    func getBankBackColor(_ indexAccount:Int) -> UIColor{
         return bankProperties[BankAccountsRepository.shared.list[indexAccount].bank]?.backgroundColor ?? .gray
     }
     
     
-    public func datePickerChange(date: Date) -> String {
+    func datePickerChange(date: Date) -> String {
         let calendar = Calendar.current
         let today = Date()
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
@@ -130,7 +130,7 @@ class AddAccountTransactionsViewModel{
         }
     }
     
-    public func setValueToString(_ value: Double) -> String {
+    func setValueToString(_ value: Double) -> String {
         var amount: String = String(value)
         if amount.hasSuffix(".0") {
             amount = String(amount.dropLast(2))

@@ -17,7 +17,7 @@ struct HomeViewModel {
     private var lastIncomeDate: String = globalStrings.emptyString
     private var lastExpenseDate: String = globalStrings.emptyString
     
-    public func getAllData(completion: @escaping () -> Void) {
+    func getAllData(completion: @escaping () -> Void) {
         let group = DispatchGroup()
         
         group.enter()
@@ -132,7 +132,7 @@ struct HomeViewModel {
         
     }
     
-    public func getProfileInformations(completion: @escaping () -> Void) {
+    func getProfileInformations(completion: @escaping () -> Void) {
         service.getObject(subCollectionName: firebaseSubCollectionNames.profile, objectType: Profile.self) { profile in
             
             Utils.saveUserDefaults(value: profile.name, key: "userName")
@@ -166,7 +166,7 @@ struct HomeViewModel {
         
     }
     
-    public func getCardInformation(cardNumber: Int) -> BalanceCard {
+    func getCardInformation(cardNumber: Int) -> BalanceCard {
         switch cardNumber {
         case 0:
             return BalanceCard(type: .incomes, balance: self.incomesTotal, lastTransaction: self.lastIncomeDate)

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIViewController {
     
-    public func showSimpleAlert(title:String, message: String, completion:(() -> Void)? = nil){
+    func showSimpleAlert(title:String, message: String, completion:(() -> Void)? = nil){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okButton = UIAlertAction(title: "Ok", style: .default) { action in
             completion?()
@@ -20,7 +20,7 @@ extension UIViewController {
         
     }
     
-    public func showAlertWithCancelOption(title:String, message: String, completion:(() -> Void)? = nil) {
+    func showAlertWithCancelOption(title:String, message: String, completion:(() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Ok", style: .default) { action in
             completion?()

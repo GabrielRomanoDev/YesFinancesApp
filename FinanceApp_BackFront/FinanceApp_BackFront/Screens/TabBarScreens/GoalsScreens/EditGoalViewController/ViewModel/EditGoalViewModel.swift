@@ -11,7 +11,7 @@ class EditGoalViewModel{
     
     public var dataSelecionada = Date()
     
-    public func formatDate(date: Date) -> String {
+    func formatDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = globalStrings.dateFormat
         

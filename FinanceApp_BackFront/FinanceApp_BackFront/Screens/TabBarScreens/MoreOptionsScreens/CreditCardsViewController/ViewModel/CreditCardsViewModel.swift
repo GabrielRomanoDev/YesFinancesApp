@@ -12,7 +12,7 @@ class CreditCardsViewModel {
     
     private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCards)
     
-    public func updateCards(completion: @escaping () -> Void) {
+    func updateCards(completion: @escaping () -> Void) {
         service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
             switch result {
             case .success(let objectArray):
@@ -24,31 +24,31 @@ class CreditCardsViewModel {
         }
     }
     
-    public func getCardsCount() -> Int {
+    func getCardsCount() -> Int {
             return CreditCardsRepository.shared.list.count
     }
     
-    public func getCard(_ index:Int) -> CreditCard {
+    func getCard(_ index:Int) -> CreditCard {
         return CreditCardsRepository.shared.list[index]
     }
     
-    public func getCellSize(viewWidth:CGFloat) -> CGSize {
+    func getCellSize(viewWidth:CGFloat) -> CGSize {
         return CGSize(width: viewWidth - 30, height: 80)
     }
     
-    public func getCellCornerRadius()-> CGFloat {
+    func getCellCornerRadius()-> CGFloat {
         return 10
     }
     
-    public func getCollectionEdgeInsets()-> UIEdgeInsets {
+    func getCollectionEdgeInsets()-> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15)
     }
     
-    public func getNewCardButtonText() -> String {
+    func getNewCardButtonText() -> String {
         return moreOptionsStrings.newCreditCardButtonTitle
     }
     
-    public func createNewCard(_ newCard: CreditCard, completion: @escaping () -> Void) {
+    func createNewCard(_ newCard: CreditCard, completion: @escaping () -> Void) {
         if newCard.standardCard {
             clearStandardCard()
         }
@@ -62,7 +62,7 @@ class CreditCardsViewModel {
         }
     }
     
-    public func editCard(card: CreditCard, indexCard: Int, completion: @escaping () -> Void) {
+    func editCard(card: CreditCard, indexCard: Int, completion: @escaping () -> Void) {
         if card.standardCard {
             clearStandardCard()
         }
@@ -85,7 +85,7 @@ class CreditCardsViewModel {
         }
     }
     
-    public func deleteCard(index: Int, completion: @escaping () -> Void) {
+    func deleteCard(index: Int, completion: @escaping () -> Void) {
         
         service.deleteObject(id: CreditCardsRepository.shared.list[index].id) { result in
             if result != "Success" {

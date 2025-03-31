@@ -9,7 +9,7 @@ import Foundation
 
 class CategoriesGraphViewModel {
     
-    public func percentFormatter() -> NumberFormatter {
+    func percentFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = 1
@@ -17,12 +17,12 @@ class CategoriesGraphViewModel {
         return formatter
     }
     
-    public func getValuesByCategory() -> [Double] {
+    func getValuesByCategory() -> [Double] {
         let sum:[CategoriesSum]=sumExpensesByCategory()
         return sum.map{$0.amount}
     }
     
-    public func getCategories() -> [String] {
+    func getCategories() -> [String] {
         let sum:[CategoriesSum]=sumExpensesByCategory()
         return sum.map{$0.category}
     }

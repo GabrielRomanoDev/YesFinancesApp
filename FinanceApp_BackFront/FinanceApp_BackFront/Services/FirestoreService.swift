@@ -27,15 +27,15 @@ class FirestoreService {
         self.subCollectionName = subCollectionName
     }
     
-    public func setUser(_ userUid: String) {
+    func setUser(_ userUid: String) {
         user = "user_" + userLogged
     }
     
-    public func setSubCollectionName(_ name: String) {
+    func setSubCollectionName(_ name: String) {
         self.subCollectionName = name
     }
     
-    public func setObject <T: FirestoreObject> (_ object: T, subCollectionName: String? = nil, completion: @escaping (String) -> Void) {
+    func setObject <T: FirestoreObject> (_ object: T, subCollectionName: String? = nil, completion: @escaping (String) -> Void) {
         
         var collection: CollectionReference
         
@@ -59,7 +59,7 @@ class FirestoreService {
     
     }
     
-    public func deleteObject(id: String, completion: @escaping (String) -> Void) {
+    func deleteObject(id: String, completion: @escaping (String) -> Void) {
         Task {
             do {
                 
@@ -74,7 +74,7 @@ class FirestoreService {
         }
     }
     
-    public func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
+    func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
         
         self.setSubCollectionName(documentReadName)
         let colRef = collectionRef
@@ -96,7 +96,7 @@ class FirestoreService {
         
     }
     
-    public func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
+    func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
         
         self.setSubCollectionName(documentReadName)
         let colRef = collectionRef.order(by: "date", descending: true).limit(to: 4)
@@ -118,7 +118,7 @@ class FirestoreService {
         
     }
     
-    public func getObject<T: FirestoreObject>(subCollectionName: String, objectType: T.Type, completion: @escaping (T) -> Void) {
+    func getObject<T: FirestoreObject>(subCollectionName: String, objectType: T.Type, completion: @escaping (T) -> Void) {
         self.setSubCollectionName(subCollectionName)
         Task {
             
@@ -137,7 +137,7 @@ class FirestoreService {
         
     }
     
-    public func updateObjectField(change: [AnyHashable : Any], objectID: String) {
+    func updateObjectField(change: [AnyHashable : Any], objectID: String) {
         collectionRef.document(objectID).updateData(change) { error in
             if let error = error {
                 print(error)

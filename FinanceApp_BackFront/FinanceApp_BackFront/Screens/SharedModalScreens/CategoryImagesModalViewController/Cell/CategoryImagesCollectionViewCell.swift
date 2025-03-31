@@ -22,7 +22,7 @@ class CategoryImagesCollectionViewCell: UICollectionViewCell {
 
     }
     
-    public func setupCell(index: Int) {
+    func setupCell(index: Int) {
         categoryImage.image = UIImage(named: "image" + String(index))
     }
 

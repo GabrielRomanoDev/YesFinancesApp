@@ -13,7 +13,7 @@ class RegisterCardExpViewModel{
     public var selectedDate = Date()
     private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCardExpenses)
     
-    public func addExpense(expense: CreditCardExpense, completion: @escaping () -> Void) {
+    func addExpense(expense: CreditCardExpense, completion: @escaping () -> Void) {
         var newExpense: CreditCardExpense = expense
         
         if newExpense.desc.isEmptyTest() {
@@ -50,40 +50,40 @@ class RegisterCardExpViewModel{
         return CreditCardsRepository.shared.list[0].id
     }
     
-    public func getCategoryLabel(_ indexCategory:Int) -> String {
+    func getCategoryLabel(_ indexCategory:Int) -> String {
         return CategoriesRepository.shared.expenses[indexCategory].name
     }
     
-    public func getCategoryImageName(_ indexCategory:Int) -> UIImage{
+    func getCategoryImageName(_ indexCategory:Int) -> UIImage{
         return UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[indexCategory].imageName)
     }
     
-    public func getCategoryBackgroungColor(_ indexCategory:Int) -> UIColor{
+    func getCategoryBackgroungColor(_ indexCategory:Int) -> UIColor{
         return categoryColors[CategoriesRepository.shared.expenses[indexCategory].colorIndex] ?? UIColor.cyan
     }
     
-    public func getCardLabel(_ indexAccount:Int) -> String{
+    func getCardLabel(_ indexAccount:Int) -> String{
         return CreditCardsRepository.shared.list[indexAccount].desc
     }
     
-    public func getBankLabelText(_ indexCard:Int) -> String{
+    func getBankLabelText(_ indexCard:Int) -> String{
         return bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.logoTextLabel ?? addStrings.bankText
     }
     
-    public func getBankLabelTextFont(_ indexCard:Int) -> UIFont{
+    func getBankLabelTextFont(_ indexCard:Int) -> UIFont{
         
         return UIFont.systemFont(ofSize: bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.logoTextSize ?? 16, weight: .bold)
     }
     
-    public func getBankLabelColor(_ indexCard:Int) -> UIColor{
+    func getBankLabelColor(_ indexCard:Int) -> UIColor{
         return bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.labelBankColor ?? .black
     }
     
-    public func getBankBackColor(_ indexCard:Int) -> UIColor{
+    func getBankBackColor(_ indexCard:Int) -> UIColor{
         return bankProperties[CreditCardsRepository.shared.list[indexCard].bank]?.backgroundColor ?? .gray
     }
     
-    public func setValueToString(_ value: Double) -> String {
+    func setValueToString(_ value: Double) -> String {
         var amount: String = String(value)
         if amount.hasSuffix(".0") {
             amount = String(amount.dropLast(2))
@@ -91,7 +91,7 @@ class RegisterCardExpViewModel{
         return amount
     }
     
-    public func datePickerChange(date: Date) -> String {
+    func datePickerChange(date: Date) -> String {
         let calendar = Calendar.current
         let today = Date()
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!

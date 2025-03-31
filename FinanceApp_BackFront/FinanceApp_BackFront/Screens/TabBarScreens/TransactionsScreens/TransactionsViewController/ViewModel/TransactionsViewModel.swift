@@ -29,15 +29,15 @@ struct TransactionsViewModel {
         
     }
     
-    public func getTransactionsCount() -> Int {
+    func getTransactionsCount() -> Int {
         return filteredTransactions.count
     }
     
-    public func getItemTransactions(_ index: Int) -> any Transactions {
+    func getItemTransactions(_ index: Int) -> any Transactions {
         return filteredTransactions[index]
     }
     
-    public func getCellSize(viewWidth:CGFloat) -> CGSize {
+    func getCellSize(viewWidth:CGFloat) -> CGSize {
         return CGSize(width: viewWidth - 30, height: 85)
     }
     

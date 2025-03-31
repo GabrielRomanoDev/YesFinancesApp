@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 
 class MoreOptionsViewModel {
-    public func tryLogoutUser() -> Bool {
+    func tryLogoutUser() -> Bool {
         do {
             try Auth.auth().signOut()
             return true
