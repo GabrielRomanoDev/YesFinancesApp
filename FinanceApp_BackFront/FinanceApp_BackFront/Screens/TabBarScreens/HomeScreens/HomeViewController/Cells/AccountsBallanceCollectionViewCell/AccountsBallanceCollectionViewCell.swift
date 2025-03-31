@@ -69,9 +69,9 @@ class AccountsBallanceCollectionViewCell: UICollectionViewCell {
                 let total:Double = accountsList.reduce(0) { $0 + $1.balance}
                 totalBalanceValueLabel.text = total.toStringMoney()
                 if total > 0 {
-                    totalBalanceValueLabel.textColor = .GreenGeneralIncomes
+                    totalBalanceValueLabel.textColor = .greenGeneralIncomes
                 } else if total < 0 {
-                    totalBalanceValueLabel.textColor = .RedGeneralExpenses
+                    totalBalanceValueLabel.textColor = .redGeneralExpenses
                 } else {
                     totalBalanceValueLabel.textColor = .black
                 }

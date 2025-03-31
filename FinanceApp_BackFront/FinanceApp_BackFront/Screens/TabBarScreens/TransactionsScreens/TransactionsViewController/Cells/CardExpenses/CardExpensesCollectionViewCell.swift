@@ -50,12 +50,12 @@ class CardExpensesCollectionViewCell: UICollectionViewCell {
             categoryLabel.text = CategoriesRepository.shared.expenses[transaction.categoryIndex].name
             categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[transaction.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
             categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transaction.categoryIndex].colorIndex] ?? UIColor.cyan
-            valueLabel.textColor = .RedGeneralExpenses
+            valueLabel.textColor = .redGeneralExpenses
         case .income:
             categoryLabel.text = CategoriesRepository.shared.incomes[transaction.categoryIndex].name
             categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.incomes[transaction.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
             categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.incomes[transaction.categoryIndex].colorIndex] ?? UIColor.cyan
-            valueLabel.textColor = .GreenGeneralIncomes
+            valueLabel.textColor = .greenGeneralIncomes
         }
         
         categoryImage.tintColor = .black

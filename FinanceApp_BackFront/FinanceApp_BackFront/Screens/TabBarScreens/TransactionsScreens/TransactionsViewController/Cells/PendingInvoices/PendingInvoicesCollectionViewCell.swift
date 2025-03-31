@@ -44,7 +44,7 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         
         categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[transaction.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
         categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transaction.categoryIndex].colorIndex] ?? UIColor.cyan
-        valueLabel.textColor = .RedGeneralExpenses
+        valueLabel.textColor = .redGeneralExpenses
         
         categoryImage.tintColor = .black
         

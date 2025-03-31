@@ -36,9 +36,9 @@ class CreditCardCollectionViewCell: UICollectionViewCell {
         nameLabel.text = card.desc
         invoiceLabel.text = card.invoiceTotal().toStringMoney()
         if card.invoiceTotal() < 0 {
-            invoiceLabel.textColor = .RedGeneralExpenses
+            invoiceLabel.textColor = .redGeneralExpenses
         } else{
-            invoiceLabel.textColor = .GreyInformations
+            invoiceLabel.textColor = .greyInformations
         }
         
         bankLabel.text = bankProperties[card.bank]?.logoTextLabel
@@ -52,7 +52,7 @@ class CreditCardCollectionViewCell: UICollectionViewCell {
         } else{
             standardCardImage.isHidden = false
             standardCardImage.image = .standardStar
-            standardCardImage.tintColor = .GreyInformations
+            standardCardImage.tintColor = .greyInformations
         }
     }
 }

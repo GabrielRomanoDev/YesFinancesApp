@@ -36,11 +36,11 @@ class AccountCollectionViewCell: UICollectionViewCell {
         nameLabel.text = account.desc
         balanceLabel.text = account.balance.toStringMoney()
         if account.balance > 0 {
-            balanceLabel.textColor = .GreenGeneralIncomes
+            balanceLabel.textColor = .greenGeneralIncomes
         } else if account.balance < 0{
-            balanceLabel.textColor = .RedGeneralExpenses
+            balanceLabel.textColor = .redGeneralExpenses
         } else{
-            balanceLabel.textColor = .GreyInformations
+            balanceLabel.textColor = .greyInformations
         }
         
         bankLabel.text = bankProperties[account.bank]?.logoTextLabel
@@ -54,7 +54,7 @@ class AccountCollectionViewCell: UICollectionViewCell {
         } else{
             standardAccountImage.isHidden = false
             standardAccountImage.image = .standardStar
-            standardAccountImage.tintColor = .GreyInformations
+            standardAccountImage.tintColor = .greyInformations
         }
     }
 }

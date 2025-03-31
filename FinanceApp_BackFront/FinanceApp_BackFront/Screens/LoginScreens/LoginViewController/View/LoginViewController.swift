@@ -69,14 +69,14 @@ class LoginViewController: UIViewController {
     private func setupElements(){
         emailTextField.delegate = self
         emailTextField.layer.borderWidth = 1
-        emailTextField.layer.borderColor = UIColor.GreyInformations?.cgColor
+        emailTextField.layer.borderColor = UIColor.greyInformations?.cgColor
         emailTextField.keyboardType = .emailAddress
         emailTextField.layer.cornerRadius = 5
         emailTextField.autocorrectionType = .no
         
         passwordTextField.delegate = self
         passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderColor = UIColor.GreyInformations?.cgColor
+        passwordTextField.layer.borderColor = UIColor.greyInformations?.cgColor
         passwordTextField.keyboardType = .default
         passwordTextField.layer.cornerRadius = 5
         passwordTextField.isSecureTextEntry = true

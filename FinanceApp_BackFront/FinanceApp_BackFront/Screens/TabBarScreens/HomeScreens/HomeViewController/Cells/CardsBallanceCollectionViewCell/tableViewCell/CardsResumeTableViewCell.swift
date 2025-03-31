@@ -34,7 +34,7 @@ class CardsResumeTableViewCell: UITableViewCell {
         } else {
             invoiceLabel.text = creditCard.invoiceTotal().toStringMoney()
             if creditCard.invoiceTotal() < 0 {
-                invoiceLabel.textColor = .RedGeneralExpenses
+                invoiceLabel.textColor = .redGeneralExpenses
             } else {
                 invoiceLabel.textColor = .black
             }

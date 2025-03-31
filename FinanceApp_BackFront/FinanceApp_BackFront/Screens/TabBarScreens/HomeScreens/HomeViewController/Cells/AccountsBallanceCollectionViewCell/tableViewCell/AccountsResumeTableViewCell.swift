@@ -34,9 +34,9 @@ class AccountsResumeTableViewCell: UITableViewCell {
         } else {
             balanceLabel.text = bankAccount.balance.toStringMoney()
             if bankAccount.balance > 0 {
-                balanceLabel.textColor = .GreenGeneralIncomes
+                balanceLabel.textColor = .greenGeneralIncomes
             } else if bankAccount.balance < 0 {
-                balanceLabel.textColor = .RedGeneralExpenses
+                balanceLabel.textColor = .redGeneralExpenses
             } else {
                 balanceLabel.textColor = .black
             }

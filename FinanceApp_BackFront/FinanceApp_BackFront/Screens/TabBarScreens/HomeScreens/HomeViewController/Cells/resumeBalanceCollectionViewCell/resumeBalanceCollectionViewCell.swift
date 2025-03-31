@@ -44,9 +44,9 @@ class resumeBalanceCollectionViewCell: UICollectionViewCell {
             dateLabel.text = globalStrings.emptyString
             
             if card.balance > 0 {
-                backgroundColor = .PositiveBalance
+                backgroundColor = .positiveBalance
             } else if card.balance < 0 {
-                backgroundColor = .RedGeneralExpenses
+                backgroundColor = .redGeneralExpenses
             } else {
                 backgroundColor = .systemGray4
             }
