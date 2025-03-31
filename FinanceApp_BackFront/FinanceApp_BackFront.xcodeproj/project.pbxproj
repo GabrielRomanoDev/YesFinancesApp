@@ -643,6 +643,7 @@
 		A12E87D22D73BC3300FA3295 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A16688F529F0B2F700568217 /* Transactions */,
 				A12E87D52D73BD6000FA3295 /* CardExpenses */,
 				A19210192D7C984800071D87 /* PendingInvoices */,
 			);
@@ -744,7 +745,6 @@
 			children = (
 				A1C8BA6B2A22E60900590758 /* Strings */,
 				A12E87D22D73BC3300FA3295 /* Cells */,
-				A16688F529F0B2F700568217 /* Cell */,
 				A16688FA29F17E1B00568217 /* ViewModel */,
 				A1E703E029F2DD0700CB4021 /* View */,
 			);
@@ -991,13 +991,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		A16688F529F0B2F700568217 /* Cell */ = {
+		A16688F529F0B2F700568217 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
 				A16688F729F0B32900568217 /* TransactionsCollectionViewCell.xib */,
 				A16636EB29DE1A9400162872 /* TransactionsCollectionViewCell.swift */,
 			);
-			path = Cell;
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 		A16688FA29F17E1B00568217 /* ViewModel */ = {
