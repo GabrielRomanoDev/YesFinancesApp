@@ -137,7 +137,12 @@ class FirestoreService {
         
     }
     
-    func updateObjectField(change: [AnyHashable : Any], objectID: String) {
+    func updateObjectField(change: [AnyHashable : Any], objectID: String, documentReadName: String? = nil) {
+        
+        if let documentReadName {
+            self.setSubCollectionName(documentReadName)
+        }
+        
         collectionRef.document(objectID).updateData(change) { error in
             if let error = error {
                 print(error)

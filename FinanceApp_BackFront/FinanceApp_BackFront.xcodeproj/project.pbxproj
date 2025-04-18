@@ -17,6 +17,11 @@
 		A101917A29FAC4F000776A67 /* EditBankAccountsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A101917929FAC4F000776A67 /* EditBankAccountsViewController.storyboard */; };
 		A101917C29FAC4F900776A67 /* EditBankAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101917B29FAC4F900776A67 /* EditBankAccountsViewController.swift */; };
 		A10191A929FB06BA00776A67 /* EditBankAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10191A829FB06BA00776A67 /* EditBankAccountsViewModel.swift */; };
+		A10DA4BD2DAA117100206039 /* InputNumberOverTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DA4BC2DAA116900206039 /* InputNumberOverTopView.swift */; };
+		A10DA4BF2DAA118C00206039 /* InputNumberOverTopModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DA4BE2DAA118A00206039 /* InputNumberOverTopModifier.swift */; };
+		A10DA4C22DAA120200206039 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DA4C12DAA120000206039 /* View.swift */; };
+		A10DA4C92DAA145700206039 /* SelectCategoryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DA4C72DAA145700206039 /* SelectCategoryModalView.swift */; };
+		A10DA4CC2DAA14BD00206039 /* SelectSourceModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DA4CB2DAA14BC00206039 /* SelectSourceModalView.swift */; };
 		A11BDA7229F4C04A006CF6B2 /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11BDA7129F4C04A006CF6B2 /* BankAccount.swift */; };
 		A11BDA7429F4C173006CF6B2 /* Banks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11BDA7329F4C173006CF6B2 /* Banks.swift */; };
 		A11BDA7629F4C24B006CF6B2 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11BDA7529F4C24B006CF6B2 /* CreditCard.swift */; };
@@ -242,6 +247,11 @@
 		A101917929FAC4F000776A67 /* EditBankAccountsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditBankAccountsViewController.storyboard; sourceTree = "<group>"; };
 		A101917B29FAC4F900776A67 /* EditBankAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBankAccountsViewController.swift; sourceTree = "<group>"; };
 		A10191A829FB06BA00776A67 /* EditBankAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBankAccountsViewModel.swift; sourceTree = "<group>"; };
+		A10DA4BC2DAA116900206039 /* InputNumberOverTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumberOverTopView.swift; sourceTree = "<group>"; };
+		A10DA4BE2DAA118A00206039 /* InputNumberOverTopModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumberOverTopModifier.swift; sourceTree = "<group>"; };
+		A10DA4C12DAA120000206039 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		A10DA4C72DAA145700206039 /* SelectCategoryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryModalView.swift; sourceTree = "<group>"; };
+		A10DA4CB2DAA14BC00206039 /* SelectSourceModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSourceModalView.swift; sourceTree = "<group>"; };
 		A11BDA7129F4C04A006CF6B2 /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
 		A11BDA7329F4C173006CF6B2 /* Banks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banks.swift; sourceTree = "<group>"; };
 		A11BDA7529F4C24B006CF6B2 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
@@ -457,6 +467,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A1998AF62D908D6A00BDDADC /* InvoiceViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = InvoiceViewController; sourceTree = "<group>"; };
 		A1E0B7102D6A76D1002892BD /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
+		A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CreditCardExpenseFormScreen; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -574,6 +585,39 @@
 				A140933F29E73A6F0037662B /* RegisterExpenseScreen */,
 			);
 			path = AddAccountTransactionsViewControllers;
+			sourceTree = "<group>";
+		};
+		A10DA4BB2DAA115D00206039 /* InputNumberOverTopView */ = {
+			isa = PBXGroup;
+			children = (
+				A10DA4BC2DAA116900206039 /* InputNumberOverTopView.swift */,
+				A10DA4BE2DAA118A00206039 /* InputNumberOverTopModifier.swift */,
+			);
+			path = InputNumberOverTopView;
+			sourceTree = "<group>";
+		};
+		A10DA4C02DAA11F900206039 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				A10DA4C12DAA120000206039 /* View.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		A10DA4C62DAA132400206039 /* SelectSourceModalView */ = {
+			isa = PBXGroup;
+			children = (
+				A10DA4CB2DAA14BC00206039 /* SelectSourceModalView.swift */,
+			);
+			path = SelectSourceModalView;
+			sourceTree = "<group>";
+		};
+		A10DA4CA2DAA147100206039 /* SelectCategoryModalView */ = {
+			isa = PBXGroup;
+			children = (
+				A10DA4C72DAA145700206039 /* SelectCategoryModalView.swift */,
+			);
+			path = SelectCategoryModalView;
 			sourceTree = "<group>";
 		};
 		A11BDA7929F4C47F006CF6B2 /* Enums */ = {
@@ -1144,6 +1188,7 @@
 				A16B56A529C1079900E53727 /* AddViewController */,
 				A103B51529F6B55000A0D9C9 /* AddAccountTransactionsViewControllers */,
 				A140934029E73A800037662B /* RegisterCardExpenseViewController */,
+				A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */,
 			);
 			path = AddScreens;
 			sourceTree = "<group>";
@@ -1361,6 +1406,7 @@
 		A19742D92A227E6000455DB0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A10DA4C02DAA11F900206039 /* SwiftUI */,
 				A1990E472D99EC9400FDA183 /* UIView.swift */,
 				A1998AF42D8F740D00BDDADC /* ViewController.swift */,
 				A12E87D82D74F23100FA3295 /* Date.swift */,
@@ -1641,6 +1687,9 @@
 		A1D2F84429E999D500DCA6E4 /* SharedModalScreens */ = {
 			isa = PBXGroup;
 			children = (
+				A10DA4CA2DAA147100206039 /* SelectCategoryModalView */,
+				A10DA4C62DAA132400206039 /* SelectSourceModalView */,
+				A10DA4BB2DAA115D00206039 /* InputNumberOverTopView */,
 				A1C452692C7BC63B00B8BBE7 /* SelectionModalScreen */,
 				A1D22DAC2A52FDD10042D060 /* CategoryImagesModalViewController */,
 				A125C1032A3A249E00A78390 /* InsertNumbersModalViewController */,
@@ -1933,6 +1982,7 @@
 			fileSystemSynchronizedGroups = (
 				A1998AF62D908D6A00BDDADC /* InvoiceViewController */,
 				A1E0B7102D6A76D1002892BD /* Utils */,
+				A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */,
 			);
 			name = FinanceApp_BackFront;
 			packageProductDependencies = (
@@ -2093,9 +2143,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FinanceApp_BackFront/Pods-FinanceApp_BackFront-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FinanceApp_BackFront/Pods-FinanceApp_BackFront-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2122,6 +2176,7 @@
 				A125C1072A3A24E700A78390 /* InsertNumbersModalViewController.swift in Sources */,
 				A18ED5A32A21505C00F564BD /* MainViewModel.swift in Sources */,
 				A140933D29E6EC3D0037662B /* CategoriesSum.swift in Sources */,
+				A10DA4CC2DAA14BD00206039 /* SelectSourceModalView.swift in Sources */,
 				A162B2372CFCC12D0036350A /* ButtonsTableViewCell.swift in Sources */,
 				A19742A72A224ADA00455DB0 /* globalStrings.swift in Sources */,
 				A19742DD2A2282DC00455DB0 /* UIImage.swift in Sources */,
@@ -2169,6 +2224,7 @@
 				A17DC6892A099BDD00D12C3C /* BankAccountsViewModel.swift in Sources */,
 				A1B8213F2A60E79E00281A52 /* DetailsTransactionsViewController.swift in Sources */,
 				A17DC6942A09C54C00D12C3C /* CreditCardsViewModel.swift in Sources */,
+				A10DA4BF2DAA118C00206039 /* InputNumberOverTopModifier.swift in Sources */,
 				A1FDB7E92A45F2D3006B3459 /* ExchangeRate.swift in Sources */,
 				A14F999B2A25621C00257B67 /* CategoriesGraphViewModel.swift in Sources */,
 				A1E107C229E4F646005A3F4F /* ProfileViewController.swift in Sources */,
@@ -2188,6 +2244,7 @@
 				A16688E929F06E8600568217 /* HomeViewModel.swift in Sources */,
 				A1B8F3492A13C9E500F7CCB5 /* CategoriesGraphCollectionViewCell.swift in Sources */,
 				A1A92BB729F8124400E14EE8 /* CreditCardModalViewController.swift in Sources */,
+				A10DA4BD2DAA117100206039 /* InputNumberOverTopView.swift in Sources */,
 				A125C10B2A3A51E100A78390 /* InsertNumbersModalViewModel.swift in Sources */,
 				A166B96229DF4BD600F33A98 /* TransactionCategory.swift in Sources */,
 				A140934F29E7625A0037662B /* AddTrasactionsViewModel.swift in Sources */,
@@ -2214,6 +2271,7 @@
 				A1990E482D99EC9800FDA183 /* UIView.swift in Sources */,
 				A140934429E73AD20037662B /* RegisterIncomeViewController.swift in Sources */,
 				A162B2492CFCF2020036350A /* SwitchExpandCellConfiguration.swift in Sources */,
+				A10DA4C92DAA145700206039 /* SelectCategoryModalView.swift in Sources */,
 				A1C9EFEF29E60D7D0029B69F /* LoginViewController.swift in Sources */,
 				A1FDB7EB2A4622D9006B3459 /* CurrencyInfos.swift in Sources */,
 				A1E0B70E2D6A75CF002892BD /* TransactionProtocol.swift in Sources */,
@@ -2243,6 +2301,7 @@
 				A14F99942A250A3800257B67 /* goalStrings.swift in Sources */,
 				A16688FC29F17E5200568217 /* TransactionsViewModel.swift in Sources */,
 				A1E0B7032D6A0CFD002892BD /* CreditCardExpensesRepository.swift in Sources */,
+				A10DA4C22DAA120200206039 /* View.swift in Sources */,
 				A1CE092D2A0026800028028B /* Alert.swift in Sources */,
 				A1C9EFE529E60A880029B69F /* SplashViewController.swift in Sources */,
 				A19742D52A225F6E00455DB0 /* tabBarStrings.swift in Sources */,

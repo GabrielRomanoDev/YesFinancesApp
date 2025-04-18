@@ -11,19 +11,19 @@ import SwiftUI
 
 extension UIColor {
     static let backgroundColor = UIColor(named: "backgroundColor")
-    static let greenAddIncomes = UIColor(named: "GreenAddIncomes")
-    static let greenGeneralIncomes = UIColor(named: "GreenGeneralIncomes")
-    static let greyInformations = UIColor(named: "GreyInformations")
+    static let greenAddIncomes = UIColor(named: "greenAddIncomes")
+    static let greenGeneralIncomes = UIColor(named: "greenGeneralIncomes")
+    static let greyInformations = UIColor(named: "greyInformations")
     static let inputBalances = UIColor(named: "inputBalances")
-    static let loginButtonColor = UIColor(named: "LoginButtonColor")
-    static let negativeBalance = UIColor(named: "NegativeBalance")
-    static let positiveBalance = UIColor(named: "PositiveBalance")
-    static let redAddExpenses = UIColor(named: "RedAddExpenses")
-    static let redGeneralExpenses = UIColor(named: "RedGeneralExpenses")
+    static let loginButtonColor = UIColor(named: "loginButtonColor")
+    static let negativeBalance = UIColor(named: "negativeBalance")
+    static let positiveBalance = UIColor(named: "positiveBalance")
+    static let redAddExpenses = UIColor(named: "redAddExpenses")
+    static let redGeneralExpenses = UIColor(named: "redGeneralExpenses")
 }
 
 extension Color {
-    static let backgroundColor = Color(UIColor.backgroundColor!)
+    static let backgroundColor = Color(UIColor.backgroundColor ?? .blue)
     static let greenAddIncomes = Color(UIColor.greenAddIncomes!)
     static let greenGeneralIncomes = Color(UIColor.greenGeneralIncomes!)
     static let greyInformations = Color(UIColor.greyInformations!)

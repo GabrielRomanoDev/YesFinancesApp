@@ -45,6 +45,26 @@ extension Date {
         
     }
     
+    func dateWrittenString() -> String {
+        let calendar = Calendar.current
+        let today = Date()
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        
+        var dataSelecionada = self
+        
+        switch dataSelecionada.toString(format: globalStrings.dateFormat) {
+        case today.toString(format: globalStrings.dateFormat):
+            return globalStrings.todayText
+        case yesterday.toString(format: globalStrings.dateFormat):
+            return globalStrings.yesterdayText
+        case tomorrow.toString(format: globalStrings.dateFormat):
+            return globalStrings.tomorrowText
+        default:
+            return self.toString(format: globalStrings.dateFormat)
+        }
+    }
+    
 }
 
 extension Int {
