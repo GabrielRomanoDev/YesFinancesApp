@@ -136,6 +136,7 @@ struct InvoiceViewModel {
                 categoryIndex: 0,
                 date: Date().toString(),
                 type: .expense,
+                isMonthly: false,
                 sourceId: accountSourceId,
                 obs: ""
             )

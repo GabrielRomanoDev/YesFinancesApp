@@ -16,17 +16,19 @@ struct AccountTransaction: FirestoreObject, Transactions, Codable, Equatable {
     var date: String
     var type: TransactionType
     var month: MonthDate
-    var isMonthly: Bool?
+    var isMonthly: Bool
     var attachmentUrl: String?
     var sourceId: String
     var obs: String
     
-    init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, sourceId: String, obs: String) {
+    init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, isMonthly: Bool, attachmentUrl: String? = nil, sourceId: String, obs: String) {
         self.desc = desc
         self.amount = amount
         self.categoryIndex = categoryIndex
         self.date = date
         self.type = type
+        self.isMonthly = isMonthly
+        self.attachmentUrl = attachmentUrl
         self.sourceId = sourceId
         self.obs = obs
         self.month = date.toDate()?.getMonth() ?? Date().getMonth()

@@ -109,8 +109,10 @@ class RegisterCardExpenseViewController: UIViewController{
                 categoryIndex: indexCategorySelected,
                 date: viewModel.selectedDate.toString(format: globalStrings.dateFormat),
                 type: .expense,
+                isMonthly: false,
                 paymentStatus: .pendent,
                 month: viewModel.selectedDate.getMonth(),
+                installment: Installment(),
                 sourceId: idCardSelected,
                 obs: obsTextField.text.orEmpty
             )) { [weak self] in

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreditCard: FirestoreObject, Codable, Equatable {
+struct CreditCard: FirestoreObject, Codable, Equatable, Hashable {
     
     private(set) var id: String = UUID().uuidString
     var desc: String
@@ -54,8 +54,10 @@ struct CreditCard: FirestoreObject, Codable, Equatable {
             categoryIndex: 0,
             date: Date().toString(format: globalStrings.dateFormat),
             type: .expense,
+            isMonthly: false,
             paymentStatus: .pendent,
             month: invoiceMonth,
+            installment: Installment(),
             sourceId: id,
             obs: globalStrings.emptyString
         ))

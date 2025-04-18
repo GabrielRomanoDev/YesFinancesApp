@@ -122,6 +122,7 @@ class BankAccountsViewModel {
             categoryIndex: 0,
             date: Date().toString(format: globalStrings.dateFormat),
             type: transactionType,
+            isMonthly: false,
             sourceId: account.id,
             obs: "Conta: \(account.desc)"
         )

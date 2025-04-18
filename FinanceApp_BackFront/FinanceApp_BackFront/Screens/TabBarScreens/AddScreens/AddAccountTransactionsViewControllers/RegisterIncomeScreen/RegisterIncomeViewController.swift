@@ -109,6 +109,7 @@ class RegisterIncomeViewController: UIViewController {
                 categoryIndex: indexCategorySelected,
                 date: viewModel.dataSelecionada.toString(format: globalStrings.dateFormat),
                 type: .income,
+                isMonthly: false,
                 sourceId: idAccountSelected,
                 obs: obsTextField.text.orEmpty
             )) {

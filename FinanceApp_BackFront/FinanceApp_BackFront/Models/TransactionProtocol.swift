@@ -12,7 +12,7 @@ protocol Transactions: Codable, Equatable {
     var categoryIndex: Int {get set}
     var date: String {get set}
     var type: TransactionType {get set}
-    var isMonthly: Bool? {get set}
+    var isMonthly: Bool {get set}
     var month: MonthDate {get set}
     var attachmentUrl: String?  {get set}
     var sourceId: String {get set}

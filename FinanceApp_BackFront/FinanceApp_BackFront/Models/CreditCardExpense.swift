@@ -16,23 +16,23 @@ struct CreditCardExpense: FirestoreObject, Transactions, Codable, Equatable  {
     var date: String
     var type: TransactionType
     var month: MonthDate
-    var isMonthly: Bool?
+    var isMonthly: Bool
     var paymentStatus: PaymentStatus
-    var installment: installment?
+    var installment: Installment
     var attachmentUrl: String?
     var sourceId: String
     var obs: String
     
-    init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, paymentStatus: PaymentStatus, month: MonthDate, sourceId: String, obs: String) {
+    init(desc: String, amount: Double, categoryIndex: Int, date: String, type: TransactionType, isMonthly: Bool, paymentStatus: PaymentStatus, month: MonthDate, installment: Installment, sourceId: String, obs: String) {
         self.desc = desc
         self.amount = amount
         self.categoryIndex = categoryIndex
         self.date = date
         self.type = type
-        self.isMonthly = nil
+        self.isMonthly = isMonthly
         self.paymentStatus = paymentStatus
         self.month = month
-        self.installment = nil
+        self.installment = installment
         self.attachmentUrl = nil
         self.sourceId = sourceId
         self.obs = obs
@@ -40,7 +40,14 @@ struct CreditCardExpense: FirestoreObject, Transactions, Codable, Equatable  {
     
 }
 
-struct installment: Codable, Equatable {
+struct Installment: Codable, Equatable {
+    var enabled: Bool
     var current: Int
     var total: Int
+    
+    init() {
+        enabled = false
+        current = 1
+        total = 1
+    }
 }

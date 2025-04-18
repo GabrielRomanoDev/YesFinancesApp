@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct TransactionCategory {
+struct TransactionCategory: Hashable {
     var name: String
     var imageName: String
     var colorIndex: Int

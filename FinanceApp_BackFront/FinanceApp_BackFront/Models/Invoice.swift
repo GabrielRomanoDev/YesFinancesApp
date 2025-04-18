@@ -21,7 +21,7 @@ struct Invoice: Transactions {
     var paymentStatus: PaymentStatus
     var month: MonthDate
     var attachmentUrl: String?
-    var isMonthly: Bool?
+    var isMonthly: Bool
     
     init(desc: String, amount: Double, closingDate: String, dueDate: String, sourceId: String, paymentStatus: PaymentStatus, month: MonthDate) {
         self.desc = desc
@@ -34,6 +34,7 @@ struct Invoice: Transactions {
         self.sourceId = sourceId
         self.paymentStatus = paymentStatus
         self.month = month
+        self.isMonthly = false
     }
     
 }

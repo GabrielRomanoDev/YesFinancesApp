@@ -110,6 +110,7 @@ class RegisterExpenseViewController: UIViewController {
                 categoryIndex: indexCategorySelected,
                 date: viewModel.dataSelecionada.toString(format: globalStrings.dateFormat),
                 type: .expense,
+                isMonthly: false,
                 sourceId: idAccountSelected,
                 obs: obsTextField.text.orEmpty
             )) {
