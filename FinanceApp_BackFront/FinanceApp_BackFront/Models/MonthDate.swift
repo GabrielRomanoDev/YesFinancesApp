@@ -5,7 +5,7 @@
 //  Created by Gabriel Luz Romano on 02/03/25.
 //
 
-struct MonthDate: Codable, Equatable {
+struct MonthDate: Codable, Equatable, Hashable {
     var month: Int
     var year: Int
     

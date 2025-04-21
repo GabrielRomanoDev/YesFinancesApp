@@ -66,9 +66,9 @@ struct TransactionsViewModel {
         }
         
         if monthDisplayed.year == Calendar.current.component(.year, from: Date()) {
-            return months[monthDisplayed.month] ?? globalStrings.january
+            return monthsText[monthDisplayed.month] ?? globalStrings.january
         } else {
-            return "\(months[monthDisplayed.month] ?? globalStrings.january) \(monthDisplayed.year)"
+            return "\(monthsText[monthDisplayed.month] ?? globalStrings.january) \(monthDisplayed.year)"
         }
     }
     

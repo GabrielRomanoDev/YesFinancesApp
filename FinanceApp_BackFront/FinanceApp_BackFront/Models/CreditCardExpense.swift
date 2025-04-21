@@ -45,9 +45,9 @@ struct Installment: Codable, Equatable {
     var current: Int
     var total: Int
     
-    init() {
-        enabled = false
-        current = 1
-        total = 1
+    init(enabled: Bool = false, current: Int = 1, total: Int = 1) {
+        self.enabled = enabled
+        self.current = current
+        self.total = total
     }
 }

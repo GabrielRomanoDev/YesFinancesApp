@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class AddViewController: UIViewController {
     
@@ -45,12 +46,32 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func tappedCardExpButton(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: RegisterCardExpenseViewController.identifier, bundle: nil)
-        let vc = storyboard.instantiateViewController(identifier: RegisterCardExpenseViewController.identifier) {coder ->
-            RegisterCardExpenseViewController? in
-            return RegisterCardExpenseViewController(coder: coder, amount: 0)
+        
+        let newExpense = CreditCardExpense(
+            desc: globalStrings.emptyString,
+            amount: 0,
+            categoryIndex: 0,
+            date: Date().toString(),
+            type: .expense,
+            isMonthly: false,
+            paymentStatus: .pendent,
+            month: Date().getMonth(),
+            installment: Installment(),
+            sourceId: "",
+            obs: globalStrings.emptyString
+        )
+        
+        var hostingController: UIHostingController<CreditCardExpenseFormScreen>!
+
+        let swiftUIView = CreditCardExpenseFormScreen(expense: newExpense) {
+            DispatchQueue.main.async {
+                hostingController.dismiss(animated: true)
+            }
         }
-        present(vc, animated: true)
+
+        hostingController = UIHostingController(rootView: swiftUIView)
+        present(hostingController, animated: true)
+        
     }
     
     private func setupStrings() {

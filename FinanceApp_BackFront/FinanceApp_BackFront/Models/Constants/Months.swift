@@ -5,7 +5,7 @@
 //  Created by Gabriel Luz Romano on 23/03/25.
 //
 
-let months: [Int: String] = [
+let monthsText: [Int: String] = [
     1: globalStrings.january,
     2: globalStrings.february,
     3: globalStrings.march,

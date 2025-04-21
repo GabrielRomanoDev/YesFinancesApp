@@ -150,28 +150,42 @@ class FirestoreService {
         }
     }
     
-    func setObjectsList<T: FirestoreObject>(objects: [T], completion: @escaping (String) -> Void) {
+    func setObjectsList<T: FirestoreObject>(objects: [T], subCollectionName: String? = nil, completion: @escaping (String) -> Void) {
+        
+        var collection: CollectionReference
+        
+        if let subCollection = subCollectionName {
+            collection = db.collection("users").document(self.user).collection(subCollection)
+        } else {
+            collection = collectionRef
+        }
         
         let batch = db.batch()
+        var encodingError: Error?
         
         for object in objects {
             do {
-                let documentRef = collectionRef.document(object.id)
-                try batch.setData(from: object, forDocument: documentRef)
-            } catch let error {
-                print("Error writing document: \(error.localizedDescription)!")
+                let documentRef = collection.document(object.id)
+                let objectData = try Firestore.Encoder().encode(object)
+                batch.setData(objectData, forDocument: documentRef)
+            } catch {
+                encodingError = error
+                break
             }
-            
+        }
+        
+        if let error = encodingError {
+            completion("Encoding error: \(error.localizedDescription)")
+            return
         }
         
         batch.commit { error in
             if let error = error {
-                completion("Error setting documents: \(error)")
+                completion("Error setting documents: \(error.localizedDescription)")
             } else {
                 completion("Success")
             }
         }
-        
     }
     
 }

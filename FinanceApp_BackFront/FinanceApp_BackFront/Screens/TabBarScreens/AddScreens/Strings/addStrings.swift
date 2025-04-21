@@ -26,4 +26,17 @@ enum addStrings {
     
     static let bankText = "Banco"
     static let standardDate = "01/01/2023"
+    static let screenTitle = "Cadastro de Gasto no Cartao"
+    static let descriptionPlaceholder = "Descrição"
+    static let selectDateButtonTitle = "Selecionar data"
+    static let installmentLabel = "Parcelamento"
+    static let fixedExpenseLabel = "Despesa Fixa"
+    static let dividedInto = "Numero de Parcelas:"
+    static let invoiceOf = "Fatura de"
+    static let currentInstallment = "Parcela atual:"
+    static let missingAmountErrorMessage = "Esqueceu de informar o valor da despesa!"
+    static let missingDescriptionErrorMessage = "Esqueceu de informar a descrição da despesa! Deseja continuar assim mesmo?"
+
+    static let observationsPlaceholder = "Observações"
+    static let creditCardTitle = "Cartões de Credito"
 }

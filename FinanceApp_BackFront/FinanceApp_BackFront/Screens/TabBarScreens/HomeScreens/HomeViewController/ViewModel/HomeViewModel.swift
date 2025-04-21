@@ -78,6 +78,18 @@ struct HomeViewModel {
         }
     }
     
+    private func addFieldToObjects() {
+        
+        for transaction in TransactionsRepository.shared.list {
+            service.updateObjectField(change: ["isMonthly": false], objectID: transaction.id, documentReadName: firebaseSubCollectionNames.transactions)
+        }
+        
+        service.setObjectsList(objects: CreditCardExpensesRepository.shared.list) { _ in
+            
+        }
+        
+    }
+    
     private func getAccounts(completion: @escaping () -> Void) {
         service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {

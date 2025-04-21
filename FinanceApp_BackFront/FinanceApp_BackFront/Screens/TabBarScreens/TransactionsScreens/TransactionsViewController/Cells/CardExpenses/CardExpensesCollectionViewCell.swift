@@ -35,6 +35,11 @@ class CardExpensesCollectionViewCell: UICollectionViewCell {
     func setup(with transaction: CreditCardExpense) {
         
         descLabel.text = transaction.desc
+        
+        if transaction.installment.enabled && transaction.installment.total > 1 {
+            descLabel.text! += " (\(transaction.installment.current)/\(transaction.installment.total))"
+        }
+        
         descLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         descLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         

@@ -90,9 +90,9 @@ struct InvoiceViewModel {
         }
         
         if invoice.month.year == Calendar.current.component(.year, from: Date()) {
-            return months[invoice.month.month]!
+            return monthsText[invoice.month.month]!
         } else {
-            return "\(months[invoice.month.month]!) \(invoice.month.year)"
+            return "\(monthsText[invoice.month.month]!) \(invoice.month.year)"
         }
     }
     

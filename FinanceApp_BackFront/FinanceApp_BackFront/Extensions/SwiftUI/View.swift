@@ -11,4 +11,9 @@ extension View {
     func overtop(showOverTop: Bool, overTopView: InputNumberOverTopView) -> some View {
         modifier(InputNumberOverTopModifier(showOverTop: showOverTop, overTopView: overTopView))
     }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
+    }
 }

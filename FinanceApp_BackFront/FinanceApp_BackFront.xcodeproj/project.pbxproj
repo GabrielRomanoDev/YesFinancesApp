@@ -54,6 +54,7 @@
 		A140934C29E73BD30037662B /* RegisterCardExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140934B29E73BD30037662B /* RegisterCardExpenseViewController.swift */; };
 		A140934F29E7625A0037662B /* AddTrasactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140934E29E7625A0037662B /* AddTrasactionsViewModel.swift */; };
 		A140935129E772720037662B /* RegisterExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140935029E772720037662B /* RegisterExpenseViewController.swift */; };
+		A14C42B32DB53813008C0A29 /* SelectInvoiceModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C42B22DB5380B008C0A29 /* SelectInvoiceModalView.swift */; };
 		A14C58852D49A76900507CE5 /* DateFilteringTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C58832D49A76900507CE5 /* DateFilteringTableViewCell.xib */; };
 		A14C58862D49A76900507CE5 /* DateFilteringTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C58822D49A76900507CE5 /* DateFilteringTableViewCell.swift */; };
 		A14DAE6029D4E91900714208 /* TransactionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A14DAE5F29D4E91900714208 /* TransactionsViewController.storyboard */; };
@@ -284,6 +285,7 @@
 		A140934B29E73BD30037662B /* RegisterCardExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCardExpenseViewController.swift; sourceTree = "<group>"; };
 		A140934E29E7625A0037662B /* AddTrasactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrasactionsViewModel.swift; sourceTree = "<group>"; };
 		A140935029E772720037662B /* RegisterExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterExpenseViewController.swift; sourceTree = "<group>"; };
+		A14C42B22DB5380B008C0A29 /* SelectInvoiceModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInvoiceModalView.swift; sourceTree = "<group>"; };
 		A14C58822D49A76900507CE5 /* DateFilteringTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilteringTableViewCell.swift; sourceTree = "<group>"; };
 		A14C58832D49A76900507CE5 /* DateFilteringTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateFilteringTableViewCell.xib; sourceTree = "<group>"; };
 		A14DAE5F29D4E91900714208 /* TransactionsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TransactionsViewController.storyboard; sourceTree = "<group>"; };
@@ -763,6 +765,14 @@
 				A140934E29E7625A0037662B /* AddTrasactionsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A14C42B12DB537F6008C0A29 /* SelectInvoiceModalView */ = {
+			isa = PBXGroup;
+			children = (
+				A14C42B22DB5380B008C0A29 /* SelectInvoiceModalView.swift */,
+			);
+			path = SelectInvoiceModalView;
 			sourceTree = "<group>";
 		};
 		A14C58842D49A76900507CE5 /* DateFilteringTableViewCell */ = {
@@ -1687,6 +1697,7 @@
 		A1D2F84429E999D500DCA6E4 /* SharedModalScreens */ = {
 			isa = PBXGroup;
 			children = (
+				A14C42B12DB537F6008C0A29 /* SelectInvoiceModalView */,
 				A10DA4CA2DAA147100206039 /* SelectCategoryModalView */,
 				A10DA4C62DAA132400206039 /* SelectSourceModalView */,
 				A10DA4BB2DAA115D00206039 /* InputNumberOverTopView */,
@@ -2174,6 +2185,7 @@
 				A12E87D92D74F23400FA3295 /* Date.swift in Sources */,
 				A162B23C2CFCC13B0036350A /* SelectItensTableViewCell.swift in Sources */,
 				A125C1072A3A24E700A78390 /* InsertNumbersModalViewController.swift in Sources */,
+				A14C42B32DB53813008C0A29 /* SelectInvoiceModalView.swift in Sources */,
 				A18ED5A32A21505C00F564BD /* MainViewModel.swift in Sources */,
 				A140933D29E6EC3D0037662B /* CategoriesSum.swift in Sources */,
 				A10DA4CC2DAA14BD00206039 /* SelectSourceModalView.swift in Sources */,

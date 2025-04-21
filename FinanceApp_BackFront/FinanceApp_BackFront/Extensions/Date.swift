@@ -65,6 +65,16 @@ extension Date {
         }
     }
     
+    mutating func setMonth(month: MonthDate) {
+        let calendar = Calendar.current
+        
+        var components = calendar.dateComponents([.day], from: self)
+        components.month = month.month
+        components.year = month.year
+        
+        self = calendar.date(from: components) ?? Date()
+    }
+    
 }
 
 extension Int {

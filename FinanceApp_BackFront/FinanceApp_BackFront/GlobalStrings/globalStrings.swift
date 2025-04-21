@@ -23,7 +23,10 @@ enum globalStrings {
     static let todayText = "Hoje"
     static let tomorrowText = "Amanhã"
     static let confirm = "Confirmar"
+    static let cancel = "Cancelar"
     static let apply = "Aplicar"
+    static let select = "Selecionar"
+    static let send = "Enviar"
     
     static let january = "Janeiro"
     static let february = "Fevereiro"

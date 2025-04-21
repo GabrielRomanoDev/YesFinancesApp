@@ -10,318 +10,327 @@ import UIKit
 import Foundation
 
 struct CreditCardExpenseFormScreen: View {
-    @State var expense: CreditCardExpense
-    @State var date = Date()
     
-    @State private var selectedCategory: TransactionCategory? = nil
-    @State private var selectedSource: CreditCard? = nil
-    @State private var showSheet = false
+    @StateObject private var viewModel: RegisterCardExpViewModel
+    @State private var showCategorySheet = false
     @State private var showInputNumber = false
-    @State private var showDates = false
+    @State private var showDatePicker = false
     @State private var showSourcesSheet = false
-    @State private var value: String = "0"
-    @State private var numParcelas: String = "1"
+    @State private var showInvoicesSheet = false
+    @State private var showMissingAmountAlert = false
+    @State private var showMissingDescAlert = false
     
-    @State var cardIndex: Int = 0
-    
-    init(expense: CreditCardExpense) {
-        self.expense = expense
-        
-        for (i, card) in CreditCardsRepository.shared.list.enumerated() {
-            if card.id == expense.sourceId {
-                cardIndex = i
-                break
-            }
-        }
-        
-    }
-    
-    var onDismiss: (() -> Void)?
-    let categories: [TransactionCategory] = [
-        TransactionCategory(name: "Alimentação", imageName: "image35", colorIndex: 0),
-        TransactionCategory(name: "Assinaturas", imageName: "image13", colorIndex: 1),
-        TransactionCategory(name: "Casa", imageName: "image4", colorIndex: 2),
-        TransactionCategory(name: "Educação", imageName: "image46", colorIndex: 3),
-        TransactionCategory(name: "Esportes", imageName: "image8", colorIndex: 4),
-        TransactionCategory(name: "Lazer", imageName: "image3", colorIndex: 5),
-        TransactionCategory(name: "Serviços", imageName: "image40", colorIndex: 6),
-        TransactionCategory(name: "Transferências", imageName: "image43", colorIndex: 7),
-        TransactionCategory(name: "Transporte", imageName: "image0", colorIndex: 8),
-        TransactionCategory(name: "Vestuario", imageName: "image1", colorIndex: 9),
-        TransactionCategory(name: "Viagem", imageName: "image21", colorIndex: 10),
-        TransactionCategory(name: "Outros", imageName: "image37", colorIndex: 11),
-    ]
-    
-    let sources: [CreditCard] = [
-        CreditCard(desc: "Cartao Bradesco", limit: 5000, bank: .bradesco, closingDay: 15, dueDay: 20, standardCard: false, obs: ""),
-        CreditCard(desc: "Cartao Itau", limit: 6000, bank: .itau, closingDay: 15, dueDay: 20, standardCard: false, obs: ""),
-        CreditCard(desc: "Cartao Nubank", limit: 7000, bank: .nubank, closingDay: 15, dueDay: 20, standardCard: true, obs: ""),
-        CreditCard(desc: "Cartao Caixa", limit: 8000, bank: .caixa, closingDay: 15, dueDay: 20, standardCard: false, obs: ""),
-    ]
-    
+    var onDismiss: (() -> Void)
+
     let iconSize: CGFloat = 22
     let rowSize: CGFloat = 40
-    
-    
+    @State private var editingFlag: Bool = false
+
+    init(expense: CreditCardExpense, onDismiss: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: RegisterCardExpViewModel(expense: expense))
+        self.onDismiss = onDismiss
+    }
+
     var body: some View {
-        
         NavigationStack {
-            
             ZStack {
                 
                 VStack(spacing: 0) {
-                    Text("Cadastro de Gasto no Cartao")
+                    Text(addStrings.screenTitle)
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(height: 40)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color(UIColor.redGeneralExpenses!))
-                    
+
                     List {
                         
-                        // Descrição
-                        HStack() {
-                            Image("image46")
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .padding(.leading, 8)
-                            TextField("Descrição", text: $expense.desc)
-                                .frame(height: 40)
+                        // Description
+                        IconRow(icon: Image("image46"), iconSize: iconSize, isTextFieldElement: true) {
+                            TextField(addStrings.descriptionPlaceholder, text: $viewModel.expense.desc, onEditingChanged: { editing in
+                                editingFlag = editing
+                            })
+                                .frame(height: rowSize)
                         }
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
-                        }
-                        
-                        //valor
-                        Button {
+
+                        // Amount
+                        IconRow(icon: Image(systemName: "dollarsign.circle"), iconSize: iconSize, isTextFieldElement: false) {
+                            Text("\(viewModel.expense.amount.toStringMoney())")
+                                .frame(height: rowSize)
+                        } onTap: {
+                            hideKeyboard()
                             showInputNumber = true
-                        } label: {
-                            
-                            HStack {
-                                Image(systemName: "dollarsign.circle")
-                                    .resizable()
-                                    .frame(width: iconSize, height: iconSize)
-                                    .padding(.leading, 6)
-                                Text("\(Double(value)?.toStringMoney() ?? "0,00")")
-                                    .frame(height: self.rowSize)
-                                    .frame(alignment: .trailing)
-                            }
-                            .alignmentGuide(.listRowSeparatorLeading) { _ in
-                              return -20
-                            }
-                            
                         }
-                        
-                        
-                        //Date
+
+                        // Date
+                        IconRow(icon: Image(systemName: "calendar"), iconSize: iconSize, isTextFieldElement: false) {
+                            Text("\(viewModel.selectedDate.dateWrittenString())")
+                                .frame(height: rowSize)
+                        } onTap: {
+                            hideKeyboard()
+                            showDatePicker = true
+                        }
+
+                        // Category
                         Button {
-                            showDates = true
-                        } label: {
-                            HStack() {
-                                
-                                Image(systemName: "calendar")
-                                    .resizable()
-                                    .frame(width: iconSize, height: iconSize)
-                                    .padding(.leading, 6)
-                                
-                                Text("\(date.dateWrittenString())")
-                                    .frame(height: self.rowSize)
-                                
-                            }
-                        }
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
-                        }
-                        
-                        // Categoria com visual customizado
-                        Button {
-                            selectedCategory = categories[0]
-                            showSheet = true
+                            showCategorySheet = true
+                            hideKeyboard()
                         } label: {
                             HStack {
                                 ZStack {
                                     Circle()
-                                        .fill(Color(categoryColors[categories[expense.categoryIndex].colorIndex]!))
+                                        .fill(Color(categoryColors[CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex].colorIndex]!))
                                         .frame(width: 34, height: 34)
-                                    Image(categories[expense.categoryIndex].imageName)
+                                    Image(CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex].imageName)
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 25, height: 25)
                                 }
-                                Text(categories[expense.categoryIndex].name)
+                                Text(CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex].name)
                                     .foregroundColor(.black)
                             }
                             .frame(height: self.rowSize)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Color.white)
-                            
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
-                        }
-                        
-                        // Account com visual customizado
+                        .alignmentGuide(.listRowSeparatorLeading) { _ in return -20 }
+
+                        // Account
                         Button {
-                            selectedSource = sources[0]
-//                            selectedSource = CreditCardsRepository.shared.list[0]
                             showSourcesSheet = true
+                            hideKeyboard()
                         } label: {
                             HStack {
-                                //Image(bankProperties[CreditCardsRepository.shared.list[cardIndex].bank]?.imageName ?? "BancoItau")
-                                Image(bankProperties[sources[cardIndex].bank]?.imageName ?? "BancoItau")
+                                Image(bankProperties[CreditCardsRepository.shared.list[viewModel.cardIndex].bank]?.imageName ?? "BancoItau")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 34, height: 34)
                                     .clipShape(Circle())
-                                
-                                //Text(bankProperties[CreditCardsRepository.shared.list[cardIndex].bank]?.textNameBank ?? "BancoItau")
-                                Text(bankProperties[sources[cardIndex].bank]?.textNameBank ?? "BancoItau")
+
+                                Text(CreditCardsRepository.shared.list[viewModel.cardIndex].desc)
                                     .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
                             }
                             .frame(height: self.rowSize)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Color.white)
-                            
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
+                        .alignmentGuide(.listRowSeparatorLeading) { _ in return -20 }
+                        
+                        //Invoice Selector
+                        IconRow(icon: Image("image54"), iconSize: iconSize, isTextFieldElement: false) {
+                            Text("\(addStrings.invoiceOf) \(monthsText[viewModel.expense.month.month] ?? globalStrings.january)")
+                                .frame(height: rowSize)
+                        } onTap: {
+                            hideKeyboard()
+                            showInvoicesSheet = true
                         }
                         
-                        //Parcelamento
+                        // Installment Configuration
                         VStack {
-                            HStack {
-                                Image(systemName: "repeat.circle")
-                                    .resizable()
-                                    .frame(width: iconSize, height: iconSize)
-                                    .padding(.leading, 6)
-                                
-                                Toggle("Parcelamento", isOn: $expense.installment.enabled)
-                                    .frame(height: self.rowSize)
-                                    .alignmentGuide(.listRowSeparatorLeading) { _ in
-                                      return -20
-                                    }
+                            IconRow(icon: Image(systemName: "repeat.circle"), iconSize: iconSize, isTextFieldElement: false) {
+                                Toggle(addStrings.installmentLabel, isOn: viewModel.installmentBinding)
+                                    .frame(height: rowSize)
+                                    .tint(Color.redAddExpenses)
+                                    .background(Color.white)
                             }
+                        
                             
-                            if (expense.installment.enabled) {
+                            if viewModel.expense.installment.enabled {
                                 
-                                HStack(spacing: 5) {
-                                    Text("Dividido em:")
-                                        .frame(width: 80, alignment: .center)
+                                VStack(spacing: 15) {
                                     
-                                    TextField("1", text: $numParcelas)
-                                        .multilineTextAlignment(.trailing)
-                                        .keyboardType(.numberPad)
-                                        .frame(width: 50)
-                                        .padding(6)
-                                        .background(Color.gray.opacity(0.1))
-                                        .cornerRadius(6)
-                                        .onChange(of: numParcelas) { newValue in
-                                            // Garante que só números sejam digitados
-                                            numParcelas = newValue.filter { $0.isNumber }
+                                    HStack(spacing: 70) {
+                                        VStack(spacing: 5) {
+                                            Text(addStrings.dividedInto)
+                                                .frame(alignment: .leading)
+                                            
+                                            HStack {
+                                                Button {
+                                                    if viewModel.expense.installment.total > 1 {
+                                                        viewModel.expense.installment.total -= 1
+                                                    }
+                                                    
+                                                    if viewModel.expense.installment.current > viewModel.expense.installment.total {
+                                                        viewModel.expense.installment.current = viewModel.expense.installment.total
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "minus.circle")
+                                                }
+                                                .buttonStyle(.plain)
+                                                
+                                                Text("\(viewModel.expense.installment.total)")
+                                                    .multilineTextAlignment(.center)
+                                                    .frame(width: 50)
+                                                    .background(Color.gray.opacity(0.1))
+                                                    .cornerRadius(6)
+                                                
+                                                Button {
+                                                        viewModel.expense.installment.total += 1
+                                                } label: {
+                                                    Image(systemName: "plus.circle")
+                                                }
+                                                .buttonStyle(.plain)
+                                            }
+                                            
                                         }
+                                        
+                                        VStack(spacing: 5) {
+                                            Text(addStrings.currentInstallment)
+                                                .frame(alignment: .leading)
+                                            
+                                            HStack {
+                                                Button {
+                                                    if viewModel.expense.installment.current > 1 {
+                                                        viewModel.expense.installment.current -= 1
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "minus.circle")
+                                                }
+                                                .buttonStyle(.plain)
+                                                
+                                                Text("\(viewModel.expense.installment.current)")
+                                                    .multilineTextAlignment(.center)
+                                                    .frame(width: 50)
+                                                    .background(Color.gray.opacity(0.1))
+                                                    .cornerRadius(6)
+                                                
+                                                Button {
+                                                    if viewModel.expense.installment.current < viewModel.expense.installment.total {
+                                                        viewModel.expense.installment.current += 1
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "plus.circle")
+                                                }
+                                                .buttonStyle(.plain)
+                                            }
+                                        }
+
+                                    }
                                     
-                                    Spacer()
+                                    if viewModel.expense.installment.total > 1 {
+                                        Text(viewModel.formattedInstallmentValue)
+                                            .foregroundColor(.gray)
+                                            .multilineTextAlignment(.center)
+                                    }
                                     
-                                    Text("Valor por parcela: \(abs(expense.amount / (Double(numParcelas) ?? 1)).toStringMoney())")
-                                        .foregroundColor(.gray)
                                 }
-                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 5)
+                                .padding(.leading, 5)
                                 
                             }
-                        }
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
-                        }
-                        
-                        //Despesa Fixa
-                        HStack {
-                            Image(systemName: "repeat.circle")
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .padding(.leading, 6)
                             
-                            Toggle("Despesa Fixa", isOn: $expense.isMonthly)
-                                .frame(height: self.rowSize)
-                                
                         }
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
+                        .listRowBackground(Color.clear)
+                        
+                        // Monthly Expense
+                        IconRow(icon: Image(systemName: "lock.badge.clock"), iconSize: iconSize, isTextFieldElement: false) {
+                            Toggle(addStrings.fixedExpenseLabel, isOn: viewModel.monthlyBinding)
+                                .frame(height: rowSize)
+                                .tint(Color.redAddExpenses)
+                                .background(Color.white)
                         }
                         
-                        // Observações
-                        HStack() {
-                            Image(systemName: "note.text")
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .padding(.leading, 6)
-                            TextField("Observações", text: $expense.obs)
-                                .frame(height: self.rowSize)
+                        // Observations
+                        IconRow(icon: Image(systemName: "note.text"), iconSize: iconSize, isTextFieldElement: true) {
+                            TextField(addStrings.observationsText, text: $viewModel.expense.obs)
+                                .frame(height: rowSize)
                                 .multilineTextAlignment(.leading)
                         }
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in
-                          return -20
-                        }
                         
+                        Spacer(minLength: 30)
+                        
+                        HStack {
+                            Button(action: {
+                                if viewModel.expense.amount == 0 {
+                                    showMissingAmountAlert = true
+                                } else if viewModel.expense.desc.isEmpty {
+                                    showMissingDescAlert = true
+                                } else {
+                                    viewModel.handleSubmit(completion: onDismiss)
+                                }
+                            }) {
+                                Text(globalStrings.send)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: 150)
+                                    .background(Color(UIColor.redGeneralExpenses!))
+                                    .cornerRadius(15)
+                            }
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .listRowSeparator(.hidden)
+                        
+                        Spacer(minLength: 30)
+                            .listRowSeparator(.hidden)
                     }
                     .listStyle(PlainListStyle())
                     .frame(maxHeight: .infinity)
-                    
-                    Button(action: {
-                        print("Gasto enviado")
-                    }) {
-                        Text("Enviar")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: 150)
-                            .background(Color(UIColor.redGeneralExpenses!))
-                            .cornerRadius(15)
-                    }
-                    .padding(.horizontal)
-                    
-                    Spacer(minLength: 30)
+                    .scrollDismissesKeyboard(.immediately)
                     
                 }
             }
-            
         }
-        .sheet(isPresented: $showSheet) {
-            CategoriesModalView(categories: categories, selectedItem: $expense.categoryIndex, showView: $showSheet)
+        .sheet(isPresented: $showCategorySheet) {
+            CategoriesModalView(categories: CategoriesRepository.shared.expenses, selectedItem: $viewModel.expense.categoryIndex, showView: $showCategorySheet)
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showSourcesSheet) {
-            SelectSourceModalView(title: "Cartões de Credito", itens: sources, selectedItem: $cardIndex, showView: $showSourcesSheet)
+            SelectSourceModalView(title: addStrings.creditCardTitle, itens: CreditCardsRepository.shared.list, showView: $showSourcesSheet) { index in
+                
+                viewModel.setSourceID(index: index)
+                
+            }
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
         }
-        .sheet(isPresented: $showDates) {
+        .sheet(isPresented: $showDatePicker) {
             VStack {
-                DatePicker("", selection: $date, displayedComponents: .date)
+                DatePicker("", selection: $viewModel.selectedDate, displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .labelsHidden()
-                
-                Button("Selecionar") { showDates = false }
-                    .buttonStyle(.borderedProminent)
-                    .presentationDetents([.medium])
+
+                Button(addStrings.selectDateButtonTitle) {
+                    showDatePicker = false
+                }
+                .buttonStyle(.borderedProminent)
             }
+            .presentationDetents([.medium])
+        }
+        .sheet(isPresented: $showInvoicesSheet) {
+            SelectInvoiceModalView(date: viewModel.selectedDate, selectedItem: $viewModel.expense.month, showView: $showInvoicesSheet)
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+        }
+        .alert(globalStrings.attention, isPresented: $showMissingAmountAlert) {
+            
+        } message: {
+            Text(addStrings.missingAmountErrorMessage)
+        }
+        .alert(globalStrings.attention, isPresented: $showMissingDescAlert) {
+            Button(globalStrings.cancel, role: .cancel, action: {})
+            Button(globalStrings.confirm) {
+                viewModel.handleSubmit(completion: onDismiss)
+            }
+        } message: {
+            Text(addStrings.missingDescriptionErrorMessage)
         }
         .overtop(showOverTop: showInputNumber, overTopView: InputNumberOverTopView(inputText: "0", showInputNumber: $showInputNumber) { result in
-            expense.amount = Double(result) ?? 0.0
-            value = result
+            viewModel.expense.amount = Double(result) ?? 0.0
         })
-        
     }
+    
     
 }
 
 #Preview {
     
-    let cardPayment = CreditCardExpense(
+    var cardPayment = CreditCardExpense(
         desc: "Pagamento da fatura cartao Bradesco",
         amount: 100,
         categoryIndex: 0,
@@ -330,45 +339,56 @@ struct CreditCardExpenseFormScreen: View {
         isMonthly: false,
         paymentStatus: .paid,
         month: Date().getMonth(),
-        installment: Installment(),
+        installment: Installment(enabled: true),
         sourceId: "",
         obs: globalStrings.emptyString
     )
     
-    CreditCardExpenseFormScreen(expense: cardPayment)
+    CreditCardExpenseFormScreen(expense: cardPayment) {
+        
+    }
     
 }
 
-//struct CustomRow: View {
-//    var category: TransactionCategory
-//
-//    var body: some View {
-//
-//        ZStack {
-//
-//            Color(UIColor.blue ?? .yellow).edgesIgnoringSafeArea(.all)
-//
-//            HStack {
-//                ZStack {
-//
-//                    Circle()
-//                        .fill(Color(categoryColors[category.colorIndex]!))
-//                        .frame(width: 30, height: 30)
-//                    Image(category.imageName)
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 16, height: 16)
-//                }
-//                Text(category.name)
-//                    .foregroundColor(.black)
-//                Text("2")
-//                    .foregroundColor(.black)
-//            }
-//            .contentShape(Rectangle())
-//            .onTapGesture {
-//                // Opcional: abrir modal de seleção
-//            }
-//            .padding([.top])
-//        }
-//    }
-//}
+struct IconRow<Content: View>: View {
+    let icon: Image
+    let iconSize: CGFloat
+    let isTextFieldElement: Bool
+    let content: () -> Content
+    var onTap: (() -> Void)?
+
+    var body: some View {
+        Group {
+            if let onTap = onTap {
+                Button(action: onTap) {
+                    rowContent
+                    .frame(maxWidth: .infinity)
+                    .background(Color.white)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+            } else {
+                rowContent
+            }
+        }
+        .alignmentGuide(.listRowSeparatorLeading) { _ in -20 }
+        .gesture(
+            TapGesture().onEnded {
+                hideKeyboard()
+            },
+            including: isTextFieldElement ? .none : .all
+        )
+    }
+
+    private var rowContent: some View {
+        HStack {
+            icon
+                .resizable()
+                .frame(width: iconSize, height: iconSize)
+                .padding(.leading, 6)
+            content()
+            
+            Spacer()
+        }
+    }
+}
