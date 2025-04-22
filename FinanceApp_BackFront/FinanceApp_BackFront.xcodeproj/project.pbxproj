@@ -198,6 +198,12 @@
 		A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E47F7A29F8A70000039F08 /* Goal.swift */; };
 		A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */; };
 		A1E64B9D2D92550A00E31F9C /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E64B9C2D92550800E31F9C /* Invoice.swift */; };
+		A1E76D432DB71A89005D9801 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D422DB71A87005D9801 /* FormTextField.swift */; };
+		A1E76D452DB71AB4005D9801 /* FormTapDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D442DB71AA0005D9801 /* FormTapDisplay.swift */; };
+		A1E76D492DB71B80005D9801 /* IconRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D482DB71B7E005D9801 /* IconRow.swift */; };
+		A1E76D4B2DB71DB4005D9801 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D4A2DB71DB2005D9801 /* CategoryButton.swift */; };
+		A1E76D4D2DB71E1B005D9801 /* SourceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D4C2DB71E12005D9801 /* SourceButton.swift */; };
+		A1E76D4F2DB71E49005D9801 /* FormToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D4E2DB71E47005D9801 /* FormToggle.swift */; };
 		A1E87E652A3BA9E600077D49 /* insertNumberStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E87E642A3BA9E600077D49 /* insertNumberStrings.swift */; };
 		A1F4210329F6215B005C346B /* AccountsModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4210229F6215B005C346B /* AccountsModalViewModel.swift */; };
 		A1F4210829F62379005C346B /* CategoriesModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4210729F62379005C346B /* CategoriesModalViewModel.swift */; };
@@ -430,6 +436,12 @@
 		A1E47F7A29F8A70000039F08 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScreenType.swift; sourceTree = "<group>"; };
 		A1E64B9C2D92550800E31F9C /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
+		A1E76D422DB71A87005D9801 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
+		A1E76D442DB71AA0005D9801 /* FormTapDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTapDisplay.swift; sourceTree = "<group>"; };
+		A1E76D482DB71B7E005D9801 /* IconRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRow.swift; sourceTree = "<group>"; };
+		A1E76D4A2DB71DB2005D9801 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		A1E76D4C2DB71E12005D9801 /* SourceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceButton.swift; sourceTree = "<group>"; };
+		A1E76D4E2DB71E47005D9801 /* FormToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormToggle.swift; sourceTree = "<group>"; };
 		A1E87E642A3BA9E600077D49 /* insertNumberStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = insertNumberStrings.swift; sourceTree = "<group>"; };
 		A1F4210229F6215B005C346B /* AccountsModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsModalViewModel.swift; sourceTree = "<group>"; };
 		A1F4210729F62379005C346B /* CategoriesModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModalViewModel.swift; sourceTree = "<group>"; };
@@ -1195,6 +1207,7 @@
 			isa = PBXGroup;
 			children = (
 				A1C8BA6E2A22ECB300590758 /* Strings */,
+				A1E76D412DB71A61005D9801 /* SwiftUISharedComponents */,
 				A16B56A529C1079900E53727 /* AddViewController */,
 				A103B51529F6B55000A0D9C9 /* AddAccountTransactionsViewControllers */,
 				A140934029E73A800037662B /* RegisterCardExpenseViewController */,
@@ -1799,6 +1812,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A1E76D412DB71A61005D9801 /* SwiftUISharedComponents */ = {
+			isa = PBXGroup;
+			children = (
+				A1E76D482DB71B7E005D9801 /* IconRow.swift */,
+				A1E76D422DB71A87005D9801 /* FormTextField.swift */,
+				A1E76D442DB71AA0005D9801 /* FormTapDisplay.swift */,
+				A1E76D4A2DB71DB2005D9801 /* CategoryButton.swift */,
+				A1E76D4C2DB71E12005D9801 /* SourceButton.swift */,
+				A1E76D4E2DB71E47005D9801 /* FormToggle.swift */,
+			);
+			path = SwiftUISharedComponents;
+			sourceTree = "<group>";
+		};
 		A1E87E632A3BA9B900077D49 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2199,9 +2225,11 @@
 				A19742D82A22637200455DB0 /* homeStrings.swift in Sources */,
 				A1C8BA6D2A22E61F00590758 /* transactionsStrings.swift in Sources */,
 				E35D087129BDB2030098F0B5 /* MoreOptionsViewController.swift in Sources */,
+				A1E76D432DB71A89005D9801 /* FormTextField.swift in Sources */,
 				A140935129E772720037662B /* RegisterExpenseViewController.swift in Sources */,
 				A11BDA7629F4C24B006CF6B2 /* CreditCard.swift in Sources */,
 				A18299C72A01AC7F00E72936 /* ConfigType.swift in Sources */,
+				A1E76D4F2DB71E49005D9801 /* FormToggle.swift in Sources */,
 				A1990E312D96370500FDA183 /* FilteringSpecification.swift in Sources */,
 				A1C4526A2C7BC63B00B8BBE7 /* SelectionTableViewCell.swift in Sources */,
 				A14F99972A2521AB00257B67 /* moreOptionsStrings.swift in Sources */,
@@ -2235,12 +2263,14 @@
 				E35D086929BDB1C60098F0B5 /* AddViewController.swift in Sources */,
 				A17DC6892A099BDD00D12C3C /* BankAccountsViewModel.swift in Sources */,
 				A1B8213F2A60E79E00281A52 /* DetailsTransactionsViewController.swift in Sources */,
+				A1E76D4D2DB71E1B005D9801 /* SourceButton.swift in Sources */,
 				A17DC6942A09C54C00D12C3C /* CreditCardsViewModel.swift in Sources */,
 				A10DA4BF2DAA118C00206039 /* InputNumberOverTopModifier.swift in Sources */,
 				A1FDB7E92A45F2D3006B3459 /* ExchangeRate.swift in Sources */,
 				A14F999B2A25621C00257B67 /* CategoriesGraphViewModel.swift in Sources */,
 				A1E107C229E4F646005A3F4F /* ProfileViewController.swift in Sources */,
 				A17C89DE2A09C76700B5DB2F /* BanksCell.swift in Sources */,
+				A1E76D492DB71B80005D9801 /* IconRow.swift in Sources */,
 				A13E249929F98BDB00E9EF7A /* EditGoalViewModel.swift in Sources */,
 				A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */,
 				A18991A92A11DC9800D47427 /* CardsResumeTableViewCell.swift in Sources */,
@@ -2296,12 +2326,14 @@
 				A101917329FAB7A500776A67 /* NewItemButtonCell.swift in Sources */,
 				A14DAE6329D4E94200714208 /* TransactionsViewController.swift in Sources */,
 				A17C89E92A09E8F900B5DB2F /* OptionalExtension.swift in Sources */,
+				A1E76D452DB71AB4005D9801 /* FormTapDisplay.swift in Sources */,
 				A1E107BD29E4F432005A3F4F /* CreditCardsViewController.swift in Sources */,
 				A12E87DB2D74F73900FA3295 /* PaymentStatus.swift in Sources */,
 				A1FFCA322CA8DAC500B1C6A6 /* TransactionsFilterWorker.swift in Sources */,
 				A14F99B02A259F0800257B67 /* CreditCardModalViewModel.swift in Sources */,
 				A1A92BBF29F812B600E14EE8 /* CreditCardModalCell.swift in Sources */,
 				A189A39929F58A4700C22A6D /* BankProperties.swift in Sources */,
+				A1E76D4B2DB71DB4005D9801 /* CategoryButton.swift in Sources */,
 				E3E9089129BFAF1B00B34864 /* CategoriesGraphViewController.swift in Sources */,
 				A16636EF29DE33C500162872 /* AccountTransaction.swift in Sources */,
 				A1FDB7ED2A4636D4006B3459 /* CurrencyPickerOptions.swift in Sources */,

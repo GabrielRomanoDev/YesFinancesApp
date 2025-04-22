@@ -39,4 +39,17 @@ enum addStrings {
 
     static let observationsPlaceholder = "Observações"
     static let creditCardTitle = "Cartões de Credito"
+    
+    static func firstInstallmentText(amount: String, installmentTotal: Int) -> String {
+        return "Um total de \(installmentTotal) parcelas no valor de \(amount)."
+    }
+    
+    static func intermediateInstallmentText(amount: String, currentInstallment: Int) -> String {
+        return "A \(currentInstallment)ª parcela no valor de \(amount)."
+    }
+    
+    static func lastInstallmentText(amount: String) -> String {
+        return "A ultima parcela no valor de \(amount)."
+    }
+    
 }

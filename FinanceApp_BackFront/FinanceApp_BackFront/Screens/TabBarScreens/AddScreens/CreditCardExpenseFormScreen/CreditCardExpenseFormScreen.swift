@@ -46,200 +46,35 @@ struct CreditCardExpenseFormScreen: View {
 
                     List {
                         
-                        // Description
-                        IconRow(icon: Image("image46"), iconSize: iconSize, isTextFieldElement: true) {
-                            TextField(addStrings.descriptionPlaceholder, text: $viewModel.expense.desc, onEditingChanged: { editing in
-                                editingFlag = editing
-                            })
-                                .frame(height: rowSize)
-                        }
-
-                        // Amount
-                        IconRow(icon: Image(systemName: "dollarsign.circle"), iconSize: iconSize, isTextFieldElement: false) {
-                            Text("\(viewModel.expense.amount.toStringMoney())")
-                                .frame(height: rowSize)
-                        } onTap: {
+                        FormTextField(image: Image("image46"), text: $viewModel.expense.desc, placeholder: addStrings.descriptionPlaceholder, iconSize: iconSize, rowSize: rowSize)
+                        
+                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(viewModel.expense.amount.toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
                             hideKeyboard()
                             showInputNumber = true
-                        }
-
-                        // Date
-                        IconRow(icon: Image(systemName: "calendar"), iconSize: iconSize, isTextFieldElement: false) {
-                            Text("\(viewModel.selectedDate.dateWrittenString())")
-                                .frame(height: rowSize)
-                        } onTap: {
+                        })
+                        
+                        FormTapDisplay(image: Image(systemName: "calendar"), labelText: "\(viewModel.selectedDate.dateWrittenString())", iconSize: iconSize, rowSize: rowSize, onTap: {
                             hideKeyboard()
                             showDatePicker = true
-                        }
+                        })
 
-                        // Category
-                        Button {
+                        CategoryButton(category: CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex], rowSize: rowSize, onTap: {
                             showCategorySheet = true
                             hideKeyboard()
-                        } label: {
-                            HStack {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color(categoryColors[CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex].colorIndex]!))
-                                        .frame(width: 34, height: 34)
-                                    Image(CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex].imageName)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 25)
-                                }
-                                Text(CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex].name)
-                                    .foregroundColor(.black)
-                            }
-                            .frame(height: self.rowSize)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color.white)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in return -20 }
+                        })
 
-                        // Account
-                        Button {
+                        SourceButton(imageName: bankProperties[CreditCardsRepository.shared.list[viewModel.cardIndex].bank]?.imageName ?? "BancoItau", title: CreditCardsRepository.shared.list[viewModel.cardIndex].desc, rowSize: rowSize, onTap: {
                             showSourcesSheet = true
-                            hideKeyboard()
-                        } label: {
-                            HStack {
-                                Image(bankProperties[CreditCardsRepository.shared.list[viewModel.cardIndex].bank]?.imageName ?? "BancoItau")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 34, height: 34)
-                                    .clipShape(Circle())
-
-                                Text(CreditCardsRepository.shared.list[viewModel.cardIndex].desc)
-                                    .foregroundColor(.black)
-                            }
-                            .frame(height: self.rowSize)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color.white)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .alignmentGuide(.listRowSeparatorLeading) { _ in return -20 }
+                                        hideKeyboard()
+                        })
                         
-                        //Invoice Selector
-                        IconRow(icon: Image("image54"), iconSize: iconSize, isTextFieldElement: false) {
-                            Text("\(addStrings.invoiceOf) \(monthsText[viewModel.expense.month.month] ?? globalStrings.january)")
-                                .frame(height: rowSize)
-                        } onTap: {
-                            hideKeyboard()
-                            showInvoicesSheet = true
-                        }
+                        invoiceConfiguration
                         
-                        // Installment Configuration
-                        VStack {
-                            IconRow(icon: Image(systemName: "repeat.circle"), iconSize: iconSize, isTextFieldElement: false) {
-                                Toggle(addStrings.installmentLabel, isOn: viewModel.installmentBinding)
-                                    .frame(height: rowSize)
-                                    .tint(Color.redAddExpenses)
-                                    .background(Color.white)
-                            }
+                        installmentConfiguration
                         
-                            
-                            if viewModel.expense.installment.enabled {
-                                
-                                VStack(spacing: 15) {
-                                    
-                                    HStack(spacing: 70) {
-                                        VStack(spacing: 5) {
-                                            Text(addStrings.dividedInto)
-                                                .frame(alignment: .leading)
-                                            
-                                            HStack {
-                                                Button {
-                                                    if viewModel.expense.installment.total > 1 {
-                                                        viewModel.expense.installment.total -= 1
-                                                    }
-                                                    
-                                                    if viewModel.expense.installment.current > viewModel.expense.installment.total {
-                                                        viewModel.expense.installment.current = viewModel.expense.installment.total
-                                                    }
-                                                } label: {
-                                                    Image(systemName: "minus.circle")
-                                                }
-                                                .buttonStyle(.plain)
-                                                
-                                                Text("\(viewModel.expense.installment.total)")
-                                                    .multilineTextAlignment(.center)
-                                                    .frame(width: 50)
-                                                    .background(Color.gray.opacity(0.1))
-                                                    .cornerRadius(6)
-                                                
-                                                Button {
-                                                        viewModel.expense.installment.total += 1
-                                                } label: {
-                                                    Image(systemName: "plus.circle")
-                                                }
-                                                .buttonStyle(.plain)
-                                            }
-                                            
-                                        }
-                                        
-                                        VStack(spacing: 5) {
-                                            Text(addStrings.currentInstallment)
-                                                .frame(alignment: .leading)
-                                            
-                                            HStack {
-                                                Button {
-                                                    if viewModel.expense.installment.current > 1 {
-                                                        viewModel.expense.installment.current -= 1
-                                                    }
-                                                } label: {
-                                                    Image(systemName: "minus.circle")
-                                                }
-                                                .buttonStyle(.plain)
-                                                
-                                                Text("\(viewModel.expense.installment.current)")
-                                                    .multilineTextAlignment(.center)
-                                                    .frame(width: 50)
-                                                    .background(Color.gray.opacity(0.1))
-                                                    .cornerRadius(6)
-                                                
-                                                Button {
-                                                    if viewModel.expense.installment.current < viewModel.expense.installment.total {
-                                                        viewModel.expense.installment.current += 1
-                                                    }
-                                                } label: {
-                                                    Image(systemName: "plus.circle")
-                                                }
-                                                .buttonStyle(.plain)
-                                            }
-                                        }
-
-                                    }
-                                    
-                                    if viewModel.expense.installment.total > 1 {
-                                        Text(viewModel.formattedInstallmentValue)
-                                            .foregroundColor(.gray)
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    
-                                }
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 5)
-                                .padding(.leading, 5)
-                                
-                            }
-                            
-                        }
-                        .listRowBackground(Color.clear)
+                        FormToggle(label: addStrings.fixedExpenseLabel, isOn: viewModel.monthlyBinding, iconSize: iconSize, rowSize: rowSize, switchColor: Color.redAddExpenses)
                         
-                        // Monthly Expense
-                        IconRow(icon: Image(systemName: "lock.badge.clock"), iconSize: iconSize, isTextFieldElement: false) {
-                            Toggle(addStrings.fixedExpenseLabel, isOn: viewModel.monthlyBinding)
-                                .frame(height: rowSize)
-                                .tint(Color.redAddExpenses)
-                                .background(Color.white)
-                        }
-                        
-                        // Observations
-                        IconRow(icon: Image(systemName: "note.text"), iconSize: iconSize, isTextFieldElement: true) {
-                            TextField(addStrings.observationsText, text: $viewModel.expense.obs)
-                                .frame(height: rowSize)
-                                .multilineTextAlignment(.leading)
-                        }
+                        FormTextField(image: Image(systemName: "note.text"), text: $viewModel.expense.obs, placeholder: addStrings.observationsText, iconSize: iconSize, rowSize: rowSize)
                         
                         Spacer(minLength: 30)
                         
@@ -325,6 +160,119 @@ struct CreditCardExpenseFormScreen: View {
         })
     }
     
+    private var invoiceConfiguration : some View {
+        
+        IconRow(icon: Image("image54"), iconSize: iconSize, isTextFieldElement: false, onTap: {
+            hideKeyboard()
+            showInvoicesSheet = true
+        }) {
+            Text("\(addStrings.invoiceOf) \(monthsText[viewModel.expense.month.month] ?? globalStrings.january)")
+                .frame(height: rowSize)
+        }
+        
+    }
+    
+    private var installmentConfiguration : some View {
+        
+        VStack {
+            IconRow(icon: Image(systemName: "repeat.circle"), iconSize: iconSize, isTextFieldElement: false) {
+                Toggle(addStrings.installmentLabel, isOn: viewModel.installmentBinding)
+                    .frame(height: rowSize)
+                    .tint(Color.redAddExpenses)
+                    .background(Color.white)
+            }
+            
+            if viewModel.expense.installment.enabled {
+                
+                VStack(spacing: 15) {
+                    
+                    HStack(spacing: 70) {
+                        VStack(spacing: 5) {
+                            Text(addStrings.dividedInto)
+                                .frame(alignment: .leading)
+                            
+                            HStack {
+                                Button {
+                                    if viewModel.expense.installment.total > 1 {
+                                        viewModel.expense.installment.total -= 1
+                                    }
+                                    
+                                    if viewModel.expense.installment.current > viewModel.expense.installment.total {
+                                        viewModel.expense.installment.current = viewModel.expense.installment.total
+                                    }
+                                } label: {
+                                    Image(systemName: "minus.circle")
+                                }
+                                .buttonStyle(.plain)
+                                
+                                Text("\(viewModel.expense.installment.total)")
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 50)
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(6)
+                                
+                                Button {
+                                    if viewModel.expense.installment.total < 48 {
+                                        viewModel.expense.installment.total += 1
+                                    }
+                                } label: {
+                                    Image(systemName: "plus.circle")
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            
+                        }
+                        
+                        VStack(spacing: 5) {
+                            Text(addStrings.currentInstallment)
+                                .frame(alignment: .leading)
+                            
+                            HStack {
+                                Button {
+                                    if viewModel.expense.installment.current > 1 {
+                                        viewModel.expense.installment.current -= 1
+                                    }
+                                } label: {
+                                    Image(systemName: "minus.circle")
+                                }
+                                .buttonStyle(.plain)
+                                
+                                Text("\(viewModel.expense.installment.current)")
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 50)
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(6)
+                                
+                                Button {
+                                    if viewModel.expense.installment.current < viewModel.expense.installment.total {
+                                        viewModel.expense.installment.current += 1
+                                    }
+                                } label: {
+                                    Image(systemName: "plus.circle")
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        
+                    }
+                    
+                    if viewModel.expense.installment.total > 1 {
+                        Text(viewModel.formattedInstallmentValue)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 5)
+                .padding(.leading, 5)
+                
+            }
+            
+        }
+        .listRowBackground(Color.clear)
+        
+    }
     
 }
 
@@ -348,47 +296,4 @@ struct CreditCardExpenseFormScreen: View {
         
     }
     
-}
-
-struct IconRow<Content: View>: View {
-    let icon: Image
-    let iconSize: CGFloat
-    let isTextFieldElement: Bool
-    let content: () -> Content
-    var onTap: (() -> Void)?
-
-    var body: some View {
-        Group {
-            if let onTap = onTap {
-                Button(action: onTap) {
-                    rowContent
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
-                }
-                .buttonStyle(PlainButtonStyle())
-                
-            } else {
-                rowContent
-            }
-        }
-        .alignmentGuide(.listRowSeparatorLeading) { _ in -20 }
-        .gesture(
-            TapGesture().onEnded {
-                hideKeyboard()
-            },
-            including: isTextFieldElement ? .none : .all
-        )
-    }
-
-    private var rowContent: some View {
-        HStack {
-            icon
-                .resizable()
-                .frame(width: iconSize, height: iconSize)
-                .padding(.leading, 6)
-            content()
-            
-            Spacer()
-        }
-    }
 }

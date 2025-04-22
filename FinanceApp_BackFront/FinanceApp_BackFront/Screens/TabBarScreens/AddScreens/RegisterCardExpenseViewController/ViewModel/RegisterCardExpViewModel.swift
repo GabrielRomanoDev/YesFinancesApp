@@ -54,18 +54,14 @@ class RegisterCardExpViewModel: ObservableObject {
     var formattedInstallmentValue: String {
         guard expense.installment.total > 0 else { return "0,00" }
         
+        let amount = abs(expense.amount / Double(expense.installment.total))
+        
         if expense.installment.current == expense.installment.total {
-            return "A ultima parcela no valor de \(abs(expense.amount / Double(expense.installment.total)).toStringMoney())."
+            return addStrings.lastInstallmentText(amount: amount.toStringMoney())
         } else if expense.installment.current > 1 {
-            
-            if expense.installment.total - expense.installment.current > 1 {
-                return "A \(expense.installment.current)ª parcela de \(abs(expense.amount / Double(expense.installment.total)).toStringMoney()). Restam mais \(expense.installment.total - expense.installment.current) parcelas."
-            } else {
-                return "A \(expense.installment.current)ª parcela de \(abs(expense.amount / Double(expense.installment.total)).toStringMoney()). Resta somente mais uma parcela."
-            }
-            
+            return addStrings.intermediateInstallmentText(amount: amount.toStringMoney(), currentInstallment: expense.installment.current)
         } else {
-            return "Um total de \(expense.installment.total) parcelas de \(abs(expense.amount / Double(expense.installment.total)).toStringMoney())."
+            return addStrings.firstInstallmentText(amount: amount.toStringMoney(), installmentTotal: expense.installment.total)
         }
         
     }
@@ -135,8 +131,6 @@ class RegisterCardExpViewModel: ObservableObject {
             }
             completion()
         }
-        
-        completion()
         
     }
     
