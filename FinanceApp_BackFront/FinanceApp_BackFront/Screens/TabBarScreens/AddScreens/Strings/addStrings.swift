@@ -25,8 +25,11 @@ enum addStrings {
     static let amountMustBeHigherThenZero = "Opa, informe um valor positivo!"
     
     static let bankText = "Banco"
-    static let standardDate = "01/01/2023"
-    static let screenTitle = "Cadastro de Gasto no Cartao"
+    static let incomeTransactionRegisterTitle = "Cadastro de Receita"
+    static let expenseTransactionRegisterTitle = "Cadastro de Despesa"
+    static let incomeTransactionEditTitle = "Editar de Receita"
+    static let expenseTransactionEditTitle = "Editar de Despesa"
+    static let creditCardExpenseRegisterTitle = "Cadastro de Despesa no Cartão"
     static let descriptionPlaceholder = "Descrição"
     static let selectDateButtonTitle = "Selecionar data"
     static let installmentLabel = "Parcelamento"
@@ -38,7 +41,9 @@ enum addStrings {
     static let missingDescriptionErrorMessage = "Esqueceu de informar a descrição da despesa! Deseja continuar assim mesmo?"
 
     static let observationsPlaceholder = "Observações"
-    static let creditCardTitle = "Cartões de Credito"
+    
+    static let bankAccountsTitle = "Contas Bancárias"
+    static let creditCardsTitle = "Cartões de Credito"
     
     static func firstInstallmentText(amount: String, installmentTotal: Int) -> String {
         return "Um total de \(installmentTotal) parcelas no valor de \(amount)."

@@ -28,42 +28,40 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func tappedIncomeButton(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: RegisterIncomeViewController.identifier, bundle: nil)
-        let vc = storyboard.instantiateViewController(identifier: RegisterIncomeViewController.identifier) {coder ->
-            RegisterIncomeViewController? in
-            return RegisterIncomeViewController(coder: coder, amount: 0)
+        
+        var hostingController: UIHostingController<TransactionFormScreen>!
+
+        let swiftUIView = TransactionFormScreen(type: .income) {
+            DispatchQueue.main.async {
+                hostingController.dismiss(animated: true)
+            }
         }
-        present(vc, animated: true)
+
+        hostingController = UIHostingController(rootView: swiftUIView)
+        present(hostingController, animated: true)
+        
     }
     
     @IBAction func tappedExpenseButton(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: RegisterExpenseViewController.identifier, bundle: nil)
-        let vc = storyboard.instantiateViewController(identifier: RegisterExpenseViewController.identifier) {coder ->
-            RegisterExpenseViewController? in
-            return RegisterExpenseViewController(coder: coder, amount: 0)
+        
+        var hostingController: UIHostingController<TransactionFormScreen>!
+
+        let swiftUIView = TransactionFormScreen(type: .expense) {
+            DispatchQueue.main.async {
+                hostingController.dismiss(animated: true)
+            }
         }
-        present(vc, animated: true)
+
+        hostingController = UIHostingController(rootView: swiftUIView)
+        present(hostingController, animated: true)
+        
     }
     
     @IBAction func tappedCardExpButton(_ sender: UIButton) {
         
-        let newExpense = CreditCardExpense(
-            desc: globalStrings.emptyString,
-            amount: 0,
-            categoryIndex: 0,
-            date: Date().toString(),
-            type: .expense,
-            isMonthly: false,
-            paymentStatus: .pendent,
-            month: Date().getMonth(),
-            installment: Installment(),
-            sourceId: "",
-            obs: globalStrings.emptyString
-        )
-        
         var hostingController: UIHostingController<CreditCardExpenseFormScreen>!
 
-        let swiftUIView = CreditCardExpenseFormScreen(expense: newExpense) {
+        let swiftUIView = CreditCardExpenseFormScreen() {
             DispatchQueue.main.async {
                 hostingController.dismiss(animated: true)
             }

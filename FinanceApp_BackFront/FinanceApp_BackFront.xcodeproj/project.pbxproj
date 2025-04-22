@@ -204,6 +204,9 @@
 		A1E76D4B2DB71DB4005D9801 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D4A2DB71DB2005D9801 /* CategoryButton.swift */; };
 		A1E76D4D2DB71E1B005D9801 /* SourceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D4C2DB71E12005D9801 /* SourceButton.swift */; };
 		A1E76D4F2DB71E49005D9801 /* FormToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D4E2DB71E47005D9801 /* FormToggle.swift */; };
+		A1E76D542DB72C90005D9801 /* TransactionFormScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D532DB72C8F005D9801 /* TransactionFormScreen.swift */; };
+		A1E76D572DB72CD6005D9801 /* TransactionFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D562DB72CC4005D9801 /* TransactionFormViewModel.swift */; };
+		A1E76D592DB73B62005D9801 /* TransactionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E76D582DB73B51005D9801 /* TransactionSource.swift */; };
 		A1E87E652A3BA9E600077D49 /* insertNumberStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E87E642A3BA9E600077D49 /* insertNumberStrings.swift */; };
 		A1F4210329F6215B005C346B /* AccountsModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4210229F6215B005C346B /* AccountsModalViewModel.swift */; };
 		A1F4210829F62379005C346B /* CategoriesModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4210729F62379005C346B /* CategoriesModalViewModel.swift */; };
@@ -442,6 +445,9 @@
 		A1E76D4A2DB71DB2005D9801 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		A1E76D4C2DB71E12005D9801 /* SourceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceButton.swift; sourceTree = "<group>"; };
 		A1E76D4E2DB71E47005D9801 /* FormToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormToggle.swift; sourceTree = "<group>"; };
+		A1E76D532DB72C8F005D9801 /* TransactionFormScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormScreen.swift; sourceTree = "<group>"; };
+		A1E76D562DB72CC4005D9801 /* TransactionFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormViewModel.swift; sourceTree = "<group>"; };
+		A1E76D582DB73B51005D9801 /* TransactionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSource.swift; sourceTree = "<group>"; };
 		A1E87E642A3BA9E600077D49 /* insertNumberStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = insertNumberStrings.swift; sourceTree = "<group>"; };
 		A1F4210229F6215B005C346B /* AccountsModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsModalViewModel.swift; sourceTree = "<group>"; };
 		A1F4210729F62379005C346B /* CategoriesModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModalViewModel.swift; sourceTree = "<group>"; };
@@ -637,6 +643,7 @@
 		A11BDA7929F4C47F006CF6B2 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				A1E76D582DB73B51005D9801 /* TransactionSource.swift */,
 				A1990E452D98B29400FDA183 /* FilterTpe.swift */,
 				A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */,
 				A11BDA7329F4C173006CF6B2 /* Banks.swift */,
@@ -1211,6 +1218,7 @@
 				A16B56A529C1079900E53727 /* AddViewController */,
 				A103B51529F6B55000A0D9C9 /* AddAccountTransactionsViewControllers */,
 				A140934029E73A800037662B /* RegisterCardExpenseViewController */,
+				A1E76D522DB72C78005D9801 /* TransactionFormScreen */,
 				A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */,
 			);
 			path = AddScreens;
@@ -1825,6 +1833,23 @@
 			path = SwiftUISharedComponents;
 			sourceTree = "<group>";
 		};
+		A1E76D522DB72C78005D9801 /* TransactionFormScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A1E76D552DB72CBA005D9801 /* ViewModel */,
+				A1E76D532DB72C8F005D9801 /* TransactionFormScreen.swift */,
+			);
+			path = TransactionFormScreen;
+			sourceTree = "<group>";
+		};
+		A1E76D552DB72CBA005D9801 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A1E76D562DB72CC4005D9801 /* TransactionFormViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A1E87E632A3BA9B900077D49 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2274,6 +2299,7 @@
 				A13E249929F98BDB00E9EF7A /* EditGoalViewModel.swift in Sources */,
 				A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */,
 				A18991A92A11DC9800D47427 /* CardsResumeTableViewCell.swift in Sources */,
+				A1E76D572DB72CD6005D9801 /* TransactionFormViewModel.swift in Sources */,
 				A19742DB2A227E9B00455DB0 /* UIColor.swift in Sources */,
 				A12E87DD2D74F77800FA3295 /* MonthDate.swift in Sources */,
 				A14F99A02A25848E00257B67 /* CurrencyViewModel.swift in Sources */,
@@ -2303,6 +2329,7 @@
 				A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */,
 				A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */,
 				A19742A52A2247FB00455DB0 /* mainStrings.swift in Sources */,
+				A1E76D542DB72C90005D9801 /* TransactionFormScreen.swift in Sources */,
 				A17DC6842A0989B900D12C3C /* TabBarController.swift in Sources */,
 				A13E249E29F9958900E9EF7A /* GoalInfoViewController.swift in Sources */,
 				A1998B072D90A14800BDDADC /* Months.swift in Sources */,
@@ -2320,6 +2347,7 @@
 				A14F99AD2A259DF300257B67 /* creditCardModalStrings.swift in Sources */,
 				A17C89E72A09C9C800B5DB2F /* EditCreditCardsViewModel.swift in Sources */,
 				A11BDA7829F4C478006CF6B2 /* CardBrand.swift in Sources */,
+				A1E76D592DB73B62005D9801 /* TransactionSource.swift in Sources */,
 				A16636EC29DE1A9400162872 /* TransactionsCollectionViewCell.swift in Sources */,
 				A19F850929F963C40044F7DE /* GoalsCollectionViewCell.swift in Sources */,
 				A14F99912A2509CC00257B67 /* GoalsViewModel.swift in Sources */,

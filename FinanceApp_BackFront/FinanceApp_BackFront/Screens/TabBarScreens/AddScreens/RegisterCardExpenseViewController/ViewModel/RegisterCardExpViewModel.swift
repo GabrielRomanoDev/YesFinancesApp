@@ -15,6 +15,7 @@ class RegisterCardExpViewModel: ObservableObject {
     
     @Published var expense: CreditCardExpense
     @Published var cardIndex: Int = 0
+    private var isEditing: Bool
     
     var selectedDate: Date {
         get { self.expense.date.toDate() ?? Date() }
@@ -45,10 +46,31 @@ class RegisterCardExpViewModel: ObservableObject {
         )
     }
     
-    init(expense: CreditCardExpense) {
-        self.expense = expense
+    init(expense: CreditCardExpense?) {
+        
+        if let editingExpense = expense {
+            self.isEditing = true
+            self.expense = editingExpense
+        } else {
+            self.isEditing = false
+            self.expense = CreditCardExpense(
+                desc: globalStrings.emptyString,
+                amount: 0,
+                categoryIndex: 0,
+                date: Date().toString(),
+                type: .expense,
+                isMonthly: false,
+                paymentStatus: .pendent,
+                month: Date().getMonth(),
+                installment: Installment(),
+                sourceId: "",
+                obs: globalStrings.emptyString
+            )
+        }
+        
         self.cardIndex = standardCardIndex
         setSourceID(index: self.cardIndex)
+        
     }
     
     var formattedInstallmentValue: String {
@@ -73,14 +95,14 @@ class RegisterCardExpViewModel: ObservableObject {
             expense.amount = expense.amount / Double(expense.installment.total)
         }
         
-        addExpense(expense: expense) {
+        addExpense() {
             completion()
         }
     }
     
-    private func addExpense(expense: CreditCardExpense, completion: @escaping () -> Void) {
+    private func addExpense(completion: @escaping () -> Void) {
         
-        var baseExpense = expense
+        var baseExpense = self.expense
         
         if baseExpense.desc.isEmptyTest() {
             baseExpense.desc = CategoriesRepository.shared.expenses[baseExpense.categoryIndex].name

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectSourceModalView: View {
     var title: String
-    @State var itens: [CreditCard]
+    @State var itens: [TransactionSource]
     @Binding var showView: Bool
     
     var onDismiss: ((Int) -> Void)
@@ -33,7 +33,7 @@ struct SelectSourceModalView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 36, height: 36)
-                        
+                            .cornerRadius(8)
                         
                         Text(itens[index].desc)
                             .foregroundColor(.black)

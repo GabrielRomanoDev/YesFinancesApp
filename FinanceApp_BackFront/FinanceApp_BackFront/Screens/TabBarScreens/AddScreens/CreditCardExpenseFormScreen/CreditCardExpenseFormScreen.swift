@@ -24,9 +24,8 @@ struct CreditCardExpenseFormScreen: View {
 
     let iconSize: CGFloat = 22
     let rowSize: CGFloat = 40
-    @State private var editingFlag: Bool = false
 
-    init(expense: CreditCardExpense, onDismiss: @escaping () -> Void) {
+    init(expense: CreditCardExpense? = nil, onDismiss: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: RegisterCardExpViewModel(expense: expense))
         self.onDismiss = onDismiss
     }
@@ -36,7 +35,7 @@ struct CreditCardExpenseFormScreen: View {
             ZStack {
                 
                 VStack(spacing: 0) {
-                    Text(addStrings.screenTitle)
+                    Text(addStrings.creditCardExpenseRegisterTitle)
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(height: 40)
@@ -116,7 +115,7 @@ struct CreditCardExpenseFormScreen: View {
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showSourcesSheet) {
-            SelectSourceModalView(title: addStrings.creditCardTitle, itens: CreditCardsRepository.shared.list, showView: $showSourcesSheet) { index in
+            SelectSourceModalView(title: addStrings.creditCardsTitle, itens: CreditCardsRepository.shared.list, showView: $showSourcesSheet) { index in
                 
                 viewModel.setSourceID(index: index)
                 
@@ -156,7 +155,7 @@ struct CreditCardExpenseFormScreen: View {
             Text(addStrings.missingDescriptionErrorMessage)
         }
         .overtop(showOverTop: showInputNumber, overTopView: InputNumberOverTopView(inputText: "0", showInputNumber: $showInputNumber) { result in
-            viewModel.expense.amount = Double(result) ?? 0.0
+            viewModel.expense.amount = -(Double(result) ?? 0.0)
         })
     }
     

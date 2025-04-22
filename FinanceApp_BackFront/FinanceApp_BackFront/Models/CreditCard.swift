@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreditCard: FirestoreObject, Codable, Equatable, Hashable {
+struct CreditCard: FirestoreObject, TransactionSource, Codable, Equatable, Hashable {
     
     private(set) var id: String = UUID().uuidString
     var desc: String

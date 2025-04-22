@@ -17,7 +17,7 @@ import Foundation
 //    
 //}
 
-struct BankAccount: FirestoreObject, Codable, Equatable {
+struct BankAccount: FirestoreObject, TransactionSource, Codable, Equatable {
     
     private(set) var id: String = UUID().uuidString
     var desc : String
