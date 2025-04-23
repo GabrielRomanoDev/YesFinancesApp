@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 protocol FirestoreObject: Codable {
     var id: String { get }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import GoogleSignIn
+import FirebaseAuth
 
 class MainViewController: UIViewController {
     
@@ -14,7 +16,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var gmailButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     
-    var viewModel: MainViewModel = MainViewModel ()
+    var viewModel: MainViewModel = MainViewModel()
     static let identifier:String = String(describing: MainViewController.self)
 
     override func viewDidLoad() {
@@ -41,6 +43,22 @@ class MainViewController: UIViewController {
         self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
     }
     
+    @IBAction func tappedGoogleIntegrationLoginButton(_ sender: UIButton) {
+        
+        viewModel.loginWithGoogle() { resultLogin in
+            
+            if resultLogin == loginStrings.loginSuccessMessage {
+                let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
+                if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
+                    self.present(tbc, animated: false)
+                }
+            } else {
+                self.showSimpleAlert(title: loginStrings.atention, message: resultLogin)
+            }
+            
+        }
+        
+    }
     private func setupStrings() {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         loginButton.setTitle(mainStrings.loginButtonTitle, for: .normal)

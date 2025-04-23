@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>508472902252-bdscqba6p801ligb31nbbn07of24f5fl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.508472902252-bdscqba6p801ligb31nbbn07of24f5fl</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCy4QgjLhu2SNnaZ7Yx2A6nRHwIYxzT0IU</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +17,7 @@
 	<key>PROJECT_ID</key>
 	<string>yesfinancesapp</string>
 	<key>STORAGE_BUCKET</key>
-	<string>yesfinancesapp.appspot.com</string>
+	<string>yesfinancesapp.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
