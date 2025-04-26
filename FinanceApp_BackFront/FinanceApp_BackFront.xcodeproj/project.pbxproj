@@ -72,6 +72,8 @@
 		A15162202A09444700C5AD42 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A151621F2A09444700C5AD42 /* Formatters.swift */; };
 		A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA3E2A21A47800372C00 /* loginStrings.swift */; };
 		A152AA422A21A69B00372C00 /* registerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA412A21A69B00372C00 /* registerStrings.swift */; };
+		A153C9702DB8568300E81AA2 /* AddTransactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */; };
+		A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */; };
 		A160A1052A568C8700A0D7DC /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160A1042A568C8700A0D7DC /* Profile.swift */; };
 		A162B2362CFCC12D0036350A /* ButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */; };
 		A162B2372CFCC12D0036350A /* ButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */; };
@@ -312,6 +314,8 @@
 		A151621F2A09444700C5AD42 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		A152AA3E2A21A47800372C00 /* loginStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginStrings.swift; sourceTree = "<group>"; };
 		A152AA412A21A69B00372C00 /* registerStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerStrings.swift; sourceTree = "<group>"; };
+		A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionButton.swift; sourceTree = "<group>"; };
+		A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionsView.swift; sourceTree = "<group>"; };
 		A160A1042A568C8700A0D7DC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
 		A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsTableViewCell.xib; sourceTree = "<group>"; };
@@ -948,6 +952,22 @@
 			path = Strings;
 			sourceTree = "<group>";
 		};
+		A153C96E2DB8564C00E81AA2 /* SwiftUIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */,
+			);
+			path = SwiftUIComponent;
+			sourceTree = "<group>";
+		};
+		A153C9E22DBB18D300E81AA2 /* AddTransactionsView */ = {
+			isa = PBXGroup;
+			children = (
+				A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */,
+			);
+			path = AddTransactionsView;
+			sourceTree = "<group>";
+		};
 		A162B2322CFCBD970036350A /* ConfigurationCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1215,6 +1235,7 @@
 			children = (
 				A1C8BA6E2A22ECB300590758 /* Strings */,
 				A1E76D412DB71A61005D9801 /* SwiftUISharedComponents */,
+				A153C9E22DBB18D300E81AA2 /* AddTransactionsView */,
 				A16B56A529C1079900E53727 /* AddViewController */,
 				A103B51529F6B55000A0D9C9 /* AddAccountTransactionsViewControllers */,
 				A140934029E73A800037662B /* RegisterCardExpenseViewController */,
@@ -1256,6 +1277,7 @@
 		A17DC6802A0989B900D12C3C /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
+				A153C96E2DB8564C00E81AA2 /* SwiftUIComponent */,
 				A19742D32A225F5F00455DB0 /* Strings */,
 				A1F43FB42A2BADFE000A3567 /* TabBar */,
 			);
@@ -2378,10 +2400,12 @@
 				A1C9EFE529E60A880029B69F /* SplashViewController.swift in Sources */,
 				A19742D52A225F6E00455DB0 /* tabBarStrings.swift in Sources */,
 				A1FDB7E72A45F1D8006B3459 /* ExchangeRateService.swift in Sources */,
+				A153C9702DB8568300E81AA2 /* AddTransactionButton.swift in Sources */,
 				A1D22DB52A53016A0042D060 /* CategoryImagesCollectionViewCell.swift in Sources */,
 				A1BBF50A2A2FD8C200DD18D5 /* SplashStrings.swift in Sources */,
 				A1A92BC429F81C1D00E14EE8 /* RegisterCardExpViewModel.swift in Sources */,
 				E35D084C29BDAD100098F0B5 /* SceneDelegate.swift in Sources */,
+				A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */,
 				A11BDA7429F4C173006CF6B2 /* Banks.swift in Sources */,
 				A1C9EFE729E60BB60029B69F /* MainViewController.swift in Sources */,
 				A1E0B7052D6A0EC8002892BD /* CategoriesRepository.swift in Sources */,

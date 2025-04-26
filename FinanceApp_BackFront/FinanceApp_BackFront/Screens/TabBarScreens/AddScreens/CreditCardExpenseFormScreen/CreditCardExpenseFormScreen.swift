@@ -11,6 +11,7 @@ import Foundation
 
 struct CreditCardExpenseFormScreen: View {
     
+    @Binding var isPresented: Bool
     @StateObject private var viewModel: RegisterCardExpViewModel
     @State private var showCategorySheet = false
     @State private var showInputNumber = false
@@ -25,8 +26,9 @@ struct CreditCardExpenseFormScreen: View {
     let iconSize: CGFloat = 22
     let rowSize: CGFloat = 40
 
-    init(expense: CreditCardExpense? = nil, onDismiss: @escaping () -> Void) {
+    init(expense: CreditCardExpense? = nil, isPresented: Binding<Bool>, onDismiss: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: RegisterCardExpViewModel(expense: expense))
+        self._isPresented = isPresented
         self.onDismiss = onDismiss
     }
 
@@ -84,7 +86,10 @@ struct CreditCardExpenseFormScreen: View {
                                 } else if viewModel.expense.desc.isEmpty {
                                     showMissingDescAlert = true
                                 } else {
-                                    viewModel.handleSubmit(completion: onDismiss)
+                                    viewModel.handleSubmit() {
+                                        isPresented = false
+                                        onDismiss()
+                                    }
                                 }
                             }) {
                                 Text(globalStrings.send)
@@ -291,7 +296,7 @@ struct CreditCardExpenseFormScreen: View {
         obs: globalStrings.emptyString
     )
     
-    CreditCardExpenseFormScreen(expense: cardPayment) {
+    CreditCardExpenseFormScreen(expense: cardPayment, isPresented: .constant(true)) {
         
     }
     

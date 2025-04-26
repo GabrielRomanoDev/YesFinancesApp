@@ -11,6 +11,7 @@ import Foundation
 
 struct TransactionFormScreen: View {
     
+    @Binding var isPresented: Bool
     @StateObject private var viewModel: TransactionFormViewModel
     @State private var showCategorySheet = false
     @State private var showInputNumber = false
@@ -24,8 +25,9 @@ struct TransactionFormScreen: View {
     let iconSize: CGFloat = 22
     let rowSize: CGFloat = 40
 
-    init(transaction: AccountTransaction? = nil, type: TransactionType, onDismiss: @escaping () -> Void) {
+    init(transaction: AccountTransaction? = nil, type: TransactionType, isPresented: Binding<Bool>, onDismiss: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: TransactionFormViewModel(transaction: transaction, type: type))
+        self._isPresented = isPresented
         self.onDismiss = onDismiss
     }
 
@@ -79,7 +81,10 @@ struct TransactionFormScreen: View {
                                 } else if viewModel.transaction.desc.isEmpty {
                                     showMissingDescAlert = true
                                 } else {
-                                    viewModel.addExpense(completion: onDismiss)
+                                    viewModel.addExpense() {
+                                        isPresented = false
+                                        onDismiss()
+                                    }
                                 }
                             }) {
                                 Text(globalStrings.send)
@@ -153,21 +158,18 @@ struct TransactionFormScreen: View {
 
 #Preview {
     
-    var cardPayment = CreditCardExpense(
-        desc: "Pagamento da fatura cartao Bradesco",
+    var expense = AccountTransaction(
+        desc: "Gasto",
         amount: 100,
         categoryIndex: 0,
         date: Date().toString(),
         type: .income,
         isMonthly: false,
-        paymentStatus: .paid,
-        month: Date().getMonth(),
-        installment: Installment(enabled: true),
         sourceId: "",
         obs: globalStrings.emptyString
     )
     
-    CreditCardExpenseFormScreen(expense: cardPayment) {
+    TransactionFormScreen(transaction: expense, type: .expense, isPresented: .constant(true)) {
         
     }
     
