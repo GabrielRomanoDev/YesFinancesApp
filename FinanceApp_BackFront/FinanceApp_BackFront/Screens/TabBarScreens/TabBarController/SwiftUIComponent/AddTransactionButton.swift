@@ -16,7 +16,6 @@ struct AddTransactionButton: View {
                 .resizable()
                 .frame(width: 45, height: 45)
                 .foregroundColor(.blue)
-                .shadow(radius: 10)
         }
     }
 }

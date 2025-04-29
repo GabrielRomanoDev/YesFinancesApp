@@ -95,6 +95,7 @@
 		A166B96229DF4BD600F33A98 /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166B96129DF4BD600F33A98 /* TransactionCategory.swift */; };
 		A16A8D472CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */; };
 		A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */; };
+		A16D0E3C2DC061A0000BF561 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D0E3B2DC0618C000BF561 /* NotificationNames.swift */; };
 		A17C89DE2A09C76700B5DB2F /* BanksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C89DC2A09C76700B5DB2F /* BanksCell.swift */; };
 		A17C89DF2A09C76700B5DB2F /* BanksCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17C89DD2A09C76700B5DB2F /* BanksCell.xib */; };
 		A17C89E32A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17C89E22A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard */; };
@@ -337,6 +338,7 @@
 		A166B96129DF4BD600F33A98 /* TransactionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategory.swift; sourceTree = "<group>"; };
 		A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTransacitonsCollectionViewCell.swift; sourceTree = "<group>"; };
 		A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilteringTransacitonsCollectionViewCell.xib; sourceTree = "<group>"; };
+		A16D0E3B2DC0618C000BF561 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		A17C89DC2A09C76700B5DB2F /* BanksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanksCell.swift; sourceTree = "<group>"; };
 		A17C89DD2A09C76700B5DB2F /* BanksCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BanksCell.xib; sourceTree = "<group>"; };
 		A17C89E22A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCreditCardsViewController.storyboard; sourceTree = "<group>"; };
@@ -1160,6 +1162,14 @@
 				A14F999D2A25742900257B67 /* View */,
 			);
 			path = CategoriesGraphViewController;
+			sourceTree = "<group>";
+		};
+		A16D0E3A2DC0614F000BF561 /* NotificationCenter */ = {
+			isa = PBXGroup;
+			children = (
+				A16D0E3B2DC0618C000BF561 /* NotificationNames.swift */,
+			);
+			path = NotificationCenter;
 			sourceTree = "<group>";
 		};
 		A17C89DB2A09C76700B5DB2F /* BanksCell */ = {
@@ -2024,6 +2034,7 @@
 				E35D085A29BDAD110098F0B5 /* Info.plist */,
 				A1F86CB42A4F493700D2534A /* GoogleService-Info.plist */,
 				A19742D92A227E6000455DB0 /* Extensions */,
+				A16D0E3A2DC0614F000BF561 /* NotificationCenter */,
 				A1E0B7102D6A76D1002892BD /* Utils */,
 				A1CE09292A001B410028028B /* GlobalStrings */,
 				A1FDB7E52A45F1BA006B3459 /* Services */,
@@ -2352,6 +2363,7 @@
 				A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */,
 				A19742A52A2247FB00455DB0 /* mainStrings.swift in Sources */,
 				A1E76D542DB72C90005D9801 /* TransactionFormScreen.swift in Sources */,
+				A16D0E3C2DC061A0000BF561 /* NotificationNames.swift in Sources */,
 				A17DC6842A0989B900D12C3C /* TabBarController.swift in Sources */,
 				A13E249E29F9958900E9EF7A /* GoalInfoViewController.swift in Sources */,
 				A1998B072D90A14800BDDADC /* Months.swift in Sources */,

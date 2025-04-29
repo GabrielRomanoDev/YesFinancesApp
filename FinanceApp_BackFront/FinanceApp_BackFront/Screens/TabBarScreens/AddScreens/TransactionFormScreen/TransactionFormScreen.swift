@@ -48,7 +48,7 @@ struct TransactionFormScreen: View {
                         
                         FormTextField(image: Image("image46"), text: $viewModel.transaction.desc, placeholder: addStrings.descriptionPlaceholder, iconSize: iconSize, rowSize: rowSize)
                         
-                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(viewModel.transaction.amount.toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
+                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.transaction.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
                             hideKeyboard()
                             showInputNumber = true
                         })

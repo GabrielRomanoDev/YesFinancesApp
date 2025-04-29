@@ -49,7 +49,7 @@ struct CreditCardExpenseFormScreen: View {
                         
                         FormTextField(image: Image("image46"), text: $viewModel.expense.desc, placeholder: addStrings.descriptionPlaceholder, iconSize: iconSize, rowSize: rowSize)
                         
-                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(viewModel.expense.amount.toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
+                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.expense.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
                             hideKeyboard()
                             showInputNumber = true
                         })

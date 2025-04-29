@@ -19,12 +19,17 @@ class TransactionsViewController: UIViewController {
     static let identifier:String = String(describing: TransactionsViewController.self)
     private var viewModel: TransactionsViewModel = TransactionsViewModel()
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .didCloseAddTransaction, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStrings()
         setupSearchBar()
         setupKeyboardHinding()
         setupCollectionView()
+        setupNotificationCenter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +70,14 @@ class TransactionsViewController: UIViewController {
     private func setupSearchBar() {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
+    }
+    
+    private func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAddTransactionClosed), name: .didCloseAddTransaction, object: nil)
+    }
+    
+    @objc private func handleAddTransactionClosed() {
+        updateData()
     }
     
     private func showNoTransactionsMessage(title: String) {
