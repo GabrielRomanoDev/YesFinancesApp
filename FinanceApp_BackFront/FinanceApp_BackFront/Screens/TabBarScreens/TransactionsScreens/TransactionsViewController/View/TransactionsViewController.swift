@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class TransactionsViewController: UIViewController {
 
@@ -112,6 +113,37 @@ class TransactionsViewController: UIViewController {
         transactionsCollectionView.reloadData()
         showNoTransactionsMessage(title: transactionsStrings.noTransactionsRegistered)
     }
+    
+    private func openEditTransactionScreen(transaction: AccountTransaction, index: Int) {
+        
+        var hostingController: UIHostingController<TransactionFormScreen>!
+        
+        var isPresented: Bool = true
+        let isPresentedBinding = Binding<Bool>(
+            get: { isPresented },
+            set: { newValue in
+                isPresented = newValue
+            }
+        )
+        
+        let swiftUIView = TransactionFormScreen(transaction: transaction, type: .income, isPresented: isPresentedBinding) {
+            
+            DispatchQueue.main.async { [weak self] in
+               
+                self?.updateData()
+                isPresented = false
+                
+                hostingController.dismiss(animated: true)
+                
+            }
+            
+        }
+        
+        hostingController = UIHostingController(rootView: swiftUIView)
+        
+        present(hostingController, animated: true)
+        
+    }
 
 }
 
@@ -165,6 +197,41 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
                 return InvoiceViewController(coder: coder, invoice: invoice)
             }
             navigationController?.pushViewController(vc, animated: true)
+            
+        } else if let accountTransaction = viewModel.getItemTransactions(indexPath.row) as? AccountTransaction {
+            
+            var hostingController: UIHostingController<DetailsTransactionView>!
+            
+            @State var isPresented: Bool = true
+            
+            let swiftUIView = DetailsTransactionView(transaction: accountTransaction, isPresented: isPresented) { [weak self] in
+                // onEdit
+                isPresented = false
+                hostingController.dismiss(animated: true) { [weak self] in
+                    self?.openEditTransactionScreen(transaction: accountTransaction, index: indexPath.row)
+                }
+                
+            } onDelete: { [weak self] in
+                // onDelete
+                self?.viewModel.deleteTransaction(indexPath.row) { result in
+                    if result != "Success" {
+                        print("Error to edit transaction: \(result)")
+                    }
+                }
+                self?.updateData()
+                isPresented = false
+                hostingController.dismiss(animated: true)
+            }
+            
+            hostingController = UIHostingController(rootView: swiftUIView)
+            
+            if let sheet = hostingController.sheetPresentationController {
+                sheet.detents = [.medium()] // ou [.medium(), .large()] se quiser permitir expansão
+                sheet.prefersGrabberVisible = true // opcional: mostra a alça de arrastar
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+            
+            present(hostingController, animated: true)
             
         }
     }

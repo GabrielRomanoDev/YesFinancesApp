@@ -25,8 +25,8 @@ struct TransactionFormScreen: View {
     let iconSize: CGFloat = 22
     let rowSize: CGFloat = 40
 
-    init(transaction: AccountTransaction? = nil, type: TransactionType, isPresented: Binding<Bool>, onDismiss: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: TransactionFormViewModel(transaction: transaction, type: type))
+    init(transaction: AccountTransaction? = nil, type: TransactionType, isInvoicePayment: Bool = false, isPresented: Binding<Bool>, onDismiss: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: TransactionFormViewModel(transaction: transaction, isInvoicePayment: isInvoicePayment, type: type))
         self._isPresented = isPresented
         self.onDismiss = onDismiss
     }
@@ -48,7 +48,7 @@ struct TransactionFormScreen: View {
                         
                         FormTextField(image: Image("image46"), text: $viewModel.transaction.desc, placeholder: addStrings.descriptionPlaceholder, iconSize: iconSize, rowSize: rowSize)
                         
-                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.transaction.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
+                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.transaction.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, blocked: viewModel.isInvoicePayment, onTap: {
                             hideKeyboard()
                             showInputNumber = true
                         })
@@ -68,7 +68,9 @@ struct TransactionFormScreen: View {
                                         hideKeyboard()
                         })
                         
-                        FormToggle(label: addStrings.fixedExpenseLabel, isOn: $viewModel.transaction.isMonthly, iconSize: iconSize, rowSize: rowSize, switchColor: viewModel.screenTitleBackgroundColor())
+                        if !viewModel.isInvoicePayment {
+                            FormToggle(label: addStrings.fixedExpenseLabel, isOn: $viewModel.transaction.isMonthly, iconSize: iconSize, rowSize: rowSize, switchColor: viewModel.screenTitleBackgroundColor())
+                        }
                         
                         FormTextField(image: Image(systemName: "note.text"), text: $viewModel.transaction.obs, placeholder: addStrings.observationsText, iconSize: iconSize, rowSize: rowSize)
                         
@@ -76,18 +78,20 @@ struct TransactionFormScreen: View {
                         
                         HStack {
                             Button(action: {
+                                
                                 if viewModel.transaction.amount == 0 {
                                     showMissingAmountAlert = true
                                 } else if viewModel.transaction.desc.isEmpty {
                                     showMissingDescAlert = true
                                 } else {
-                                    viewModel.addExpense() {
+                                    viewModel.saveExpense() {
                                         isPresented = false
                                         onDismiss()
                                     }
                                 }
+                                
                             }) {
-                                Text(globalStrings.send)
+                                Text(viewModel.isEditing ? globalStrings.save : globalStrings.send)
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: 150)
@@ -144,7 +148,10 @@ struct TransactionFormScreen: View {
         .alert(globalStrings.attention, isPresented: $showMissingDescAlert) {
             Button(globalStrings.cancel, role: .cancel, action: {})
             Button(globalStrings.confirm) {
-                viewModel.addExpense(completion: onDismiss)
+                viewModel.saveExpense() {
+                    isPresented = false
+                    onDismiss()
+                }
             }
         } message: {
             Text(addStrings.missingDescriptionErrorMessage)

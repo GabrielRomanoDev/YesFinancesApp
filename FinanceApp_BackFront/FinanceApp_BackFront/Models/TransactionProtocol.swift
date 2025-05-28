@@ -16,4 +16,5 @@ protocol Transactions: Codable, Equatable {
     var month: MonthDate {get set}
     var attachmentUrl: String?  {get set}
     var sourceId: String {get set}
+    var obs: String {get set}
 }

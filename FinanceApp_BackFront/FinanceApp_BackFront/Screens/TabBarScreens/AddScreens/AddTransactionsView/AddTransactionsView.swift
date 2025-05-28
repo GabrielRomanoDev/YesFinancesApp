@@ -97,7 +97,7 @@ struct AddTransactionView: View {
             }
         }
         //        .sheet(isPresented: $showAddTransferView) {
-        //            TransactionFormScreen(type: .expense) {
+        //            TransferBetweenAccountsFormScreen(type: .expense) {
         //                DispatchQueue.main.async {
         //                    dismiss()
         //                }
