@@ -12,7 +12,7 @@ import Foundation
 struct CreditCardExpenseFormScreen: View {
     
     @Binding var isPresented: Bool
-    @StateObject private var viewModel: RegisterCardExpViewModel
+    @StateObject private var viewModel: CreditCardExpenseFormViewModel
     @State private var showCategorySheet = false
     @State private var showInputNumber = false
     @State private var showDatePicker = false
@@ -28,7 +28,7 @@ struct CreditCardExpenseFormScreen: View {
     let rowSize: CGFloat = 40
 
     init(expense: CreditCardExpense? = nil, isPresented: Binding<Bool>, onDismiss: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: RegisterCardExpViewModel(expense: expense))
+        _viewModel = StateObject(wrappedValue: CreditCardExpenseFormViewModel(expense: expense))
         self._isPresented = isPresented
         self.onDismiss = onDismiss
     }

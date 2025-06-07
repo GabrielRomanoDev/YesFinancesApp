@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class RegisterCardExpViewModel: ObservableObject {
+class CreditCardExpenseFormViewModel: ObservableObject {
     
     private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCardExpenses)
     
