@@ -108,7 +108,7 @@ class TransactionFormViewModel: ObservableObject {
         if isEditing {
             
             if let index = TransactionsRepository.shared.list.firstIndex(where: {$0.id == self.transaction.id} ) {
-                TransactionsRepository.shared.list[index] = self.transaction
+                TransactionsRepository.shared.list[index] = newExpense
             }
              
         } else {

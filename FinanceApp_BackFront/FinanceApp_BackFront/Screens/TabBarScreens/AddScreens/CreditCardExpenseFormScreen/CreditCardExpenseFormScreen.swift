@@ -20,6 +20,7 @@ struct CreditCardExpenseFormScreen: View {
     @State private var showInvoicesSheet = false
     @State private var showMissingAmountAlert = false
     @State private var showMissingDescAlert = false
+    @State private var showTurnMonthlyConfirmationAlert = false
     
     var onDismiss: (() -> Void)
 
@@ -71,9 +72,13 @@ struct CreditCardExpenseFormScreen: View {
                         
                         invoiceConfiguration
                         
-                        installmentConfiguration
+                        if (!viewModel.isEditing || !viewModel.expense.isMonthly) {
+                            installmentConfiguration
+                        }
                         
-                        FormToggle(label: addStrings.fixedExpenseLabel, isOn: viewModel.monthlyBinding, iconSize: iconSize, rowSize: rowSize, switchColor: Color.redAddExpenses)
+                        if (!viewModel.isEditing || !viewModel.expense.installment.enabled) {
+                            FormToggle(label: addStrings.fixedExpenseLabel, isOn: viewModel.monthlyBinding, iconSize: iconSize, rowSize: rowSize, switchColor: Color.redAddExpenses)
+                        }
                         
                         FormTextField(image: Image(systemName: "note.text"), text: $viewModel.expense.obs, placeholder: addStrings.observationsText, iconSize: iconSize, rowSize: rowSize)
                         
@@ -92,7 +97,7 @@ struct CreditCardExpenseFormScreen: View {
                                     }
                                 }
                             }) {
-                                Text(globalStrings.send)
+                                Text(viewModel.isEditing ? globalStrings.save : globalStrings.send)
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: 150)
@@ -184,6 +189,7 @@ struct CreditCardExpenseFormScreen: View {
                     .frame(height: rowSize)
                     .tint(Color.redAddExpenses)
                     .background(Color.white)
+                    .disabled(viewModel.isEditing)
             }
             
             if viewModel.expense.installment.enabled {
@@ -196,18 +202,20 @@ struct CreditCardExpenseFormScreen: View {
                                 .frame(alignment: .leading)
                             
                             HStack {
-                                Button {
-                                    if viewModel.expense.installment.total > 1 {
-                                        viewModel.expense.installment.total -= 1
+                                if !viewModel.isEditing {
+                                    Button {
+                                        if viewModel.expense.installment.total > 1 {
+                                            viewModel.expense.installment.total -= 1
+                                        }
+                                        
+                                        if viewModel.expense.installment.current > viewModel.expense.installment.total {
+                                            viewModel.expense.installment.current = viewModel.expense.installment.total
+                                        }
+                                    } label: {
+                                        Image(systemName: "minus.circle")
                                     }
-                                    
-                                    if viewModel.expense.installment.current > viewModel.expense.installment.total {
-                                        viewModel.expense.installment.current = viewModel.expense.installment.total
-                                    }
-                                } label: {
-                                    Image(systemName: "minus.circle")
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
                                 
                                 Text("\(viewModel.expense.installment.total)")
                                     .multilineTextAlignment(.center)
@@ -215,14 +223,16 @@ struct CreditCardExpenseFormScreen: View {
                                     .background(Color.gray.opacity(0.1))
                                     .cornerRadius(6)
                                 
-                                Button {
-                                    if viewModel.expense.installment.total < 48 {
-                                        viewModel.expense.installment.total += 1
+                                if !viewModel.isEditing {
+                                    Button {
+                                        if viewModel.expense.installment.total < 48 {
+                                            viewModel.expense.installment.total += 1
+                                        }
+                                    } label: {
+                                        Image(systemName: "plus.circle")
                                     }
-                                } label: {
-                                    Image(systemName: "plus.circle")
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
                             }
                             
                         }
@@ -232,14 +242,16 @@ struct CreditCardExpenseFormScreen: View {
                                 .frame(alignment: .leading)
                             
                             HStack {
-                                Button {
-                                    if viewModel.expense.installment.current > 1 {
-                                        viewModel.expense.installment.current -= 1
+                                if !viewModel.isEditing {
+                                    Button {
+                                        if viewModel.expense.installment.current > 1 {
+                                            viewModel.expense.installment.current -= 1
+                                        }
+                                    } label: {
+                                        Image(systemName: "minus.circle")
                                     }
-                                } label: {
-                                    Image(systemName: "minus.circle")
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
                                 
                                 Text("\(viewModel.expense.installment.current)")
                                     .multilineTextAlignment(.center)
@@ -247,14 +259,16 @@ struct CreditCardExpenseFormScreen: View {
                                     .background(Color.gray.opacity(0.1))
                                     .cornerRadius(6)
                                 
-                                Button {
-                                    if viewModel.expense.installment.current < viewModel.expense.installment.total {
-                                        viewModel.expense.installment.current += 1
+                                if !viewModel.isEditing {
+                                    Button {
+                                        if viewModel.expense.installment.current < viewModel.expense.installment.total {
+                                            viewModel.expense.installment.current += 1
+                                        }
+                                    } label: {
+                                        Image(systemName: "plus.circle")
                                     }
-                                } label: {
-                                    Image(systemName: "plus.circle")
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
                             }
                         }
                         

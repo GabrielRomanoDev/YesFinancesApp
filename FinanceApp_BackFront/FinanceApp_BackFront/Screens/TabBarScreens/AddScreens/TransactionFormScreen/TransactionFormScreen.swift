@@ -58,7 +58,7 @@ struct TransactionFormScreen: View {
                             showDatePicker = true
                         })
 
-                        CategoryButton(category: viewModel.selectedCategory(), rowSize: rowSize, isBlocked: true, onTap: {
+                        CategoryButton(category: viewModel.selectedCategory(), rowSize: rowSize, isBlocked: viewModel.isInvoicePayment, onTap: {
                             showCategorySheet = true
                             hideKeyboard()
                         })

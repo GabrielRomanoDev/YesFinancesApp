@@ -52,8 +52,9 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         statusLabel.clipsToBounds = true
         
         switch transaction.paymentStatus {
-        case .future, .open:
-            //open invoices also can be considered future expenses
+        case .open:
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.open) "
+        case .future:
             statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.future) "
         case .paid:
             statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.paid) "

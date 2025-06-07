@@ -15,7 +15,7 @@ class RegisterCardExpViewModel: ObservableObject {
     
     @Published var expense: CreditCardExpense
     @Published var cardIndex: Int = 0
-    private var isEditing: Bool
+    var isEditing: Bool
     
     var selectedDate: Date {
         get { self.expense.date.toDate() ?? Date() }
@@ -51,6 +51,9 @@ class RegisterCardExpViewModel: ObservableObject {
         if let editingExpense = expense {
             self.isEditing = true
             self.expense = editingExpense
+            
+            let index = CreditCardsRepository.shared.list.firstIndex(where: {$0.id == editingExpense.sourceId})
+            setSourceID(index: index ?? self.standardCardIndex)
         } else {
             self.isEditing = false
             self.expense = CreditCardExpense(
@@ -66,17 +69,17 @@ class RegisterCardExpViewModel: ObservableObject {
                 sourceId: "",
                 obs: globalStrings.emptyString
             )
+            
+            self.cardIndex = self.standardCardIndex
+            setSourceID(index: self.cardIndex)
         }
-        
-        self.cardIndex = standardCardIndex
-        setSourceID(index: self.cardIndex)
         
     }
     
     var formattedInstallmentValue: String {
         guard expense.installment.total > 0 else { return "0,00" }
         
-        let amount = abs(expense.amount / Double(expense.installment.total))
+        let amount = isEditing ? expense.amount : abs(expense.amount / Double(expense.installment.total))
         
         if expense.installment.current == expense.installment.total {
             return addStrings.lastInstallmentText(amount: amount.toStringMoney())
@@ -89,18 +92,20 @@ class RegisterCardExpViewModel: ObservableObject {
     }
     
     func handleSubmit(completion: @escaping () -> Void) {
-        if expense.installment.total < 2 {
-            expense.installment.enabled = false
-        } else {
-            expense.amount = expense.amount / Double(expense.installment.total)
+        if !isEditing {
+            if expense.installment.total < 2 {
+                expense.installment.enabled = false
+            } else {
+                expense.amount = expense.amount / Double(expense.installment.total)
+            }
         }
         
-        addExpense() {
+        saveExpense() {
             completion()
         }
     }
     
-    private func addExpense(completion: @escaping () -> Void) {
+    private func saveExpense(completion: @escaping () -> Void) {
         
         var baseExpense = self.expense
         
@@ -108,50 +113,70 @@ class RegisterCardExpViewModel: ObservableObject {
             baseExpense.desc = CategoriesRepository.shared.expense(baseExpense.categoryIndex).name
         }
         
-        let totalInstallments = baseExpense.installment.total - baseExpense.installment.current + 1
-        var currentMonth = baseExpense.month
-        
-        let newExpenses: [CreditCardExpense] = (0..<totalInstallments).map { index in
+        if isEditing {
             
-            var installmentExpense = CreditCardExpense(
-                desc: baseExpense.desc,
-                amount: baseExpense.amount,
-                categoryIndex: baseExpense.categoryIndex,
-                date: baseExpense.date,
-                type: baseExpense.type,
-                isMonthly: baseExpense.isMonthly,
-                paymentStatus: baseExpense.paymentStatus,
-                month: baseExpense.month,
-                installment: baseExpense.installment,
-                sourceId: baseExpense.sourceId,
-                obs: baseExpense.obs
-            )
-            
-            installmentExpense.installment.current += index
-            installmentExpense.month = currentMonth
-            
-            if var date = installmentExpense.date.toDate() {
-                date.setMonth(month: currentMonth)
-                installmentExpense.date = date.toString()
+            if let index = CreditCardExpensesRepository.shared.list.firstIndex(where: {$0.id == self.expense.id}) {
+                CreditCardExpensesRepository.shared.list[index] = baseExpense
+                
+                service.setObject(baseExpense) { result in
+                    if result != "Success" {
+                        print(result)
+                        //TODO: Adicionar no UserDefaults para sincronizar no futuro
+                        completion()
+                        return
+                    }
+                    completion()
+                }
             }
             
-            if index < totalInstallments - 1 {
-                currentMonth.nextMonth()
+        } else {
+            
+            let totalInstallments = baseExpense.installment.total - baseExpense.installment.current + 1
+            var currentMonth = baseExpense.month
+            
+            let newExpenses: [CreditCardExpense] = (0..<totalInstallments).map { index in
+                
+                var installmentExpense = CreditCardExpense(
+                    desc: baseExpense.desc,
+                    amount: baseExpense.amount,
+                    categoryIndex: baseExpense.categoryIndex,
+                    date: baseExpense.date,
+                    type: baseExpense.type,
+                    isMonthly: baseExpense.isMonthly,
+                    paymentStatus: baseExpense.paymentStatus,
+                    month: baseExpense.month,
+                    installment: baseExpense.installment,
+                    sourceId: baseExpense.sourceId,
+                    obs: baseExpense.obs
+                )
+                
+                installmentExpense.installment.current += index
+                installmentExpense.month = currentMonth
+                
+                if var date = installmentExpense.date.toDate() {
+                    date.setMonth(month: currentMonth)
+                    installmentExpense.date = date.toString()
+                }
+                
+                if index < totalInstallments - 1 {
+                    currentMonth.nextMonth()
+                }
+                
+                return installmentExpense
             }
             
-            return installmentExpense
-        }
-        
-        CreditCardExpensesRepository.shared.list.append(contentsOf: newExpenses)
-        
-        service.setObjectsList(objects: newExpenses) { result in
-            if result != "Success" {
-                print(result)
-                //TODO: Adicionar no UserDefaults para sincronizar no futuro
+            CreditCardExpensesRepository.shared.list.append(contentsOf: newExpenses)
+            
+            service.setObjectsList(objects: newExpenses) { result in
+                if result != "Success" {
+                    print(result)
+                    //TODO: Adicionar no UserDefaults para sincronizar no futuro
+                    completion()
+                    return
+                }
                 completion()
-                return
             }
-            completion()
+            
         }
         
     }

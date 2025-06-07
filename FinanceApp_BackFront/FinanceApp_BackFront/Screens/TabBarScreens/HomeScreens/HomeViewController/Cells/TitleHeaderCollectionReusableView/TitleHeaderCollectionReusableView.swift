@@ -22,8 +22,10 @@ class TitleHeaderCollectionReusableView: UICollectionReusableView {
         
     }
     
-    func setupCell(title: String) {
+    func setupCell(title: String, color: UIColor = .black, font: UIFont = .systemFont(ofSize: 18)) {
         titleLabel.text = title
+        titleLabel.textColor = color
+        titleLabel.font = font
     }
     
 }

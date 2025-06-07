@@ -30,7 +30,7 @@ enum transactionsStrings {
     static let open = "Aberta"
     static let paid = "Paga"
     static let pendent = "Pendente"
-    static let future = "Futuro"
+    static let future = "Futura"
     static let overdue = "Atrasada"
     static let zeroed = "Zerada"
 }

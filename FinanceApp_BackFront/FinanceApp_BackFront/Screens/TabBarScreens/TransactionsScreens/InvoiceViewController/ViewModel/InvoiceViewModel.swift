@@ -138,4 +138,17 @@ struct InvoiceViewModel {
         
     }
     
+    func deleteExpense(_ filteredIndex: Int, completion: @escaping (String) -> Void) {
+        
+        if let index = CreditCardExpensesRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
+            
+            service.deleteObject(id: CreditCardExpensesRepository.shared.list[index].id) { result in
+                CreditCardExpensesRepository.shared.list.remove(at: index)
+                completion(result)
+            }
+            
+        }
+        
+    }
+    
 }

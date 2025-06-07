@@ -31,8 +31,16 @@ struct TransactionsViewModel {
         
     }
     
+    func getPendingInvoicesCount() -> Int {
+        return pendingInvoices.count
+    }
+    
     func getTransactionsCount() -> Int {
         return filteredTransactions.count
+    }
+    
+    func getItemInvoices(_ index: Int) -> Invoice {
+        return pendingInvoices[index]
     }
     
     func getItemTransactions(_ index: Int) -> any Transactions {
@@ -104,7 +112,6 @@ struct TransactionsViewModel {
     
     mutating func resetFilteredTransactions() {
         self.filteredTransactions = TransactionsRepository.shared.list
-        filteredTransactions.append(contentsOf: pendingInvoices)
         reordenateTransactions()
     }
     

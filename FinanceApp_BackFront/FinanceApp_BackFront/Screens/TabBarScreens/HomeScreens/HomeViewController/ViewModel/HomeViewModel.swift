@@ -48,6 +48,7 @@ struct HomeViewModel {
         getCategories()
         
         group.notify(queue: .main) {
+            reordenateTransactions()
             completion()
         }
     }
@@ -63,6 +64,23 @@ struct HomeViewModel {
             }
             completion()
         }
+    }
+    
+    func reordenateTransactions() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = globalStrings.dateFormat
+        
+        let ordenatedTransactions = TransactionsRepository.shared.list.sorted(by: { transaction1, transaction2 in
+            if let date1 = dateFormatter.date(from: transaction1.date), let date2 = dateFormatter.date(from: transaction2.date) {
+                return date1 > date2
+            }
+            
+            return true
+        })
+        
+        TransactionsRepository.shared.list = ordenatedTransactions
+        
     }
     
     private func getCreditCardExpenses(completion: @escaping () -> Void) {

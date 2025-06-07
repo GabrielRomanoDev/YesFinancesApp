@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupStrings()
         setupUIComponents()
-        setupObserver()
+        setupObservers()
         setupLottie()
         viewModel.getAllData {
             self.nameLabel.text = Utils.getUserDefaults(key: "userName") as? String ?? globalStrings.error
@@ -158,8 +158,12 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func setupObserver(){
+    private func setupObservers(){
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfileImage), name: Notification.Name(rawValue: homeStrings.profileImageUpdatedNotification), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTransactionsData), name: .updateTransactionsData, object: nil)
+        
     }
     
     @objc func updateProfileImage(notification:NSNotification) {
@@ -169,6 +173,18 @@ class HomeViewController: UIViewController {
             
             self.profileImage.image = notification.object as? UIImage
             
+        }
+    }
+    
+    @objc private func updateTransactionsData() {
+        updateData()
+    }
+    
+    private func updateData() {
+        viewModel.reordenateTransactions()
+        
+        DispatchQueue.main.async {
+            self.verticalCollectionView.reloadData()
         }
     }
     

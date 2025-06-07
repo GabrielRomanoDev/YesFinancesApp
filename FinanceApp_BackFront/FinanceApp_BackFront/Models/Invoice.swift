@@ -27,7 +27,7 @@ struct Invoice: Transactions {
     init(desc: String, amount: Double, closingDate: String, dueDate: String, sourceId: String, paymentStatus: PaymentStatus, month: MonthDate) {
         self.desc = desc
         self.amount = amount
-        self.categoryIndex = 0
+        self.categoryIndex = 30
         self.date = dueDate
         self.closingDate = closingDate
         self.dueDate = dueDate
