@@ -37,11 +37,19 @@ class TabBarController: UITabBarController {
         
         let hostingController = UIHostingController(rootView: addButton)
         hostingController.view.backgroundColor = .clear
+        
+        var bottomPadding = CGFloat(0)
+        
+        if #available(iOS 13.0, *) {
+            bottomPadding = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
+        }
+        
         hostingController.view.frame = CGRect(x: self.view.frame.width / 2 - 35,
-                                              y: self.view.frame.height - 100,
-                                              width: 70, height: 70)
+                                              y: self.view.frame.height - 55 - bottomPadding,
+                                              width: 65, height: 65)
         self.view.addSubview(hostingController.view)
         self.addChild(hostingController)
+        
     }
     
 }
