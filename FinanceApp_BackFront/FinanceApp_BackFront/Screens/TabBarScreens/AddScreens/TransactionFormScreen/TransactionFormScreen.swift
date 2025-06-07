@@ -77,6 +77,9 @@ struct TransactionFormScreen: View {
                         Spacer(minLength: 30)
                         
                         HStack {
+                            
+                            Spacer()
+                            
                             Button(action: {
                                 
                                 if viewModel.transaction.amount == 0 {
@@ -99,8 +102,12 @@ struct TransactionFormScreen: View {
                                     .cornerRadius(15)
                             }
                             
+                            Spacer()
+                            
                         }
-                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .listRowInsets(EdgeInsets()) // Remove insets padrão da célula
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         
                         Spacer(minLength: 30)

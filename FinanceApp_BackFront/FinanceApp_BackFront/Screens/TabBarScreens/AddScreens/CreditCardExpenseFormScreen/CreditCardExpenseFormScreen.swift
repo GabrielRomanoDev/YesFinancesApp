@@ -85,6 +85,9 @@ struct CreditCardExpenseFormScreen: View {
                         Spacer(minLength: 30)
                         
                         HStack {
+                            
+                            Spacer()
+                            
                             Button(action: {
                                 if viewModel.expense.amount == 0 {
                                     showMissingAmountAlert = true
@@ -105,8 +108,12 @@ struct CreditCardExpenseFormScreen: View {
                                     .cornerRadius(15)
                             }
                             
+                            Spacer()
+                            
                         }
-                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .listRowInsets(EdgeInsets()) // Remove insets padrão da célula
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         
                         Spacer(minLength: 30)
