@@ -9,8 +9,6 @@ import Foundation
 
 struct HomeViewModel {
     
-    private var service: FirestoreService = FirestoreService()
-    
     private var incomesTotal: Double = 0.0
     private var expensesTotal: Double = 0.0
     private var balanceTotal: Double = 0.0
@@ -55,7 +53,7 @@ struct HomeViewModel {
     
     private func getTransactions(completion: @escaping () -> Void) {
         
-        service.getObjectsList(forObjectType: AccountTransaction.self, documentReadName: firebaseSubCollectionNames.transactions) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: AccountTransaction.self, subCollection: firebaseSubCollectionNames.transactions) { result in
             switch result {
             case .success(let objectsArray):
                 TransactionsRepository.shared.list = objectsArray
@@ -85,7 +83,7 @@ struct HomeViewModel {
     
     private func getCreditCardExpenses(completion: @escaping () -> Void) {
         
-        service.getObjectsList(forObjectType: CreditCardExpense.self, documentReadName: firebaseSubCollectionNames.creditCardExpenses) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: CreditCardExpense.self, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
             switch result {
             case .success(let objectsArray):
                 CreditCardExpensesRepository.shared.list = objectsArray
@@ -99,17 +97,17 @@ struct HomeViewModel {
     private func addFieldToObjects() {
         
         for transaction in TransactionsRepository.shared.list {
-            service.updateObjectField(change: ["isMonthly": false], objectID: transaction.id, documentReadName: firebaseSubCollectionNames.transactions)
+            FirestoreService.shared.updateObjectField(change: ["isMonthly": false], objectID: transaction.id, subCollection: firebaseSubCollectionNames.transactions)
         }
         
-        service.setObjectsList(objects: CreditCardExpensesRepository.shared.list) { _ in
+        FirestoreService.shared.setObjectsList(objects: CreditCardExpensesRepository.shared.list, subCollection: firebaseSubCollectionNames.creditCardExpenses) { _ in
             
         }
         
     }
     
     private func getAccounts(completion: @escaping () -> Void) {
-        service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: BankAccount.self, subCollection: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
             case .success(let accounts):
                 BankAccountsRepository.shared.list = accounts
@@ -122,7 +120,7 @@ struct HomeViewModel {
     }
     
     private func getCreditCards(completion: @escaping () -> Void) {
-        service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: CreditCard.self, subCollection: firebaseSubCollectionNames.creditCards) { result in
             switch result {
             case .success(let creditCards):
                 CreditCardsRepository.shared.list = creditCards
@@ -163,7 +161,7 @@ struct HomeViewModel {
     }
     
     func getProfileInformations(completion: @escaping () -> Void) {
-        service.getObject(subCollectionName: firebaseSubCollectionNames.profile, objectType: Profile.self) { profile in
+        FirestoreService.shared.getObject(subCollection: firebaseSubCollectionNames.profile, objectType: Profile.self) { profile in
             
             Utils.saveUserDefaults(value: profile.name, key: "userName")
             Utils.saveUserDefaults(value: profile.email, key: "userEmail")

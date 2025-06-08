@@ -11,8 +11,6 @@ import SwiftUI
 
 class TransactionFormViewModel: ObservableObject {
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.transactions)
-    
     @Published var transaction: AccountTransaction
     @Published var sourceIndex: Int = 0
     var isEditing: Bool
@@ -115,7 +113,7 @@ class TransactionFormViewModel: ObservableObject {
             TransactionsRepository.shared.list.append(self.transaction)
         }
         
-        service.setObject(self.transaction) { result in
+        FirestoreService.shared.setObject(self.transaction, subCollection: firebaseSubCollectionNames.transactions) { result in
             
             if result != "Success" {
                 print(result)

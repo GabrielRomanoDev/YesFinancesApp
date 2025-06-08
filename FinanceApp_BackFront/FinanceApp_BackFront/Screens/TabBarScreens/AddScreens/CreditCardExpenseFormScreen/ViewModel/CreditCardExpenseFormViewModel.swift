@@ -11,8 +11,6 @@ import SwiftUI
 
 class CreditCardExpenseFormViewModel: ObservableObject {
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCardExpenses)
-    
     @Published var expense: CreditCardExpense
     @Published var cardIndex: Int = 0
     var isEditing: Bool
@@ -118,7 +116,7 @@ class CreditCardExpenseFormViewModel: ObservableObject {
             if let index = CreditCardExpensesRepository.shared.list.firstIndex(where: {$0.id == self.expense.id}) {
                 CreditCardExpensesRepository.shared.list[index] = baseExpense
                 
-                service.setObject(baseExpense) { result in
+                FirestoreService.shared.setObject(baseExpense, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
                     if result != "Success" {
                         print(result)
                         //TODO: Adicionar no UserDefaults para sincronizar no futuro
@@ -167,7 +165,7 @@ class CreditCardExpenseFormViewModel: ObservableObject {
             
             CreditCardExpensesRepository.shared.list.append(contentsOf: newExpenses)
             
-            service.setObjectsList(objects: newExpenses) { result in
+            FirestoreService.shared.setObjectsList(objects: newExpenses, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
                 if result != "Success" {
                     print(result)
                     //TODO: Adicionar no UserDefaults para sincronizar no futuro

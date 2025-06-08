@@ -10,8 +10,6 @@ import FirebaseAuth
 
 class RegisterViewModel {
     
-    var serviceFirestore: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.profile)
-    
     func createUser(email: String, password: String, completion: @escaping (String) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
@@ -25,7 +23,7 @@ class RegisterViewModel {
             }
             
             userLogged = authResult?.user.uid ?? ""
-            self.serviceFirestore.setUser(userLogged)
+            //self.serviceFirestore.setUser(userLogged)
             
             let profile: Profile = Profile(
                 id: userLogged,
@@ -33,7 +31,7 @@ class RegisterViewModel {
                 email: password
             )
             
-            self.serviceFirestore.setObject(profile, subCollectionName: firebaseSubCollectionNames.profile) { result in
+            FirestoreService.shared.setObject(profile, subCollection: firebaseSubCollectionNames.profile) { result in
                 if result == "Success" {
                     completion(registerStrings.registerSuccessText)
                 } else {

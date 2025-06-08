@@ -9,8 +9,6 @@ import Foundation
 
 struct TransactionsViewModel {
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.transactions)
-    
     private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker(filterType: .transactions)
     private var filteredTransactions: [any Transactions] = TransactionsRepository.shared.list
     private var pendingInvoices: [Invoice] = []
@@ -59,7 +57,7 @@ struct TransactionsViewModel {
         
         if let index = TransactionsRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
             
-            service.deleteObject(id: TransactionsRepository.shared.list[index].id) { result in
+            FirestoreService.shared.deleteObject(id: TransactionsRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.transactions) { result in
                 TransactionsRepository.shared.list.remove(at: index)
                 completion(result)
             }

@@ -13,36 +13,30 @@ protocol FirestoreObject: Codable {
 }
 
 class FirestoreService {
+    
+    static let shared = FirestoreService()
+    
+    private init(){}
+    
+
+//  self.user = "user_" + userLogged
+
+
+    
     private let db = Firestore.firestore()
-    public var user: String
-    private var subCollectionName: String
-    
-    private var collectionRef: CollectionReference {
-        return db.collection("users").document(user).collection(subCollectionName)
-    }
-    
-    init(subCollectionName: String = "default") {
-        self.user = "user_" + userLogged
-        self.subCollectionName = subCollectionName
+    public var user: String = "user_" + userLogged
+
+    private var userDocumentRef: DocumentReference {
+        return db.collection("users").document(user)
     }
     
     func setUser(_ userUid: String) {
         user = "user_" + userLogged
     }
     
-    func setSubCollectionName(_ name: String) {
-        self.subCollectionName = name
-    }
-    
-    func setObject <T: FirestoreObject> (_ object: T, subCollectionName: String? = nil, completion: @escaping (String) -> Void) {
-        
-        var collection: CollectionReference
-        
-        if let subCollection = subCollectionName {
-            collection = db.collection("users").document(self.user).collection(subCollection)
-        } else {
-            collection = collectionRef
-        }
+    func setObject <T: FirestoreObject> (_ object: T, subCollection: String, completion: @escaping (String) -> Void) {
+       
+        var collection = userDocumentRef.collection(subCollection)
         
         Task {
             do {
@@ -58,11 +52,11 @@ class FirestoreService {
     
     }
     
-    func deleteObject(id: String, completion: @escaping (String) -> Void) {
+    func deleteObject(id: String, subCollection: String, completion: @escaping (String) -> Void) {
         Task {
             do {
                 
-                try await collectionRef.document(id).delete()
+                try await userDocumentRef.collection(subCollection).document(id).delete()
                 
                 completion("Success")
                 
@@ -73,16 +67,15 @@ class FirestoreService {
         }
     }
     
-    func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, completion: @escaping (Result<[T], Error>) -> Void) {
+    func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, completion: @escaping (Result<[T], Error>) -> Void) {
         
-        self.setSubCollectionName(documentReadName)
-        let colRef = collectionRef
+        var collection = userDocumentRef.collection(subCollection)
         
         Task {
             var objectList: [T] = []
             
             do {
-                let querySnapshot = try await colRef.getDocuments()
+                let querySnapshot = try await collection.getDocuments()
                 for document in querySnapshot.documents {
                     let object = try document.data(as: objectType.self)
                     objectList.append(object)
@@ -95,16 +88,16 @@ class FirestoreService {
         
     }
     
-    func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, documentReadName: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
+    func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
         
-        self.setSubCollectionName(documentReadName)
-        let colRef = collectionRef.order(by: "date", descending: true).limit(to: 4)
+        var collection = userDocumentRef.collection(subCollection)
+        collection.order(by: "date", descending: true).limit(to: 4)
         
         Task {
             var objectList: [T] = []
             
             do {
-                let querySnapshot = try await colRef.getDocuments()
+                let querySnapshot = try await collection.getDocuments()
                 for document in querySnapshot.documents {
                     let object = try document.data(as: objectType.self)
                     objectList.append(object)
@@ -117,12 +110,14 @@ class FirestoreService {
         
     }
     
-    func getObject<T: FirestoreObject>(subCollectionName: String, objectType: T.Type, completion: @escaping (T) -> Void) {
-        self.setSubCollectionName(subCollectionName)
+    func getObject<T: FirestoreObject>(subCollection: String, objectType: T.Type, completion: @escaping (T) -> Void) {
+        
+        var collection = userDocumentRef.collection(subCollection)
+        
         Task {
             
             do {
-                let querySnapshot = try await collectionRef.getDocuments()
+                let querySnapshot = try await collection.getDocuments()
                 for document in querySnapshot.documents {
                     let object = try document.data(as: objectType.self)
                     completion(object)
@@ -136,28 +131,20 @@ class FirestoreService {
         
     }
     
-    func updateObjectField(change: [AnyHashable : Any], objectID: String, documentReadName: String? = nil) {
+    func updateObjectField(change: [AnyHashable : Any], objectID: String, subCollection: String) {
         
-        if let documentReadName {
-            self.setSubCollectionName(documentReadName)
-        }
+        var collection = userDocumentRef.collection(subCollection)
         
-        collectionRef.document(objectID).updateData(change) { error in
+        collection.document(objectID).updateData(change) { error in
             if let error = error {
                 print(error)
             }
         }
     }
     
-    func setObjectsList<T: FirestoreObject>(objects: [T], subCollectionName: String? = nil, completion: @escaping (String) -> Void) {
+    func setObjectsList<T: FirestoreObject>(objects: [T], subCollection: String, completion: @escaping (String) -> Void) {
         
-        var collection: CollectionReference
-        
-        if let subCollection = subCollectionName {
-            collection = db.collection("users").document(self.user).collection(subCollection)
-        } else {
-            collection = collectionRef
-        }
+        var collection = userDocumentRef.collection(subCollection)
         
         let batch = db.batch()
         var encodingError: Error?

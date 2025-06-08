@@ -10,10 +10,8 @@ import UIKit
 
 class CreditCardsViewModel {
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCards)
-    
     func updateCards(completion: @escaping () -> Void) {
-        service.getObjectsList(forObjectType: CreditCard.self, documentReadName: firebaseSubCollectionNames.creditCards) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: CreditCard.self, subCollection: firebaseSubCollectionNames.creditCards) { result in
             switch result {
             case .success(let objectArray):
                 CreditCardsRepository.shared.list = objectArray
@@ -54,7 +52,7 @@ class CreditCardsViewModel {
         }
         
         CreditCardsRepository.shared.list.append(newCard)
-        service.setObject(newCard) { result in
+        FirestoreService.shared.setObject(newCard, subCollection: firebaseSubCollectionNames.creditCards) { result in
             if result != "Success" {
                 print(result)
             }
@@ -76,7 +74,7 @@ class CreditCardsViewModel {
         updatedCard.standardCard = card.standardCard
         updatedCard.obs = card.obs
         
-        service.setObject(updatedCard) { result in
+        FirestoreService.shared.setObject(updatedCard, subCollection: firebaseSubCollectionNames.creditCards) { result in
             if result != "Success" {
                 print(result)
             }
@@ -87,7 +85,7 @@ class CreditCardsViewModel {
     
     func deleteCard(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: CreditCardsRepository.shared.list[index].id) { result in
+        FirestoreService.shared.deleteObject(id: CreditCardsRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.creditCards) { result in
             if result != "Success" {
                 print(result)
             }
@@ -100,7 +98,7 @@ class CreditCardsViewModel {
         
         for i in 0..<CreditCardsRepository.shared.list.count {
             CreditCardsRepository.shared.list[i].standardCard = false
-            service.updateObjectField(change: ["standardCard":false], objectID: CreditCardsRepository.shared.list[i].id)
+            FirestoreService.shared.updateObjectField(change: ["standardCard":false], objectID: CreditCardsRepository.shared.list[i].id, subCollection: firebaseSubCollectionNames.creditCards)
         }
         
     }

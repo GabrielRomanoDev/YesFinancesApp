@@ -10,11 +10,10 @@ import UIKit
 
 class GoalsViewModel {
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.goals)
     private var goalsList: [Goal] = []
     
     func updateGoals(completion: @escaping () -> Void) {
-        service.getObjectsList(forObjectType: Goal.self, documentReadName: firebaseSubCollectionNames.goals) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: Goal.self, subCollection: firebaseSubCollectionNames.goals) { result in
             switch result {
             case .success(let objectsArray):
                 self.goalsList = objectsArray
@@ -39,7 +38,7 @@ class GoalsViewModel {
     
     func createNewGoal(_ newGoal: Goal, completion: @escaping () -> Void) {
         
-        service.setObject(newGoal) { [weak self] result in
+        FirestoreService.shared.setObject(newGoal, subCollection: firebaseSubCollectionNames.goals) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -52,7 +51,7 @@ class GoalsViewModel {
     
     func editGoal(goal: Goal, indexGoal: Int, completion: @escaping () -> Void) {
         
-        service.setObject(goal) { [weak self] result in
+        FirestoreService.shared.setObject(goal, subCollection: firebaseSubCollectionNames.goals) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()
@@ -66,7 +65,7 @@ class GoalsViewModel {
     
     func deleteGoal(index: Int, completion: @escaping () -> Void) {
         
-        service.deleteObject(id: goalsList[index].id) { [weak self] result in
+        FirestoreService.shared.deleteObject(id: goalsList[index].id, subCollection: firebaseSubCollectionNames.goals) { [weak self] result in
             if result != "Success" {
                 print(result)
                 completion()

@@ -10,11 +10,8 @@ import UIKit
  
 class BankAccountsViewModel {
     
-    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.bankAccounts)
-    
-    
     func updateAccounts(completion: @escaping () -> Void) {
-        service.getObjectsList(forObjectType: BankAccount.self, documentReadName: firebaseSubCollectionNames.bankAccounts) { result in
+        FirestoreService.shared.getObjectsList(forObjectType: BankAccount.self, subCollection: firebaseSubCollectionNames.bankAccounts) { result in
             switch result {
             case .success(let objectArray):
                 BankAccountsRepository.shared.list = objectArray
@@ -59,15 +56,13 @@ class BankAccountsViewModel {
             clearStandardAccount()
         }
         
-        service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.setObject(newAccount) { [weak self] result in
+        FirestoreService.shared.setObject(newAccount, subCollection: firebaseSubCollectionNames.bankAccounts) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
             BankAccountsRepository.shared.list.append(newAccount)
             
             if newBalance != 0{
-                self?.service.setSubCollectionName(firebaseSubCollectionNames.transactions)
                 self?.adjustBalance(newBalance: newBalance, oldBalance: 0, account: newAccount, completion: completion)
             }
             
@@ -89,8 +84,7 @@ class BankAccountsViewModel {
         updatedAccount.standardAccount = account.standardAccount
         updatedAccount.obs = account.obs
         
-        service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.setObject(updatedAccount) { [weak self] result in
+        FirestoreService.shared.setObject(updatedAccount, subCollection: firebaseSubCollectionNames.bankAccounts) { [weak self] result in
             if result != "Success" {
                 print(result)
             }
@@ -127,8 +121,7 @@ class BankAccountsViewModel {
             obs: "Conta: \(account.desc)"
         )
         
-        service.setSubCollectionName(firebaseSubCollectionNames.transactions)
-        service.setObject(newTransaction) { result in
+        FirestoreService.shared.setObject(newTransaction, subCollection: firebaseSubCollectionNames.transactions) { result in
             if result != "Success" {
                 print(result)
             }
@@ -138,8 +131,7 @@ class BankAccountsViewModel {
     }
     
     func deleteAccount(index: Int, completion: @escaping () -> Void) {
-        service.setSubCollectionName(firebaseSubCollectionNames.bankAccounts)
-        service.deleteObject(id: BankAccountsRepository.shared.list[index].id) { result in
+        FirestoreService.shared.deleteObject(id: BankAccountsRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.bankAccounts) { result in
             if result != "Success" {
                 print(result)
             }
@@ -152,7 +144,7 @@ class BankAccountsViewModel {
         
         for i in 0..<BankAccountsRepository.shared.list.count {
             BankAccountsRepository.shared.list[i].standardAccount = false
-            service.updateObjectField(change: ["standardAccount": false], objectID: BankAccountsRepository.shared.list[i].id)
+            FirestoreService.shared.updateObjectField(change: ["standardAccount": false], objectID: BankAccountsRepository.shared.list[i].id, subCollection: firebaseSubCollectionNames.bankAccounts)
         }
         
     }

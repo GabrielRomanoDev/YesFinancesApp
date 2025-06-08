@@ -9,7 +9,6 @@ import Foundation
 
 struct InvoiceViewModel {
     
-    let service = FirestoreService(subCollectionName: firebaseSubCollectionNames.creditCardExpenses)
     private let creditCard: CreditCard
     private(set) var invoice: Invoice
     private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker(filterType: .invoiceExepenses)
@@ -126,7 +125,7 @@ struct InvoiceViewModel {
             return false
         }
         
-        service.setObjectsList(objects: expensesToPay) { result in
+        FirestoreService.shared.setObjectsList(objects: expensesToPay, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
             if result != "Success" {
                 print(result)
             }
@@ -142,7 +141,7 @@ struct InvoiceViewModel {
         
         if let index = CreditCardExpensesRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
             
-            service.deleteObject(id: CreditCardExpensesRepository.shared.list[index].id) { result in
+            FirestoreService.shared.deleteObject(id: CreditCardExpensesRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
                 CreditCardExpensesRepository.shared.list.remove(at: index)
                 completion(result)
             }
