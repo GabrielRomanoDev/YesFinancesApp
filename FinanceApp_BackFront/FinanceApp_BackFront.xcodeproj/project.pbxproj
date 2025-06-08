@@ -987,7 +987,6 @@
 			isa = PBXGroup;
 			children = (
 				A1998B032D90A0FE00BDDADC /* Constants */,
-				A1E0B6D02D656E88002892BD /* Repositories */,
 				A11BDA7929F4C47F006CF6B2 /* Enums */,
 				A1E0B70D2D6A75BD002892BD /* TransactionProtocol.swift */,
 				A16636EE29DE33C500162872 /* AccountTransaction.swift */,
@@ -1970,6 +1969,7 @@
 				A1E0B7102D6A76D1002892BD /* Utils */,
 				A1CE09292A001B410028028B /* GlobalStrings */,
 				A1FDB7E52A45F1BA006B3459 /* Services */,
+				A1E0B6D02D656E88002892BD /* Repositories */,
 				A16B56A229C1076500E53727 /* Screens */,
 				A16636ED29DE1B0400162872 /* Models */,
 				A1F43FBA2A2BE2DC000A3567 /* Lotties */,
