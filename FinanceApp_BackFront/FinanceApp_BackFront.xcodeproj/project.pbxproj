@@ -47,13 +47,6 @@
 		A13E249C29F9957C00E9EF7A /* GoalInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13E249B29F9957C00E9EF7A /* GoalInfoViewController.storyboard */; };
 		A13E249E29F9958900E9EF7A /* GoalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E249D29F9958900E9EF7A /* GoalInfoViewController.swift */; };
 		A140933D29E6EC3D0037662B /* CategoriesSum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140933C29E6EC3D0037662B /* CategoriesSum.swift */; };
-		A140934229E73ACA0037662B /* RegisterIncomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A140934129E73ACA0037662B /* RegisterIncomeViewController.storyboard */; };
-		A140934429E73AD20037662B /* RegisterIncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140934329E73AD20037662B /* RegisterIncomeViewController.swift */; };
-		A140934629E73B750037662B /* RegisterExpenseViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A140934529E73B750037662B /* RegisterExpenseViewController.storyboard */; };
-		A140934A29E73BCC0037662B /* RegisterCardExpenseViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A140934929E73BCC0037662B /* RegisterCardExpenseViewController.storyboard */; };
-		A140934C29E73BD30037662B /* RegisterCardExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140934B29E73BD30037662B /* RegisterCardExpenseViewController.swift */; };
-		A140934F29E7625A0037662B /* AddTrasactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140934E29E7625A0037662B /* AddTrasactionsViewModel.swift */; };
-		A140935129E772720037662B /* RegisterExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140935029E772720037662B /* RegisterExpenseViewController.swift */; };
 		A14C42B32DB53813008C0A29 /* SelectInvoiceModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C42B22DB5380B008C0A29 /* SelectInvoiceModalView.swift */; };
 		A14C58852D49A76900507CE5 /* DateFilteringTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C58832D49A76900507CE5 /* DateFilteringTableViewCell.xib */; };
 		A14C58862D49A76900507CE5 /* DateFilteringTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C58822D49A76900507CE5 /* DateFilteringTableViewCell.swift */; };
@@ -72,6 +65,7 @@
 		A15162202A09444700C5AD42 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A151621F2A09444700C5AD42 /* Formatters.swift */; };
 		A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA3E2A21A47800372C00 /* loginStrings.swift */; };
 		A152AA422A21A69B00372C00 /* registerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA412A21A69B00372C00 /* registerStrings.swift */; };
+		A153C9702DB8568300E81AA2 /* AddTransactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */; };
 		A153C9882DB878FA00E81AA2 /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */; };
 		A153C98A2DB87A8D00E81AA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A153C9892DB87A8D00E81AA2 /* GoogleService-Info.plist */; };
 		A153C9A32DB884B300E81AA2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A22DB884B300E81AA2 /* FirebaseAuth */; };
@@ -79,7 +73,6 @@
 		A153C9A72DB884B300E81AA2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A62DB884B300E81AA2 /* FirebaseStorage */; };
 		A153C9AA2DB884D600E81AA2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A92DB884D600E81AA2 /* GoogleSignIn */; };
 		A153C9AC2DB884D600E81AA2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9AB2DB884D600E81AA2 /* GoogleSignInSwift */; };
-		A153C9702DB8568300E81AA2 /* AddTransactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */; };
 		A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */; };
 		A160A1052A568C8700A0D7DC /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160A1042A568C8700A0D7DC /* Profile.swift */; };
 		A162B2362CFCC12D0036350A /* ButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */; };
@@ -154,7 +147,6 @@
 		A1A92BB729F8124400E14EE8 /* CreditCardModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A92BB629F8124400E14EE8 /* CreditCardModalViewController.swift */; };
 		A1A92BBF29F812B600E14EE8 /* CreditCardModalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A92BBD29F812B600E14EE8 /* CreditCardModalCell.swift */; };
 		A1A92BC029F812B600E14EE8 /* CreditCardModalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A92BBE29F812B600E14EE8 /* CreditCardModalCell.xib */; };
-		A1A92BC429F81C1D00E14EE8 /* RegisterCardExpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A92BC329F81C1D00E14EE8 /* RegisterCardExpViewModel.swift */; };
 		A1A92BC629F81D6200E14EE8 /* CreditCardExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A92BC529F81D6200E14EE8 /* CreditCardExpense.swift */; };
 		A1B8213B2A60E74200281A52 /* DetailsTransactionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1B8213A2A60E74200281A52 /* DetailsTransactionsViewController.storyboard */; };
 		A1B8213F2A60E79E00281A52 /* DetailsTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8213E2A60E79E00281A52 /* DetailsTransactionsViewController.swift */; };
@@ -292,13 +284,6 @@
 		A13E249B29F9957C00E9EF7A /* GoalInfoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GoalInfoViewController.storyboard; sourceTree = "<group>"; };
 		A13E249D29F9958900E9EF7A /* GoalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInfoViewController.swift; sourceTree = "<group>"; };
 		A140933C29E6EC3D0037662B /* CategoriesSum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSum.swift; sourceTree = "<group>"; };
-		A140934129E73ACA0037662B /* RegisterIncomeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterIncomeViewController.storyboard; sourceTree = "<group>"; };
-		A140934329E73AD20037662B /* RegisterIncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterIncomeViewController.swift; sourceTree = "<group>"; };
-		A140934529E73B750037662B /* RegisterExpenseViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterExpenseViewController.storyboard; sourceTree = "<group>"; };
-		A140934929E73BCC0037662B /* RegisterCardExpenseViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterCardExpenseViewController.storyboard; sourceTree = "<group>"; };
-		A140934B29E73BD30037662B /* RegisterCardExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCardExpenseViewController.swift; sourceTree = "<group>"; };
-		A140934E29E7625A0037662B /* AddTrasactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrasactionsViewModel.swift; sourceTree = "<group>"; };
-		A140935029E772720037662B /* RegisterExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterExpenseViewController.swift; sourceTree = "<group>"; };
 		A14C42B22DB5380B008C0A29 /* SelectInvoiceModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInvoiceModalView.swift; sourceTree = "<group>"; };
 		A14C58822D49A76900507CE5 /* DateFilteringTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilteringTableViewCell.swift; sourceTree = "<group>"; };
 		A14C58832D49A76900507CE5 /* DateFilteringTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateFilteringTableViewCell.xib; sourceTree = "<group>"; };
@@ -317,9 +302,9 @@
 		A151621F2A09444700C5AD42 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		A152AA3E2A21A47800372C00 /* loginStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginStrings.swift; sourceTree = "<group>"; };
 		A152AA412A21A69B00372C00 /* registerStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerStrings.swift; sourceTree = "<group>"; };
+		A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionButton.swift; sourceTree = "<group>"; };
 		A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
 		A153C9892DB87A8D00E81AA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionButton.swift; sourceTree = "<group>"; };
 		A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionsView.swift; sourceTree = "<group>"; };
 		A160A1042A568C8700A0D7DC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
@@ -394,7 +379,6 @@
 		A1A92BB629F8124400E14EE8 /* CreditCardModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardModalViewController.swift; sourceTree = "<group>"; };
 		A1A92BBD29F812B600E14EE8 /* CreditCardModalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardModalCell.swift; sourceTree = "<group>"; };
 		A1A92BBE29F812B600E14EE8 /* CreditCardModalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCardModalCell.xib; sourceTree = "<group>"; };
-		A1A92BC329F81C1D00E14EE8 /* RegisterCardExpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCardExpViewModel.swift; sourceTree = "<group>"; };
 		A1A92BC529F81D6200E14EE8 /* CreditCardExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardExpense.swift; sourceTree = "<group>"; };
 		A1B8213A2A60E74200281A52 /* DetailsTransactionsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsTransactionsViewController.storyboard; sourceTree = "<group>"; };
 		A1B8213E2A60E79E00281A52 /* DetailsTransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTransactionsViewController.swift; sourceTree = "<group>"; };
@@ -607,16 +591,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		A103B51529F6B55000A0D9C9 /* AddAccountTransactionsViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				A140934D29E761560037662B /* ViewModel */,
-				A140933E29E73A3E0037662B /* RegisterIncomeScreen */,
-				A140933F29E73A6F0037662B /* RegisterExpenseScreen */,
-			);
-			path = AddAccountTransactionsViewControllers;
-			sourceTree = "<group>";
-		};
 		A10DA4BB2DAA115D00206039 /* InputNumberOverTopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,41 +733,6 @@
 				A13E249D29F9958900E9EF7A /* GoalInfoViewController.swift */,
 			);
 			path = GoalInfoViewController;
-			sourceTree = "<group>";
-		};
-		A140933E29E73A3E0037662B /* RegisterIncomeScreen */ = {
-			isa = PBXGroup;
-			children = (
-				A140934129E73ACA0037662B /* RegisterIncomeViewController.storyboard */,
-				A140934329E73AD20037662B /* RegisterIncomeViewController.swift */,
-			);
-			path = RegisterIncomeScreen;
-			sourceTree = "<group>";
-		};
-		A140933F29E73A6F0037662B /* RegisterExpenseScreen */ = {
-			isa = PBXGroup;
-			children = (
-				A140934529E73B750037662B /* RegisterExpenseViewController.storyboard */,
-				A140935029E772720037662B /* RegisterExpenseViewController.swift */,
-			);
-			path = RegisterExpenseScreen;
-			sourceTree = "<group>";
-		};
-		A140934029E73A800037662B /* RegisterCardExpenseViewController */ = {
-			isa = PBXGroup;
-			children = (
-				A1A92BC229F81BFC00E14EE8 /* ViewModel */,
-				A1A92BC129F81BF500E14EE8 /* View */,
-			);
-			path = RegisterCardExpenseViewController;
-			sourceTree = "<group>";
-		};
-		A140934D29E761560037662B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				A140934E29E7625A0037662B /* AddTrasactionsViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A14C42B12DB537F6008C0A29 /* SelectInvoiceModalView */ = {
@@ -958,20 +897,20 @@
 			path = Strings;
 			sourceTree = "<group>";
 		};
-		A153C9842DB8788800E81AA2 /* GoogleIntegration */ = {
-			isa = PBXGroup;
-			children = (
-				A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */,
-			);
-			path = GoogleIntegration;
-			sourceTree = "<group>";
-		};
 		A153C96E2DB8564C00E81AA2 /* SwiftUIComponent */ = {
 			isa = PBXGroup;
 			children = (
 				A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */,
 			);
 			path = SwiftUIComponent;
+			sourceTree = "<group>";
+		};
+		A153C9842DB8788800E81AA2 /* GoogleIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */,
+			);
+			path = GoogleIntegration;
 			sourceTree = "<group>";
 		};
 		A153C9E22DBB18D300E81AA2 /* AddTransactionsView */ = {
@@ -1258,8 +1197,6 @@
 				A1C8BA6E2A22ECB300590758 /* Strings */,
 				A1E76D412DB71A61005D9801 /* SwiftUISharedComponents */,
 				A153C9E22DBB18D300E81AA2 /* AddTransactionsView */,
-				A103B51529F6B55000A0D9C9 /* AddAccountTransactionsViewControllers */,
-				A140934029E73A800037662B /* RegisterCardExpenseViewController */,
 				A1E76D522DB72C78005D9801 /* TransactionFormScreen */,
 				A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */,
 			);
@@ -1556,23 +1493,6 @@
 				A1A92BBD29F812B600E14EE8 /* CreditCardModalCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		A1A92BC129F81BF500E14EE8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A140934929E73BCC0037662B /* RegisterCardExpenseViewController.storyboard */,
-				A140934B29E73BD30037662B /* RegisterCardExpenseViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		A1A92BC229F81BFC00E14EE8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				A1A92BC329F81C1D00E14EE8 /* RegisterCardExpViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A1B821392A60E5D700281A52 /* DetailsTransactionsViewController */ = {
@@ -2157,13 +2077,10 @@
 				E3C0915B29C21CD400BE4441 /* GoalsViewController.storyboard in Resources */,
 				A1C908BA2A48B84600A04F84 /* 79808-green-money-falling.json in Resources */,
 				A1C9EFF129E60D840029B69F /* LoginViewController.storyboard in Resources */,
-				A140934629E73B750037662B /* RegisterExpenseViewController.storyboard in Resources */,
 				A14DAE6029D4E91900714208 /* TransactionsViewController.storyboard in Resources */,
 				A101917A29FAC4F000776A67 /* EditBankAccountsViewController.storyboard in Resources */,
 				A19F850A29F963C40044F7DE /* GoalsCollectionViewCell.xib in Resources */,
-				A140934229E73ACA0037662B /* RegisterIncomeViewController.storyboard in Resources */,
 				A1D22DAE2A52FE240042D060 /* CategoryImagesModalViewController.storyboard in Resources */,
-				A140934A29E73BCC0037662B /* RegisterCardExpenseViewController.storyboard in Resources */,
 				A17DC6832A0989B900D12C3C /* TabBarController.storyboard in Resources */,
 				A101916D29FAB3FA00776A67 /* AccountCollectionViewCell.xib in Resources */,
 				A18991AA2A11DC9800D47427 /* CardsResumeTableViewCell.xib in Resources */,
@@ -2290,7 +2207,6 @@
 				A162B2372CFCC12D0036350A /* ButtonsTableViewCell.swift in Sources */,
 				A19742A72A224ADA00455DB0 /* globalStrings.swift in Sources */,
 				A19742DD2A2282DC00455DB0 /* UIImage.swift in Sources */,
-				A140934C29E73BD30037662B /* RegisterCardExpenseViewController.swift in Sources */,
 				A10191A929FB06BA00776A67 /* EditBankAccountsViewModel.swift in Sources */,
 				A1FA88552A0D904C00818F52 /* AccountsResumeTableViewCell.swift in Sources */,
 				A14F99AA2A259DB600257B67 /* accountsModalStrings.swift in Sources */,
@@ -2298,7 +2214,6 @@
 				A1C8BA6D2A22E61F00590758 /* transactionsStrings.swift in Sources */,
 				E35D087129BDB2030098F0B5 /* MoreOptionsViewController.swift in Sources */,
 				A1E76D432DB71A89005D9801 /* FormTextField.swift in Sources */,
-				A140935129E772720037662B /* RegisterExpenseViewController.swift in Sources */,
 				A11BDA7629F4C24B006CF6B2 /* CreditCard.swift in Sources */,
 				A18299C72A01AC7F00E72936 /* ConfigType.swift in Sources */,
 				A1E76D4F2DB71E49005D9801 /* FormToggle.swift in Sources */,
@@ -2362,7 +2277,6 @@
 				A10DA4BD2DAA117100206039 /* InputNumberOverTopView.swift in Sources */,
 				A125C10B2A3A51E100A78390 /* InsertNumbersModalViewModel.swift in Sources */,
 				A166B96229DF4BD600F33A98 /* TransactionCategory.swift in Sources */,
-				A140934F29E7625A0037662B /* AddTrasactionsViewModel.swift in Sources */,
 				A1F86C6E2A4E2F5400D2534A /* FirestoreService.swift in Sources */,
 				A19F851529F973D20044F7DE /* EditGoalViewController.swift in Sources */,
 				A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */,
@@ -2386,7 +2300,6 @@
 				A101917C29FAC4F900776A67 /* EditBankAccountsViewController.swift in Sources */,
 				A12A75FC2C3C960A00C5D8DD /* FirebaseSubCollectionNames.swift in Sources */,
 				A1990E482D99EC9800FDA183 /* UIView.swift in Sources */,
-				A140934429E73AD20037662B /* RegisterIncomeViewController.swift in Sources */,
 				A162B2492CFCF2020036350A /* SwitchExpandCellConfiguration.swift in Sources */,
 				A10DA4C92DAA145700206039 /* SelectCategoryModalView.swift in Sources */,
 				A1C9EFEF29E60D7D0029B69F /* LoginViewController.swift in Sources */,
@@ -2430,7 +2343,6 @@
 				A153C9702DB8568300E81AA2 /* AddTransactionButton.swift in Sources */,
 				A1D22DB52A53016A0042D060 /* CategoryImagesCollectionViewCell.swift in Sources */,
 				A1BBF50A2A2FD8C200DD18D5 /* SplashStrings.swift in Sources */,
-				A1A92BC429F81C1D00E14EE8 /* RegisterCardExpViewModel.swift in Sources */,
 				E35D084C29BDAD100098F0B5 /* SceneDelegate.swift in Sources */,
 				A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */,
 				A11BDA7429F4C173006CF6B2 /* Banks.swift in Sources */,
