@@ -37,7 +37,7 @@ struct CategorySpecification: Specification {
     
     func isSatisfied(by item: any Transactions) -> Bool {
         return categories.contains { category in
-            category.name == CategoriesRepository.shared.expenses[item.categoryIndex].name
+            category.name == CategoriesRepository.shared.expense(item.categoryIndex).name
         }
     }
 }

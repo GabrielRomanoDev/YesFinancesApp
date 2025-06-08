@@ -27,6 +27,8 @@ enum globalStrings {
     static let apply = "Aplicar"
     static let select = "Selecionar"
     static let send = "Enviar"
+    static let edit = "Editar"
+    static let save = "Salvar"
     
     static let january = "Janeiro"
     static let february = "Fevereiro"

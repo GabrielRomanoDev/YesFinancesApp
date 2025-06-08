@@ -108,13 +108,13 @@ struct InvoiceViewModel {
         
     }
     
-    func payInvoice(completion: @escaping () -> Void) {
+    mutating func payInvoice() {
     
         var expensesToPay: [CreditCardExpense] = []
         var totalAmount = 0.0
         
-        var invoiceExpenses = CreditCardExpensesRepository.shared.list.enumerated().filter { (index, expense) in
-            if let transactionDate = expense.date.toDate() {
+        let _ = CreditCardExpensesRepository.shared.list.enumerated().filter { (index, expense) in
+            if expense.date.toDate() != nil {
                 if expense.sourceId == creditCard.id && expense.month == invoice.month && expense.paymentStatus != .paid {
                     var paidExpense = expense
                     paidExpense.paymentStatus = .paid
@@ -126,36 +126,27 @@ struct InvoiceViewModel {
             return false
         }
         
-        if (BankAccountsRepository.shared.list.count >= 1) {
-            
-            let accountSourceId = BankAccountsRepository.shared.list[0].id
-            
-            let invoicePaymentTransaction = AccountTransaction(
-                desc: "Pagamento Fatura \(creditCard.desc)",
-                amount: totalAmount,
-                categoryIndex: 0,
-                date: Date().toString(),
-                type: .expense,
-                isMonthly: false,
-                sourceId: accountSourceId,
-                obs: ""
-            )
-            
-            TransactionsRepository.shared.list.append(invoicePaymentTransaction)
-            
-            service.setObject(invoicePaymentTransaction, subCollectionName: firebaseSubCollectionNames.transactions) { result in
-                
-                if result != "Success" {
-                    print(result)
-                }
-            }
-            
-        }
-        
         service.setObjectsList(objects: expensesToPay) { result in
             if result != "Success" {
                 print(result)
             }
+        }
+        
+        let invoiceMonth = self.invoice.month
+        
+        self.invoice = self.creditCard.getInvoice(month: invoiceMonth)
+        
+    }
+    
+    func deleteExpense(_ filteredIndex: Int, completion: @escaping (String) -> Void) {
+        
+        if let index = CreditCardExpensesRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
+            
+            service.deleteObject(id: CreditCardExpensesRepository.shared.list[index].id) { result in
+                CreditCardExpensesRepository.shared.list.remove(at: index)
+                completion(result)
+            }
+            
         }
         
     }

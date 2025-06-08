@@ -42,8 +42,8 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
             categoryLabel.text = transactionsStrings.dueDate
         }
         
-        categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[transaction.categoryIndex].imageName).withRenderingMode(.alwaysTemplate)
-        categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transaction.categoryIndex].colorIndex] ?? UIColor.cyan
+        categoryImage.image = UIImage(imageLiteralResourceName: CategoriesRepository.shared.expense(transaction.categoryIndex).imageName).withRenderingMode(.alwaysTemplate)
+        categoryPanelView.backgroundColor = categoryColors[CategoriesRepository.shared.expense(transaction.categoryIndex).colorIndex] ?? UIColor.cyan
         valueLabel.textColor = .redGeneralExpenses
         
         categoryImage.tintColor = .black
@@ -52,8 +52,9 @@ class PendingInvoicesCollectionViewCell: UICollectionViewCell {
         statusLabel.clipsToBounds = true
         
         switch transaction.paymentStatus {
-        case .future, .open:
-            //open invoices also can be considered future expenses
+        case .open:
+            statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.open) "
+        case .future:
             statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.future) "
         case .paid:
             statusLabel.text = " \(transactionsStrings.invoiceTitle) \(transactionsStrings.paid) "

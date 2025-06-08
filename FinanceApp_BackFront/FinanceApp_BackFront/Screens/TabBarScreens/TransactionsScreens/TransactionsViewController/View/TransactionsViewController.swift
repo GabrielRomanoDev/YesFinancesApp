@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class TransactionsViewController: UIViewController {
 
@@ -19,12 +20,17 @@ class TransactionsViewController: UIViewController {
     static let identifier:String = String(describing: TransactionsViewController.self)
     private var viewModel: TransactionsViewModel = TransactionsViewModel()
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .updateTransactionsData, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStrings()
         setupSearchBar()
         setupKeyboardHinding()
         setupCollectionView()
+        setupNotificationCenter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,8 +73,16 @@ class TransactionsViewController: UIViewController {
         searchBar.searchBarStyle = .minimal
     }
     
+    private func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTransactionsData), name: .updateTransactionsData, object: nil)
+    }
+    
+    @objc private func updateTransactionsData() {
+        updateData()
+    }
+    
     private func showNoTransactionsMessage(title: String) {
-        if viewModel.getTransactionsCount() <= 0 {
+        if viewModel.getTransactionsCount() <= 0 && viewModel.getPendingInvoicesCount() <= 0 {
             noTransactionsLabel.isHidden = false
             transactionsCollectionView.isHidden = true
         } else {
@@ -85,8 +99,9 @@ class TransactionsViewController: UIViewController {
         if let layout = transactionsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
             layout.estimatedItemSize = .zero
-            layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         }
+        transactionsCollectionView.register(TitleHeaderCollectionReusableView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier)
         transactionsCollectionView.register(TransactionsCollectionViewCell.nib(), forCellWithReuseIdentifier: TransactionsCollectionViewCell.identifier)
         transactionsCollectionView.register(CardExpensesCollectionViewCell.nib(), forCellWithReuseIdentifier: CardExpensesCollectionViewCell.identifier)
         transactionsCollectionView.register(PendingInvoicesCollectionViewCell.nib(), forCellWithReuseIdentifier: PendingInvoicesCollectionViewCell.identifier)
@@ -99,18 +114,66 @@ class TransactionsViewController: UIViewController {
         transactionsCollectionView.reloadData()
         showNoTransactionsMessage(title: transactionsStrings.noTransactionsRegistered)
     }
+    
+    private func openEditTransactionScreen(transaction: AccountTransaction, index: Int) {
+        
+        var hostingController: UIHostingController<TransactionFormScreen>!
+        
+        var isPresented: Bool = true
+        let isPresentedBinding = Binding<Bool>(
+            get: { isPresented },
+            set: { newValue in
+                isPresented = newValue
+            }
+        )
+        
+        let swiftUIView = TransactionFormScreen(transaction: transaction, type: .income, isPresented: isPresentedBinding) {
+            
+            DispatchQueue.main.async { [weak self] in
+               
+                self?.updateData()
+                isPresented = false
+                
+                hostingController.dismiss(animated: true)
+                
+            }
+            
+        }
+        
+        hostingController = UIHostingController(rootView: swiftUIView)
+        
+        present(hostingController, animated: true)
+        
+    }
 
 }
 
 extension TransactionsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.getPendingInvoicesCount() > 0 ? 2 : 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getTransactionsCount()
+        
+        let adjustedSection = viewModel.getPendingInvoicesCount() > 0 ? section : section + 1
+        
+        switch adjustedSection {
+        case 0:
+            return viewModel.getPendingInvoicesCount()
+        default:
+            return viewModel.getTransactionsCount()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let invoice = viewModel.getItemTransactions(indexPath.row) as? Invoice {
+        let adjustedSection = viewModel.getPendingInvoicesCount() > 0 ? indexPath.section : indexPath.section + 1
+        
+        switch adjustedSection {
+        case 0:
+            let invoice = viewModel.getItemInvoices(indexPath.row)
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PendingInvoicesCollectionViewCell.identifier, for: indexPath) as! PendingInvoicesCollectionViewCell
             cell.layer.cornerRadius = 10
@@ -118,16 +181,19 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
             
             cell.setup(with: invoice)
             return cell
-            
-        } else if let accountTransaction = viewModel.getItemTransactions(indexPath.row) as? AccountTransaction {
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransactionsCollectionViewCell.identifier, for: indexPath) as! TransactionsCollectionViewCell
-            cell.layer.cornerRadius = 10
-            cell.layer.masksToBounds = true
-            
-            cell.setup(with: accountTransaction)
-            return cell
-            
+        case 1:
+            if let accountTransaction = viewModel.getItemTransactions(indexPath.row) as? AccountTransaction {
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransactionsCollectionViewCell.identifier, for: indexPath) as! TransactionsCollectionViewCell
+                cell.layer.cornerRadius = 10
+                cell.layer.masksToBounds = true
+                
+                cell.setup(with: accountTransaction)
+                return cell
+                
+            }
+        default:
+            break
         }
         
         return UICollectionViewCell()
@@ -136,23 +202,96 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if let _ = viewModel.getItemTransactions(indexPath.row) as? Invoice {
+        let adjustedSection = viewModel.getPendingInvoicesCount() > 0 ? indexPath.section : indexPath.section + 1
+        
+        switch adjustedSection {
+        case 0:
             return CGSize(width: view.frame.width - 30, height: 92)
-        } else {
+        default:
             return CGSize(width: view.frame.width - 30, height: 79)
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let invoice = viewModel.getItemTransactions(indexPath.row) as? Invoice {
+        if indexPath.section == 0 && viewModel.getPendingInvoicesCount() > 0 {
+            let invoice = viewModel.getItemInvoices(indexPath.row)
             
             let storyboard = UIStoryboard(name: InvoiceViewController.identifier, bundle: nil)
             let vc = storyboard.instantiateViewController(identifier: InvoiceViewController.identifier) { [weak self] coder -> InvoiceViewController? in
                 return InvoiceViewController(coder: coder, invoice: invoice)
             }
             navigationController?.pushViewController(vc, animated: true)
+        } else if let accountTransaction = viewModel.getItemTransactions(indexPath.row) as? AccountTransaction {
             
+            var hostingController: UIHostingController<DetailsTransactionView>!
+            
+            @State var isPresented: Bool = true
+            
+            let swiftUIView = DetailsTransactionView(transaction: accountTransaction, isPresented: isPresented) { [weak self] in
+                // onEdit
+                isPresented = false
+                hostingController.dismiss(animated: true) { [weak self] in
+                    self?.openEditTransactionScreen(transaction: accountTransaction, index: indexPath.row)
+                }
+                
+            } onDelete: { [weak self] in
+                // onDelete
+                self?.viewModel.deleteTransaction(indexPath.row) { result in
+                    if result != "Success" {
+                        print("Error to edit transaction: \(result)")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self?.updateData()
+                        isPresented = false
+                        hostingController.dismiss(animated: true)
+                    }
+
+                }
+            }
+            
+            hostingController = UIHostingController(rootView: swiftUIView)
+            
+            if let sheet = hostingController.sheetPresentationController {
+                sheet.detents = [.medium()] // ou [.medium(), .large()] se quiser permitir expansão
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+            
+            present(hostingController, animated: true)
+            
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        var title:String
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier, for: indexPath) as? TitleHeaderCollectionReusableView
+            
+            if indexPath.section == 0 && viewModel.getPendingInvoicesCount() > 0 {
+                title = "Faturas Pendentes"
+            } else if indexPath.section == 1 && viewModel.getTransactionsCount() > 0 {
+                title = "Transações"
+            } else {
+                title = globalStrings.emptyString
+            }
+            
+            headerView?.setupCell(title: title, color: .systemGray, font: .systemFont(ofSize: 16))
+            return headerView ?? UICollectionReusableView()
+        }
+        
+        return UICollectionReusableView()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if viewModel.getPendingInvoicesCount() > 0 {
+            return CGSize(width: collectionView.frame.width, height: 40)
+        } else {
+            return CGSize(width: 0, height: 0)
         }
     }
     

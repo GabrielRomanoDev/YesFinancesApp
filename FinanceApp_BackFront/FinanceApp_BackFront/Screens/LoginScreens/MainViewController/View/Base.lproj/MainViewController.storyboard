@@ -17,9 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="nUn-Qh-ZRf">
-                                <rect key="frame" x="-11" y="0.0" width="452" height="932"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="nUn-Qh-ZRf">
+                                <rect key="frame" x="-35" y="0.0" width="463" height="887"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="9Mo-r5-n1J">
                                 <rect key="frame" x="20" y="161.66666666666663" width="353" height="529"/>
@@ -182,6 +181,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9Mo-r5-n1J" firstAttribute="centerX" secondItem="DNU-Fq-hGm" secondAttribute="centerX" id="8l6-q4-iQE"/>
+                            <constraint firstAttribute="bottom" secondItem="nUn-Qh-ZRf" secondAttribute="bottom" constant="-35" id="JBg-7A-aq7"/>
+                            <constraint firstAttribute="trailing" secondItem="nUn-Qh-ZRf" secondAttribute="trailing" constant="-35" id="e6Y-P0-Bnk"/>
+                            <constraint firstItem="nUn-Qh-ZRf" firstAttribute="top" secondItem="DNU-Fq-hGm" secondAttribute="top" id="nxB-zK-ebx"/>
+                            <constraint firstItem="nUn-Qh-ZRf" firstAttribute="leading" secondItem="DNU-Fq-hGm" secondAttribute="leading" constant="-35" id="v9O-FH-9VP"/>
                             <constraint firstItem="9Mo-r5-n1J" firstAttribute="centerY" secondItem="DNU-Fq-hGm" secondAttribute="centerY" id="xcG-XO-P64"/>
                         </constraints>
                     </view>

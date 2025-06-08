@@ -15,17 +15,18 @@ class TransactionFormViewModel: ObservableObject {
     
     @Published var transaction: AccountTransaction
     @Published var sourceIndex: Int = 0
-    private var isEditing: Bool
+    var isEditing: Bool
+    var isInvoicePayment: Bool
     
     var selectedDate: Date {
         get { self.transaction.date.toDate() ?? Date() }
         set { transaction.date = newValue.toString() }
     }
     
-    init(transaction: AccountTransaction?, type: TransactionType) {
+    init(transaction: AccountTransaction?, isInvoicePayment: Bool, type: TransactionType) {
         
         if let editingTransaction = transaction {
-            self.isEditing = true
+            self.isEditing = !isInvoicePayment ? true : false
             self.transaction = editingTransaction
         } else {
             self.isEditing = false
@@ -41,18 +42,25 @@ class TransactionFormViewModel: ObservableObject {
             )
         }
         
+        self.isInvoicePayment = isInvoicePayment
         self.sourceIndex = standardAccountIndex
-        setSourceID(index: self.sourceIndex)
+        self.setSourceID(index: self.sourceIndex)
         
     }
     
     func screenTitle() -> String {
-        switch transaction.type {
-        case .income:
-            return self.isEditing ? addStrings.incomeTransactionEditTitle : addStrings.incomeTransactionRegisterTitle
-        case .expense:
-            return self.isEditing ? addStrings.expenseTransactionEditTitle : addStrings.expenseTransactionRegisterTitle
+        
+        if isInvoicePayment {
+            return addStrings.invoicePaymentTitle
+        } else {
+            switch transaction.type {
+            case .income:
+                return self.isEditing ? addStrings.incomeTransactionEditTitle : addStrings.incomeTransactionRegisterTitle
+            case .expense:
+                return self.isEditing ? addStrings.expenseTransactionEditTitle : addStrings.expenseTransactionRegisterTitle
+            }
         }
+        
     }
     
     func screenTitleBackgroundColor() -> Color {
@@ -67,9 +75,9 @@ class TransactionFormViewModel: ObservableObject {
     func selectedCategory() -> TransactionCategory {
         switch transaction.type {
         case .income:
-            return CategoriesRepository.shared.incomes[transaction.categoryIndex]
+            return CategoriesRepository.shared.income(transaction.categoryIndex)
         case .expense:
-            return CategoriesRepository.shared.expenses[transaction.categoryIndex]
+            return CategoriesRepository.shared.expense(transaction.categoryIndex)
         }
     }
     
@@ -82,7 +90,7 @@ class TransactionFormViewModel: ObservableObject {
         }
     }
     
-    func addExpense(completion: @escaping () -> Void) {
+    func saveExpense(completion: @escaping () -> Void) {
         
         var newExpense = self.transaction
         
@@ -90,14 +98,22 @@ class TransactionFormViewModel: ObservableObject {
             
             switch newExpense.type {
             case .expense:
-                newExpense.desc = CategoriesRepository.shared.expenses[newExpense.categoryIndex].name
+                newExpense.desc = CategoriesRepository.shared.expense(newExpense.categoryIndex).name
             case .income:
-                newExpense.desc = CategoriesRepository.shared.incomes[newExpense.categoryIndex].name
+                newExpense.desc = CategoriesRepository.shared.income(newExpense.categoryIndex).name
             }
             
         }
         
-        TransactionsRepository.shared.list.append(self.transaction)
+        if isEditing {
+            
+            if let index = TransactionsRepository.shared.list.firstIndex(where: {$0.id == self.transaction.id} ) {
+                TransactionsRepository.shared.list[index] = newExpense
+            }
+             
+        } else {
+            TransactionsRepository.shared.list.append(self.transaction)
+        }
         
         service.setObject(self.transaction) { result in
             

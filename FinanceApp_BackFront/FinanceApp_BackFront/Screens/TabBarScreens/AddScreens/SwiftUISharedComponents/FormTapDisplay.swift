@@ -12,10 +12,11 @@ struct FormTapDisplay: View {
     var labelText: String
     var iconSize: CGFloat
     var rowSize: CGFloat
+    var isBlocked: Bool = false
     var onTap: () -> Void
 
     var body: some View {
-        IconRow(icon: image, iconSize: iconSize, isTextFieldElement: false, onTap: onTap) {
+        IconRow(icon: image, iconSize: iconSize, isTextFieldElement: false, onTap: !isBlocked ? onTap : nil) {
             Text(labelText)
                 .frame(height: rowSize)
         }

@@ -9,6 +9,8 @@ import Foundation
 
 struct TransactionsViewModel {
     
+    private var service: FirestoreService = FirestoreService(subCollectionName: firebaseSubCollectionNames.transactions)
+    
     private var filteringWorker: TransactionsFilterWorker = TransactionsFilterWorker(filterType: .transactions)
     private var filteredTransactions: [any Transactions] = TransactionsRepository.shared.list
     private var pendingInvoices: [Invoice] = []
@@ -29,8 +31,16 @@ struct TransactionsViewModel {
         
     }
     
+    func getPendingInvoicesCount() -> Int {
+        return pendingInvoices.count
+    }
+    
     func getTransactionsCount() -> Int {
         return filteredTransactions.count
+    }
+    
+    func getItemInvoices(_ index: Int) -> Invoice {
+        return pendingInvoices[index]
     }
     
     func getItemTransactions(_ index: Int) -> any Transactions {
@@ -43,6 +53,19 @@ struct TransactionsViewModel {
     
     func getParameters() -> FilteringParameters {
         return filteringWorker.parameters
+    }
+    
+    func deleteTransaction(_ filteredIndex: Int, completion: @escaping (String) -> Void) {
+        
+        if let index = TransactionsRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
+            
+            service.deleteObject(id: TransactionsRepository.shared.list[index].id) { result in
+                TransactionsRepository.shared.list.remove(at: index)
+                completion(result)
+            }
+            
+        }
+        
     }
     
     mutating func displayNextMonth() {
@@ -89,7 +112,6 @@ struct TransactionsViewModel {
     
     mutating func resetFilteredTransactions() {
         self.filteredTransactions = TransactionsRepository.shared.list
-        filteredTransactions.append(contentsOf: pendingInvoices)
         reordenateTransactions()
     }
     

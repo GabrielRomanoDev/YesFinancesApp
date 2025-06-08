@@ -20,7 +20,7 @@ func sumExpensesByCategory() -> [CategoriesSum] {
     
     for transaction in TransactionsRepository.shared.list where transaction.type == .expense{
 
-        let category: String = CategoriesRepository.shared.expenses[transaction.categoryIndex].name
+        let category: String = CategoriesRepository.shared.expense(transaction.categoryIndex).name
         
         if (list[category] != nil){ //Sum up the value if there already is an item with this category in dictionary
             

@@ -11,6 +11,7 @@ import Foundation
 
 struct TransactionFormScreen: View {
     
+    @Binding var isPresented: Bool
     @StateObject private var viewModel: TransactionFormViewModel
     @State private var showCategorySheet = false
     @State private var showInputNumber = false
@@ -24,8 +25,9 @@ struct TransactionFormScreen: View {
     let iconSize: CGFloat = 22
     let rowSize: CGFloat = 40
 
-    init(transaction: AccountTransaction? = nil, type: TransactionType, onDismiss: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: TransactionFormViewModel(transaction: transaction, type: type))
+    init(transaction: AccountTransaction? = nil, type: TransactionType, isInvoicePayment: Bool = false, isPresented: Binding<Bool>, onDismiss: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: TransactionFormViewModel(transaction: transaction, isInvoicePayment: isInvoicePayment, type: type))
+        self._isPresented = isPresented
         self.onDismiss = onDismiss
     }
 
@@ -46,7 +48,7 @@ struct TransactionFormScreen: View {
                         
                         FormTextField(image: Image("image46"), text: $viewModel.transaction.desc, placeholder: addStrings.descriptionPlaceholder, iconSize: iconSize, rowSize: rowSize)
                         
-                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(viewModel.transaction.amount.toStringMoney())", iconSize: iconSize, rowSize: rowSize, onTap: {
+                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.transaction.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, isBlocked: viewModel.isInvoicePayment, onTap: {
                             hideKeyboard()
                             showInputNumber = true
                         })
@@ -56,7 +58,7 @@ struct TransactionFormScreen: View {
                             showDatePicker = true
                         })
 
-                        CategoryButton(category: viewModel.selectedCategory(), rowSize: rowSize, onTap: {
+                        CategoryButton(category: viewModel.selectedCategory(), rowSize: rowSize, isBlocked: viewModel.isInvoicePayment, onTap: {
                             showCategorySheet = true
                             hideKeyboard()
                         })
@@ -66,23 +68,33 @@ struct TransactionFormScreen: View {
                                         hideKeyboard()
                         })
                         
-                        FormToggle(label: addStrings.fixedExpenseLabel, isOn: $viewModel.transaction.isMonthly, iconSize: iconSize, rowSize: rowSize, switchColor: viewModel.screenTitleBackgroundColor())
+                        if !viewModel.isInvoicePayment {
+                            FormToggle(label: addStrings.fixedExpenseLabel, isOn: $viewModel.transaction.isMonthly, iconSize: iconSize, rowSize: rowSize, switchColor: viewModel.screenTitleBackgroundColor())
+                        }
                         
                         FormTextField(image: Image(systemName: "note.text"), text: $viewModel.transaction.obs, placeholder: addStrings.observationsText, iconSize: iconSize, rowSize: rowSize)
                         
                         Spacer(minLength: 30)
                         
                         HStack {
+                            
+                            Spacer()
+                            
                             Button(action: {
+                                
                                 if viewModel.transaction.amount == 0 {
                                     showMissingAmountAlert = true
                                 } else if viewModel.transaction.desc.isEmpty {
                                     showMissingDescAlert = true
                                 } else {
-                                    viewModel.addExpense(completion: onDismiss)
+                                    viewModel.saveExpense() {
+                                        isPresented = false
+                                        onDismiss()
+                                    }
                                 }
+                                
                             }) {
-                                Text(globalStrings.send)
+                                Text(viewModel.isEditing ? globalStrings.save : globalStrings.send)
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: 150)
@@ -90,8 +102,12 @@ struct TransactionFormScreen: View {
                                     .cornerRadius(15)
                             }
                             
+                            Spacer()
+                            
                         }
-                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .listRowInsets(EdgeInsets()) // Remove insets padrão da célula
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         
                         Spacer(minLength: 30)
@@ -139,7 +155,10 @@ struct TransactionFormScreen: View {
         .alert(globalStrings.attention, isPresented: $showMissingDescAlert) {
             Button(globalStrings.cancel, role: .cancel, action: {})
             Button(globalStrings.confirm) {
-                viewModel.addExpense(completion: onDismiss)
+                viewModel.saveExpense() {
+                    isPresented = false
+                    onDismiss()
+                }
             }
         } message: {
             Text(addStrings.missingDescriptionErrorMessage)
@@ -153,21 +172,18 @@ struct TransactionFormScreen: View {
 
 #Preview {
     
-    var cardPayment = CreditCardExpense(
-        desc: "Pagamento da fatura cartao Bradesco",
+    var expense = AccountTransaction(
+        desc: "Gasto",
         amount: 100,
         categoryIndex: 0,
         date: Date().toString(),
         type: .income,
         isMonthly: false,
-        paymentStatus: .paid,
-        month: Date().getMonth(),
-        installment: Installment(enabled: true),
         sourceId: "",
         obs: globalStrings.emptyString
     )
     
-    CreditCardExpenseFormScreen(expense: cardPayment) {
+    TransactionFormScreen(transaction: expense, type: .expense, isPresented: .constant(true)) {
         
     }
     

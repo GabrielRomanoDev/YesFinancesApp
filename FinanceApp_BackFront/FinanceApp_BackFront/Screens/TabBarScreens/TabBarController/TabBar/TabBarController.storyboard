@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGI-aq-Y6o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGI-aq-Y6o">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,16 +41,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1SP-KE-0uF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2627" y="3034"/>
-        </scene>
-        <!--AddViewController-->
-        <scene sceneID="e6G-Pr-2Y9">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="AddTransactionViewController" storyboardName="AddViewController" referencedIdentifier="AddViewController" id="2Vt-n0-LVQ" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Zq4-kt-Zj6"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C18-32-U6v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2630" y="1263"/>
         </scene>
         <!--HomeViewController-->
         <scene sceneID="Q57-Y2-bPC">
@@ -113,12 +103,11 @@
             </objects>
             <point key="canvasLocation" x="2626" y="524"/>
         </scene>
-        <!--Adicionar-->
+        <!--Navigation Controller-->
         <scene sceneID="Va3-vD-vgD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Q1Y-40-e1M" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Adicionar" id="Rpe-cT-T6z">
-                        <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                    <tabBarItem key="tabBarItem" title="" id="Rpe-cT-T6z">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="50" maxX="0.0" maxY="50"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -126,9 +115,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="2Vt-n0-LVQ" kind="relationship" relationship="rootViewController" id="QQB-cn-O10"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="StE-F9-N2o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -188,10 +174,9 @@
         <image name="checkmark.diamond.fill" catalog="system" width="128" height="124"/>
         <image name="doc" catalog="system" width="115" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
-        <image name="note.text.badge.plus" catalog="system" width="128" height="108"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="note.text.badge.plus" catalog="system" width="128" height="109"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

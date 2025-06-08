@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class InvoiceViewController: UIViewController {
 
@@ -102,6 +103,7 @@ class InvoiceViewController: UIViewController {
             
             guard let self else { return }
             
+            self.viewModel.fetchExpenses()
             self.viewModel.filterTransactions(parameters: nil)
             self.transactionsCollectionView.reloadData()
             self.transactionsCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
@@ -114,6 +116,37 @@ class InvoiceViewController: UIViewController {
             self.showNoTransactionsMessage(title: transactionsStrings.noExpenseFiltered)
             
         }
+        
+    }
+    
+    private func openEditExpenseScreen(expense: CreditCardExpense, index: Int) {
+        
+        var hostingController: UIHostingController<CreditCardExpenseFormScreen>!
+        
+        var isPresented: Bool = true
+        let isPresentedBinding = Binding<Bool>(
+            get: { isPresented },
+            set: { newValue in
+                isPresented = newValue
+            }
+        )
+        
+        let swiftUIView = CreditCardExpenseFormScreen(expense: expense, isPresented: isPresentedBinding) {
+            
+            DispatchQueue.main.async { [weak self] in
+               
+                self?.updateData()
+                isPresented = false
+                
+                hostingController.dismiss(animated: true)
+                
+            }
+            
+        }
+        
+        hostingController = UIHostingController(rootView: swiftUIView)
+        
+        present(hostingController, animated: true)
         
     }
 
@@ -135,7 +168,7 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
             cell.delegate = self
             cell.setupCell(invoice: viewModel.invoice)
             return cell
-            } else if let creditCardTransaction = viewModel.getExpense(indexPath.row - 1) as? CreditCardExpense {
+        } else if let creditCardTransaction = viewModel.getExpense(indexPath.row - 1) as? CreditCardExpense {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardExpensesCollectionViewCell.identifier, for: indexPath) as! CardExpensesCollectionViewCell
             cell.layer.cornerRadius = 10
             cell.layer.masksToBounds = true
@@ -152,6 +185,50 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
         return viewModel.getSizeForCell(index: indexPath.row, viewWidth: view.frame.width)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.row >= 1, let expense = viewModel.getExpense(indexPath.row - 1) as? CreditCardExpense {
+            
+            var hostingController: UIHostingController<DetailsTransactionView>!
+            
+            @State var isPresented: Bool = true
+            
+            let swiftUIView = DetailsTransactionView(transaction: expense, isPresented: isPresented) { [weak self] in
+                // onEdit
+                isPresented = false
+                hostingController.dismiss(animated: true) { [weak self] in
+                    self?.openEditExpenseScreen(expense: expense, index: indexPath.row)
+                }
+                
+            } onDelete: { [weak self] in
+                // onDelete
+                self?.viewModel.deleteExpense(indexPath.row - 1) { result in
+                    if result != "Success" {
+                        print("Error to edit transaction: \(result)")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self?.updateData()
+                        isPresented = false
+                        hostingController.dismiss(animated: true)
+                    }
+
+                }
+            }
+            
+            hostingController = UIHostingController(rootView: swiftUIView)
+            
+            if let sheet = hostingController.sheetPresentationController {
+                sheet.detents = [.large()] // ou [.medium(), .large()] se quiser permitir expansão
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+            
+            present(hostingController, animated: true)
+            
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }
@@ -162,12 +239,40 @@ extension InvoiceViewController: InvoiceInfoCollectionViewCellDelegate {
     
     func didTapPayInvoiceButton() {
         
-        if viewModel.invoice.amount < 0 {
-            showAlertWithCancelOption(title: "Pagar fatura", message: "Deseja realizar pagamento de \(abs(viewModel.invoice.amount).toStringMoney()) da \(viewModel.invoice.desc)?") { [weak self] in
-                self?.viewModel.payInvoice() {
-                    self?.updateData()
+        let cardPayment = AccountTransaction(
+            desc: "Pagamento de \(viewModel.invoice.desc)",
+            amount: viewModel.invoice.amount,
+            categoryIndex: 30,
+            date: Date().toString(),
+            type: .expense,
+            isMonthly: false,
+            sourceId: viewModel.invoice.sourceId,
+            obs: globalStrings.emptyString
+        )
+        
+        if abs(viewModel.invoice.amount) > 0 {
+            var hostingController: UIHostingController<TransactionFormScreen>!
+            
+            var isPresented: Bool = true
+            let isPresentedBinding = Binding<Bool>(
+                get: { isPresented },
+                set: { newValue in
+                    isPresented = newValue
                 }
+            )
+
+            let swiftUIView = TransactionFormScreen(transaction: cardPayment, type: .expense, isInvoicePayment: true, isPresented: isPresentedBinding) {
+                
+                DispatchQueue.main.async {
+                    self.viewModel.payInvoice()
+                    self.updateData()
+                    hostingController.dismiss(animated: true)
+                }
+                
             }
+
+            hostingController = UIHostingController(rootView: swiftUIView)
+            present(hostingController, animated: true)
         } else {
             showSimpleAlert(title: globalStrings.attention, message: transactionsStrings.errorZeroedInvoice)
         }
