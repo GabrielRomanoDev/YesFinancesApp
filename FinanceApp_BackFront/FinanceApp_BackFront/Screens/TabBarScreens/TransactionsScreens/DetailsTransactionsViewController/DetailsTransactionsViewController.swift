@@ -53,14 +53,14 @@ class DetailsTransactionsViewController: UIViewController {
             titleLabel.text = "Detalhes da Receita"
             titleContainerView.backgroundColor = .greenAddIncomes
             editButton.tintColor = .greenAddIncomes
-            categoryLabel.text = CategoriesRepository.shared.incomes[transaction.categoryIndex].name
-            backgroundCategoryView.backgroundColor = categoryColors[CategoriesRepository.shared.incomes[transaction.categoryIndex].colorIndex]
+            categoryLabel.text = CategoriesRepository.shared.income(transaction.categoryIndex).name
+            backgroundCategoryView.backgroundColor = categoryColors[CategoriesRepository.shared.income(transaction.categoryIndex).colorIndex]
         case .expense:
             titleLabel.text = "Detalhes da Despesa"
             titleContainerView.backgroundColor = .redAddExpenses
             editButton.tintColor = .redAddExpenses
-            categoryLabel.text = CategoriesRepository.shared.expenses[transaction.categoryIndex].name
-            backgroundCategoryView.backgroundColor = categoryColors[CategoriesRepository.shared.expenses[transaction.categoryIndex].colorIndex]
+            categoryLabel.text = CategoriesRepository.shared.expense(transaction.categoryIndex).name
+            backgroundCategoryView.backgroundColor = categoryColors[CategoriesRepository.shared.expense(transaction.categoryIndex).colorIndex]
         }
         descLabel.text = transaction.desc
         amountLabel.text = String(transaction.amount)

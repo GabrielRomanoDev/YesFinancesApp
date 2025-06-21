@@ -5,6 +5,8 @@
 //  Created by Gabriel Luz Romano on 28/04/25.
 //
 
+import Foundation
+
 extension Notification.Name {
-    static let didCloseAddTransaction = Notification.Name("didCloseAddTransaction")
+    static let updateTransactionsData = Notification.Name("updateTransactionsData")
 }

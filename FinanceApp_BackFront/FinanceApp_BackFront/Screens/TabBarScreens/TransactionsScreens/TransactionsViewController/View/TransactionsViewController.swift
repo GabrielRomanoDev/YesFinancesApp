@@ -21,7 +21,7 @@ class TransactionsViewController: UIViewController {
     private var viewModel: TransactionsViewModel = TransactionsViewModel()
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .didCloseAddTransaction, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .updateTransactionsData, object: nil)
     }
     
     override func viewDidLoad() {
@@ -74,10 +74,10 @@ class TransactionsViewController: UIViewController {
     }
     
     private func setupNotificationCenter() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAddTransactionClosed), name: .didCloseAddTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTransactionsData), name: .updateTransactionsData, object: nil)
     }
     
-    @objc private func handleAddTransactionClosed() {
+    @objc private func updateTransactionsData() {
         updateData()
     }
     

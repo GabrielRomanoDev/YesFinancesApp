@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class InvoiceViewController: UIViewController {
 
@@ -162,12 +163,40 @@ extension InvoiceViewController: InvoiceInfoCollectionViewCellDelegate {
     
     func didTapPayInvoiceButton() {
         
-        if viewModel.invoice.amount < 0 {
-            showAlertWithCancelOption(title: "Pagar fatura", message: "Deseja realizar pagamento de \(abs(viewModel.invoice.amount).toStringMoney()) da \(viewModel.invoice.desc)?") { [weak self] in
-                self?.viewModel.payInvoice() {
-                    self?.updateData()
+        let cardPayment = AccountTransaction(
+            desc: "Pagamento de \(viewModel.invoice.desc)",
+            amount: viewModel.invoice.amount,
+            categoryIndex: 30,
+            date: Date().toString(),
+            type: .expense,
+            isMonthly: false,
+            sourceId: viewModel.invoice.sourceId,
+            obs: globalStrings.emptyString
+        )
+        
+        if abs(viewModel.invoice.amount) > 0 {
+            var hostingController: UIHostingController<TransactionFormScreen>!
+            
+            var isPresented: Bool = true
+            let isPresentedBinding = Binding<Bool>(
+                get: { isPresented },
+                set: { newValue in
+                    isPresented = newValue
                 }
+            )
+
+            let swiftUIView = TransactionFormScreen(transaction: cardPayment, type: .expense, isInvoicePayment: true, isPresented: isPresentedBinding) {
+                
+                DispatchQueue.main.async {
+                    self.viewModel.payInvoice()
+                    self.updateData()
+                    hostingController.dismiss(animated: true)
+                }
+                
             }
+
+            hostingController = UIHostingController(rootView: swiftUIView)
+            present(hostingController, animated: true)
         } else {
             showSimpleAlert(title: globalStrings.attention, message: transactionsStrings.errorZeroedInvoice)
         }

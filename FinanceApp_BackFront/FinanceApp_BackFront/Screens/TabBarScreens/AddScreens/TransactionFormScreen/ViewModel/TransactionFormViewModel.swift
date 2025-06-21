@@ -26,7 +26,7 @@ class TransactionFormViewModel: ObservableObject {
     init(transaction: AccountTransaction?, isInvoicePayment: Bool, type: TransactionType) {
         
         if let editingTransaction = transaction {
-            self.isEditing = true
+            self.isEditing = !isInvoicePayment ? true : false
             self.transaction = editingTransaction
         } else {
             self.isEditing = false
@@ -75,9 +75,9 @@ class TransactionFormViewModel: ObservableObject {
     func selectedCategory() -> TransactionCategory {
         switch transaction.type {
         case .income:
-            return CategoriesRepository.shared.incomes[transaction.categoryIndex]
+            return CategoriesRepository.shared.income(transaction.categoryIndex)
         case .expense:
-            return CategoriesRepository.shared.expenses[transaction.categoryIndex]
+            return CategoriesRepository.shared.expense(transaction.categoryIndex)
         }
     }
     
@@ -98,9 +98,9 @@ class TransactionFormViewModel: ObservableObject {
             
             switch newExpense.type {
             case .expense:
-                newExpense.desc = CategoriesRepository.shared.expenses[newExpense.categoryIndex].name
+                newExpense.desc = CategoriesRepository.shared.expense(newExpense.categoryIndex).name
             case .income:
-                newExpense.desc = CategoriesRepository.shared.incomes[newExpense.categoryIndex].name
+                newExpense.desc = CategoriesRepository.shared.income(newExpense.categoryIndex).name
             }
             
         }

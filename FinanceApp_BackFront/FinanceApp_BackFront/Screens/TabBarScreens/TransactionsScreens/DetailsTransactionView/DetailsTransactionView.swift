@@ -75,7 +75,7 @@ struct DetailsTransactionView: View {
                 summaryRow(
                     icon: Image(systemName: "tag"),
                     label: "Categoria",
-                    value: CategoriesRepository.shared.expenses[transaction.categoryIndex].name
+                    value: CategoriesRepository.shared.expense(transaction.categoryIndex).name
                 )
                 
                 summaryRow(

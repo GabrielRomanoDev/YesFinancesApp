@@ -105,7 +105,7 @@ class RegisterCardExpViewModel: ObservableObject {
         var baseExpense = self.expense
         
         if baseExpense.desc.isEmptyTest() {
-            baseExpense.desc = CategoriesRepository.shared.expenses[baseExpense.categoryIndex].name
+            baseExpense.desc = CategoriesRepository.shared.expense(baseExpense.categoryIndex).name
         }
         
         let totalInstallments = baseExpense.installment.total - baseExpense.installment.current + 1
@@ -167,6 +167,16 @@ class RegisterCardExpViewModel: ObservableObject {
     
     func setSourceID(index: Int) {
         expense.sourceId = CreditCardsRepository.shared.list[index].id
+        
+        let currentDay = Calendar.current.component(.day, from: Date())
+        
+        var month = Date().getMonth()
+        
+        if CreditCardsRepository.shared.list[index].closingDay < currentDay {
+            month.nextMonth()
+        }
+        
+        expense.month = month
         cardIndex = index
     }
     

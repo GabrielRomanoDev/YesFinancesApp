@@ -59,7 +59,7 @@ struct CreditCardExpenseFormScreen: View {
                             showDatePicker = true
                         })
 
-                        CategoryButton(category: CategoriesRepository.shared.expenses[viewModel.expense.categoryIndex], rowSize: rowSize, onTap: {
+                        CategoryButton(category: CategoriesRepository.shared.expense(viewModel.expense.categoryIndex), rowSize: rowSize, onTap: {
                             showCategorySheet = true
                             hideKeyboard()
                         })

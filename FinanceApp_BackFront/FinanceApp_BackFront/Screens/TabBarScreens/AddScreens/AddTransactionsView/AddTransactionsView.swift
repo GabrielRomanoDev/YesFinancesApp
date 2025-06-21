@@ -112,7 +112,7 @@ struct AddTransactionView: View {
     private func dimissView() {
         DispatchQueue.main.async {
             dismiss()
-            NotificationCenter.default.post(name: .didCloseAddTransaction, object: nil)
+            NotificationCenter.default.post(name: .updateTransactionsData, object: nil)
         }
     }
     

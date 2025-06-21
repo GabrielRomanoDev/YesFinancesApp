@@ -25,10 +25,10 @@ class AddAccountTransactionsViewModel{
         if newTransaction.desc.isEmptyTest() {
             switch transactionType{
             case .expense:
-                newTransaction.desc = CategoriesRepository.shared.expenses[newTransaction.categoryIndex].name
+                newTransaction.desc = CategoriesRepository.shared.expense(newTransaction.categoryIndex).name
                 
             case .income:
-                newTransaction.desc = CategoriesRepository.shared.incomes[newTransaction.categoryIndex].name
+                newTransaction.desc = CategoriesRepository.shared.income(newTransaction.categoryIndex).name
             }
         }
         
@@ -65,27 +65,27 @@ class AddAccountTransactionsViewModel{
     func getCategoryLabel(_ indexCategory:Int) -> String {
         switch transactionType{
         case .expense:
-            return CategoriesRepository.shared.expenses[indexCategory].name
+            return CategoriesRepository.shared.expense(indexCategory).name
         case .income:
-            return CategoriesRepository.shared.incomes[indexCategory].name
+            return CategoriesRepository.shared.income(indexCategory).name
         }
     }
     
     func getCategoryImageName(_ indexCategory:Int) -> UIImage{
         switch transactionType{
         case .expense:
-            return UIImage(imageLiteralResourceName: CategoriesRepository.shared.expenses[indexCategory].imageName)
+            return UIImage(imageLiteralResourceName: CategoriesRepository.shared.expense(indexCategory).imageName)
         case .income:
-            return UIImage(imageLiteralResourceName: CategoriesRepository.shared.incomes[indexCategory].imageName)
+            return UIImage(imageLiteralResourceName: CategoriesRepository.shared.income(indexCategory).imageName)
         }
     }
     
     func getCategoryBackgroungColor(_ indexCategory:Int) -> UIColor{
         switch transactionType{
         case .expense:
-            return categoryColors[CategoriesRepository.shared.expenses[indexCategory].colorIndex] ?? UIColor.cyan
+            return categoryColors[CategoriesRepository.shared.expense(indexCategory).colorIndex] ?? UIColor.cyan
         case .income:
-            return categoryColors[CategoriesRepository.shared.incomes[indexCategory].colorIndex] ?? UIColor.cyan
+            return categoryColors[CategoriesRepository.shared.income(indexCategory).colorIndex] ?? UIColor.cyan
         }
     }
     

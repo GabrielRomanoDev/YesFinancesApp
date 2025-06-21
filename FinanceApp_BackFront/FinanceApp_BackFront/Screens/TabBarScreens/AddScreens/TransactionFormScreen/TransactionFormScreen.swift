@@ -48,7 +48,7 @@ struct TransactionFormScreen: View {
                         
                         FormTextField(image: Image("image46"), text: $viewModel.transaction.desc, placeholder: addStrings.descriptionPlaceholder, iconSize: iconSize, rowSize: rowSize)
                         
-                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.transaction.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, blocked: viewModel.isInvoicePayment, onTap: {
+                        FormTapDisplay(image: Image(systemName: "dollarsign.circle"), labelText: "\(abs(viewModel.transaction.amount).toStringMoney())", iconSize: iconSize, rowSize: rowSize, isBlocked: viewModel.isInvoicePayment, onTap: {
                             hideKeyboard()
                             showInputNumber = true
                         })
@@ -58,7 +58,7 @@ struct TransactionFormScreen: View {
                             showDatePicker = true
                         })
 
-                        CategoryButton(category: viewModel.selectedCategory(), rowSize: rowSize, onTap: {
+                        CategoryButton(category: viewModel.selectedCategory(), rowSize: rowSize, isBlocked: true, onTap: {
                             showCategorySheet = true
                             hideKeyboard()
                         })
