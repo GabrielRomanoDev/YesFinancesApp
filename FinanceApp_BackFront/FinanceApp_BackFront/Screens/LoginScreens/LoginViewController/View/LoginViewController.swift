@@ -44,16 +44,25 @@ class LoginViewController: UIViewController {
         let password = passwordTextField.text.orEmpty
         
         if validadeTextField() == true {
+            
             viewModel.loginUser(email: email, password: password) { resultLogin in
-                if resultLogin == loginStrings.loginSuccessMessage {
-                    let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
-                    if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
-                        self.present(tbc, animated: false)
+                
+                switch resultLogin {
+                case .success:
+                    
+                    DispatchQueue.main.async {
+                        let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
+                        if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
+                            self.present(tbc, animated: false)
+                        }
                     }
-                } else {
-                    self.showSimpleAlert(title: loginStrings.atention, message: resultLogin)
+                    
+                case .failure(let error):
+                    self.showSimpleAlert(title: loginStrings.atention, message: error.localizedDescription)
                 }
+                
             }
+            
         } else {
             self.showSimpleAlert(title: loginStrings.atention, message: loginStrings.emptyFieldsErrorMessage)
         }

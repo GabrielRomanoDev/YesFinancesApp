@@ -2,7 +2,7 @@
 //  GoogleAuthService.swift
 //  FinanceApp_BackFront
 //
-//  Created by Gabriel Luz Romano on 22/04/25.
+//  Created by Gabriel Luz Romano on 08/06/25.
 //
 
 import Foundation
@@ -10,16 +10,11 @@ import GoogleSignIn
 import FirebaseAuth
 import FirebaseCore
 
-class GoogleAuthService {
-
-    static let shared = GoogleAuthService()
-
-    private init() {}
-
-    /// Faz login com a conta Google e autentica no Firebase.
-    func signInWithGoogle(completion: @escaping (Result<User, Error>) -> Void) {
+class GoogleAuthService {    
+    
+    func login(completion: @escaping (Result<String, Error>) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            completion(.failure(NSError(domain: "MissingClientID", code: 0)))
+            completion(.failure(LoginError.missingClientId))
             return
         }
 
@@ -29,25 +24,34 @@ class GoogleAuthService {
 
         GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(self.getLoginError(for: error)))
                 return
             }
 
             guard let user = result?.user,
                   let idToken = user.idToken?.tokenString else {
-                completion(.failure(NSError(domain: "TokenError", code: 0)))
+                completion(.failure(LoginError.tokenError))
                 return
             }
+            
+            
 
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: user.accessToken.tokenString)
 
             Auth.auth().signIn(with: credential) { authResult, error in
+                
+                if let authResult = authResult, authResult.additionalUserInfo?.isNewUser ?? false {
+                    let user = UserData(id: authResult.user.uid, name: authResult.user.displayName ?? "", email: authResult.user.email ?? "")
+                }
+                
+                
                 if let error = error {
-                    completion(.failure(error))
-                } else if let user = authResult?.user {
+                    completion(.failure(self.getLoginError(for: error)))
+                } else if let user = authResult?.user.uid {
                     completion(.success(user))
                 }
+                
             }
         }
     }
@@ -64,7 +68,25 @@ class GoogleAuthService {
     }
 
     /// Retorna o usuário atual (se estiver logado)
-    func getCurrentUser() -> User? {
+    func getCurrentUser() -> FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
+    
+    private func getLoginError(for error: Error?) -> Error {
+        if let errorCode = (error as NSError?)?.code {
+            switch errorCode {
+            case AuthErrorCode.wrongPassword.rawValue:
+                return LoginError.wrongPassword
+            case AuthErrorCode.userNotFound.rawValue:
+                return LoginError.userNotFound
+            case AuthErrorCode.invalidEmail.rawValue:
+                return LoginError.invalidEmail
+            default:
+                return error ?? LoginError.undefined
+            }
+        } else {
+            return error ?? LoginError.undefined
+        }
+    }
+    
 }

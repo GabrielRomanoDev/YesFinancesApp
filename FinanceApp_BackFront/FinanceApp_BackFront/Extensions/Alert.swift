@@ -16,8 +16,10 @@ extension UIViewController {
             completion?()
         }
         alertController.addAction(okButton)
-        self.present(alertController, animated: true, completion: nil)
         
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     func showAlertWithCancelOption(title:String, message: String, completion:(() -> Void)? = nil) {

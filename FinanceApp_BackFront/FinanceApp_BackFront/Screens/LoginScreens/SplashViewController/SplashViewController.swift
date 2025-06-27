@@ -19,10 +19,21 @@ class SplashViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3){
-            let vc: MainViewController? = UIStoryboard(name: MainViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: MainViewController.identifier) as? MainViewController
-            self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            
+            if AuthenticationManager.shared.isSessionValid() {
+                let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
+                if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
+                    self.present(tbc, animated: false)
+                }
+            } else {
+                let vc: MainViewController? = UIStoryboard(name: MainViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: MainViewController.identifier) as? MainViewController
+                self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+            }
+            
         }
+        
     }
     
     private func setupLottie() {

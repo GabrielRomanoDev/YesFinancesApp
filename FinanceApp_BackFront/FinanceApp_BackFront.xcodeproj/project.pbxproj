@@ -42,6 +42,13 @@
 		A12E87D92D74F23400FA3295 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12E87D82D74F23100FA3295 /* Date.swift */; };
 		A12E87DB2D74F73900FA3295 /* PaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12E87DA2D74F73700FA3295 /* PaymentStatus.swift */; };
 		A12E87DD2D74F77800FA3295 /* MonthDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12E87DC2D74F76D00FA3295 /* MonthDate.swift */; };
+		A13A2A5A2DF62976002D38FE /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A592DF62961002D38FE /* AuthenticationManager.swift */; };
+		A13A2A5D2DF62991002D38FE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A5C2DF6298F002D38FE /* AuthService.swift */; };
+		A13A2A5F2DF62AF4002D38FE /* EmailAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A5E2DF62AEE002D38FE /* EmailAuthService.swift */; };
+		A13A2A612DF62B70002D38FE /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A602DF62B6E002D38FE /* GoogleAuthService.swift */; };
+		A13A2A632DF62C06002D38FE /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A622DF62C00002D38FE /* AppleAuthService.swift */; };
+		A13A2A652DF62C4A002D38FE /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A642DF62C47002D38FE /* SessionManager.swift */; };
+		A13A2A672DF62DE1002D38FE /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2A662DF62DDE002D38FE /* BiometricService.swift */; };
 		A13E249629F98AB200E9EF7A /* EditGoalViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13E249529F98AB200E9EF7A /* EditGoalViewController.storyboard */; };
 		A13E249929F98BDB00E9EF7A /* EditGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E249829F98BDB00E9EF7A /* EditGoalViewModel.swift */; };
 		A13E249C29F9957C00E9EF7A /* GoalInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13E249B29F9957C00E9EF7A /* GoalInfoViewController.storyboard */; };
@@ -66,7 +73,6 @@
 		A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA3E2A21A47800372C00 /* loginStrings.swift */; };
 		A152AA422A21A69B00372C00 /* registerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152AA412A21A69B00372C00 /* registerStrings.swift */; };
 		A153C9702DB8568300E81AA2 /* AddTransactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */; };
-		A153C9882DB878FA00E81AA2 /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */; };
 		A153C98A2DB87A8D00E81AA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A153C9892DB87A8D00E81AA2 /* GoogleService-Info.plist */; };
 		A153C9A32DB884B300E81AA2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A22DB884B300E81AA2 /* FirebaseAuth */; };
 		A153C9A52DB884B300E81AA2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A42DB884B300E81AA2 /* FirebaseFirestore */; };
@@ -74,7 +80,7 @@
 		A153C9AA2DB884D600E81AA2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A92DB884D600E81AA2 /* GoogleSignIn */; };
 		A153C9AC2DB884D600E81AA2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9AB2DB884D600E81AA2 /* GoogleSignInSwift */; };
 		A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */; };
-		A160A1052A568C8700A0D7DC /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160A1042A568C8700A0D7DC /* Profile.swift */; };
+		A160A1052A568C8700A0D7DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160A1042A568C8700A0D7DC /* User.swift */; };
 		A162B2362CFCC12D0036350A /* ButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */; };
 		A162B2372CFCC12D0036350A /* ButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */; };
 		A162B23B2CFCC13B0036350A /* SelectItensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A162B2392CFCC13B0036350A /* SelectItensTableViewCell.xib */; };
@@ -97,6 +103,10 @@
 		A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A8D452CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift */; };
 		A16D0E3C2DC061A0000BF561 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D0E3B2DC0618C000BF561 /* NotificationNames.swift */; };
 		A16D0E402DC062CB000BF561 /* DetailsTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D0E3F2DC062C9000BF561 /* DetailsTransactionView.swift */; };
+		A171BB912E0848960000AAC3 /* GoogleSignInHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A171BB8F2E0848960000AAC3 /* GoogleSignInHelper.swift */; };
+		A171BBAE2E0A322C0000AAC3 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A171BBAD2E0A322B0000AAC3 /* LocalStorageManager.swift */; };
+		A171BBB02E0A324D0000AAC3 /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A171BBAF2E0A32420000AAC3 /* StorageKeys.swift */; };
+		A171BBB32E0A4B4F0000AAC3 /* LoginError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A171BBB22E0A4B4A0000AAC3 /* LoginError.swift */; };
 		A17C89DE2A09C76700B5DB2F /* BanksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C89DC2A09C76700B5DB2F /* BanksCell.swift */; };
 		A17C89DF2A09C76700B5DB2F /* BanksCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17C89DD2A09C76700B5DB2F /* BanksCell.xib */; };
 		A17C89E32A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17C89E22A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard */; };
@@ -279,6 +289,13 @@
 		A12E87D82D74F23100FA3295 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A12E87DA2D74F73700FA3295 /* PaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatus.swift; sourceTree = "<group>"; };
 		A12E87DC2D74F76D00FA3295 /* MonthDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthDate.swift; sourceTree = "<group>"; };
+		A13A2A592DF62961002D38FE /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		A13A2A5C2DF6298F002D38FE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A13A2A5E2DF62AEE002D38FE /* EmailAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAuthService.swift; sourceTree = "<group>"; };
+		A13A2A602DF62B6E002D38FE /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
+		A13A2A622DF62C00002D38FE /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
+		A13A2A642DF62C47002D38FE /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		A13A2A662DF62DDE002D38FE /* BiometricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricService.swift; sourceTree = "<group>"; };
 		A13E249529F98AB200E9EF7A /* EditGoalViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditGoalViewController.storyboard; sourceTree = "<group>"; };
 		A13E249829F98BDB00E9EF7A /* EditGoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalViewModel.swift; sourceTree = "<group>"; };
 		A13E249B29F9957C00E9EF7A /* GoalInfoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GoalInfoViewController.storyboard; sourceTree = "<group>"; };
@@ -303,10 +320,9 @@
 		A152AA3E2A21A47800372C00 /* loginStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginStrings.swift; sourceTree = "<group>"; };
 		A152AA412A21A69B00372C00 /* registerStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerStrings.swift; sourceTree = "<group>"; };
 		A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionButton.swift; sourceTree = "<group>"; };
-		A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
 		A153C9892DB87A8D00E81AA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionsView.swift; sourceTree = "<group>"; };
-		A160A1042A568C8700A0D7DC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		A160A1042A568C8700A0D7DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
 		A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsTableViewCell.xib; sourceTree = "<group>"; };
 		A162B2382CFCC13B0036350A /* SelectItensTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItensTableViewCell.swift; sourceTree = "<group>"; };
@@ -329,6 +345,10 @@
 		A16A8D462CB631170094E163 /* FilteringTransacitonsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilteringTransacitonsCollectionViewCell.xib; sourceTree = "<group>"; };
 		A16D0E3B2DC0618C000BF561 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		A16D0E3F2DC062C9000BF561 /* DetailsTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTransactionView.swift; sourceTree = "<group>"; };
+		A171BB8F2E0848960000AAC3 /* GoogleSignInHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInHelper.swift; sourceTree = "<group>"; };
+		A171BBAD2E0A322B0000AAC3 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		A171BBAF2E0A32420000AAC3 /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
+		A171BBB22E0A4B4A0000AAC3 /* LoginError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginError.swift; sourceTree = "<group>"; };
 		A17C89DC2A09C76700B5DB2F /* BanksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanksCell.swift; sourceTree = "<group>"; };
 		A17C89DD2A09C76700B5DB2F /* BanksCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BanksCell.xib; sourceTree = "<group>"; };
 		A17C89E22A09C9A200B5DB2F /* EditCreditCardsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCreditCardsViewController.storyboard; sourceTree = "<group>"; };
@@ -478,7 +498,6 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A1998AF62D908D6A00BDDADC /* InvoiceViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = InvoiceViewController; sourceTree = "<group>"; };
-		A1E0B7102D6A76D1002892BD /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
 		A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CreditCardExpenseFormScreen; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -718,6 +737,29 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		A13A2A582DF62944002D38FE /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				A13A2A5B2DF6297B002D38FE /* Authentication */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		A13A2A5B2DF6297B002D38FE /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				A171BBB12E0A4B420000AAC3 /* Errors */,
+				A171BBAA2E0A31E00000AAC3 /* Apple */,
+				A171BBA92E0A31D20000AAC3 /* Google */,
+				A13A2A592DF62961002D38FE /* AuthenticationManager.swift */,
+				A13A2A642DF62C47002D38FE /* SessionManager.swift */,
+				A13A2A5C2DF6298F002D38FE /* AuthService.swift */,
+				A13A2A5E2DF62AEE002D38FE /* EmailAuthService.swift */,
+				A13A2A662DF62DDE002D38FE /* BiometricService.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		A13E249729F98ABE00E9EF7A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -908,7 +950,6 @@
 		A153C9842DB8788800E81AA2 /* GoogleIntegration */ = {
 			isa = PBXGroup;
 			children = (
-				A153C9872DB878F200E81AA2 /* GoogleAuthService.swift */,
 			);
 			path = GoogleIntegration;
 			sourceTree = "<group>";
@@ -1001,7 +1042,7 @@
 				A1E47F7A29F8A70000039F08 /* Goal.swift */,
 				A1FDB7E82A45F2D3006B3459 /* ExchangeRate.swift */,
 				A1FDB7EA2A4622D9006B3459 /* CurrencyInfos.swift */,
-				A160A1042A568C8700A0D7DC /* Profile.swift */,
+				A160A1042A568C8700A0D7DC /* User.swift */,
 				A12E87DC2D74F76D00FA3295 /* MonthDate.swift */,
 			);
 			path = Models;
@@ -1119,6 +1160,48 @@
 				A16D0E3F2DC062C9000BF561 /* DetailsTransactionView.swift */,
 			);
 			path = DetailsTransactionView;
+			sourceTree = "<group>";
+		};
+		A171BBA92E0A31D20000AAC3 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				A13A2A602DF62B6E002D38FE /* GoogleAuthService.swift */,
+				A171BB8F2E0848960000AAC3 /* GoogleSignInHelper.swift */,
+			);
+			path = Google;
+			sourceTree = "<group>";
+		};
+		A171BBAA2E0A31E00000AAC3 /* Apple */ = {
+			isa = PBXGroup;
+			children = (
+				A13A2A622DF62C00002D38FE /* AppleAuthService.swift */,
+			);
+			path = Apple;
+			sourceTree = "<group>";
+		};
+		A171BBAB2E0A32040000AAC3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A171BBAC2E0A321E0000AAC3 /* DataPersistence */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A171BBAC2E0A321E0000AAC3 /* DataPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				A171BBAD2E0A322B0000AAC3 /* LocalStorageManager.swift */,
+				A171BBAF2E0A32420000AAC3 /* StorageKeys.swift */,
+			);
+			path = DataPersistence;
+			sourceTree = "<group>";
+		};
+		A171BBB12E0A4B420000AAC3 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				A171BBB22E0A4B4A0000AAC3 /* LoginError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		A17C89DB2A09C76700B5DB2F /* BanksCell */ = {
@@ -1966,9 +2049,10 @@
 				A153C9892DB87A8D00E81AA2 /* GoogleService-Info.plist */,
 				A19742D92A227E6000455DB0 /* Extensions */,
 				A16D0E3A2DC0614F000BF561 /* NotificationCenter */,
-				A1E0B7102D6A76D1002892BD /* Utils */,
+				A171BBAB2E0A32040000AAC3 /* Utils */,
 				A1CE09292A001B410028028B /* GlobalStrings */,
 				A1FDB7E52A45F1BA006B3459 /* Services */,
+				A13A2A582DF62944002D38FE /* Modules */,
 				A1E0B6D02D656E88002892BD /* Repositories */,
 				A16B56A229C1076500E53727 /* Screens */,
 				A16636ED29DE1B0400162872 /* Models */,
@@ -2008,7 +2092,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				A1998AF62D908D6A00BDDADC /* InvoiceViewController */,
-				A1E0B7102D6A76D1002892BD /* Utils */,
 				A1E8C7C02D9A3C830003D999 /* CreditCardExpenseFormScreen */,
 			);
 			name = FinanceApp_BackFront;
@@ -2202,6 +2285,7 @@
 				A125C1072A3A24E700A78390 /* InsertNumbersModalViewController.swift in Sources */,
 				A14C42B32DB53813008C0A29 /* SelectInvoiceModalView.swift in Sources */,
 				A18ED5A32A21505C00F564BD /* MainViewModel.swift in Sources */,
+				A13A2A5A2DF62976002D38FE /* AuthenticationManager.swift in Sources */,
 				A140933D29E6EC3D0037662B /* CategoriesSum.swift in Sources */,
 				A10DA4CC2DAA14BD00206039 /* SelectSourceModalView.swift in Sources */,
 				A162B2372CFCC12D0036350A /* ButtonsTableViewCell.swift in Sources */,
@@ -2219,14 +2303,16 @@
 				A1E76D4F2DB71E49005D9801 /* FormToggle.swift in Sources */,
 				A1990E312D96370500FDA183 /* FilteringSpecification.swift in Sources */,
 				A1C4526A2C7BC63B00B8BBE7 /* SelectionTableViewCell.swift in Sources */,
+				A171BBB02E0A324D0000AAC3 /* StorageKeys.swift in Sources */,
 				A14F99972A2521AB00257B67 /* moreOptionsStrings.swift in Sources */,
+				A13A2A632DF62C06002D38FE /* AppleAuthService.swift in Sources */,
 				A1F4210829F62379005C346B /* CategoriesModalViewModel.swift in Sources */,
 				A18552052C7BDB54003F0A11 /* CategoriesModalViewController.swift in Sources */,
 				A1D22DB02A52FE350042D060 /* CategoryImagesModalViewController.swift in Sources */,
 				A1998AF52D8F741300BDDADC /* ViewController.swift in Sources */,
 				A14F99A62A259D3200257B67 /* categoriesModalStrings.swift in Sources */,
 				A152AA422A21A69B00372C00 /* registerStrings.swift in Sources */,
-				A160A1052A568C8700A0D7DC /* Profile.swift in Sources */,
+				A160A1052A568C8700A0D7DC /* User.swift in Sources */,
 				A1C4526E2C7BC63B00B8BBE7 /* SelectionModalScreenViewModel.swift in Sources */,
 				E35D086129BDB0310098F0B5 /* HomeViewController.swift in Sources */,
 				A18991A82A11DC9800D47427 /* CardsBallanceCollectionViewCell.swift in Sources */,
@@ -2234,7 +2320,9 @@
 				A1E0B6D22D656EE5002892BD /* TransactionsRepository.swift in Sources */,
 				A1E87E652A3BA9E600077D49 /* insertNumberStrings.swift in Sources */,
 				A162B2472CFCF0AA0036350A /* ValueFilteringTableViewCell.swift in Sources */,
+				A171BB912E0848960000AAC3 /* GoogleSignInHelper.swift in Sources */,
 				A192101A2D7C984800071D87 /* PendingInvoicesCollectionViewCell.swift in Sources */,
+				A13A2A672DF62DE1002D38FE /* BiometricService.swift in Sources */,
 				A12329F229FB0F2C0053AC38 /* BankAccountsViewController.swift in Sources */,
 				E35D085429BDAD100098F0B5 /* FinanceApp_BackFront.xcdatamodeld in Sources */,
 				A1990E332D963AE200FDA183 /* FilteringParameters.swift in Sources */,
@@ -2259,7 +2347,6 @@
 				A1E76D492DB71B80005D9801 /* IconRow.swift in Sources */,
 				A13E249929F98BDB00E9EF7A /* EditGoalViewModel.swift in Sources */,
 				A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */,
-				A153C9882DB878FA00E81AA2 /* GoogleAuthService.swift in Sources */,
 				A18991A92A11DC9800D47427 /* CardsResumeTableViewCell.swift in Sources */,
 				A1E76D572DB72CD6005D9801 /* TransactionFormViewModel.swift in Sources */,
 				A19742DB2A227E9B00455DB0 /* UIColor.swift in Sources */,
@@ -2271,12 +2358,14 @@
 				A18ED59A2A20F33100F564BD /* LoginViewModel.swift in Sources */,
 				A1990E462D98B29A00FDA183 /* FilterTpe.swift in Sources */,
 				A11BDA8629F4CFB6006CF6B2 /* AccountsTableViewCell.swift in Sources */,
+				A13A2A612DF62B70002D38FE /* GoogleAuthService.swift in Sources */,
 				A16688E929F06E8600568217 /* HomeViewModel.swift in Sources */,
 				A1B8F3492A13C9E500F7CCB5 /* CategoriesGraphCollectionViewCell.swift in Sources */,
 				A1A92BB729F8124400E14EE8 /* CreditCardModalViewController.swift in Sources */,
 				A10DA4BD2DAA117100206039 /* InputNumberOverTopView.swift in Sources */,
 				A125C10B2A3A51E100A78390 /* InsertNumbersModalViewModel.swift in Sources */,
 				A166B96229DF4BD600F33A98 /* TransactionCategory.swift in Sources */,
+				A13A2A5F2DF62AF4002D38FE /* EmailAuthService.swift in Sources */,
 				A1F86C6E2A4E2F5400D2534A /* FirestoreService.swift in Sources */,
 				A19F851529F973D20044F7DE /* EditGoalViewController.swift in Sources */,
 				A152AA3F2A21A47800372C00 /* loginStrings.swift in Sources */,
@@ -2286,12 +2375,15 @@
 				A1C8BA712A22ECE000590758 /* addStrings.swift in Sources */,
 				A18ED59E2A21469D00F564BD /* MoreOptionsViewModel.swift in Sources */,
 				A11BDA7229F4C04A006CF6B2 /* BankAccount.swift in Sources */,
+				A171BBAE2E0A322C0000AAC3 /* LocalStorageManager.swift in Sources */,
 				A14C58862D49A76900507CE5 /* DateFilteringTableViewCell.swift in Sources */,
 				A16A8D482CB631170094E163 /* FilteringTransacitonsCollectionViewCell.swift in Sources */,
 				A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */,
 				A19742A52A2247FB00455DB0 /* mainStrings.swift in Sources */,
 				A1E76D542DB72C90005D9801 /* TransactionFormScreen.swift in Sources */,
 				A16D0E3C2DC061A0000BF561 /* NotificationNames.swift in Sources */,
+				A13A2A652DF62C4A002D38FE /* SessionManager.swift in Sources */,
+				A13A2A5D2DF62991002D38FE /* AuthService.swift in Sources */,
 				A17DC6842A0989B900D12C3C /* TabBarController.swift in Sources */,
 				A13E249E29F9958900E9EF7A /* GoalInfoViewController.swift in Sources */,
 				A1998B072D90A14800BDDADC /* Months.swift in Sources */,
@@ -2326,6 +2418,7 @@
 				A1E76D4B2DB71DB4005D9801 /* CategoryButton.swift in Sources */,
 				E3E9089129BFAF1B00B34864 /* CategoriesGraphViewController.swift in Sources */,
 				A16636EF29DE33C500162872 /* AccountTransaction.swift in Sources */,
+				A171BBB32E0A4B4F0000AAC3 /* LoginError.swift in Sources */,
 				A1FDB7ED2A4636D4006B3459 /* CurrencyPickerOptions.swift in Sources */,
 				A1E0B7012D6A09EA002892BD /* CreditCardsRepository.swift in Sources */,
 				A162B2412CFCC1840036350A /* FilteringTransactionStrings.swift in Sources */,

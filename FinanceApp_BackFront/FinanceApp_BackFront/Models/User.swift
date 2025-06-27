@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Profile: FirestoreObject {
+struct UserData: FirestoreObject {
     let id: String
     var name: String
     var email: String

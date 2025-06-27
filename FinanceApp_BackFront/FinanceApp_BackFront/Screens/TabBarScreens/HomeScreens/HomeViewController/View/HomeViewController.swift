@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
         setupObservers()
         setupLottie()
         viewModel.getAllData {
-            self.nameLabel.text = Utils.getUserDefaults(key: "userName") as? String ?? globalStrings.error
+            self.nameLabel.text = AuthenticationManager.shared.getCurrentUser()?.name
             self.viewModel.updateBalanceValues()
             self.setupHorizontalCollectionView()
             self.setupVerticalCollectionView()
@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         if dataLoaded {
-            self.nameLabel.text = Utils.getUserDefaults(key: "userName") as? String ?? globalStrings.error
+            self.nameLabel.text = AuthenticationManager.shared.getCurrentUser()?.name
             self.viewModel.updateBalanceValues()
             self.horizontalCollectionView.reloadData()
             self.verticalCollectionView.reloadData()

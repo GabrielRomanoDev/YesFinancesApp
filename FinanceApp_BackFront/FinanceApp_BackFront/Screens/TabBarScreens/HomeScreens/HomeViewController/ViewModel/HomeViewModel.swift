@@ -38,11 +38,6 @@ struct HomeViewModel {
             group.leave()
         }
         
-        group.enter()
-        getProfileInformations() {
-            group.leave()
-        }
-        
         getCategories()
         
         group.notify(queue: .main) {
@@ -158,15 +153,6 @@ struct HomeViewModel {
             TransactionCategory(name: "Outros", imageName: "image37", colorIndex: 5),
         ]
         
-    }
-    
-    func getProfileInformations(completion: @escaping () -> Void) {
-        FirestoreService.shared.getObject(subCollection: firebaseSubCollectionNames.profile, objectType: Profile.self) { profile in
-            
-            Utils.saveUserDefaults(value: profile.name, key: "userName")
-            Utils.saveUserDefaults(value: profile.email, key: "userEmail")
-            completion()
-        }
     }
     
     public mutating func updateBalanceValues() {

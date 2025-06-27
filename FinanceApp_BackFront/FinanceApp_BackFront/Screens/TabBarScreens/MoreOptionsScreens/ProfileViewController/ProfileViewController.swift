@@ -44,8 +44,13 @@ class ProfileViewController: UIViewController {
         if someTextFieldIsEmpty() {
             showSimpleAlert(title: globalStrings.attention, message: "Algum campo está vazio!")
         } else {
-            Utils.saveUserDefaults(value: nameTextField.text.orEmpty, key: "userName")
-            Utils.saveUserDefaults(value: emailTextField.text.orEmpty, key: "userEmail")
+            if var newInformationUser: UserData = AuthenticationManager.shared.getCurrentUser() {
+                newInformationUser.name = nameTextField.text.orEmpty
+                newInformationUser.email = emailTextField.text.orEmpty
+                
+                AuthenticationManager.shared.updateUserInfo(user: newInformationUser)
+            }
+            
             navigationController?.popViewController(animated: true)
         }
     }
@@ -78,8 +83,8 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupUserInformation() {
-        self.nameTextField.text = Utils.getUserDefaults(key: "userName") as? String ?? globalStrings.error
-        self.emailTextField.text = Utils.getUserDefaults(key: "userEmail") as? String ?? globalStrings.error
+        self.nameTextField.text = AuthenticationManager.shared.getCurrentUser()?.name ?? globalStrings.error
+        self.emailTextField.text = AuthenticationManager.shared.getCurrentUser()?.email ?? globalStrings.error
     }
     
     private func someTextFieldIsEmpty() -> Bool {

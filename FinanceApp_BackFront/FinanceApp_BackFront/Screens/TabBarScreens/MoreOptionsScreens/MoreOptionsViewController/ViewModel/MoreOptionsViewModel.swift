@@ -9,12 +9,16 @@ import Foundation
 import FirebaseAuth
 
 class MoreOptionsViewModel {
-    func tryLogoutUser() -> Bool {
+    
+    func logoutUser()  {
+        
+        AuthenticationManager.shared.clearSession()
         do {
             try Auth.auth().signOut()
-            return true
         } catch {
-            return false
+            print(error)
         }
+        
     }
+    
 }

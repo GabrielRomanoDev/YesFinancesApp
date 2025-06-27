@@ -64,9 +64,7 @@ class MoreOptionsViewController: UIViewController {
     }
     
     @IBAction func tappedLogoutButton(_ sender: UIButton) {
-        if !viewModel.tryLogoutUser(){
-            showSimpleAlert(title: globalStrings.error, message: moreOptionsStrings.failToLogoutMessage)
-        }
+        viewModel.logoutUser()
         dismiss(animated: false)
     }
     
@@ -89,8 +87,8 @@ class MoreOptionsViewController: UIViewController {
     }
     
     private func setupUserInformation() {
-        self.nameLabel.text = Utils.getUserDefaults(key: "userName") as? String ?? globalStrings.error
-        self.emailLabel.text = Utils.getUserDefaults(key: "userEmail") as? String ?? globalStrings.error
+        self.nameLabel.text = AuthenticationManager.shared.getCurrentUser()?.name ?? globalStrings.error
+        self.emailLabel.text = AuthenticationManager.shared.getCurrentUser()?.email ?? globalStrings.error
     }
     
     private func setupObserver(){

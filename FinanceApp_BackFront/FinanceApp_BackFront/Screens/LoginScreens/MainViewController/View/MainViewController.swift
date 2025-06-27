@@ -45,20 +45,24 @@ class MainViewController: UIViewController {
     
     @IBAction func tappedGoogleIntegrationLoginButton(_ sender: UIButton) {
         
-        viewModel.loginWithGoogle() { resultLogin in
+        viewModel.loginWithGoogle() { errorMessage in
             
-            if resultLogin == loginStrings.loginSuccessMessage {
+            if let errorMessage {
+                self.showSimpleAlert(title: loginStrings.atention, message: errorMessage)
+                return
+            }
+            
+            DispatchQueue.main.async {
                 let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
                 if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
                     self.present(tbc, animated: false)
                 }
-            } else {
-                self.showSimpleAlert(title: loginStrings.atention, message: resultLogin)
             }
             
         }
         
     }
+    
     private func setupStrings() {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         loginButton.setTitle(mainStrings.loginButtonTitle, for: .normal)
