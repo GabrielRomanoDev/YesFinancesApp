@@ -31,6 +31,7 @@
 		A11BDA8029F4CC7E006CF6B2 /* AccountsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11BDA7F29F4CC7E006CF6B2 /* AccountsModalViewController.swift */; };
 		A11BDA8629F4CFB6006CF6B2 /* AccountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11BDA8429F4CFB6006CF6B2 /* AccountsTableViewCell.swift */; };
 		A11BDA8729F4CFB6006CF6B2 /* AccountsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A11BDA8529F4CFB6006CF6B2 /* AccountsTableViewCell.xib */; };
+		A11C5A782E13688E00A17B62 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C5A772E13688600A17B62 /* StringError.swift */; };
 		A12329F129FB0F2C0053AC38 /* BankAccountsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A12329EF29FB0F2C0053AC38 /* BankAccountsViewController.storyboard */; };
 		A12329F229FB0F2C0053AC38 /* BankAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12329F029FB0F2C0053AC38 /* BankAccountsViewController.swift */; };
 		A125C1052A3A24CA00A78390 /* InsertNumbersModalViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A125C1042A3A24CA00A78390 /* InsertNumbersModalViewController.storyboard */; };
@@ -80,7 +81,7 @@
 		A153C9AA2DB884D600E81AA2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9A92DB884D600E81AA2 /* GoogleSignIn */; };
 		A153C9AC2DB884D600E81AA2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A153C9AB2DB884D600E81AA2 /* GoogleSignInSwift */; };
 		A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */; };
-		A160A1052A568C8700A0D7DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160A1042A568C8700A0D7DC /* User.swift */; };
+		A160A1052A568C8700A0D7DC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160A1042A568C8700A0D7DC /* UserData.swift */; };
 		A162B2362CFCC12D0036350A /* ButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */; };
 		A162B2372CFCC12D0036350A /* ButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */; };
 		A162B23B2CFCC13B0036350A /* SelectItensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A162B2392CFCC13B0036350A /* SelectItensTableViewCell.xib */; };
@@ -207,6 +208,8 @@
 		A1E107C229E4F646005A3F4F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E107C129E4F646005A3F4F /* ProfileViewController.swift */; };
 		A1E107C729E4F784005A3F4F /* CurrencyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E107C629E4F784005A3F4F /* CurrencyViewController.storyboard */; };
 		A1E107C929E4F78F005A3F4F /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E107C829E4F78F005A3F4F /* CurrencyViewController.swift */; };
+		A1E45DA82E0E22B100F78FF2 /* ConfirmProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E45DA62E0E22B100F78FF2 /* ConfirmProfileInfoViewController.swift */; };
+		A1E45DA92E0E22B100F78FF2 /* ConfirmProfileInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E45DA52E0E22B100F78FF2 /* ConfirmProfileInfoViewController.storyboard */; };
 		A1E47F7B29F8A70000039F08 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E47F7A29F8A70000039F08 /* Goal.swift */; };
 		A1E64B8A2D921CF700E31F9C /* TransactionsScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */; };
 		A1E64B9D2D92550A00E31F9C /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E64B9C2D92550800E31F9C /* Invoice.swift */; };
@@ -278,6 +281,7 @@
 		A11BDA7F29F4CC7E006CF6B2 /* AccountsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsModalViewController.swift; sourceTree = "<group>"; };
 		A11BDA8429F4CFB6006CF6B2 /* AccountsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableViewCell.swift; sourceTree = "<group>"; };
 		A11BDA8529F4CFB6006CF6B2 /* AccountsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountsTableViewCell.xib; sourceTree = "<group>"; };
+		A11C5A772E13688600A17B62 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 		A12329EF29FB0F2C0053AC38 /* BankAccountsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BankAccountsViewController.storyboard; sourceTree = "<group>"; };
 		A12329F029FB0F2C0053AC38 /* BankAccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountsViewController.swift; sourceTree = "<group>"; };
 		A125C1042A3A24CA00A78390 /* InsertNumbersModalViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InsertNumbersModalViewController.storyboard; sourceTree = "<group>"; };
@@ -322,7 +326,7 @@
 		A153C96F2DB8567B00E81AA2 /* AddTransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionButton.swift; sourceTree = "<group>"; };
 		A153C9892DB87A8D00E81AA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A153C9E32DBB18F000E81AA2 /* AddTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionsView.swift; sourceTree = "<group>"; };
-		A160A1042A568C8700A0D7DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A160A1042A568C8700A0D7DC /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		A162B2332CFCC12D0036350A /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
 		A162B2342CFCC12D0036350A /* ButtonsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsTableViewCell.xib; sourceTree = "<group>"; };
 		A162B2382CFCC13B0036350A /* SelectItensTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItensTableViewCell.swift; sourceTree = "<group>"; };
@@ -451,6 +455,8 @@
 		A1E107C129E4F646005A3F4F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A1E107C629E4F784005A3F4F /* CurrencyViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CurrencyViewController.storyboard; sourceTree = "<group>"; };
 		A1E107C829E4F78F005A3F4F /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
+		A1E45DA52E0E22B100F78FF2 /* ConfirmProfileInfoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConfirmProfileInfoViewController.storyboard; sourceTree = "<group>"; };
+		A1E45DA62E0E22B100F78FF2 /* ConfirmProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProfileInfoViewController.swift; sourceTree = "<group>"; };
 		A1E47F7A29F8A70000039F08 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		A1E64B892D921CEB00E31F9C /* TransactionsScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScreenType.swift; sourceTree = "<group>"; };
 		A1E64B9C2D92550800E31F9C /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
@@ -679,6 +685,14 @@
 				A11BDA8429F4CFB6006CF6B2 /* AccountsTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		A11C5A762E13687B00A17B62 /* StringError */ = {
+			isa = PBXGroup;
+			children = (
+				A11C5A772E13688600A17B62 /* StringError.swift */,
+			);
+			path = StringError;
 			sourceTree = "<group>";
 		};
 		A125C1032A3A249E00A78390 /* InsertNumbersModalViewController */ = {
@@ -947,13 +961,6 @@
 			path = SwiftUIComponent;
 			sourceTree = "<group>";
 		};
-		A153C9842DB8788800E81AA2 /* GoogleIntegration */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GoogleIntegration;
-			sourceTree = "<group>";
-		};
 		A153C9E22DBB18D300E81AA2 /* AddTransactionsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,7 +1049,7 @@
 				A1E47F7A29F8A70000039F08 /* Goal.swift */,
 				A1FDB7E82A45F2D3006B3459 /* ExchangeRate.swift */,
 				A1FDB7EA2A4622D9006B3459 /* CurrencyInfos.swift */,
-				A160A1042A568C8700A0D7DC /* User.swift */,
+				A160A1042A568C8700A0D7DC /* UserData.swift */,
 				A12E87DC2D74F76D00FA3295 /* MonthDate.swift */,
 			);
 			path = Models;
@@ -1182,6 +1189,7 @@
 		A171BBAB2E0A32040000AAC3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A11C5A762E13687B00A17B62 /* StringError */,
 				A171BBAC2E0A321E0000AAC3 /* DataPersistence */,
 			);
 			path = Utils;
@@ -1237,6 +1245,7 @@
 				A14DAE5D29D4E52000714208 /* MainViewController */,
 				A1C9EFED29E60D620029B69F /* LoginViewController */,
 				A1C9EFE829E60CD60029B69F /* RegisterViewController */,
+				A1E45DA72E0E22B100F78FF2 /* ConfirmProfileInfoViewController */,
 			);
 			path = LoginScreens;
 			sourceTree = "<group>";
@@ -1847,6 +1856,15 @@
 			path = CurrencyViewController;
 			sourceTree = "<group>";
 		};
+		A1E45DA72E0E22B100F78FF2 /* ConfirmProfileInfoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A1E45DA52E0E22B100F78FF2 /* ConfirmProfileInfoViewController.storyboard */,
+				A1E45DA62E0E22B100F78FF2 /* ConfirmProfileInfoViewController.swift */,
+			);
+			path = ConfirmProfileInfoViewController;
+			sourceTree = "<group>";
+		};
 		A1E47F7929F8A63700039F08 /* GoalsCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2006,7 +2024,6 @@
 		A1FDB7E52A45F1BA006B3459 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A153C9842DB8788800E81AA2 /* GoogleIntegration */,
 				A1FDB7E62A45F1D8006B3459 /* ExchangeRateService.swift */,
 				A1F86C6D2A4E2F5400D2534A /* FirestoreService.swift */,
 			);
@@ -2198,6 +2215,7 @@
 				A1C9D23F2A0C4C4C008CAFAD /* resumeBalanceCollectionViewCell.xib in Resources */,
 				A13E249C29F9957C00E9EF7A /* GoalInfoViewController.storyboard in Resources */,
 				A16688F929F0B32900568217 /* TransactionsCollectionViewCell.xib in Resources */,
+				A1E45DA92E0E22B100F78FF2 /* ConfirmProfileInfoViewController.storyboard in Resources */,
 				A13E249629F98AB200E9EF7A /* EditGoalViewController.storyboard in Resources */,
 				A153C98A2DB87A8D00E81AA2 /* GoogleService-Info.plist in Resources */,
 				E35D086329BDB03D0098F0B5 /* HomeViewController.storyboard in Resources */,
@@ -2298,6 +2316,7 @@
 				A1C8BA6D2A22E61F00590758 /* transactionsStrings.swift in Sources */,
 				E35D087129BDB2030098F0B5 /* MoreOptionsViewController.swift in Sources */,
 				A1E76D432DB71A89005D9801 /* FormTextField.swift in Sources */,
+				A11C5A782E13688E00A17B62 /* StringError.swift in Sources */,
 				A11BDA7629F4C24B006CF6B2 /* CreditCard.swift in Sources */,
 				A18299C72A01AC7F00E72936 /* ConfigType.swift in Sources */,
 				A1E76D4F2DB71E49005D9801 /* FormToggle.swift in Sources */,
@@ -2312,7 +2331,7 @@
 				A1998AF52D8F741300BDDADC /* ViewController.swift in Sources */,
 				A14F99A62A259D3200257B67 /* categoriesModalStrings.swift in Sources */,
 				A152AA422A21A69B00372C00 /* registerStrings.swift in Sources */,
-				A160A1052A568C8700A0D7DC /* User.swift in Sources */,
+				A160A1052A568C8700A0D7DC /* UserData.swift in Sources */,
 				A1C4526E2C7BC63B00B8BBE7 /* SelectionModalScreenViewModel.swift in Sources */,
 				E35D086129BDB0310098F0B5 /* HomeViewController.swift in Sources */,
 				A18991A82A11DC9800D47427 /* CardsBallanceCollectionViewCell.swift in Sources */,
@@ -2439,6 +2458,7 @@
 				E35D084C29BDAD100098F0B5 /* SceneDelegate.swift in Sources */,
 				A153C9E42DBB18F200E81AA2 /* AddTransactionsView.swift in Sources */,
 				A11BDA7429F4C173006CF6B2 /* Banks.swift in Sources */,
+				A1E45DA82E0E22B100F78FF2 /* ConfirmProfileInfoViewController.swift in Sources */,
 				A1C9EFE729E60BB60029B69F /* MainViewController.swift in Sources */,
 				A1E0B7052D6A0EC8002892BD /* CategoriesRepository.swift in Sources */,
 			);

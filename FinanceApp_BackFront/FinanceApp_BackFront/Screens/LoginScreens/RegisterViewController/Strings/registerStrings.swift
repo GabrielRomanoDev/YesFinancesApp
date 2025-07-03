@@ -24,6 +24,8 @@ enum registerStrings {
     static let password8CharsMessage = "A senha deve ter pelo menos 8 caracteres"
     static let differentPasswordsMessage = "A senha e sua cofirmação não coincidem"
     static let invalidEmailMessage = "Email inválido"
+    static let invalidPhoneNumberMessage = "Número de telefone inválido"
+    static let typeValidNumberMessage = "O formato esperado é: (11) 99090-9090"
     static let invalidPasswordMessage = "Senha inválida"
     static let incompatiblePasswordsMessage = "Senhas não compatíveis"
     static let registerSuccessText = "Sucesso Cadastro!"

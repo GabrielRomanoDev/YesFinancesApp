@@ -11,6 +11,7 @@ class RegisterViewController: UIViewController {
     
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var emailTextfield: UITextField!
+    @IBOutlet weak var phoneNumberTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var passwordRepeatTextfield: UITextField!
     @IBOutlet weak var registerButton: UIButton!
@@ -44,10 +45,14 @@ class RegisterViewController: UIViewController {
         
         let email = emailTextfield.text.orEmpty
         let password = passwordTextfield.text.orEmpty
+        guard let phoneNumber = PhoneNumberData(formattedString: phoneNumberTextfield.text.orEmpty) else {
+            return
+        }
         
-        viewModel.createUser(email: email, password: password) { resultRegister in
+        viewModel.createUser(email: email, password: password, phoneNumber: phoneNumber) { result in
             
-            if resultRegister == registerStrings.registerSuccessText {
+            switch result {
+            case .success():
                 self.showSimpleAlert(title: registerStrings.registerSuccessMessage, message: globalStrings.emptyString) {
                     
                     let storyboard:UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
@@ -55,8 +60,8 @@ class RegisterViewController: UIViewController {
                         self.present(tbc, animated: true)
                     }
                 }
-            } else {
-                self.showSimpleAlert(title: globalStrings.attention, message: resultRegister)
+            case .failure(let error):
+                self.showSimpleAlert(title: globalStrings.attention, message: error.localizedDescription)
             }
             
         }
@@ -88,6 +93,10 @@ class RegisterViewController: UIViewController {
         emailTextfield.keyboardType = .emailAddress
         emailTextfield.layer.cornerRadius = 5
         
+        phoneNumberTextfield.delegate = self
+        phoneNumberTextfield.keyboardType = .default
+        phoneNumberTextfield.layer.cornerRadius = 5
+        
         passwordTextfield.delegate = self
         passwordTextfield.keyboardType = .default
         passwordTextfield.layer.cornerRadius = 5
@@ -115,6 +124,10 @@ class RegisterViewController: UIViewController {
             fieldEmpty = true
         }
         
+        if !checkTextFieldEmpty(phoneNumberTextfield) {
+            fieldEmpty = true
+        }
+        
         if !checkTextFieldEmpty(passwordTextfield) {
             fieldEmpty = true
         }
@@ -130,6 +143,12 @@ class RegisterViewController: UIViewController {
         if !viewModel.checkEmail(email: email) {
             setErrorInTextField(textField: emailTextfield)
             showSimpleAlert(title: registerStrings.invalidEmailMessage, message: registerStrings.typeEmailAgainMessage)
+            return false
+        }
+        
+        if PhoneNumberData(formattedString: phoneNumberTextfield.text.orEmpty) == nil {
+            setErrorInTextField(textField: phoneNumberTextfield)
+            showSimpleAlert(title: registerStrings.invalidPhoneNumberMessage, message: registerStrings.typeValidNumberMessage)
             return false
         }
          
@@ -195,7 +214,43 @@ extension RegisterViewController : UITextFieldDelegate {
         
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard textField == phoneNumberTextfield else { return true }
 
+        guard let currentText = phoneNumberTextfield.text else { return false }
+
+        // Texto após aplicar a alteração
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        // Remove tudo que não for número
+        let digits = newText.filter { $0.isNumber }
+
+        // Limita a 11 dígitos (ex: 11990909090)
+        if digits.count > 11 { return false }
+
+        // Aplica a formatação
+        var formatted = ""
+        let digitCount = digits.count
+
+        if digitCount > 0 {
+            formatted += "("
+        }
+        if digitCount >= 1 {
+            formatted += String(digits.prefix(2))
+        }
+        if digitCount >= 3 {
+            formatted += ") "
+            formatted += String(digits.dropFirst(2).prefix(5))
+        }
+        if digitCount >= 8 {
+            formatted += "-"
+            formatted += String(digits.dropFirst(7))
+        }
+
+        textField.text = formatted
+        return false // impede que o texto seja alterado automaticamente (nós já fizemos isso)
+    }
     
 }
     

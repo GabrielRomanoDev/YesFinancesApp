@@ -10,29 +10,28 @@ import FirebaseAuth
 
 class EmailAuthService {
     
-    func login(email: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func login(email: String, password: String, completion: @escaping (Result<UserDataDTO, Error>) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error == nil {
-                completion(.success(authResult?.user.uid ?? UUID().uuidString))
+                let user = UserDataDTO(id: authResult?.user.uid ?? UUID().uuidString, email: email)
+                completion(.success(user))
             } else {
-//                let errorMessage = self.getLocalizedErrorMessage(for: error)
-//                userLogged = "user_Error"
-//                completion(loginStrings.failToLoginErrorMessage + errorMessage)
-                completion(.failure(error ?? NSError(domain: "", code: 0, userInfo: nil)))
+                let errorMessage = loginStrings.failToLoginErrorMessage + self.getLocalizedErrorMessage(for: error)
+                completion(.failure(StringError(message: errorMessage)))
             }
         }
     }
     
-    func register(email: String, password: String, completion: @escaping (String) -> Void) {
+    func register(email: String, password: String, phoneNumber: PhoneNumberData, completion: @escaping (Result<Void, Error>) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             
             guard let self = self else { return }
             
             guard error == nil else {
-                let errorMessage = self.getLocalizedErrorMessage(for: error)
-                completion(registerStrings.failToRegisterErrorMessage + errorMessage)
+                let errorMessage = registerStrings.failToRegisterErrorMessage + self.getLocalizedErrorMessage(for: error)
+                completion(.failure(StringError(message: errorMessage)))
                 return
             }
             
@@ -41,14 +40,16 @@ class EmailAuthService {
             let profile: UserData = UserData(
                 id: userId,
                 name: email,
-                email: password
+                email: password,
+                phoneNumber: phoneNumber
             )
             
             FirestoreService.shared.setObject(profile, subCollection: firebaseSubCollectionNames.profile) { result in
                 if result == "Success" {
-                    completion(registerStrings.registerSuccessText)
+                    completion(.success(()))
                 } else {
-                    completion("\(registerStrings.failToRegisterErrorMessage) \(result)")
+                    let errorMessage = "\(registerStrings.failToRegisterErrorMessage) \(result)"
+                    completion(.failure(StringError(message: errorMessage)))
                 }
                 
             }

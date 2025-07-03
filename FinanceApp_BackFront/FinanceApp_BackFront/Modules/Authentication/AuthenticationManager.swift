@@ -25,8 +25,11 @@ class AuthenticationManager {
             
             guard let self = self else { return }
             
-            if case .success(let userId) = result {
-                self.sessionManager.fectchProfileData(id: userId, completion: completion)
+            switch result {
+            case .success(let user):
+                self.sessionManager.fectchProfileData(userDTO: user, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
             }
             
         }
@@ -39,16 +42,21 @@ class AuthenticationManager {
             
             guard let self = self else { return }
             
-            if case .success(let userId) = result {
-                self.sessionManager.fectchProfileData(id: userId, completion: completion)
+            switch result {
+            case .success(let user):
+                self.sessionManager.fectchProfileData(userDTO: user) { _ in
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                completion(.failure(error))
             }
             
         }
         
     }
     
-    func register(email: String, password: String, completion: @escaping (String) -> Void) {
-        emailService.register(email: email, password: password, completion: completion)
+    func register(email: String, password: String, phoneNumber: PhoneNumberData, completion: @escaping (Result<Void, Error>) -> Void) {
+        emailService.register(email: email, password: password, phoneNumber: phoneNumber, completion: completion)
     }
     
     func setCurrentUser(_ user: UserData) {
@@ -57,6 +65,10 @@ class AuthenticationManager {
     
     func getCurrentUser() -> UserData? {
         return sessionManager.currentUser
+    }
+    
+    func isUserFullConfigured() -> Bool {
+        return sessionManager.isUserFullConfigured()
     }
     
     func isSessionValid() -> Bool {
@@ -69,6 +81,8 @@ class AuthenticationManager {
     
     func updateUserInfo(user: UserData) {
         sessionManager.currentUser?.name = user.name
+        sessionManager.currentUser?.phoneNumber = user.phoneNumber
+        sessionManager.currentUser?.photoURL = user.photoURL
         
         FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { _ in
             //TODO: Treat error

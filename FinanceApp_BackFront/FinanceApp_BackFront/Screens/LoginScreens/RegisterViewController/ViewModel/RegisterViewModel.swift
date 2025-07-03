@@ -10,8 +10,8 @@ import FirebaseAuth
 
 class RegisterViewModel {
     
-    func createUser(email: String, password: String, completion: @escaping (String) -> Void) {
-        AuthenticationManager.shared.register(email: email, password: password, completion: completion)
+    func createUser(email: String, password: String, phoneNumber: PhoneNumberData, completion: @escaping (Result<Void, any Error>) -> Void) {
+        AuthenticationManager.shared.register(email: email, password: password, phoneNumber: phoneNumber, completion: completion)
     }
     
     func checkEmail(email : String) -> Bool{

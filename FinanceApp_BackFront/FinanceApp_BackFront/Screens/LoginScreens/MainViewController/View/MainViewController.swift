@@ -45,18 +45,28 @@ class MainViewController: UIViewController {
     
     @IBAction func tappedGoogleIntegrationLoginButton(_ sender: UIButton) {
         
-        viewModel.loginWithGoogle() { errorMessage in
+        viewModel.loginWithGoogle() { result in
             
-            if let errorMessage {
-                self.showSimpleAlert(title: loginStrings.atention, message: errorMessage)
-                return
-            }
-            
-            DispatchQueue.main.async {
-                let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
-                if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
-                    self.present(tbc, animated: false)
+            switch result {
+            case .success():
+                
+                DispatchQueue.main.async {
+                    
+                    if !AuthenticationManager.shared.isUserFullConfigured() {
+                        
+                        let vc: ConfirmProfileInfoViewController? = UIStoryboard(name: ConfirmProfileInfoViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: ConfirmProfileInfoViewController.identifier) as? ConfirmProfileInfoViewController
+                        self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+
+                    } else {
+                        let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
+                        if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
+                            self.present(tbc, animated: false)
+                        }
+                    }
+                    
                 }
+            case .failure(let error):
+                self.showSimpleAlert(title: loginStrings.atention, message: error.localizedDescription)
             }
             
         }

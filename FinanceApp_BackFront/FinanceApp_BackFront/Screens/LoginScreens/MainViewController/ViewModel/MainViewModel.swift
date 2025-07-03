@@ -10,38 +10,18 @@ import FirebaseAuth
 
 class MainViewModel {
     
-    func loginWithGoogle(completion: @escaping (String?) -> Void) {
+    func loginWithGoogle(completion: @escaping (Result<Void, Error>) -> Void) {
         
-        AuthenticationManager.shared.loginWithGoogle() { [weak self] result in
-            
-            guard let self = self else { return }
+        AuthenticationManager.shared.loginWithGoogle() { result in
             
             switch result {
-            case .success(let user):
-                completion(nil)
+            case .success():
+                completion(.success(()))
             case .failure(let error):
-                let errorMessage = self.getLocalizedErrorMessage(for: error)
-                completion(loginStrings.failToLoginErrorMessage + errorMessage)
+                completion(.failure(error))
             }
         }
         
-    }
-    
-    private func getLocalizedErrorMessage(for error: Error?) -> String {
-        if let loginError = error as? LoginError {
-            switch loginError {
-            case .wrongPassword:
-                return loginStrings.wrongPasswordError
-            case .userNotFound:
-                return loginStrings.userNotFoundError
-            case .invalidEmail:
-                return loginStrings.invalidEmail
-            default:
-                return loginStrings.followError + (error?.localizedDescription ?? "")
-            }
-        } else {
-            return loginStrings.followError + (error?.localizedDescription ?? "")
-        }
     }
     
 }

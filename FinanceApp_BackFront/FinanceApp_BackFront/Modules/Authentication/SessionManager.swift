@@ -19,7 +19,7 @@ class SessionManager {
         }
         
         if let userLogged = loadUser(),
-           let lastLoginDate = LocalStorageManager.getUserDefaults(key: ConstantKeys.lastLoginDate) as? Date {
+           let lastLoginDate = LocalStorageManager.getUserDefaults(key: StorageKeys.lastLoginDate) as? Date {
             
             if lastLoginDate > Date().addingTimeInterval(-604800) {
                 currentUser = userLogged
@@ -32,49 +32,80 @@ class SessionManager {
         
     }
     
+    func isUserFullConfigured() -> Bool {
+        
+        guard let user = currentUser else { return false }
+        
+        return  (
+            isSessionValid() &&
+            !user.name.isEmpty &&
+            !user.id.isEmpty &&
+            !user.email.isEmpty &&
+            !user.phoneNumber.number.isEmpty
+        )
+    }
+    
     func setUser(_ user: UserData) {
         
         if let encoded = try? JSONEncoder().encode(user) {
             currentUser = user
-            LocalStorageManager.saveUserDefaults(key:  ConstantKeys.loggedUserID, value: encoded)
+            LocalStorageManager.saveUserDefaults(key:  StorageKeys.loggedUserID, value: encoded)
             saveLoginDate()
         }
         
     }
     
     func loadUser() -> UserData? {
-        if let data = LocalStorageManager.getUserDefaults(key: ConstantKeys.loggedUserID) as? Data,
+        if let data = LocalStorageManager.getUserDefaults(key: StorageKeys.loggedUserID) as? Data,
            let user = try? JSONDecoder().decode(UserData.self, from: data) {
              return user
         }
         return nil
     }
     
-    func fectchProfileData(id: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func fectchProfileData(userDTO: UserDataDTO, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        FirestoreService.shared.getProfileInfo(userId: id) { [weak self] result in
+        if userDTO.registered {
             
-            guard let self = self else { return }
+            FirestoreService.shared.getProfileInfo(userId: userDTO.id) { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let profile):
+                    self.setUser(profile)
+                    completion(.success(()))
+                case .failure(let error):
+                    self.setUser(UserData(dto: userDTO))
+                    completion(.success(()))
+                }
+                
+            }
             
-            switch result {
-            case .success(let profile):
-                self.setUser(profile)
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
+        } else {
+            let user = UserData(dto: userDTO)
+            self.setUser(user)
+            FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { result in
+                if result == "Success" {
+                    completion(.success(()))
+                } else {
+                    completion(.failure(StringError(message: result)))
+                }
+                
             }
             
         }
+        
     }
     
     func saveLoginDate() {
-        LocalStorageManager.saveUserDefaults(key: ConstantKeys.lastLoginDate, value: Date())
+        LocalStorageManager.saveUserDefaults(key: StorageKeys.lastLoginDate, value: Date())
     }
     
     func clearSession() {
         currentUser = nil
-        LocalStorageManager.removeUserDefaults(key: ConstantKeys.loggedUserID)
-        LocalStorageManager.removeUserDefaults(key: ConstantKeys.lastLoginDate)
+        LocalStorageManager.removeUserDefaults(key: StorageKeys.loggedUserID)
+        LocalStorageManager.removeUserDefaults(key: StorageKeys.lastLoginDate)
     }
     
     

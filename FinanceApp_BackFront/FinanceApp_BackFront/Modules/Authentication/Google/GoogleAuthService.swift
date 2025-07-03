@@ -12,7 +12,7 @@ import FirebaseCore
 
 class GoogleAuthService {    
     
-    func login(completion: @escaping (Result<String, Error>) -> Void) {
+    func login(completion: @escaping (Result<UserDataDTO, Error>) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             completion(.failure(LoginError.missingClientId))
             return
@@ -41,14 +41,31 @@ class GoogleAuthService {
 
             Auth.auth().signIn(with: credential) { authResult, error in
                 
-                if let authResult = authResult, authResult.additionalUserInfo?.isNewUser ?? false {
-                    let user = UserData(id: authResult.user.uid, name: authResult.user.displayName ?? "", email: authResult.user.email ?? "")
+                guard error == nil, let authResult = authResult else {
+                    completion(.failure(self.getLoginError(for: error)))
+                    return
                 }
                 
-                
-                if let error = error {
-                    completion(.failure(self.getLoginError(for: error)))
-                } else if let user = authResult?.user.uid {
+                if authResult.additionalUserInfo?.isNewUser ?? false {
+                    
+                    let user = UserDataDTO(
+                        id: authResult.user.uid,
+                        email: authResult.user.email ?? "",
+                        name: authResult.user.displayName ?? "",
+                        phoneNumber: nil,
+                        photoURL: authResult.user.photoURL,
+                        userRegistered: false
+                    )
+                    
+                    completion(.success(user))
+                    
+                } else {
+                    let user = UserDataDTO(
+                        id: authResult.user.uid,
+                        email: authResult.user.email ?? "",
+                        userRegistered: true
+                    )
+                    
                     completion(.success(user))
                 }
                 
