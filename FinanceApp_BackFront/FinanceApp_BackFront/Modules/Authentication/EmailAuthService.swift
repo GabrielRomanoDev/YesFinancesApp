@@ -44,6 +44,14 @@ class EmailAuthService {
                 phoneNumber: phoneNumber
             )
             
+            Auth.auth().currentUser?.sendEmailVerification { error in
+              
+                if let error = error {
+                    print("Error sendingEmailVerification: \(error).")
+                }
+                
+            }
+            
             FirestoreService.shared.setObject(profile, subCollection: firebaseSubCollectionNames.profile) { result in
                 if result == "Success" {
                     completion(.success(()))
@@ -54,6 +62,18 @@ class EmailAuthService {
                 
             }
             
+        }
+        
+    }
+    
+    func forgetPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
         }
         
     }

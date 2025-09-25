@@ -63,6 +63,9 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Esqueceu a senha ?"/>
+                                        <connections>
+                                            <action selector="tappedForgetPassword:" destination="1Hj-FZ-cG6" eventType="touchUpInside" id="OHD-rS-jZ3"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="envelope" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1kD-NB-0Xh">
                                         <rect key="frame" x="15" y="44.333333333333329" width="43" height="21"/>

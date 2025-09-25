@@ -68,6 +68,15 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func tappedForgetPassword(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: ResetPasswordViewController.identifier, bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: ResetPasswordViewController.identifier) { [weak self] coder -> ResetPasswordViewController? in
+            guard let self else { return nil }
+            return ResetPasswordViewController(coder: coder, email: emailTextField.text.orEmpty)
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func setupStrings() {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         enterButton.setTitle(loginStrings.enterButtonTitle, for: .normal)
@@ -120,20 +129,13 @@ class LoginViewController: UIViewController {
 extension LoginViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor.blue.cgColor
-        textField.layer.borderWidth = 1
         logoBottomConstraint.constant = 50
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-
     }
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         logoBottomConstraint.constant = 100
         if textField.text?.isEmpty ?? true {
-            textField.layer.borderWidth = 1
             textField.layer.borderColor = UIColor.red.cgColor
         } else {
             textField.layer.borderWidth = 0

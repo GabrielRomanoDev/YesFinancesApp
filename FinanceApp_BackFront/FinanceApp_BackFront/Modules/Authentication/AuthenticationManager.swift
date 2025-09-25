@@ -59,6 +59,10 @@ class AuthenticationManager {
         emailService.register(email: email, password: password, phoneNumber: phoneNumber, completion: completion)
     }
     
+    func forgetPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        emailService.forgetPassword(email: email, completion: completion)
+    }
+    
     func setCurrentUser(_ user: UserData) {
         sessionManager.setUser(user)
     }
