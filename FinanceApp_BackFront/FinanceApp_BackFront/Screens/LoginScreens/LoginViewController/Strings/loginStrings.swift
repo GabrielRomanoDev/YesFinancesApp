@@ -20,5 +20,6 @@ enum loginStrings {
     static let userNotFoundError = "usuário não encontrado."
     static let wrongPasswordError = "senha incorreta."
     static let invalidEmail = "formato de email invalido."
+    static let undefinedError = "Algo deu errado, tente novamente mais tarde."
     static let followError = "segue o erro "
 }

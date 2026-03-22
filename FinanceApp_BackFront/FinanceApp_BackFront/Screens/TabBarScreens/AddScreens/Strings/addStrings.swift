@@ -46,6 +46,9 @@ enum addStrings {
     static let bankAccountsTitle = "Contas Bancárias"
     static let creditCardsTitle = "Cartões de Credito"
     
+    static let noAccountConfigured = "Não há contas bancárias cadastradas. Deseja cadastrar uma?"
+    static let noCardConfigured = "Não há cartões de crédito cadastrados. Deseja cadastrar um?"
+    
     static func firstInstallmentText(amount: String, installmentTotal: Int) -> String {
         return "Um total de \(installmentTotal) parcelas no valor de \(amount)."
     }

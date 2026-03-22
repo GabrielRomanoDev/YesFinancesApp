@@ -115,6 +115,8 @@ class TransactionFormViewModel: ObservableObject {
         
         FirestoreService.shared.setObject(self.transaction, subCollection: firebaseSubCollectionNames.transactions) { result in
             
+            NotificationCenter.default.post(name: .updateTransactionsData, object: nil)
+            
             if result != "Success" {
                 print(result)
                 //TODO: Adicionar no UserDefaults para sincronizar no futuro

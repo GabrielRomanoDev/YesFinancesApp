@@ -48,24 +48,27 @@ class MainViewController: UIViewController {
         viewModel.loginWithGoogle() { result in
             
             switch result {
-            case .success():
+            case .success(let user):
                 
                 DispatchQueue.main.async {
                     
-                    if !AuthenticationManager.shared.isUserFullConfigured() {
+                    if user.infoValidated {
                         
-                        let vc: ConfirmProfileInfoViewController? = UIStoryboard(name: ConfirmProfileInfoViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: ConfirmProfileInfoViewController.identifier) as? ConfirmProfileInfoViewController
-                        self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
-
-                    } else {
                         let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
                         if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
                             self.present(tbc, animated: false)
                         }
+
+                    } else {
+                        
+                        let vc: ConfirmProfileInfoViewController? = UIStoryboard(name: ConfirmProfileInfoViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: ConfirmProfileInfoViewController.identifier) as? ConfirmProfileInfoViewController
+                        self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+                        
                     }
                     
                 }
             case .failure(let error):
+                if let loginError = error as? LoginError, loginError == LoginError.canceled { return }
                 self.showSimpleAlert(title: loginStrings.atention, message: error.localizedDescription)
             }
             

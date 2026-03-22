@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		77C95F712D80F1F287355889 /* Pods_FinanceApp_BackFront.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851463C049845516B8F4A4A8 /* Pods_FinanceApp_BackFront.framework */; };
+		A10036B12E84DC21009D8FB7 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10036B02E84DC17009D8FB7 /* UIApplication.swift */; };
 		A100FAA52C74002D006DCD47 /* FilteringTransactionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A100FAA22C74002D006DCD47 /* FilteringTransactionsViewController.storyboard */; };
 		A100FAA62C74002D006DCD47 /* FilteringTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100FAA32C74002D006DCD47 /* FilteringTransactionsViewController.swift */; };
 		A101916C29FAB3FA00776A67 /* AccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101916A29FAB3FA00776A67 /* AccountCollectionViewCell.swift */; };
@@ -263,6 +264,7 @@
 		0C974D3A11D911F04F2A9C80 /* Pods-FinanceApp_BackFront.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinanceApp_BackFront.release.xcconfig"; path = "Target Support Files/Pods-FinanceApp_BackFront/Pods-FinanceApp_BackFront.release.xcconfig"; sourceTree = "<group>"; };
 		692476B1F1F3BEC20C43432B /* Pods-FinanceApp_BackFront.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinanceApp_BackFront.debug.xcconfig"; path = "Target Support Files/Pods-FinanceApp_BackFront/Pods-FinanceApp_BackFront.debug.xcconfig"; sourceTree = "<group>"; };
 		851463C049845516B8F4A4A8 /* Pods_FinanceApp_BackFront.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FinanceApp_BackFront.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10036B02E84DC17009D8FB7 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		A100FAA22C74002D006DCD47 /* FilteringTransactionsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FilteringTransactionsViewController.storyboard; sourceTree = "<group>"; };
 		A100FAA32C74002D006DCD47 /* FilteringTransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteringTransactionsViewController.swift; sourceTree = "<group>"; };
 		A101916A29FAB3FA00776A67 /* AccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 		A10DA4C02DAA11F900206039 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				A10036B02E84DC17009D8FB7 /* UIApplication.swift */,
 				A10DA4C12DAA120000206039 /* View.swift */,
 			);
 			path = SwiftUI;
@@ -2380,6 +2383,7 @@
 				A14F99AA2A259DB600257B67 /* accountsModalStrings.swift in Sources */,
 				A19742D82A22637200455DB0 /* homeStrings.swift in Sources */,
 				A1C8BA6D2A22E61F00590758 /* transactionsStrings.swift in Sources */,
+				A10036B12E84DC21009D8FB7 /* UIApplication.swift in Sources */,
 				E35D087129BDB2030098F0B5 /* MoreOptionsViewController.swift in Sources */,
 				A11BBF462E25F9CC0064FE54 /* ResetPasswordViewModel.swift in Sources */,
 				A1E76D432DB71A89005D9801 /* FormTextField.swift in Sources */,

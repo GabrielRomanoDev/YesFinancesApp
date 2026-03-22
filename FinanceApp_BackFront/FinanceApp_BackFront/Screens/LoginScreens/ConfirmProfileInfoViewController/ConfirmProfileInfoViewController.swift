@@ -51,6 +51,7 @@ class ConfirmProfileInfoViewController: UIViewController {
                 newInformationUser.name = nameTextField.text.orEmpty
                 newInformationUser.email = emailTextField.text.orEmpty
                 newInformationUser.phoneNumber = PhoneNumberData(formattedString: phoneTextField.text.orEmpty)!
+                newInformationUser.infoValidated = true
                 
                 AuthenticationManager.shared.updateUserInfo(user: newInformationUser)
             }
@@ -72,6 +73,9 @@ class ConfirmProfileInfoViewController: UIViewController {
     }
     
     private func setupElements() {
+        
+        self.view.backgroundColor = UIColor.backgroundColor
+        
         profileImage.layer.cornerRadius = profileImage.frame.size.height / 2
         profileImage.clipsToBounds = true
         
@@ -90,7 +94,7 @@ class ConfirmProfileInfoViewController: UIViewController {
             emailTextField.text = email
             emailTextField.isEnabled = false
         }
-        phoneTextField.text = userDto?.phoneNumber.formatedLocal ?? ""
+        phoneTextField.text = userDto?.phoneNumber?.formatedLocal ?? ""
     }
     
     private func setupImagePicker(){

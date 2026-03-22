@@ -12,8 +12,9 @@ import FirebaseCore
 
 class GoogleAuthService {    
     
-    func login(completion: @escaping (Result<UserDataDTO, Error>) -> Void) {
+    func login(completion: @escaping (Result<UserData, Error>) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
+            print("failure 1")
             completion(.failure(LoginError.missingClientId))
             return
         }
@@ -30,6 +31,7 @@ class GoogleAuthService {
 
             guard let user = result?.user,
                   let idToken = user.idToken?.tokenString else {
+                print("failure 3 \(LoginError.tokenError)")
                 completion(.failure(LoginError.tokenError))
                 return
             }
@@ -42,28 +44,28 @@ class GoogleAuthService {
             Auth.auth().signIn(with: credential) { authResult, error in
                 
                 guard error == nil, let authResult = authResult else {
+                    print("failure 4 \(self.getLoginError(for: error))")
                     completion(.failure(self.getLoginError(for: error)))
                     return
                 }
                 
                 if authResult.additionalUserInfo?.isNewUser ?? false {
                     
-                    let user = UserDataDTO(
+                    let user = UserData(
                         id: authResult.user.uid,
-                        email: authResult.user.email ?? "",
                         name: authResult.user.displayName ?? "",
+                        email: authResult.user.email ?? "",
                         phoneNumber: nil,
                         photoURL: authResult.user.photoURL,
-                        userRegistered: false
                     )
                     
                     completion(.success(user))
                     
                 } else {
-                    let user = UserDataDTO(
+                    let user = UserData(
                         id: authResult.user.uid,
+                        name: authResult.user.displayName ?? "",
                         email: authResult.user.email ?? "",
-                        userRegistered: true
                     )
                     
                     completion(.success(user))
@@ -90,17 +92,15 @@ class GoogleAuthService {
     }
     
     private func getLoginError(for error: Error?) -> Error {
-        if let errorCode = (error as NSError?)?.code {
-            switch errorCode {
-            case AuthErrorCode.wrongPassword.rawValue:
-                return LoginError.wrongPassword
-            case AuthErrorCode.userNotFound.rawValue:
-                return LoginError.userNotFound
-            case AuthErrorCode.invalidEmail.rawValue:
-                return LoginError.invalidEmail
+        if let err = (error as NSError?) {
+            
+            switch err.code {
+            case GIDSignInError.canceled.rawValue:
+                return LoginError.canceled
             default:
                 return error ?? LoginError.undefined
             }
+            
         } else {
             return error ?? LoginError.undefined
         }

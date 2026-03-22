@@ -10,11 +10,11 @@ import FirebaseAuth
 
 class EmailAuthService {
     
-    func login(email: String, password: String, completion: @escaping (Result<UserDataDTO, Error>) -> Void) {
+    func login(email: String, password: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error == nil {
-                let user = UserDataDTO(id: authResult?.user.uid ?? UUID().uuidString, email: email)
+                let user = UserData(id: authResult?.user.uid ?? UUID().uuidString, name: "", email: email)
                 completion(.success(user))
             } else {
                 let errorMessage = loginStrings.failToLoginErrorMessage + self.getLocalizedErrorMessage(for: error)
@@ -40,7 +40,7 @@ class EmailAuthService {
             let profile: UserData = UserData(
                 id: userId,
                 name: email,
-                email: password,
+                email: email,
                 phoneNumber: phoneNumber
             )
             

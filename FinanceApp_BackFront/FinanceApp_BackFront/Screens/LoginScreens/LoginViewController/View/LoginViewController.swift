@@ -48,13 +48,20 @@ class LoginViewController: UIViewController {
             viewModel.loginUser(email: email, password: password) { resultLogin in
                 
                 switch resultLogin {
-                case .success:
+                case .success(let user):
                     
                     DispatchQueue.main.async {
-                        let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
-                        if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
-                            self.present(tbc, animated: false)
+                        
+                        if user.infoValidated {
+                            let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
+                            if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
+                                self.present(tbc, animated: false)
+                            }
+                        } else {
+                            let vc: ConfirmProfileInfoViewController? = UIStoryboard(name: ConfirmProfileInfoViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: ConfirmProfileInfoViewController.identifier) as? ConfirmProfileInfoViewController
+                            self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
                         }
+                        
                     }
                     
                 case .failure(let error):

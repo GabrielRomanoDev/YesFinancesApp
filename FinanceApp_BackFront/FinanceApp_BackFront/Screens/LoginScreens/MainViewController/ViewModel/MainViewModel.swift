@@ -10,18 +10,8 @@ import FirebaseAuth
 
 class MainViewModel {
     
-    func loginWithGoogle(completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        AuthenticationManager.shared.loginWithGoogle() { result in
-            
-            switch result {
-            case .success():
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-        
+    func loginWithGoogle(completion: @escaping (Result<UserData, Error>) -> Void) {
+        AuthenticationManager.shared.loginWithGoogle(completion: completion)
     }
     
 }

@@ -19,7 +19,7 @@ class AuthenticationManager {
     
     private init() {}
     
-    func login(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func login(email: String, password: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         
         emailService.login(email: email, password: password) { [weak self] result in
             
@@ -27,7 +27,7 @@ class AuthenticationManager {
             
             switch result {
             case .success(let user):
-                self.sessionManager.fectchProfileData(userDTO: user, completion: completion)
+                self.sessionManager.fetchProfileData(user: user, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -36,7 +36,7 @@ class AuthenticationManager {
         
     }
     
-    func loginWithGoogle(completion: @escaping (Result<Void, Error>) -> Void) {
+    func loginWithGoogle(completion: @escaping (Result<UserData, Error>) -> Void) {
         
         googleService.login() { [weak self] result in
             
@@ -44,9 +44,7 @@ class AuthenticationManager {
             
             switch result {
             case .success(let user):
-                self.sessionManager.fectchProfileData(userDTO: user) { _ in
-                    completion(.success(()))
-                }
+                self.sessionManager.fetchProfileData(user: user, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -71,10 +69,6 @@ class AuthenticationManager {
         return sessionManager.currentUser
     }
     
-    func isUserFullConfigured() -> Bool {
-        return sessionManager.isUserFullConfigured()
-    }
-    
     func isSessionValid() -> Bool {
         return sessionManager.isSessionValid()
     }
@@ -84,11 +78,8 @@ class AuthenticationManager {
     }
     
     func updateUserInfo(user: UserData) {
-        sessionManager.currentUser?.name = user.name
-        sessionManager.currentUser?.phoneNumber = user.phoneNumber
-        sessionManager.currentUser?.photoURL = user.photoURL
-        
-        FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { _ in
+        sessionManager.setUser(user)
+        FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { result in
             //TODO: Treat error
         }
         

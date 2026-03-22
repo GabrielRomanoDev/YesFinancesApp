@@ -30,7 +30,7 @@ enum registerStrings {
     static let incompatiblePasswordsMessage = "Senhas não compatíveis"
     static let registerSuccessText = "Sucesso Cadastro!"
     
-    static let emailAlreadyInUse = "email já foi cadastrado no sistema!"
+    static let emailAlreadyInUse = "Este email já está em uso!"
     static let followError = "segue o erro "
 }
 

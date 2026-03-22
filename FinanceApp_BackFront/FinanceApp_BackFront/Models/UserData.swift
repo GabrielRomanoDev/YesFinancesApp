@@ -28,21 +28,16 @@ struct UserData: FirestoreObject {
     let id: String
     var name: String
     var email: String
-    var phoneNumber: PhoneNumberData
+    var phoneNumber: PhoneNumberData?
     var photoURL: URL?
+    var infoValidated: Bool
     
-    init(id: String, name: String, email: String, phoneNumber: PhoneNumberData, photoURL: URL? = nil) {
+    init(id: String, name: String, email: String, phoneNumber: PhoneNumberData? = nil, photoURL: URL? = nil, infoValidated: Bool = false) {
         self.id = id
         self.name = name
         self.email = email
         self.phoneNumber = phoneNumber
-    }
-    
-    init(dto: UserDataDTO) {
-        self.id = dto.id
-        self.name = dto.name ?? ""
-        self.email = dto.email
-        self.phoneNumber = dto.phoneNumber ?? PhoneNumberData(nationalCode: "", zoneCode: "", number: "")
+        self.infoValidated = infoValidated
     }
 }
 

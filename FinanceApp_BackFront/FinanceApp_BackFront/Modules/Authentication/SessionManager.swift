@@ -21,6 +21,11 @@ class SessionManager {
         if let userLogged = loadUser(),
            let lastLoginDate = LocalStorageManager.getUserDefaults(key: StorageKeys.lastLoginDate) as? Date {
             
+            guard userLogged.infoValidated else {
+                clearSession()
+                return false
+            }
+            
             if lastLoginDate > Date().addingTimeInterval(-604800) {
                 currentUser = userLogged
                 return true
@@ -30,19 +35,6 @@ class SessionManager {
 
         return false
         
-    }
-    
-    func isUserFullConfigured() -> Bool {
-        
-        guard let user = currentUser else { return false }
-        
-        return  (
-            isSessionValid() &&
-            !user.name.isEmpty &&
-            !user.id.isEmpty &&
-            !user.email.isEmpty &&
-            !user.phoneNumber.number.isEmpty
-        )
     }
     
     func setUser(_ user: UserData) {
@@ -63,35 +55,25 @@ class SessionManager {
         return nil
     }
     
-    func fectchProfileData(userDTO: UserDataDTO, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        if userDTO.registered {
+    func fetchProfileData(user: UserData, completion: @escaping (Result<UserData, Error>) -> Void) {
             
-            FirestoreService.shared.getProfileInfo(userId: userDTO.id) { [weak self] result in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                case .success(let profile):
-                    self.setUser(profile)
-                    completion(.success(()))
-                case .failure(let error):
-                    self.setUser(UserData(dto: userDTO))
-                    completion(.success(()))
-                }
-                
-            }
+        FirestoreService.shared.getProfileInfo(userId: user.id) { [weak self] result in
             
-        } else {
-            let user = UserData(dto: userDTO)
-            self.setUser(user)
-            FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { result in
-                if result == "Success" {
-                    completion(.success(()))
-                } else {
-                    completion(.failure(StringError(message: result)))
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let profile):
+                self.setUser(profile)
+                completion(.success(profile))
+            case .failure(_):
+                self.setUser(user)
+                FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { result in
+                    if result == "Success" {
+                        completion(.success(user))
+                    } else {
+                        completion(.failure(StringError(message: result)))
+                    }
                 }
-                
             }
             
         }

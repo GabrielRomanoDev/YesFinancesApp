@@ -99,6 +99,7 @@ class CreditCardExpenseFormViewModel: ObservableObject {
         }
         
         saveExpense() {
+            NotificationCenter.default.post(name: .updateTransactionsData, object: nil)
             completion()
         }
     }

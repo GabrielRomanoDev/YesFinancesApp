@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct AddTransactionView: View {
     
@@ -15,6 +16,8 @@ struct AddTransactionView: View {
     @State private var showAddExpenseView = false
     @State private var showAddCardExpenseView = false
     @State private var showAddTransferView = false
+    @State private var showMissingAccountAlert = false
+    @State private var showMissingCardAlert = false
     
     var body: some View {
         ZStack {
@@ -33,15 +36,27 @@ struct AddTransactionView: View {
                         Spacer()
                         
                         CustomButton(title: "Receita na Conta", imageName: "arrowshape.up.circle.fill", simbolColor: Color.greenAddIncomes) {
-                            showAddIncomeView = true
+                            if (!BankAccountsRepository.shared.list.isEmpty) {
+                                showAddIncomeView = true
+                            } else {
+                                showMissingAccountAlert = true
+                            }
                         }
                         
                         CustomButton(title: "Despesa na Conta", imageName: "arrowshape.down.circle.fill", simbolColor: Color.redAddExpenses) {
-                            showAddExpenseView = true
+                            if (!BankAccountsRepository.shared.list.isEmpty) {
+                                showAddExpenseView = true
+                            } else {
+                                showMissingAccountAlert = true
+                            }
                         }
                         
                         CustomButton(title: "Despesa no Cartão", imageName: "arrowshape.down.circle.fill", simbolColor: Color.redAddExpenses) {
-                            showAddCardExpenseView = true
+                            if (!CreditCardsRepository.shared.list.isEmpty) {
+                                showAddCardExpenseView = true
+                            } else {
+                                showMissingCardAlert = true
+                            }
                         }
                         
                         CustomButton(title: "Transferência", imageName: "repeat.circle", simbolColor: Color.blue) {
@@ -104,6 +119,50 @@ struct AddTransactionView: View {
         //            }
         //            print("ShowTransferView")
         //        }
+        .alert(globalStrings.attention, isPresented: $showMissingAccountAlert) {
+            Button(globalStrings.cancel, role: .cancel) {
+                showMissingAccountAlert = false
+            }
+            Button(globalStrings.confirm) {
+                showMissingAccountAlert = false
+                if let tabBar = UIApplication.rootTabBarController {
+                    
+                    dimissView()
+                    tabBar.selectedIndex = 4
+                    
+                    // Se a aba for um UINavigationController e quiser dar push:
+                    if let nav = tabBar.viewControllers?[4] as? UINavigationController {
+                        let vc: BankAccountsViewController? = UIStoryboard(name: BankAccountsViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: BankAccountsViewController.identifier) as? BankAccountsViewController
+                        nav.pushViewController(vc ?? UIViewController(), animated: true)
+                    }
+                }
+            }
+            
+        } message: {
+            Text(addStrings.noAccountConfigured)
+        }
+        .alert(globalStrings.attention, isPresented: $showMissingCardAlert) {
+            Button(globalStrings.cancel, role: .cancel) {
+                showMissingCardAlert = false
+            }
+            Button(globalStrings.confirm) {
+                showMissingCardAlert = false
+                if let tabBar = UIApplication.rootTabBarController {
+                    
+                    dimissView()
+                    tabBar.selectedIndex = 4
+                    
+                    // Se a aba for um UINavigationController e quiser dar push:
+                    if let nav = tabBar.viewControllers?[4] as? UINavigationController {
+                        let vc: CreditCardsViewController? = UIStoryboard(name: CreditCardsViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: CreditCardsViewController.identifier) as? CreditCardsViewController
+                        nav.pushViewController(vc ?? UIViewController(), animated: true)
+                    }
+                }
+            }
+            
+        } message: {
+            Text(addStrings.noCardConfigured)
+        }
         .onTapGesture {
             dimissView()
         }

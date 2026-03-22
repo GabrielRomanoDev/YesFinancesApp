@@ -12,5 +12,6 @@ enum LoginError: Error {
     case invalidEmail
     case missingClientId
     case tokenError
+    case canceled
     case undefined
 }

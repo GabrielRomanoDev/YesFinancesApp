@@ -53,6 +53,16 @@ class RegisterViewController: UIViewController {
             
             switch result {
             case .success():
+                
+                if var newInformationUser: UserData = AuthenticationManager.shared.getCurrentUser() {
+                    newInformationUser.name = self.nameTextfield.text.orEmpty
+                    newInformationUser.email = email
+                    
+                    AuthenticationManager.shared.updateUserInfo(user: newInformationUser)
+                } else {
+                    AuthenticationManager.shared.setCurrentUser(UserData(id: UUID().uuidString, name: self.nameTextfield.text.orEmpty, email: email, phoneNumber: phoneNumber))
+                }
+                
                 self.showSimpleAlert(title: registerStrings.registerSuccessMessage, message: globalStrings.emptyString) {
                     
                     let storyboard:UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
