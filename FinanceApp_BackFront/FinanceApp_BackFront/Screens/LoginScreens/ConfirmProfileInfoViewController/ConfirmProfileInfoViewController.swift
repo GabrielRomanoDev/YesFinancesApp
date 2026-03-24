@@ -113,7 +113,6 @@ class ConfirmProfileInfoViewController: UIViewController {
         }
         
         return nameTextField.text.orEmpty.isEmptyTest() || emailTextField.text.orEmpty.isEmptyTest() || phoneTextField.text.orEmpty.isEmptyTest()
-
         
     }
 

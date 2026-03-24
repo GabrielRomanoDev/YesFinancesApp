@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import UIKit
 
 class AuthenticationManager {
     
@@ -36,9 +37,9 @@ class AuthenticationManager {
         
     }
     
-    func loginWithGoogle(completion: @escaping (Result<UserData, Error>) -> Void) {
+    func loginWithGoogle(presentingViewController: UIViewController, completion: @escaping (Result<UserData, Error>) -> Void) {
         
-        googleService.login() { [weak self] result in
+        googleService.login(presentingViewController: presentingViewController) { [weak self] result in
             
             guard let self = self else { return }
             
@@ -75,6 +76,55 @@ class AuthenticationManager {
     
     func clearSession() {
         sessionManager.clearSession()
+    }
+
+    func logout(completion: @escaping (Result<Void, Error>) -> Void) {
+        googleService.signOut { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
+                self.sessionManager.clearSession()
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func deleteCurrentAccount(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let currentFirebaseUser = Auth.auth().currentUser else {
+            completion(.failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
+            return
+        }
+
+        let userId = currentFirebaseUser.uid
+
+        FirestoreService.shared.deleteUserData(userId: userId) { [weak self] firestoreResult in
+            guard let self = self else { return }
+
+            switch firestoreResult {
+            case .success:
+                currentFirebaseUser.delete { error in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+
+                    self.googleService.signOut { signOutResult in
+                        switch signOutResult {
+                        case .success:
+                            self.sessionManager.clearSession()
+                            completion(.success(()))
+                        case .failure(let error):
+                            completion(.failure(error))
+                        }
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
     func updateUserInfo(user: UserData) {

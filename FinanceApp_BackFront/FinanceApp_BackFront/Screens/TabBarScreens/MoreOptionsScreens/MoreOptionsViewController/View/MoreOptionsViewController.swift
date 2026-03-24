@@ -64,8 +64,21 @@ class MoreOptionsViewController: UIViewController {
     }
     
     @IBAction func tappedLogoutButton(_ sender: UIButton) {
-        viewModel.logoutUser()
-        dismiss(animated: false)
+        viewModel.logoutUser { [weak self] result in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    let presentingViewController = self.tabBarController?.presentingViewController
+                    self.tabBarController?.dismiss(animated: false) {
+                        self.redirectToMainMenu(from: presentingViewController)
+                    }
+                case .failure(let error):
+                    self.showSimpleAlert(title: globalStrings.error, message: error.localizedDescription)
+                }
+            }
+        }
     }
     
     private func setupStrings() {
@@ -98,6 +111,19 @@ class MoreOptionsViewController: UIViewController {
     @objc func updateProfileImage(notification:NSNotification) {
         profileImage.image = notification.object as? UIImage
     }
+
+    private func redirectToMainMenu(from presentingViewController: UIViewController?) {
+        let storyboard = UIStoryboard(name: MainViewController.identifier, bundle: nil)
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
+
+        if let navigationController = ApplicationViewControllerResolver.getRootNavigationController() {
+            navigationController.setViewControllers([mainViewController], animated: false)
+        } else if let navigationController = presentingViewController?.navigationController {
+            navigationController.setViewControllers([mainViewController], animated: false)
+        } else {
+            let navigationController = UINavigationController(rootViewController: mainViewController)
+            ApplicationViewControllerResolver.getKeyWindow()?.rootViewController = navigationController
+            ApplicationViewControllerResolver.getKeyWindow()?.makeKeyAndVisible()
+        }
+    }
 }
-
-

@@ -26,6 +26,15 @@ class FirestoreService {
     private var userDocumentRef: DocumentReference {
         return db.collection("users").document(user)
     }
+
+    private static let removableUserSubcollections: [String] = [
+        firebaseSubCollectionNames.profile,
+        firebaseSubCollectionNames.transactions,
+        firebaseSubCollectionNames.creditCardExpenses,
+        firebaseSubCollectionNames.bankAccounts,
+        firebaseSubCollectionNames.creditCards,
+        firebaseSubCollectionNames.goals,
+    ]
     
     func getProfileInfo(userId: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         
@@ -63,6 +72,7 @@ class FirestoreService {
                 completion("Success")
                 
             } catch {
+                print("Error to set object: \(error)");
                 completion(error.localizedDescription)
             }
         }
@@ -85,6 +95,10 @@ class FirestoreService {
     }
     
     func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, completion: @escaping (Result<[T], Error>) -> Void) {
+        
+        if user == "user_error" {
+            print("test")
+        }
         
         print("getObjectsList com user: \(user)")
         let collection = userDocumentRef.collection(subCollection)
@@ -194,6 +208,36 @@ class FirestoreService {
                 completion("Success")
             }
         }
+    }
+
+    func deleteUserData(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let userDocumentRef = db.collection("users").document("user_\(userId)")
+
+        Task {
+            do {
+                for subcollection in Self.removableUserSubcollections {
+                    try await deleteAllDocuments(in: userDocumentRef.collection(subcollection))
+                }
+
+                try await userDocumentRef.delete()
+                completion(.success(()))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func deleteAllDocuments(in collection: CollectionReference) async throws {
+        let querySnapshot = try await collection.getDocuments()
+
+        guard !querySnapshot.documents.isEmpty else { return }
+
+        let batch = db.batch()
+        querySnapshot.documents.forEach { document in
+            batch.deleteDocument(document.reference)
+        }
+
+        try await batch.commit()
     }
     
 }

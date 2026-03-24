@@ -19,9 +19,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var deleteAccountButton: UIButton!
     
     static let identifier:String = String(describing: ProfileViewController.self)
     let imagePicker = UIImagePickerController()
+    let viewModel = ProfileViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,29 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func tappedDeleteAccountButton(_ sender: UIButton) {
+        showAlertWithCancelOption(title: globalStrings.attention, message: moreOptionsStrings.deleteAccountConfirmationMessage) { [weak self] in
+            guard let self = self else { return }
+
+            self.viewModel.deleteAccount { result in
+                DispatchQueue.main.async(execute: {
+                    switch result {
+                    case .success:
+                        self.showSimpleAlert(title: moreOptionsStrings.profileTitle, message: moreOptionsStrings.deleteAccountSuccessMessage) {
+                            let presentingViewController = self.tabBarController?.presentingViewController
+                            self.tabBarController?.dismiss(animated: false) {
+                                self.redirectToMainMenu(from: presentingViewController)
+                            }
+                        }
+                    case .failure(let error):
+                        self.showSimpleAlert(title: globalStrings.error, message: error.localizedDescription)
+                    }
+                })
+            }
+        }
+    }
+    
+    
     private func setupStrings() {
         navigationItem.backButtonTitle = globalStrings.backButtonTitle
         titleLabel.text = moreOptionsStrings.profileTitle
@@ -63,6 +88,7 @@ class ProfileViewController: UIViewController {
         passwordLabel.text = moreOptionsStrings.passwordText
         changeProfileImageButton.setTitle(moreOptionsStrings.changeProfileImageButtonTitle, for: .normal)
         saveButton.setTitle(moreOptionsStrings.saveButtonTitle, for: .normal)
+        deleteAccountButton.setTitle(moreOptionsStrings.deleteAccount, for: .normal)
     }
     
     private func setupElements() {
@@ -126,5 +152,20 @@ extension ProfileViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.systemGray.cgColor
+    }
+
+    private func redirectToMainMenu(from presentingViewController: UIViewController?) {
+        let storyboard = UIStoryboard(name: MainViewController.identifier, bundle: nil)
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
+
+        if let navigationController = ApplicationViewControllerResolver.getRootNavigationController() {
+            navigationController.setViewControllers([mainViewController], animated: false)
+        } else if let navigationController = presentingViewController?.navigationController {
+            navigationController.setViewControllers([mainViewController], animated: false)
+        } else {
+            let navigationController = UINavigationController(rootViewController: mainViewController)
+            ApplicationViewControllerResolver.getKeyWindow()?.rootViewController = navigationController
+            ApplicationViewControllerResolver.getKeyWindow()?.makeKeyAndVisible()
+        }
     }
 }

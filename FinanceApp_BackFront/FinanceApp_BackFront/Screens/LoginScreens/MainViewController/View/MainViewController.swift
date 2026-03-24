@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
     
     @IBAction func tappedGoogleIntegrationLoginButton(_ sender: UIButton) {
         
-        viewModel.loginWithGoogle() { result in
+        viewModel.loginWithGoogle(presentingViewController: self) { result in
             
             switch result {
             case .success(let user):

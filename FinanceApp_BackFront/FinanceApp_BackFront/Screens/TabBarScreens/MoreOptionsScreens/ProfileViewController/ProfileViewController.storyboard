@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N75-l5-P6O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N75-l5-P6O">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Editar Perfil" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsp-Xr-RvI">
-                                <rect key="frame" x="20" y="95" width="353" height="20.333333333333329"/>
+                                <rect key="frame" x="20" y="154" width="353" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0ec-4o-VYw">
-                                <rect key="frame" x="20" y="135.33333333333334" width="353" height="149.00000000000003"/>
+                                <rect key="frame" x="20" y="194.33333333333337" width="353" height="149"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserDefault" translatesAutoresizingMaskIntoConstraints="NO" id="ZdH-rz-3V0">
                                         <rect key="frame" x="126.66666666666666" y="0.0" width="100" height="100"/>
@@ -34,7 +34,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXA-17-On9">
-                                        <rect key="frame" x="101.66666666666669" y="110" width="150" height="39"/>
+                                        <rect key="frame" x="101.66666666666669" y="109.99999999999997" width="150" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="39" id="AdJ-H8-r3J"/>
                                             <constraint firstAttribute="width" constant="150" id="o2S-co-zCA"/>
@@ -51,7 +51,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="p8W-Vd-cww">
-                                <rect key="frame" x="20" y="314.33333333333331" width="353" height="228.99999999999994"/>
+                                <rect key="frame" x="20" y="373.33333333333331" width="353" height="228.99999999999994"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="q31-OP-niJ">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="66.333333333333329"/>
@@ -103,7 +103,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="*************" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="niy-XD-oOb">
-                                                <rect key="frame" x="0.0" y="30.333333333333314" width="335" height="36"/>
+                                                <rect key="frame" x="0.0" y="30.333333333333371" width="335" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="335" id="YdI-Ws-zD4"/>
                                                     <constraint firstAttribute="height" constant="36" id="Ywm-n2-kBc"/>
@@ -116,7 +116,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMe-Yx-zVn">
-                                <rect key="frame" x="121.66666666666669" y="748" width="150" height="50"/>
+                                <rect key="frame" x="121.66666666666669" y="674" width="150" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7gL-Wo-gSB"/>
                                     <constraint firstAttribute="width" constant="150" id="a5F-5A-zxs"/>
@@ -129,6 +129,20 @@
                                     <action selector="tappedSaveButton:" destination="N75-l5-P6O" eventType="touchUpInside" id="7a1-XG-5du"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntl-f3-KbR">
+                                <rect key="frame" x="121.66666666666669" y="754" width="150" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ho0-4c-Ghy"/>
+                                    <constraint firstAttribute="width" constant="150" id="oCy-g4-O2c"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Deletar Conta">
+                                    <color key="baseBackgroundColor" name="negativeBalance"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="tappedDeleteAccountButton:" destination="N75-l5-P6O" eventType="touchUpInside" id="TOe-ND-gYH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ARv-Yc-q3J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -137,8 +151,10 @@
                             <constraint firstItem="lsp-Xr-RvI" firstAttribute="top" secondItem="ARv-Yc-q3J" secondAttribute="top" constant="36" id="BWh-Gd-4Xk"/>
                             <constraint firstItem="pMe-Yx-zVn" firstAttribute="centerX" secondItem="nN5-Y6-BYy" secondAttribute="centerX" id="EM8-qW-uIA"/>
                             <constraint firstItem="0ec-4o-VYw" firstAttribute="top" secondItem="lsp-Xr-RvI" secondAttribute="bottom" constant="20" id="Ffw-ch-sY9"/>
+                            <constraint firstItem="ntl-f3-KbR" firstAttribute="top" secondItem="pMe-Yx-zVn" secondAttribute="bottom" constant="30" id="SgI-Td-0gj"/>
                             <constraint firstItem="p8W-Vd-cww" firstAttribute="top" secondItem="0ec-4o-VYw" secondAttribute="bottom" constant="30" id="WKB-3X-EYE"/>
-                            <constraint firstItem="ARv-Yc-q3J" firstAttribute="bottom" secondItem="pMe-Yx-zVn" secondAttribute="bottom" constant="20" id="YJV-Zt-mKK"/>
+                            <constraint firstItem="ntl-f3-KbR" firstAttribute="centerX" secondItem="nN5-Y6-BYy" secondAttribute="centerX" id="YBa-md-WMw"/>
+                            <constraint firstItem="ntl-f3-KbR" firstAttribute="bottom" secondItem="ARv-Yc-q3J" secondAttribute="bottom" constant="20" id="foc-Ef-6Qm"/>
                             <constraint firstItem="0ec-4o-VYw" firstAttribute="leading" secondItem="ARv-Yc-q3J" secondAttribute="leading" constant="20" id="gb4-Nl-rPD"/>
                             <constraint firstItem="lsp-Xr-RvI" firstAttribute="leading" secondItem="ARv-Yc-q3J" secondAttribute="leading" constant="20" id="iXm-iq-tM6"/>
                             <constraint firstItem="ARv-Yc-q3J" firstAttribute="trailing" secondItem="lsp-Xr-RvI" secondAttribute="trailing" constant="20" id="juG-2j-zNt"/>
@@ -149,6 +165,7 @@
                     <navigationItem key="navigationItem" id="XZP-5B-k3A"/>
                     <connections>
                         <outlet property="changeProfileImageButton" destination="LXA-17-On9" id="k2k-yc-Npn"/>
+                        <outlet property="deleteAccountButton" destination="ntl-f3-KbR" id="9bg-8l-xSD"/>
                         <outlet property="emailLabel" destination="7pN-Z5-Ssf" id="cch-OK-rY9"/>
                         <outlet property="emailTextField" destination="SgX-nF-jzg" id="bpt-9m-y5c"/>
                         <outlet property="nameLabel" destination="yE9-9W-Q3P" id="dKe-xH-LIa"/>
@@ -162,12 +179,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DgS-L1-MYV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-637" y="-56"/>
+            <point key="canvasLocation" x="-637.40458015267177" y="-56.338028169014088"/>
         </scene>
     </scenes>
     <resources>
         <image name="UserDefault" width="242" height="240"/>
         <image name="camera" catalog="system" width="128" height="93"/>
+        <namedColor name="negativeBalance">
+            <color red="0.90980392156862744" green="0.24705882352941178" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

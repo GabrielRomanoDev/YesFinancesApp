@@ -7,11 +7,12 @@
 
 import Foundation
 import FirebaseAuth
+import UIKit
 
 class MainViewModel {
     
-    func loginWithGoogle(completion: @escaping (Result<UserData, Error>) -> Void) {
-        AuthenticationManager.shared.loginWithGoogle(completion: completion)
+    func loginWithGoogle(presentingViewController: UIViewController, completion: @escaping (Result<UserData, Error>) -> Void) {
+        AuthenticationManager.shared.loginWithGoogle(presentingViewController: presentingViewController, completion: completion)
     }
     
 }

@@ -90,6 +90,8 @@ enum moreOptionsStrings {
     static let passwordText = "Senha"
     
     static let notificationNameProfileImage = "profileImageUpdated"
+    static let deleteAccount = "Deletar conta"
+    static let deleteAccountConfirmationMessage = "Tem certeza que deseja deletar sua conta? Essa ação não poderá ser desfeita."
+    static let deleteAccountSuccessMessage = "Conta deletada com sucesso."
     
 }
-

@@ -9,29 +9,33 @@ import Foundation
 import GoogleSignIn
 import FirebaseAuth
 import FirebaseCore
+import UIKit
 
 class GoogleAuthService {    
     
-    func login(completion: @escaping (Result<UserData, Error>) -> Void) {
+    func login(presentingViewController: UIViewController, completion: @escaping (Result<UserData, Error>) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            print("failure 1")
             completion(.failure(LoginError.missingClientId))
             return
         }
 
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
-        let rootViewController = GoogleSignInHelper.getRootViewController()
+        let activePresenter = ApplicationViewControllerResolver.getTopViewController() ?? presentingViewController
 
-        GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
+        guard activePresenter.viewIfLoaded?.window != nil else {
+            completion(.failure(LoginError.invalidPresentingViewController))
+            return
+        }
+
+        GIDSignIn.sharedInstance.signIn(withPresenting: activePresenter) { result, error in
             if let error = error {
-                completion(.failure(self.getLoginError(for: error)))
+                completion(.failure(self.getGoogleLoginError(for: error)))
                 return
             }
 
             guard let user = result?.user,
                   let idToken = user.idToken?.tokenString else {
-                print("failure 3 \(LoginError.tokenError)")
                 completion(.failure(LoginError.tokenError))
                 return
             }
@@ -44,8 +48,7 @@ class GoogleAuthService {
             Auth.auth().signIn(with: credential) { authResult, error in
                 
                 guard error == nil, let authResult = authResult else {
-                    print("failure 4 \(self.getLoginError(for: error))")
-                    completion(.failure(self.getLoginError(for: error)))
+                    completion(.failure(self.getFirebaseAuthenticationError(for: error)))
                     return
                 }
                 
@@ -82,7 +85,7 @@ class GoogleAuthService {
             GIDSignIn.sharedInstance.signOut()
             completion(.success(()))
         } catch {
-            completion(.failure(error))
+            completion(.failure(LoginError.logoutFailed(detail: error.localizedDescription)))
         }
     }
 
@@ -91,18 +94,35 @@ class GoogleAuthService {
         return Auth.auth().currentUser
     }
     
-    private func getLoginError(for error: Error?) -> Error {
+    private func getGoogleLoginError(for error: Error?) -> Error {
         if let err = (error as NSError?) {
             
             switch err.code {
             case GIDSignInError.canceled.rawValue:
                 return LoginError.canceled
             default:
-                return error ?? LoginError.undefined
+                return LoginError.googleLoginFailed(detail: err.localizedDescription)
             }
             
         } else {
-            return error ?? LoginError.undefined
+            return LoginError.undefined
+        }
+    }
+
+    private func getFirebaseAuthenticationError(for error: Error?) -> Error {
+        guard let error = error as NSError? else {
+            return LoginError.undefined
+        }
+
+        switch error.code {
+        case AuthErrorCode.invalidCredential.rawValue:
+            return LoginError.tokenError
+        case AuthErrorCode.userDisabled.rawValue:
+            return LoginError.firebaseAuthenticationFailed(detail: error.localizedDescription)
+        case AuthErrorCode.operationNotAllowed.rawValue:
+            return LoginError.firebaseAuthenticationFailed(detail: error.localizedDescription)
+        default:
+            return LoginError.firebaseAuthenticationFailed(detail: error.localizedDescription)
         }
     }
     
