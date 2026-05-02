@@ -27,6 +27,18 @@ class FirestoreService {
         return db.collection("users").document(user)
     }
 
+    private func completeOnMain(_ completion: @escaping (String) -> Void, with result: String) {
+        DispatchQueue.main.async {
+            completion(result)
+        }
+    }
+
+    private func completeOnMain<T>(_ completion: @escaping (Result<T, Error>) -> Void, with result: Result<T, Error>) {
+        DispatchQueue.main.async {
+            completion(result)
+        }
+    }
+
     private static let removableUserSubcollections: [String] = [
         firebaseSubCollectionNames.profile,
         firebaseSubCollectionNames.transactions,
@@ -46,15 +58,15 @@ class FirestoreService {
                 let querySnapshot = try await collection.getDocuments()
                 for document in querySnapshot.documents {
                     let object = try document.data(as: UserData.self)
-                    completion(.success(object))
+                    completeOnMain(completion, with: .success(object))
                     return
                 }
                 
-                completion(.failure(NSError(domain: "", code: 0, userInfo: nil)))
+                completeOnMain(completion, with: .failure(NSError(domain: "", code: 0, userInfo: nil)))
                 
             } catch {
                 print(error)
-                completion(.failure(error))
+                completeOnMain(completion, with: .failure(error))
             }
         }
         
@@ -69,11 +81,11 @@ class FirestoreService {
                 
                 let objectData = try Firestore.Encoder().encode(object)
                 try await collection.document(object.id).setData(objectData)
-                completion("Success")
+                completeOnMain(completion, with: "Success")
                 
             } catch {
                 print("Error to set object: \(error)");
-                completion(error.localizedDescription)
+                completeOnMain(completion, with: error.localizedDescription)
             }
         }
     
@@ -85,22 +97,17 @@ class FirestoreService {
                 
                 try await userDocumentRef.collection(subCollection).document(id).delete()
                 
-                completion("Success")
+                completeOnMain(completion, with: "Success")
                 
             } catch {
                 print("Error adding documents: \(error)")
-                completion(error.localizedDescription)
+                completeOnMain(completion, with: error.localizedDescription)
             }
         }
     }
     
     func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, completion: @escaping (Result<[T], Error>) -> Void) {
         
-        if user == "user_error" {
-            print("test")
-        }
-        
-        print("getObjectsList com user: \(user)")
         let collection = userDocumentRef.collection(subCollection)
         
         
@@ -113,9 +120,9 @@ class FirestoreService {
                     let object = try document.data(as: objectType.self)
                     objectList.append(object)
                 }
-                completion(.success(objectList))
+                completeOnMain(completion, with: .success(objectList))
             } catch {
-                completion(.success([]))
+                completeOnMain(completion, with: .failure(error))
             }
         }
         
@@ -124,20 +131,20 @@ class FirestoreService {
     func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
         
         let collection = userDocumentRef.collection(subCollection)
-        collection.order(by: "date", descending: true).limit(to: 4)
+        let query = collection.order(by: "date", descending: true).limit(to: limit)
         
         Task {
             var objectList: [T] = []
             
             do {
-                let querySnapshot = try await collection.getDocuments()
+                let querySnapshot = try await query.getDocuments()
                 for document in querySnapshot.documents {
                     let object = try document.data(as: objectType.self)
                     objectList.append(object)
                 }
-                completion(.success(objectList))
+                completeOnMain(completion, with: .success(objectList))
             } catch {
-                completion(.success([]))
+                completeOnMain(completion, with: .failure(error))
             }
         }
         
@@ -154,14 +161,14 @@ class FirestoreService {
                 
                 if document.exists {
                     let object = try document.data(as: objectType.self)
-                    completion(.success(object))
+                    completeOnMain(completion, with: .success(object))
                 } else {
-                    completion(.failure(NSError(domain: "", code: 0, userInfo: nil)))
+                    completeOnMain(completion, with: .failure(NSError(domain: "", code: 0, userInfo: nil)))
                 }
                 
             } catch {
                 print(error)
-                completion(.failure(error))
+                completeOnMain(completion, with: .failure(error))
             }
         }
         
@@ -197,15 +204,15 @@ class FirestoreService {
         }
         
         if let error = encodingError {
-            completion("Encoding error: \(error.localizedDescription)")
+            completeOnMain(completion, with: "Encoding error: \(error.localizedDescription)")
             return
         }
         
         batch.commit { error in
             if let error = error {
-                completion("Error setting documents: \(error.localizedDescription)")
+                self.completeOnMain(completion, with: "Error setting documents: \(error.localizedDescription)")
             } else {
-                completion("Success")
+                self.completeOnMain(completion, with: "Success")
             }
         }
     }
@@ -220,9 +227,9 @@ class FirestoreService {
                 }
 
                 try await userDocumentRef.delete()
-                completion(.success(()))
+                completeOnMain(completion, with: .success(()))
             } catch {
-                completion(.failure(error))
+                completeOnMain(completion, with: .failure(error))
             }
         }
     }

@@ -9,16 +9,22 @@ import Foundation
 import FirebaseAuth
 
 class EmailAuthService {
+
+    private func completeOnMain<T>(_ completion: @escaping (Result<T, Error>) -> Void, with result: Result<T, Error>) {
+        DispatchQueue.main.async {
+            completion(result)
+        }
+    }
     
     func login(email: String, password: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error == nil {
                 let user = UserData(id: authResult?.user.uid ?? UUID().uuidString, name: "", email: email)
-                completion(.success(user))
+                self.completeOnMain(completion, with: .success(user))
             } else {
                 let errorMessage = loginStrings.failToLoginErrorMessage + self.getLocalizedErrorMessage(for: error)
-                completion(.failure(StringError(message: errorMessage)))
+                self.completeOnMain(completion, with: .failure(StringError(message: errorMessage)))
             }
         }
     }
@@ -31,7 +37,7 @@ class EmailAuthService {
             
             guard error == nil else {
                 let errorMessage = registerStrings.failToRegisterErrorMessage + self.getLocalizedErrorMessage(for: error)
-                completion(.failure(StringError(message: errorMessage)))
+                self.completeOnMain(completion, with: .failure(StringError(message: errorMessage)))
                 return
             }
             
@@ -41,23 +47,24 @@ class EmailAuthService {
                 id: userId,
                 name: email,
                 email: email,
-                phoneNumber: phoneNumber
+                phoneNumber: phoneNumber,
+                infoValidated: true
             )
             
-            Auth.auth().currentUser?.sendEmailVerification { error in
-              
-                if let error = error {
-                    print("Error sendingEmailVerification: \(error).")
-                }
-                
-            }
+//            Auth.auth().currentUser?.sendEmailVerification { error in
+//              
+//                if let error = error {
+//                    print("Error sendingEmailVerification: \(error).")
+//                }
+//                
+//            }
             
             FirestoreService.shared.setObject(profile, subCollection: firebaseSubCollectionNames.profile) { result in
                 if result == "Success" {
-                    completion(.success(()))
+                    self.completeOnMain(completion, with: .success(()))
                 } else {
                     let errorMessage = "\(registerStrings.failToRegisterErrorMessage) \(result)"
-                    completion(.failure(StringError(message: errorMessage)))
+                    self.completeOnMain(completion, with: .failure(StringError(message: errorMessage)))
                 }
                 
             }
@@ -66,13 +73,17 @@ class EmailAuthService {
         
     }
     
+    func setProfileinStorage() {
+        
+    }
+    
     func forgetPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
-                completion(.failure(error))
+                self.completeOnMain(completion, with: .failure(error))
             } else {
-                completion(.success(()))
+                self.completeOnMain(completion, with: .success(()))
             }
         }
         

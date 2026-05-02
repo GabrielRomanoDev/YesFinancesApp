@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class SessionManager {
     
@@ -13,9 +14,16 @@ class SessionManager {
     
     //Check if last login with password was made before 7 days ago.
     func isSessionValid() -> Bool {
+        guard let firebaseUser = Auth.auth().currentUser else {
+            clearSession()
+            return false
+        }
         
-        if currentUser != nil {
+        if let currentUser, currentUser.id == firebaseUser.uid {
             return true
+        } else if currentUser != nil {
+            clearSession()
+            return false
         }
         
         if let userLogged = loadUser(),
@@ -27,11 +35,18 @@ class SessionManager {
             }
             
             if lastLoginDate > Date().addingTimeInterval(-604800) {
-                currentUser = userLogged
-                return true
+                if userLogged.id == firebaseUser.uid {
+                    currentUser = userLogged
+                    return true
+                }
+
+                clearSession()
+                return false
             }
             
         }
+
+        clearSession()
 
         return false
         
