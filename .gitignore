@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Xcode - arquivos locais do usuário
+xcuserdata/
+*.xcuserstate
+*.xcsettings
+
+# Xcode - breakpoints
+*.xcbkptlist
+
+# Build / arquivos gerados
+DerivedData/
+build/
