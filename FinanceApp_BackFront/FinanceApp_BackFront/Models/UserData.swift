@@ -69,7 +69,7 @@ struct PhoneNumberData: Codable {
     }
     
     var formatedE164: String {
-        return "+\(nationalCode)\(zoneCode)\(number)"
+        return "\(nationalCode)\(zoneCode)\(number)"
     }
     
     var  formatedLocal: String {

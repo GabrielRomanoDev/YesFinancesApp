@@ -90,40 +90,43 @@ class TransactionFormViewModel: ObservableObject {
     
     func saveExpense(completion: @escaping () -> Void) {
         
-        var newExpense = self.transaction
+        var finalTransaction = self.transaction
         
-        if newExpense.desc.isEmptyTest() {
+        if finalTransaction.desc.isEmptyTest() {
             
-            switch newExpense.type {
+            switch finalTransaction.type {
             case .expense:
-                newExpense.desc = CategoriesRepository.shared.expense(newExpense.categoryIndex).name
+                finalTransaction.desc = CategoriesRepository.shared.expense(finalTransaction.categoryIndex).name
             case .income:
-                newExpense.desc = CategoriesRepository.shared.income(newExpense.categoryIndex).name
+                finalTransaction.desc = CategoriesRepository.shared.income(finalTransaction.categoryIndex).name
             }
             
         }
+
+        self.transaction = finalTransaction
         
         if isEditing {
             
             if let index = TransactionsRepository.shared.list.firstIndex(where: {$0.id == self.transaction.id} ) {
-                TransactionsRepository.shared.list[index] = newExpense
+                TransactionsRepository.shared.list[index] = finalTransaction
             }
              
         } else {
-            TransactionsRepository.shared.list.append(self.transaction)
+            TransactionsRepository.shared.list.append(finalTransaction)
         }
         
-        FirestoreService.shared.setObject(self.transaction, subCollection: firebaseSubCollectionNames.transactions) { result in
-            
-            NotificationCenter.default.post(name: .updateTransactionsData, object: nil)
-            
-            if result != "Success" {
-                print(result)
-                //TODO: Adicionar no UserDefaults para sincronizar no futuro
+        FirestoreService.shared.setObject(finalTransaction, subCollection: firebaseSubCollectionNames.transactions) { result in
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .updateTransactionsData, object: nil)
+                
+                if result != "Success" {
+                    print(result)
+                    //TODO: Adicionar no UserDefaults para sincronizar no futuro
+                    completion()
+                    return
+                }
                 completion()
-                return
             }
-            completion()
         }
         
     }
