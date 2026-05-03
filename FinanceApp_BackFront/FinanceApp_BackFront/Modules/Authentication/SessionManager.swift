@@ -82,7 +82,11 @@ class SessionManager {
                 completion(.success(profile))
             case .failure(_):
                 self.setUser(user)
-                FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { result in
+                FirestoreService.shared.setObject(
+                    user,
+                    userId: user.id,
+                    subCollection: firebaseSubCollectionNames.profile
+                ) { result in
                     if result == "Success" {
                         completion(.success(user))
                     } else {

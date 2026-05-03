@@ -19,17 +19,26 @@ class EmailAuthService {
     func login(email: String, password: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if error == nil {
-                let user = UserData(id: authResult?.user.uid ?? UUID().uuidString, name: "", email: email)
-                self.completeOnMain(completion, with: .success(user))
-            } else {
+            if let error {
                 let errorMessage = loginStrings.failToLoginErrorMessage + self.getLocalizedErrorMessage(for: error)
                 self.completeOnMain(completion, with: .failure(StringError(message: errorMessage)))
+                return
             }
+
+            guard let userId = authResult?.user.uid else {
+                self.completeOnMain(
+                    completion,
+                    with: .failure(StringError(message: loginStrings.followError + "UID do usuário não foi encontrado."))
+                )
+                return
+            }
+
+            let user = UserData(id: userId, name: "", email: email)
+            self.completeOnMain(completion, with: .success(user))
         }
     }
     
-    func register(email: String, password: String, phoneNumber: PhoneNumberData, completion: @escaping (Result<Void, Error>) -> Void) {
+    func register(email: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             
@@ -41,16 +50,6 @@ class EmailAuthService {
                 return
             }
             
-            let userId = authResult?.user.uid ?? "noID"
-            
-            let profile: UserData = UserData(
-                id: userId,
-                name: email,
-                email: email,
-                phoneNumber: phoneNumber,
-                infoValidated: true
-            )
-            
 //            Auth.auth().currentUser?.sendEmailVerification { error in
 //              
 //                if let error = error {
@@ -58,16 +57,14 @@ class EmailAuthService {
 //                }
 //                
 //            }
-            
-            FirestoreService.shared.setObject(profile, subCollection: firebaseSubCollectionNames.profile) { result in
-                if result == "Success" {
-                    self.completeOnMain(completion, with: .success(()))
-                } else {
-                    let errorMessage = "\(registerStrings.failToRegisterErrorMessage) \(result)"
-                    self.completeOnMain(completion, with: .failure(StringError(message: errorMessage)))
-                }
-                
+
+            guard let userId = authResult?.user.uid else {
+                let errorMessage = registerStrings.failToRegisterErrorMessage + " UID do usuário não foi encontrado."
+                self.completeOnMain(completion, with: .failure(StringError(message: errorMessage)))
+                return
             }
+
+            self.completeOnMain(completion, with: .success(userId))
             
         }
         

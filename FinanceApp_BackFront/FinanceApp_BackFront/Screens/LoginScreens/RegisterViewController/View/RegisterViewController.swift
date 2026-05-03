@@ -44,25 +44,16 @@ class RegisterViewController: UIViewController {
         }
         
         let email = emailTextfield.text.orEmpty
+        let name = nameTextfield.text.orEmpty
         let password = passwordTextfield.text.orEmpty
         guard let phoneNumber = PhoneNumberData(formattedString: phoneNumberTextfield.text.orEmpty) else {
             return
         }
         
-        viewModel.createUser(email: email, password: password, phoneNumber: phoneNumber) { result in
+        viewModel.createUser(name: name, email: email, password: password, phoneNumber: phoneNumber) { result in
             
             switch result {
-            case .success():
-                
-                if var newInformationUser: UserData = AuthenticationManager.shared.getCurrentUser() {
-                    newInformationUser.name = self.nameTextfield.text.orEmpty
-                    newInformationUser.email = email
-                    
-                    AuthenticationManager.shared.updateUserInfo(user: newInformationUser)
-                } else {
-                    AuthenticationManager.shared.setCurrentUser(UserData(id: UUID().uuidString, name: self.nameTextfield.text.orEmpty, email: email, phoneNumber: phoneNumber))
-                }
-                
+            case .success:
                 self.showSimpleAlert(title: registerStrings.registerSuccessMessage, message: globalStrings.emptyString) {
                     
                     let storyboard:UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
@@ -265,4 +256,3 @@ extension RegisterViewController : UITextFieldDelegate {
 }
     
     
-

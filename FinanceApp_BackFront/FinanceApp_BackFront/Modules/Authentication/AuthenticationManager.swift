@@ -54,8 +54,37 @@ class AuthenticationManager {
         
     }
     
-    func register(email: String, password: String, phoneNumber: PhoneNumberData, completion: @escaping (Result<Void, Error>) -> Void) {
-        emailService.register(email: email, password: password, phoneNumber: phoneNumber, completion: completion)
+    func register(name: String, email: String, password: String, phoneNumber: PhoneNumberData, completion: @escaping (Result<UserData, Error>) -> Void) {
+        
+        emailService.register(email: email, password: password) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let userId):
+                let profile = UserData(
+                    id: userId,
+                    name: name,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    infoValidated: true
+                )
+                
+                FirestoreService.shared.setObject(
+                    profile,
+                    userId: userId,
+                    subCollection: firebaseSubCollectionNames.profile
+                ) { firestoreResult in
+                    if firestoreResult == "Success" {
+                        self.sessionManager.setUser(profile)
+                        completion(.success(profile))
+                    } else {
+                        completion(.failure(StringError(message: firestoreResult)))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
     func forgetPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -130,7 +159,11 @@ class AuthenticationManager {
     
     func updateUserInfo(user: UserData) {
         sessionManager.setUser(user)
-        FirestoreService.shared.setObject(user, subCollection: firebaseSubCollectionNames.profile) { result in
+        FirestoreService.shared.setObject(
+            user,
+            userId: user.id,
+            subCollection: firebaseSubCollectionNames.profile
+        ) { result in
             //TODO: Treat error
         }
         

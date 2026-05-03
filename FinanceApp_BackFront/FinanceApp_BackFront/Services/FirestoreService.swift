@@ -19,12 +19,16 @@ class FirestoreService {
     private init(){}
     
     private let db = Firestore.firestore()
-    public var user: String {
-        return "user_" + (AuthenticationManager.shared.getCurrentUser()?.id ?? "error")
+    
+    private func userDocumentRef(userId: String) -> DocumentReference {
+        return db.collection("users").document("user_\(userId)")
     }
 
-    private var userDocumentRef: DocumentReference {
-        return db.collection("users").document(user)
+    private var currentUserDocumentRef: DocumentReference? {
+        guard let currentUserId = AuthenticationManager.shared.getCurrentUser()?.id else {
+            return nil
+        }
+        return userDocumentRef(userId: currentUserId)
     }
 
     private func completeOnMain(_ completion: @escaping (String) -> Void, with result: String) {
@@ -50,7 +54,7 @@ class FirestoreService {
     
     func getProfileInfo(userId: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         
-        let collection = db.collection("users").document("user_\(userId)").collection(firebaseSubCollectionNames.profile)
+        let collection = userDocumentRef(userId: userId).collection(firebaseSubCollectionNames.profile)
         
         Task {
             
@@ -72,26 +76,47 @@ class FirestoreService {
         
     }
     
-    func setObject <T: FirestoreObject> (_ object: T, subCollection: String, completion: @escaping (String) -> Void) {
-       
-        let collection = userDocumentRef.collection(subCollection)
+    func setObject <T: FirestoreObject> (_ object: T, userId: String, subCollection: String, completion: @escaping (String) -> Void) {
+        let collection = userDocumentRef(userId: userId).collection(subCollection)
         
         Task {
             do {
-                
                 let objectData = try Firestore.Encoder().encode(object)
                 try await collection.document(object.id).setData(objectData)
                 completeOnMain(completion, with: "Success")
-                
             } catch {
                 print("Error to set object: \(error)");
                 completeOnMain(completion, with: error.localizedDescription)
             }
         }
-    
+    }
+
+    func setObject <T: FirestoreObject> (_ object: T, subCollection: String, completion: @escaping (String) -> Void) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            completeOnMain(completion, with: "Nenhum usuário autenticado foi encontrado.")
+            return
+        }
+
+        let collection = userDocumentRef.collection(subCollection)
+        
+        Task {
+            do {
+                let objectData = try Firestore.Encoder().encode(object)
+                try await collection.document(object.id).setData(objectData)
+                completeOnMain(completion, with: "Success")
+            } catch {
+                print("Error to set object: \(error)");
+                completeOnMain(completion, with: error.localizedDescription)
+            }
+        }
     }
     
     func deleteObject(id: String, subCollection: String, completion: @escaping (String) -> Void) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            completeOnMain(completion, with: "Nenhum usuário autenticado foi encontrado.")
+            return
+        }
+
         Task {
             do {
                 
@@ -107,6 +132,10 @@ class FirestoreService {
     }
     
     func getObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, completion: @escaping (Result<[T], Error>) -> Void) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            completeOnMain(completion, with: .failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
+            return
+        }
         
         let collection = userDocumentRef.collection(subCollection)
         
@@ -129,6 +158,10 @@ class FirestoreService {
     }
     
     func getLastObjectsList<T: FirestoreObject>(forObjectType objectType: T.Type, subCollection: String, limit: Int, completion: @escaping (Result<[T], Error>) -> Void) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            completeOnMain(completion, with: .failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
+            return
+        }
         
         let collection = userDocumentRef.collection(subCollection)
         let query = collection.order(by: "date", descending: true).limit(to: limit)
@@ -151,6 +184,10 @@ class FirestoreService {
     }
     
     func getObject<T: FirestoreObject>(id: String, subCollection: String, objectType: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            completeOnMain(completion, with: .failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
+            return
+        }
         
         let docRef = userDocumentRef.collection(subCollection).document(id)
         
@@ -175,6 +212,10 @@ class FirestoreService {
     }
     
     func updateObjectField(change: [AnyHashable : Any], objectID: String, subCollection: String) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            print("Nenhum usuário autenticado foi encontrado.")
+            return
+        }
         
         let collection = userDocumentRef.collection(subCollection)
         
@@ -186,6 +227,10 @@ class FirestoreService {
     }
     
     func setObjectsList<T: FirestoreObject>(objects: [T], subCollection: String, completion: @escaping (String) -> Void) {
+        guard let userDocumentRef = currentUserDocumentRef else {
+            completeOnMain(completion, with: "Nenhum usuário autenticado foi encontrado.")
+            return
+        }
         
         let collection = userDocumentRef.collection(subCollection)
         
@@ -218,7 +263,7 @@ class FirestoreService {
     }
 
     func deleteUserData(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        let userDocumentRef = db.collection("users").document("user_\(userId)")
+        let userDocumentRef = userDocumentRef(userId: userId)
 
         Task {
             do {
