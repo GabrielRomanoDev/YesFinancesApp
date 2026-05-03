@@ -23,6 +23,7 @@ class ConfirmProfileInfoViewController: UIViewController {
     static let identifier:String = String(describing: ConfirmProfileInfoViewController.self)
     let imagePicker = UIImagePickerController()
     var userDto: UserData?
+    private var isSavingProfile = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,8 @@ class ConfirmProfileInfoViewController: UIViewController {
     }
     
     @IBAction func tappedSaveButton(_ sender: UIButton) {
+        guard !isSavingProfile else { return }
+        
         if someTextFieldIsEmpty() {
             showSimpleAlert(title: globalStrings.attention, message: "Algum campo está vazio!")
         } else {
@@ -53,12 +56,25 @@ class ConfirmProfileInfoViewController: UIViewController {
                 newInformationUser.phoneNumber = PhoneNumberData(formattedString: phoneTextField.text.orEmpty)!
                 newInformationUser.infoValidated = true
                 
-                AuthenticationManager.shared.updateUserInfo(user: newInformationUser)
-            }
-            
-            let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
-            if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
-                self.present(tbc, animated: false)
+                isSavingProfile = true
+                saveButton.isEnabled = false
+                
+                AuthenticationManager.shared.updateUserInfo(user: newInformationUser) { [weak self] result in
+                    guard let self = self else { return }
+                    
+                    self.isSavingProfile = false
+                    self.saveButton.isEnabled = true
+                    
+                    switch result {
+                    case .success:
+                        let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
+                        if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
+                            self.present(tbc, animated: false)
+                        }
+                    case .failure(let error):
+                        self.showSimpleAlert(title: globalStrings.error, message: error.localizedDescription)
+                    }
+                }
             }
         }
     }
@@ -108,7 +124,7 @@ class ConfirmProfileInfoViewController: UIViewController {
     
     private func someTextFieldIsEmpty() -> Bool {
         
-        guard let phoneNumber = PhoneNumberData(formattedString: phoneTextField.text.orEmpty) else {
+        guard PhoneNumberData(formattedString: phoneTextField.text.orEmpty) != nil else {
             return true
         }
         

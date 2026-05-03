@@ -157,16 +157,19 @@ class AuthenticationManager {
         }
     }
     
-    func updateUserInfo(user: UserData) {
-        sessionManager.setUser(user)
+    func updateUserInfo(user: UserData, completion: @escaping (Result<UserData, Error>) -> Void) {
         FirestoreService.shared.setObject(
             user,
             userId: user.id,
             subCollection: firebaseSubCollectionNames.profile
         ) { result in
-            //TODO: Treat error
+            if result == "Success" {
+                self.sessionManager.setUser(user)
+                completion(.success(user))
+            } else {
+                completion(.failure(StringError(message: result)))
+            }
         }
-        
     }
 
     private func accountDeletionError(from error: Error) -> Error {

@@ -12,6 +12,17 @@ protocol FirestoreObject: Codable {
     var id: String { get }
 }
 
+enum FirestoreServiceError: LocalizedError {
+    case profileNotFound
+    
+    var errorDescription: String? {
+        switch self {
+        case .profileNotFound:
+            return "Perfil do usuário não foi encontrado."
+        }
+    }
+}
+
 class FirestoreService {
     
     static let shared = FirestoreService()
@@ -66,7 +77,7 @@ class FirestoreService {
                     return
                 }
                 
-                completeOnMain(completion, with: .failure(NSError(domain: "", code: 0, userInfo: nil)))
+                completeOnMain(completion, with: .failure(FirestoreServiceError.profileNotFound))
                 
             } catch {
                 print(error)

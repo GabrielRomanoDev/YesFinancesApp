@@ -23,8 +23,13 @@ class SplashViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             
             if AuthenticationManager.shared.isSessionValid() {
+                guard let user = AuthenticationManager.shared.getCurrentUser() else {
+                    let vc: MainViewController? = UIStoryboard(name: MainViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: MainViewController.identifier) as? MainViewController
+                    self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+                    return
+                }
                 
-                if let user = AuthenticationManager.shared.getCurrentUser(), user.infoValidated {
+                if user.infoValidated {
                     let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
                     if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {
                         self.present(tbc, animated: false)

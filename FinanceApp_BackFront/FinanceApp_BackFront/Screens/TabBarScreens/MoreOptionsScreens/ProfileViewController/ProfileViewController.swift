@@ -50,10 +50,17 @@ class ProfileViewController: UIViewController {
                 newInformationUser.name = nameTextField.text.orEmpty
                 newInformationUser.email = emailTextField.text.orEmpty
                 
-                AuthenticationManager.shared.updateUserInfo(user: newInformationUser)
+                AuthenticationManager.shared.updateUserInfo(user: newInformationUser) { [weak self] result in
+                    guard let self = self else { return }
+                    
+                    switch result {
+                    case .success:
+                        self.navigationController?.popViewController(animated: true)
+                    case .failure(let error):
+                        self.showSimpleAlert(title: globalStrings.error, message: error.localizedDescription)
+                    }
+                }
             }
-            
-            navigationController?.popViewController(animated: true)
         }
     }
     

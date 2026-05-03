@@ -28,12 +28,6 @@ class SessionManager {
         
         if let userLogged = loadUser(),
            let lastLoginDate = LocalStorageManager.getUserDefaults(key: StorageKeys.lastLoginDate) as? Date {
-            
-            guard userLogged.infoValidated else {
-                clearSession()
-                return false
-            }
-            
             if lastLoginDate > Date().addingTimeInterval(-604800) {
                 if userLogged.id == firebaseUser.uid {
                     currentUser = userLogged
@@ -80,19 +74,14 @@ class SessionManager {
             case .success(let profile):
                 self.setUser(profile)
                 completion(.success(profile))
-            case .failure(_):
-                self.setUser(user)
-                FirestoreService.shared.setObject(
-                    user,
-                    userId: user.id,
-                    subCollection: firebaseSubCollectionNames.profile
-                ) { result in
-                    if result == "Success" {
-                        completion(.success(user))
-                    } else {
-                        completion(.failure(StringError(message: result)))
-                    }
+            case .failure(let error as FirestoreServiceError):
+                switch error {
+                case .profileNotFound:
+                    self.setUser(user)
+                    completion(.success(user))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
             
         }
