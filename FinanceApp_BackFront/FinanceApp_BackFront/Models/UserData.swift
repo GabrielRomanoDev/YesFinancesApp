@@ -30,14 +30,17 @@ struct UserData: FirestoreObject {
     var email: String
     var phoneNumber: PhoneNumberData?
     var photoURL: URL?
-    var infoValidated: Bool
     
-    init(id: String, name: String, email: String, phoneNumber: PhoneNumberData? = nil, photoURL: URL? = nil, infoValidated: Bool = false) {
+    init(id: String, name: String, email: String, phoneNumber: PhoneNumberData? = nil, photoURL: URL? = nil) {
         self.id = id
         self.name = name
         self.email = email
         self.phoneNumber = phoneNumber
-        self.infoValidated = infoValidated
+        self.photoURL = photoURL
+    }
+    
+    var userInfoIsSet: Bool {
+        return !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && phoneNumber != nil
     }
 }
 

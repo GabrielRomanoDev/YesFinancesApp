@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    if user.infoValidated {
+                    if user.userInfoIsSet {
                         
                         let storyboard: UIStoryboard = UIStoryboard(name: TabBarController.identifier, bundle: nil)
                         if let tbc = storyboard.instantiateViewController(withIdentifier: TabBarController.identifier) as? UITabBarController {

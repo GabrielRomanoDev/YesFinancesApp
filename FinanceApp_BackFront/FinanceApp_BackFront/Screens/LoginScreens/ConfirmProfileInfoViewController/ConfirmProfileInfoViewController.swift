@@ -54,7 +54,6 @@ class ConfirmProfileInfoViewController: UIViewController {
                 newInformationUser.name = nameTextField.text.orEmpty
                 newInformationUser.email = emailTextField.text.orEmpty
                 newInformationUser.phoneNumber = PhoneNumberData(formattedString: phoneTextField.text.orEmpty)!
-                newInformationUser.infoValidated = true
                 
                 isSavingProfile = true
                 saveButton.isEnabled = false

@@ -65,8 +65,7 @@ class AuthenticationManager {
                     id: userId,
                     name: name,
                     email: email,
-                    phoneNumber: phoneNumber,
-                    infoValidated: true
+                    phoneNumber: phoneNumber
                 )
                 
                 FirestoreService.shared.setObject(
@@ -130,29 +129,30 @@ class AuthenticationManager {
 
         let userId = currentFirebaseUser.uid
         
-        currentFirebaseUser.delete { [weak self] error in
+        FirestoreService.shared.deleteUserData(userId: userId) { [weak self] firestoreResult in
             guard let self = self else { return }
-            
-            if let error = error {
-                completion(.failure(self.accountDeletionError(from: error)))
-                return
-            }
-            
-            FirestoreService.shared.deleteUserData(userId: userId) { firestoreResult in
-                switch firestoreResult {
-                case .success:
+
+            switch firestoreResult {
+            case .success:
+                currentFirebaseUser.delete { error in
+                    if let error {
+                        completion(.failure(self.accountDeletionError(from: error)))
+                        return
+                    }
+
                     self.googleService.signOut { signOutResult in
+                        self.sessionManager.clearSession()
+                        
                         switch signOutResult {
                         case .success:
-                            self.sessionManager.clearSession()
                             completion(.success(()))
-                        case .failure(let error):
-                            completion(.failure(error))
+                        case .failure:
+                            completion(.success(()))
                         }
                     }
-                case .failure(let error):
-                    completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

@@ -58,27 +58,15 @@ class GoogleAuthService {
                     return
                 }
                 
-                if authResult.additionalUserInfo?.isNewUser ?? false {
-                    
-                    let user = UserData(
-                        id: authResult.user.uid,
-                        name: authResult.user.displayName ?? "",
-                        email: authResult.user.email ?? "",
-                        phoneNumber: nil,
-                        photoURL: authResult.user.photoURL,
-                    )
-                    
-                    self.completeOnMain(completion, with: .success(user))
-                    
-                } else {
-                    let user = UserData(
-                        id: authResult.user.uid,
-                        name: authResult.user.displayName ?? "",
-                        email: authResult.user.email ?? "",
-                    )
-                    
-                    self.completeOnMain(completion, with: .success(user))
-                }
+                let user = UserData(
+                    id: authResult.user.uid,
+                    name: authResult.user.displayName ?? "",
+                    email: authResult.user.email ?? "",
+                    phoneNumber: nil,
+                    photoURL: authResult.user.photoURL
+                )
+                
+                self.completeOnMain(completion, with: .success(user))
                 
             }
         }

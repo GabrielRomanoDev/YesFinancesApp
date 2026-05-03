@@ -47,7 +47,6 @@ class SessionManager {
     }
     
     func setUser(_ user: UserData) {
-        
         if let encoded = try? JSONEncoder().encode(user) {
             currentUser = user
             LocalStorageManager.saveUserDefaults(key:  StorageKeys.loggedUserID, value: encoded)
