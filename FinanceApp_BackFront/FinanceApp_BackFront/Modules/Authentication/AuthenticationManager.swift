@@ -13,6 +13,7 @@ class AuthenticationManager {
     
     static let shared = AuthenticationManager()
     
+    // Active production flow uses email/google providers plus local session orchestration.
     private let sessionManager = SessionManager()
     private let emailService = EmailAuthService()
     private let googleService = GoogleAuthService()

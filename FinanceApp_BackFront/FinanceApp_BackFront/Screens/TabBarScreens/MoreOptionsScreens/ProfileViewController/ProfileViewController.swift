@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController {
     static let identifier:String = String(describing: ProfileViewController.self)
     let imagePicker = UIImagePickerController()
     let viewModel = ProfileViewModel()
+    private var didSelectLocalImage = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,12 +117,33 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupUserInformation() {
-        self.nameTextField.text = AuthenticationManager.shared.getCurrentUser()?.name ?? globalStrings.error
-        self.emailTextField.text = AuthenticationManager.shared.getCurrentUser()?.email ?? globalStrings.error
+        let currentUser = AuthenticationManager.shared.getCurrentUser()
+        self.nameTextField.text = currentUser?.name ?? globalStrings.error
+        self.emailTextField.text = currentUser?.email ?? globalStrings.error
+        applyStoredProfileImage()
     }
     
     private func someTextFieldIsEmpty() -> Bool {
         return nameTextField.text.orEmpty.isEmptyTest() || emailTextField.text.orEmpty.isEmptyTest() || passwordTextField.text.orEmpty.isEmptyTest()
+    }
+    
+    private func applyStoredProfileImage() {
+        guard !didSelectLocalImage, let photoURL = AuthenticationManager.shared.getCurrentUser()?.photoURL else {
+            return
+        }
+        
+        loadProfileImage(from: photoURL)
+    }
+    
+    private func loadProfileImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self, error == nil, let data, let image = UIImage(data: data) else { return }
+            
+            DispatchQueue.main.async {
+                guard !self.didSelectLocalImage else { return }
+                self.profileImage.image = image
+            }
+        }.resume()
     }
 
 }
@@ -132,6 +154,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         picker.dismiss(animated: true, completion: nil)
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            didSelectLocalImage = true
             profileImage.image = image
             profileImage.setNeedsLayout()
             setupElements()

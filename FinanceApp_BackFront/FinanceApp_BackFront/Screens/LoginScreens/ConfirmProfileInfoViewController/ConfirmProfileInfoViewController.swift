@@ -24,9 +24,11 @@ class ConfirmProfileInfoViewController: UIViewController {
     let imagePicker = UIImagePickerController()
     var userDto: UserData?
     private var isSavingProfile = false
+    private var didSelectLocalImage = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userDto = AuthenticationManager.shared.getCurrentUser()
         setupStrings()
         setupElements()
         setupValues()
@@ -35,8 +37,8 @@ class ConfirmProfileInfoViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
-        setupUserInformation()
         userDto = AuthenticationManager.shared.getCurrentUser()
+        setupUserInformation()
     }
     
     @IBAction func tappedChangeProfileImage(_ sender: UIButton) {
@@ -110,6 +112,7 @@ class ConfirmProfileInfoViewController: UIViewController {
             emailTextField.isEnabled = false
         }
         phoneTextField.text = userDto?.phoneNumber?.formatedLocal ?? ""
+        applyStoredProfileImage()
     }
     
     private func setupImagePicker(){
@@ -117,8 +120,11 @@ class ConfirmProfileInfoViewController: UIViewController {
     }
     
     private func setupUserInformation() {
-        self.nameTextField.text = AuthenticationManager.shared.getCurrentUser()?.name ?? globalStrings.error
-        self.emailTextField.text = AuthenticationManager.shared.getCurrentUser()?.email ?? globalStrings.error
+        let currentUser = AuthenticationManager.shared.getCurrentUser()
+        self.nameTextField.text = currentUser?.name ?? globalStrings.error
+        self.emailTextField.text = currentUser?.email ?? globalStrings.error
+        self.phoneTextField.text = currentUser?.phoneNumber?.formatedLocal ?? ""
+        applyStoredProfileImage()
     }
     
     private func someTextFieldIsEmpty() -> Bool {
@@ -130,6 +136,25 @@ class ConfirmProfileInfoViewController: UIViewController {
         return nameTextField.text.orEmpty.isEmptyTest() || emailTextField.text.orEmpty.isEmptyTest() || phoneTextField.text.orEmpty.isEmptyTest()
         
     }
+    
+    private func applyStoredProfileImage() {
+        guard !didSelectLocalImage, let photoURL = AuthenticationManager.shared.getCurrentUser()?.photoURL else {
+            return
+        }
+        
+        loadProfileImage(from: photoURL)
+    }
+    
+    private func loadProfileImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self, error == nil, let data, let image = UIImage(data: data) else { return }
+            
+            DispatchQueue.main.async {
+                guard !self.didSelectLocalImage else { return }
+                self.profileImage.image = image
+            }
+        }.resume()
+    }
 
 }
 
@@ -139,6 +164,7 @@ extension ConfirmProfileInfoViewController: UIImagePickerControllerDelegate, UIN
         picker.dismiss(animated: true, completion: nil)
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            didSelectLocalImage = true
             profileImage.image = image
             profileImage.setNeedsLayout()
             setupElements()

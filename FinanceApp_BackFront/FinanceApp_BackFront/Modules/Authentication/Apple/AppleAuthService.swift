@@ -8,14 +8,16 @@
 import Foundation
 import FirebaseAuth
 
+/// Stub reserved for future Sign in with Apple support.
+/// This service is not wired into the active authentication flow yet.
 class AppleAuthService: AuthService {
     
     func login(email: String, password: String, completion: @escaping (Result<User, AuthErrorCode>) -> Void) {
-        //apple login code here
+        // Future implementation point for Apple authentication.
     }
     
     func register(email: String, password: String, completion: @escaping (Result<User, AuthErrorCode>) -> Void) {
-        //apple login code here
+        // Future implementation point for Apple account bootstrap.
     }
     
 }
