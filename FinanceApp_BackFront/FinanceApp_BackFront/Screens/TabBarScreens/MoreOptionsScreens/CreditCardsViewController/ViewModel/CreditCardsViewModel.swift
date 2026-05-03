@@ -53,8 +53,8 @@ class CreditCardsViewModel {
         
         CreditCardsRepository.shared.list.append(newCard)
         FirestoreService.shared.setObject(newCard, subCollection: firebaseSubCollectionNames.creditCards) { result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             completion()
         }
@@ -75,8 +75,8 @@ class CreditCardsViewModel {
         updatedCard.obs = card.obs
         
         FirestoreService.shared.setObject(updatedCard, subCollection: firebaseSubCollectionNames.creditCards) { result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             CreditCardsRepository.shared.list[indexCard] = card
             completion()
@@ -86,8 +86,8 @@ class CreditCardsViewModel {
     func deleteCard(index: Int, completion: @escaping () -> Void) {
         
         FirestoreService.shared.deleteObject(id: CreditCardsRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.creditCards) { result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             CreditCardsRepository.shared.list.remove(at: index)
             completion()

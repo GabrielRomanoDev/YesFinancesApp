@@ -118,8 +118,8 @@ class CreditCardExpenseFormViewModel: ObservableObject {
                 CreditCardExpensesRepository.shared.list[index] = baseExpense
                 
                 FirestoreService.shared.setObject(baseExpense, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
-                    if result != "Success" {
-                        print(result)
+                    if case .failure(let error) = result {
+                        print(error.localizedDescription)
                         //TODO: Adicionar no UserDefaults para sincronizar no futuro
                         completion()
                         return
@@ -167,8 +167,8 @@ class CreditCardExpenseFormViewModel: ObservableObject {
             CreditCardExpensesRepository.shared.list.append(contentsOf: newExpenses)
             
             FirestoreService.shared.setObjectsList(objects: newExpenses, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
-                if result != "Success" {
-                    print(result)
+                if case .failure(let error) = result {
+                    print(error.localizedDescription)
                     //TODO: Adicionar no UserDefaults para sincronizar no futuro
                     completion()
                     return

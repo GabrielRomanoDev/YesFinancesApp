@@ -126,8 +126,8 @@ struct InvoiceViewModel {
         }
         
         FirestoreService.shared.setObjectsList(objects: expensesToPay, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
         }
         
@@ -137,13 +137,18 @@ struct InvoiceViewModel {
         
     }
     
-    func deleteExpense(_ filteredIndex: Int, completion: @escaping (String) -> Void) {
+    func deleteExpense(_ filteredIndex: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         
         if let index = CreditCardExpensesRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
             
             FirestoreService.shared.deleteObject(id: CreditCardExpensesRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
-                CreditCardExpensesRepository.shared.list.remove(at: index)
-                completion(result)
+                switch result {
+                case .success:
+                    CreditCardExpensesRepository.shared.list.remove(at: index)
+                    completion(.success(()))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
             
         }

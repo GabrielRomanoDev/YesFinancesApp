@@ -73,11 +73,12 @@ class AuthenticationManager {
                     userId: userId,
                     subCollection: firebaseSubCollectionNames.profile
                 ) { firestoreResult in
-                    if firestoreResult == "Success" {
+                    switch firestoreResult {
+                    case .success:
                         self.sessionManager.setUser(profile)
                         completion(.success(profile))
-                    } else {
-                        completion(.failure(StringError(message: firestoreResult)))
+                    case .failure(let error):
+                        completion(.failure(error))
                     }
                 }
             case .failure(let error):
@@ -163,11 +164,12 @@ class AuthenticationManager {
             userId: user.id,
             subCollection: firebaseSubCollectionNames.profile
         ) { result in
-            if result == "Success" {
+            switch result {
+            case .success:
                 self.sessionManager.setUser(user)
                 completion(.success(user))
-            } else {
-                completion(.failure(StringError(message: result)))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

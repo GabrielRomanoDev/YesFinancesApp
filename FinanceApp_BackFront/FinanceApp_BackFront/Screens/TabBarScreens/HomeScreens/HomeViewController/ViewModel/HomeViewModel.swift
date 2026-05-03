@@ -95,8 +95,10 @@ struct HomeViewModel {
             FirestoreService.shared.updateObjectField(change: ["isMonthly": false], objectID: transaction.id, subCollection: firebaseSubCollectionNames.transactions)
         }
         
-        FirestoreService.shared.setObjectsList(objects: CreditCardExpensesRepository.shared.list, subCollection: firebaseSubCollectionNames.creditCardExpenses) { _ in
-            
+        FirestoreService.shared.setObjectsList(objects: CreditCardExpensesRepository.shared.list, subCollection: firebaseSubCollectionNames.creditCardExpenses) { result in
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
+            }
         }
         
     }

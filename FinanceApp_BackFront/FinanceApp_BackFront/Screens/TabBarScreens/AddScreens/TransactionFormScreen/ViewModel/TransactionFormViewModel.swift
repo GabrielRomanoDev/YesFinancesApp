@@ -119,8 +119,8 @@ class TransactionFormViewModel: ObservableObject {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .updateTransactionsData, object: nil)
                 
-                if result != "Success" {
-                    print(result)
+                if case .failure(let error) = result {
+                    print(error.localizedDescription)
                     //TODO: Adicionar no UserDefaults para sincronizar no futuro
                     completion()
                     return

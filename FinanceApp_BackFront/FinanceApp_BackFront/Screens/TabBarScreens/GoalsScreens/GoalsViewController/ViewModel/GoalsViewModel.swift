@@ -39,9 +39,10 @@ class GoalsViewModel {
     func createNewGoal(_ newGoal: Goal, completion: @escaping () -> Void) {
         
         FirestoreService.shared.setObject(newGoal, subCollection: firebaseSubCollectionNames.goals) { [weak self] result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
                 completion()
+                return
             }
             self?.goalsList.append(newGoal)
             completion()
@@ -52,8 +53,8 @@ class GoalsViewModel {
     func editGoal(goal: Goal, indexGoal: Int, completion: @escaping () -> Void) {
         
         FirestoreService.shared.setObject(goal, subCollection: firebaseSubCollectionNames.goals) { [weak self] result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
                 completion()
                 return
             }
@@ -66,8 +67,8 @@ class GoalsViewModel {
     func deleteGoal(index: Int, completion: @escaping () -> Void) {
         
         FirestoreService.shared.deleteObject(id: goalsList[index].id, subCollection: firebaseSubCollectionNames.goals) { [weak self] result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
                 completion()
                 return
             }

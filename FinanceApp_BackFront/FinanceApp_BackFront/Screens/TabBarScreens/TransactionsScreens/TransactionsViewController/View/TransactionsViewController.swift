@@ -219,7 +219,7 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
             let invoice = viewModel.getItemInvoices(indexPath.row)
             
             let storyboard = UIStoryboard(name: InvoiceViewController.identifier, bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: InvoiceViewController.identifier) { [weak self] coder -> InvoiceViewController? in
+            let vc = storyboard.instantiateViewController(identifier: InvoiceViewController.identifier) { coder -> InvoiceViewController? in
                 return InvoiceViewController(coder: coder, invoice: invoice)
             }
             navigationController?.pushViewController(vc, animated: true)
@@ -239,8 +239,8 @@ extension TransactionsViewController: UICollectionViewDataSource, UICollectionVi
             } onDelete: { [weak self] in
                 // onDelete
                 self?.viewModel.deleteTransaction(indexPath.row) { result in
-                    if result != "Success" {
-                        print("Error to edit transaction: \(result)")
+                    if case .failure(let error) = result {
+                        print("Error to edit transaction: \(error.localizedDescription)")
                     }
                     
                     DispatchQueue.main.async {

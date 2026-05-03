@@ -53,13 +53,18 @@ struct TransactionsViewModel {
         return filteringWorker.parameters
     }
     
-    func deleteTransaction(_ filteredIndex: Int, completion: @escaping (String) -> Void) {
+    func deleteTransaction(_ filteredIndex: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         
         if let index = TransactionsRepository.shared.list.firstIndex(where: {$0.id == filteredTransactions[filteredIndex].id}) {
             
             FirestoreService.shared.deleteObject(id: TransactionsRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.transactions) { result in
-                TransactionsRepository.shared.list.remove(at: index)
-                completion(result)
+                switch result {
+                case .success:
+                    TransactionsRepository.shared.list.remove(at: index)
+                    completion(.success(()))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
             
         }

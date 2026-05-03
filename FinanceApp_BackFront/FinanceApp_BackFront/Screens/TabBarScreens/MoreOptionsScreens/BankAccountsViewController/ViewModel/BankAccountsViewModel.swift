@@ -57,8 +57,8 @@ class BankAccountsViewModel {
         }
         
         FirestoreService.shared.setObject(newAccount, subCollection: firebaseSubCollectionNames.bankAccounts) { [weak self] result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             BankAccountsRepository.shared.list.append(newAccount)
             
@@ -85,8 +85,8 @@ class BankAccountsViewModel {
         updatedAccount.obs = account.obs
         
         FirestoreService.shared.setObject(updatedAccount, subCollection: firebaseSubCollectionNames.bankAccounts) { [weak self] result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             
             BankAccountsRepository.shared.list[indexAccount] = updatedAccount
@@ -122,8 +122,8 @@ class BankAccountsViewModel {
         )
         
         FirestoreService.shared.setObject(newTransaction, subCollection: firebaseSubCollectionNames.transactions) { result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             TransactionsRepository.shared.list.append(newTransaction)
             completion()
@@ -132,8 +132,8 @@ class BankAccountsViewModel {
     
     func deleteAccount(index: Int, completion: @escaping () -> Void) {
         FirestoreService.shared.deleteObject(id: BankAccountsRepository.shared.list[index].id, subCollection: firebaseSubCollectionNames.bankAccounts) { result in
-            if result != "Success" {
-                print(result)
+            if case .failure(let error) = result {
+                print(error.localizedDescription)
             }
             BankAccountsRepository.shared.list.remove(at: index)
             completion()

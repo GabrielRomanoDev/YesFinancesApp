@@ -42,12 +42,6 @@ class FirestoreService {
         return userDocumentRef(userId: currentUserId)
     }
 
-    private func completeOnMain(_ completion: @escaping (String) -> Void, with result: String) {
-        DispatchQueue.main.async {
-            completion(result)
-        }
-    }
-
     private func completeOnMain<T>(_ completion: @escaping (Result<T, Error>) -> Void, with result: Result<T, Error>) {
         DispatchQueue.main.async {
             completion(result)
@@ -87,24 +81,24 @@ class FirestoreService {
         
     }
     
-    func setObject <T: FirestoreObject> (_ object: T, userId: String, subCollection: String, completion: @escaping (String) -> Void) {
+    func setObject <T: FirestoreObject> (_ object: T, userId: String, subCollection: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let collection = userDocumentRef(userId: userId).collection(subCollection)
         
         Task {
             do {
                 let objectData = try Firestore.Encoder().encode(object)
                 try await collection.document(object.id).setData(objectData)
-                completeOnMain(completion, with: "Success")
+                completeOnMain(completion, with: .success(()))
             } catch {
                 print("Error to set object: \(error)");
-                completeOnMain(completion, with: error.localizedDescription)
+                completeOnMain(completion, with: .failure(error))
             }
         }
     }
 
-    func setObject <T: FirestoreObject> (_ object: T, subCollection: String, completion: @escaping (String) -> Void) {
+    func setObject <T: FirestoreObject> (_ object: T, subCollection: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userDocumentRef = currentUserDocumentRef else {
-            completeOnMain(completion, with: "Nenhum usuário autenticado foi encontrado.")
+            completeOnMain(completion, with: .failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
             return
         }
 
@@ -114,17 +108,17 @@ class FirestoreService {
             do {
                 let objectData = try Firestore.Encoder().encode(object)
                 try await collection.document(object.id).setData(objectData)
-                completeOnMain(completion, with: "Success")
+                completeOnMain(completion, with: .success(()))
             } catch {
                 print("Error to set object: \(error)");
-                completeOnMain(completion, with: error.localizedDescription)
+                completeOnMain(completion, with: .failure(error))
             }
         }
     }
     
-    func deleteObject(id: String, subCollection: String, completion: @escaping (String) -> Void) {
+    func deleteObject(id: String, subCollection: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userDocumentRef = currentUserDocumentRef else {
-            completeOnMain(completion, with: "Nenhum usuário autenticado foi encontrado.")
+            completeOnMain(completion, with: .failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
             return
         }
 
@@ -133,11 +127,11 @@ class FirestoreService {
                 
                 try await userDocumentRef.collection(subCollection).document(id).delete()
                 
-                completeOnMain(completion, with: "Success")
+                completeOnMain(completion, with: .success(()))
                 
             } catch {
                 print("Error adding documents: \(error)")
-                completeOnMain(completion, with: error.localizedDescription)
+                completeOnMain(completion, with: .failure(error))
             }
         }
     }
@@ -237,9 +231,9 @@ class FirestoreService {
         }
     }
     
-    func setObjectsList<T: FirestoreObject>(objects: [T], subCollection: String, completion: @escaping (String) -> Void) {
+    func setObjectsList<T: FirestoreObject>(objects: [T], subCollection: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userDocumentRef = currentUserDocumentRef else {
-            completeOnMain(completion, with: "Nenhum usuário autenticado foi encontrado.")
+            completeOnMain(completion, with: .failure(StringError(message: "Nenhum usuário autenticado foi encontrado.")))
             return
         }
         
@@ -260,15 +254,15 @@ class FirestoreService {
         }
         
         if let error = encodingError {
-            completeOnMain(completion, with: "Encoding error: \(error.localizedDescription)")
+            completeOnMain(completion, with: .failure(error))
             return
         }
         
         batch.commit { error in
             if let error = error {
-                self.completeOnMain(completion, with: "Error setting documents: \(error.localizedDescription)")
+                self.completeOnMain(completion, with: .failure(error))
             } else {
-                self.completeOnMain(completion, with: "Success")
+                self.completeOnMain(completion, with: .success(()))
             }
         }
     }

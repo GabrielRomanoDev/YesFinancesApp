@@ -203,8 +203,8 @@ extension InvoiceViewController: UICollectionViewDataSource, UICollectionViewDel
             } onDelete: { [weak self] in
                 // onDelete
                 self?.viewModel.deleteExpense(indexPath.row - 1) { result in
-                    if result != "Success" {
-                        print("Error to edit transaction: \(result)")
+                    if case .failure(let error) = result {
+                        print("Error to edit transaction: \(error.localizedDescription)")
                     }
                     
                     DispatchQueue.main.async {
