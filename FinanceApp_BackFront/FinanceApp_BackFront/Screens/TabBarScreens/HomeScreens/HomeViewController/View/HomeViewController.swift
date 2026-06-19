@@ -12,6 +12,13 @@ import Lottie
 
 class HomeViewController: UIViewController {
     
+    private enum VerticalSection {
+        case bankAccounts
+        case creditCards
+        case expensesPerCategory
+        case lastTransactions
+    }
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var helloTextLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -188,6 +195,26 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func verticalSections() -> [VerticalSection] {
+        var sections: [VerticalSection] = [.bankAccounts]
+        let hasTransactions = !TransactionsRepository.shared.list.isEmpty
+        let hasExpenseTransactions = TransactionsRepository.shared.list.contains { $0.type == .expense }
+        
+        if !CreditCardsRepository.shared.list.isEmpty {
+            sections.append(.creditCards)
+        }
+        
+        if hasExpenseTransactions {
+            sections.append(.expensesPerCategory)
+        }
+        
+        if hasTransactions {
+            sections.append(.lastTransactions)
+        }
+        
+        return sections
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -197,11 +224,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case horizontalCollectionView:
             return 1
         case verticalCollectionView:
-            if TransactionsRepository.shared.list.count > 0 {
-                return CreditCardsRepository.shared.list.isEmpty ? 3 : 4
-            } else {
-                return 2
-            }
+            return verticalSections().count
         default:
             return 0
         }
@@ -212,11 +235,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case horizontalCollectionView:
             return 3
         case verticalCollectionView:
+            let sections = verticalSections()
+            guard sections.indices.contains(section) else { return 0 }
             
-            if section <= 1 || (section == 2 && !TransactionsRepository.shared.list.isEmpty) {
+            switch sections[section] {
+            case .bankAccounts, .creditCards, .expensesPerCategory:
                 return 1
-            } else {
-                //last transactions
+            case .lastTransactions:
                 let maxVisibleTransactions = 4
                 return min(TransactionsRepository.shared.list.count, maxVisibleTransactions)
             }
@@ -234,36 +259,34 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell?.setupCell(card: viewModel.getCardInformation(cardNumber: indexPath.row), hideInformations: self.hideInformations)
             return cell ?? UICollectionViewCell()
         } else {
+            let sections = verticalSections()
+            guard sections.indices.contains(indexPath.section) else { return UICollectionViewCell() }
             
-            let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
-            
-            switch adjustedSection {
-            case 0:
+            switch sections[indexPath.section] {
+            case .bankAccounts:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AccountsBallanceCollectionViewCell.identifier, for: indexPath) as? AccountsBallanceCollectionViewCell
                 cell?.setupCell(accountsList: BankAccountsRepository.shared.list, hideInformations: self.hideInformations)
                 cell?.layer.cornerRadius = 10
                 cell?.layer.masksToBounds = true
                 return cell ?? UICollectionViewCell()
-            case 1:
+            case .creditCards:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardsBallanceCollectionViewCell.identifier, for: indexPath) as? CardsBallanceCollectionViewCell
                 cell?.setupCell(cardsList: CreditCardsRepository.shared.list, hideInformations: self.hideInformations)
                 cell?.layer.cornerRadius = 10
                 cell?.layer.masksToBounds = true
                 return cell ?? UICollectionViewCell()
-            case 2:
+            case .expensesPerCategory:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesGraphCollectionViewCell.identifier, for: indexPath) as? CategoriesGraphCollectionViewCell
                 cell?.updateChartData()
                 cell?.layer.cornerRadius = 10
                 cell?.layer.masksToBounds = true
                 return cell ?? UICollectionViewCell()
-            case 3:
+            case .lastTransactions:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransactionsCollectionViewCell.identifier, for: indexPath) as! TransactionsCollectionViewCell
                 cell.layer.cornerRadius = 10
                 cell.layer.masksToBounds = true
                 cell.setup(with: TransactionsRepository.shared.list[indexPath.row])
                 return cell
-            default:
-                return UICollectionViewCell()
             }
         }
     }
@@ -272,11 +295,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == horizontalCollectionView{
             return CGSize(width: 250, height: 150)
         } else {
+            let sections = verticalSections()
+            guard sections.indices.contains(indexPath.section) else {
+                return CGSize(width: view.frame.width - 30, height: 50)
+            }
             
-            let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
-            
-            switch adjustedSection {
-            case 0:
+            switch sections[indexPath.section] {
+            case .bankAccounts:
                 var height: Int
                 if BankAccountsRepository.shared.list.isEmpty {
                     height = 110
@@ -284,15 +309,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     height = (60 + BankAccountsRepository.shared.list.count * 60)
                 }
                 return CGSize(width: Int(view.frame.width) - 30, height: height)
-            case 1:
-                var height = (60 + CreditCardsRepository.shared.list.count * 60)
+            case .creditCards:
+                let height = (60 + CreditCardsRepository.shared.list.count * 60)
                 return CGSize(width: Int(view.frame.width) - 30, height: height)
-            case 2:
+            case .expensesPerCategory:
                 return CGSize(width: Int(view.frame.width) - 30, height: 200)
-            case 3:
+            case .lastTransactions:
                 return CGSize(width: Int(view.frame.width) - 30, height: 85)
-            default:
-                return CGSize(width: view.frame.width - 30, height: 50)
             }
         }
     }
@@ -305,19 +328,20 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if kind == UICollectionView.elementKindSectionHeader {
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier, for: indexPath) as? TitleHeaderCollectionReusableView
                 
-                let adjustedSection = !CreditCardsRepository.shared.list.isEmpty ? indexPath.section : (indexPath.section >= 1 ? indexPath.section + 1 : indexPath.section)
+                let sections = verticalSections()
+                guard sections.indices.contains(indexPath.section) else {
+                    return headerView ?? UICollectionReusableView()
+                }
                 
-                switch adjustedSection {
-                case 0:
+                switch sections[indexPath.section] {
+                case .bankAccounts:
                     title = homeStrings.bankAccountsText
-                case 1:
+                case .creditCards:
                     title = homeStrings.creditCardsText
-                case 2:
+                case .expensesPerCategory:
                     title = homeStrings.expensesPerCategoryText
-                case 3:
+                case .lastTransactions:
                     title = homeStrings.lastTransactionsText
-                default:
-                    title = globalStrings.emptyString
                 }
                 headerView?.setupCell(title: title)
                 return headerView ?? UICollectionReusableView()
@@ -336,9 +360,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
         
-        if indexPath.section == 2 {
-            let vc: CategoriesGraphViewController? = UIStoryboard(name: CategoriesGraphViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: CategoriesGraphViewController.identifier) as? CategoriesGraphViewController
-            navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+        if collectionView == verticalCollectionView {
+            let sections = verticalSections()
+            guard sections.indices.contains(indexPath.section) else { return }
+            
+            if sections[indexPath.section] == .expensesPerCategory {
+                let vc: CategoriesGraphViewController? = UIStoryboard(name: CategoriesGraphViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: CategoriesGraphViewController.identifier) as? CategoriesGraphViewController
+                navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+            }
         }
     }
     

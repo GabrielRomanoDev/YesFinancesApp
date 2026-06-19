@@ -130,7 +130,6 @@ struct AddTransactionView: View {
                     dimissView()
                     tabBar.selectedIndex = 4
                     
-                    // Se a aba for um UINavigationController e quiser dar push:
                     if let nav = tabBar.viewControllers?[4] as? UINavigationController {
                         let vc: BankAccountsViewController? = UIStoryboard(name: BankAccountsViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: BankAccountsViewController.identifier) as? BankAccountsViewController
                         nav.pushViewController(vc ?? UIViewController(), animated: true)
@@ -152,7 +151,6 @@ struct AddTransactionView: View {
                     dimissView()
                     tabBar.selectedIndex = 4
                     
-                    // Se a aba for um UINavigationController e quiser dar push:
                     if let nav = tabBar.viewControllers?[4] as? UINavigationController {
                         let vc: CreditCardsViewController? = UIStoryboard(name: CreditCardsViewController.identifier, bundle: nil).instantiateViewController(withIdentifier: CreditCardsViewController.identifier) as? CreditCardsViewController
                         nav.pushViewController(vc ?? UIViewController(), animated: true)

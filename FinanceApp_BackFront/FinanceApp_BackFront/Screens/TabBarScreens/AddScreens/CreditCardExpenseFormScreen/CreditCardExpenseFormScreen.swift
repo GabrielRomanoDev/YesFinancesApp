@@ -122,6 +122,8 @@ struct CreditCardExpenseFormScreen: View {
                     .listStyle(PlainListStyle())
                     .frame(maxHeight: .infinity)
                     .scrollDismissesKeyboard(.immediately)
+                    .scrollContentBackground(.hidden)
+                    .background(Color.white)
                     
                 }
             }

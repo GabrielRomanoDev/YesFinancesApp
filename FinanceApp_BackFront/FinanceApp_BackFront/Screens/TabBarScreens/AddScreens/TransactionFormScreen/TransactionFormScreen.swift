@@ -34,6 +34,8 @@ struct TransactionFormScreen: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color.white
+                    .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
                     Text(viewModel.screenTitle())
@@ -106,7 +108,7 @@ struct TransactionFormScreen: View {
                             
                         }
                         .padding(.vertical, 8)
-                        .listRowInsets(EdgeInsets()) // Remove insets padrão da célula
+                        .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         
@@ -114,6 +116,8 @@ struct TransactionFormScreen: View {
                             .listRowSeparator(.hidden)
                     }
                     .listStyle(PlainListStyle())
+                    .scrollContentBackground(.hidden)
+                    .background(Color.white)
                     .frame(maxHeight: .infinity)
                     .scrollDismissesKeyboard(.immediately)
                     
