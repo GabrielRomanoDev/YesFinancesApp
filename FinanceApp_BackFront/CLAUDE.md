@@ -58,7 +58,7 @@
 ### Git
 - Remote: `https://github.com/GabrielRomanoDev/YesFinancesApp.git`
 - Main branch: `main`
-- **No `.gitignore` exists** and **`Pods/` is committed** to the repo (~200 files). Consequences: a fresh clone builds without `pod install` (the Pods are already vendored), but `xcuserdata/` and `.DS_Store` also get tracked and show up as noise in `git status`. Flagged as a cleanup item — see [§5](#5-known-bugs--limitations).
+- A **`.gitignore`** exists at the repo root ignoring `Pods/`, `xcuserdata/`, `*.xcuserstate`, `.DS_Store`, `build/`, `DerivedData/`, and the local-only `NEXT_STEPS.md`. `Pods/` is **not tracked** — a fresh clone requires **`pod install`** (CocoaPods 1.15.2) before building.
 - `GoogleService-Info.plist` is committed **intentionally** (see Firebase config above) — it holds client-side Firebase config, not a server secret. Real protection for a finance app must come from **Firestore security rules** (currently unconfigured — see [§5](#5-known-bugs--limitations)).
 
 ---
@@ -182,7 +182,7 @@ A screen is usually a folder containing subfolders: `View/`, `ViewModel/`, `Stri
 13. **`print()`-based error handling** — Many Firestore failures are swallowed with `print(error)` and no user-facing feedback. The `//TODO: Adicionar no UserDefaults para sincronizar no futuro` markers (in `TransactionFormViewModel` and `CreditCardExpenseFormViewModel`) flag the intended offline-sync fallback that does not exist yet.
 
 ### Repo hygiene / security
-14. **No `.gitignore`; `Pods/` is committed.** There is no ignore file at all, so `Pods/` (~200 files), `xcuserdata/`, and `.DS_Store` are all tracked. Upside: clones build without `pod install`. Downside: per-user Xcode state and OS junk pollute every diff. → When doing cleanup, add a Swift/Xcode/CocoaPods `.gitignore` and `git rm --cached` the vendored Pods + `xcuserdata` + `.DS_Store`. Confirm before doing this (it changes how clones bootstrap).
+14. **~~No `.gitignore`; `Pods/` is committed.~~ RESOLVED (Jul 2026).** A Swift/Xcode/CocoaPods `.gitignore` was added and `Pods/` (~200 files), `xcuserdata/`, and `.DS_Store` were untracked via `git rm --cached`. Consequence: fresh clones now need `pod install` before building (see [§6](#6-essential-commands)).
 15. **Firestore security rules — authored, pending deploy.** `firestore.rules` now exists at the repo root, restricting every user to read/write only their own `users/user_<uid>/**` tree (owner-based isolation; everything else denied by default). ⚠️ **The file alone protects nothing** — rules take effect only once deployed to the Firebase project (via the console's Rules editor or `firebase deploy --only firestore:rules`). Verify the deployed rules in the Firebase console match this file before any real launch. **Security priority.**
 
 ### Logic / correctness bugs (found via static analysis — Jun 2026; verify at runtime)
@@ -209,7 +209,7 @@ A screen is usually a folder containing subfolders: `View/`, `ViewModel/`, `Stri
 ### First-time setup (fresh clone)
 1. `git clone https://github.com/GabrielRomanoDev/YesFinancesApp.git`
 2. Open **`FinanceApp_BackFront.xcworkspace`** in Xcode 26.5 — **never** the `.xcodeproj` (see warning in [§2](#2-tech-stack)).
-3. **No `pod install` needed normally** — `Pods/` is committed (see [§2](#2-tech-stack)). Only run it if you change the `Podfile`. SPM packages resolve automatically on first open.
+3. **Run `pod install`** (CocoaPods 1.15.2) — `Pods/` is git-ignored, so a fresh clone doesn't include it. SPM packages resolve automatically on first open.
 4. `GoogleService-Info.plist` is already in the repo, so Firebase works out of the box.
 5. Pick a simulator (iOS 16+) and run.
 
